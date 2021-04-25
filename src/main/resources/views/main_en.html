@@ -125,84 +125,141 @@
         // berechnet Arbeitsstunden am Montag
         function calculateMondayTotal() {
             var morningStart = document.getElementById("mondayMorningStart").value;
+            var morningStart = parseFloat(morningStart);
             var morningEnd = document.getElementById("mondayMorningEnd").value;
+            var morningEnd = parseFloat(morningEnd);
             var afternoonStart = document.getElementById("mondayAfternoonStart").value;
+            var afternoonStart = parseFloat(afternoonStart);
             var afternoonEnd = document.getElementById("mondayAfternoonEnd").value;
+            var afternoonEnd = parseFloat(afternoonEnd);
             var morning = morningEnd - morningStart;
             var afternoon = afternoonEnd - afternoonStart;
             var totalToday = afternoon + morning;
-            document.getElementById("mondayTotal").innerHTML =totalToday.toFixed(2);
-        }
+
+            if (isNaN(afternoonEnd)) {
+                // warten bis Eingabe aller Felder erfolgt
+                return false
+             }
+        document.getElementById("mondayTotal").innerHTML =totalToday.toFixed(2);
+    }
 
         // berechnet Arbeitsstunden am Dienstag
         function calculateTuesdayTotal() {
             var morningStart = document.getElementById("tuesdayMorningStart").value;
+            var morningStart = parseFloat(morningStart);
             var morningEnd = document.getElementById("tuesdayMorningEnd").value;
+            var morningEnd = parseFloat(morningEnd);
             var afternoonStart = document.getElementById("tuesdayAfternoonStart").value;
+            var afternoonStart = parseFloat(afternoonStart);
             var afternoonEnd = document.getElementById("tuesdayAfternoonEnd").value;
+            var afternoonEnd = parseFloat(afternoonEnd);
             var morning = morningEnd - morningStart;
             var afternoon = afternoonEnd - afternoonStart;
             var totalToday = afternoon + morning;
+            if (isNaN(afternoonEnd)) {
+                // warten bis Eingabe aller Felder erfolgt
+                return false
+             }
             document.getElementById("tuesdayTotal").innerHTML =totalToday.toFixed(2);
         }
 
         // berechnet Arbeitsstunden am Mittwoch
         function calculateWednesdayTotal() {
             var morningStart = document.getElementById("wednesdayMorningStart").value;
+            var morningStart = parseFloat(morningStart);
             var morningEnd = document.getElementById("wednesdayMorningEnd").value;
+            var morningEnd = parseFloat(morningEnd);
             var afternoonStart = document.getElementById("wednesdayAfternoonStart").value;
+            var afternoonStart = parseFloat(afternoonStart);
             var afternoonEnd = document.getElementById("wednesdayAfternoonEnd").value;
+            var afternoonEnd = parseFloat(afternoonEnd);
             var morning = morningEnd - morningStart;
             var afternoon = afternoonEnd - afternoonStart;
             var totalToday = afternoon + morning;
+            if (isNaN(afternoonEnd)) {
+                // warten bis Eingabe aller Felder erfolgt
+                return false
+             }
             document.getElementById("wednesdayTotal").innerHTML =totalToday.toFixed(2);
         }
 
         // berechnet Arbeitsstunden am Donnerstag
         function calculateThursdayTotal() {
             var morningStart = document.getElementById("thursdayMorningStart").value;
+            var morningStart = parseFloat(morningStart);
             var morningEnd = document.getElementById("thursdayMorningEnd").value;
+            var morningEnd = parseFloat(morningEnd);
             var afternoonStart = document.getElementById("thursdayAfternoonStart").value;
+            var afternoonStart = parseFloat(afternoonStart);
             var afternoonEnd = document.getElementById("thursdayAfternoonEnd").value;
+            var afternoonEnd = parseFloat(afternoonEnd);
             var morning = morningEnd - morningStart;
             var afternoon = afternoonEnd - afternoonStart;
             var totalToday = afternoon + morning;
+            if (isNaN(afternoonEnd)) {
+                // warten bis Eingabe aller Felder erfolgt
+                return false
+             }
             document.getElementById("thursdayTotal").innerHTML =totalToday.toFixed(2);
         }
 
         // berechnet Arbeitsstunden am Freitag
         function calculateFridayTotal() {
             var morningStart = document.getElementById("fridayMorningStart").value;
+            var morningStart = parseFloat(morningStart);
             var morningEnd = document.getElementById("fridayMorningEnd").value;
+            var morningEnd = parseFloat(morningEnd);
             var afternoonStart = document.getElementById("fridayAfternoonStart").value;
+            var afternoonStart = parseFloat(afternoonStart);
             var afternoonEnd = document.getElementById("fridayAfternoonEnd").value;
+            var afternoonEnd = parseFloat(afternoonEnd);
             var morning = morningEnd - morningStart;
             var afternoon = afternoonEnd - afternoonStart;
             var totalToday = afternoon + morning;
+            if (isNaN(afternoonEnd)) {
+                // warten bis Eingabe aller Felder erfolgt
+                return false
+             }
             document.getElementById("fridayTotal").innerHTML =totalToday.toFixed(2);
         }
 
         // berechnet Arbeitsstunden am Samstag
         function calculateSaturdayTotal() {
             var morningStart = document.getElementById("saturdayMorningStart").value;
+            var morningStart = parseFloat(morningStart);
             var morningEnd = document.getElementById("saturdayMorningEnd").value;
+            var morningEnd = parseFloat(morningEnd);
             var afternoonStart = document.getElementById("saturdayAfternoonStart").value;
+            var afternoonStart = parseFloat(afternoonStart);
             var afternoonEnd = document.getElementById("saturdayAfternoonEnd").value;
+            var afternoonEnd = parseFloat(afternoonEnd);
             var morning = morningEnd - morningStart;
             var afternoon = afternoonEnd - afternoonStart;
             var totalToday = afternoon + morning;
+            if (isNaN(afternoonEnd)) {
+                // warten bis Eingabe aller Felder erfolgt
+                return false
+             }
             document.getElementById("saturdayTotal").innerHTML =totalToday.toFixed(2);
         }
 
         // berechnet Arbeitsstunden am Sonntag
         function calcutlateSundayTotal() {
             var morningStart = document.getElementById("sundayMorningStart").value;
+            var morningStart = parseFloat(morningStart);
             var morningEnd = document.getElementById("sundayMorningEnd").value;
+            var morningEnd = parseFloat(morningEnd);
             var afternoonStart = document.getElementById("sundayAfternoonStart").value;
+            var afternoonStart = parseFloat(afternoonStart);
             var afternoonEnd = document.getElementById("sundayAfternoonEnd").value;
+            var afternoonEnd = parseFloat(afternoonEnd);
             var morning = morningEnd - morningStart;
             var afternoon = afternoonEnd - afternoonStart;
             var totalToday = afternoon + morning;
+            if (isNaN(afternoonEnd)) {
+                // warten bis Eingabe aller Felder erfolgt
+                return false
+             }
             document.getElementById("sundayTotal").innerHTML =totalToday.toFixed(2);
         }
 
@@ -211,8 +268,10 @@
         }
 
         function calculateOverhours (){
-            var total = document.getElementById("mondayTotal");
-            var target = document.getElementById("mondayTargetTime");
+            var total = document.getElementById("mondayTotal").value;
+            var total = parseFloat(total);
+            var target = document.getElementById("mondayTargetTime").value;
+            var tottargetal = parseFloat(target);
             var overhours = target - total;
             document.getElementById("mondayOverhours").innerHTML = overhours;
             
