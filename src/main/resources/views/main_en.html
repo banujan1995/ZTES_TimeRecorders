@@ -41,8 +41,13 @@
     <br>
     <br>
     <br>
+    <div style="max-width: 350px;position: relative; margin: auto;">
+        <label style ="font-weight: bold;"week">Select a week:</label>
+    <input type="week" id="week" name="week" onclick="changeWeek()">
+    </div>
     <br>
-    <br>
+    
+
     <h3 style="max-width: 400px; position: relative; margin: auto; margin-bottom: 30px;">1. February 2021 - 7. February 2021</h3>
 
     <table id="weekTable" style="position: relative; margin: auto; width: 1215px;"> 
@@ -276,8 +281,14 @@
 
         // TODO: fix total not showing issue
         function calculateTotalTargetTime (){
-            document.getElementById("totalTargetTime").innerHTML= "yes";
+            //document.getElementById("totalTargetTime").innerHTML= "yes";
             
+        }
+
+
+        function changeWeek(){
+            var x = document.getElementById("week").value;
+            document.getElementById("totalTargetTime").innerHTML= x;
         }
 
         window.onload = function () {
