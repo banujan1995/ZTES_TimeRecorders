@@ -1,16 +1,25 @@
 package ch.zt.timerecorders.businesslogic;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
+import org.springframework.data.relational.core.mapping.Table;
+
 /**
  * 
  * @author Banujan Ragunathan
+ * @author Kiren Gondal
  *
  */
-
+@Table(value = "mitarbeiter")
 public class Mitarbeiter {
 
-	public int id = 0;
-	public String mitarbeiterID;
+	@Id
+	public Long mitarbeiterID;
+	
+	@Column(value = "name")
 	public String name;
+	
+	@Column(value = "vorname")
 	public String vorname;
 
 	public Mitarbeiter(String name, String vorname) {
@@ -18,11 +27,8 @@ public class Mitarbeiter {
 		this.vorname = vorname;
 	}
 	
-	public int getId() {
-		return id;
-	}
 
-	public String getMitarbeiterID() {
+	public Long getMitarbeiterID() {
 		return mitarbeiterID;
 	}
 
@@ -34,8 +40,8 @@ public class Mitarbeiter {
 		return vorname;
 	}
 
-	public void setIntMitarbeiterID(int id) {
-		this.id = id;
+	public void setIntMitarbeiterID(Long string) {
+		this.mitarbeiterID = string;
 	}
 
 	public void setMitarbeiterName(String name) {
@@ -46,8 +52,8 @@ public class Mitarbeiter {
 		this.vorname = vorname;
 	}
 
-	public void setMitarbeiterID(String mitarbeiterID) {
-		this.mitarbeiterID = mitarbeiterID;
+	public void setMitarbeiterID(Long string) {
+		this.mitarbeiterID = string;
 	}
 
 }

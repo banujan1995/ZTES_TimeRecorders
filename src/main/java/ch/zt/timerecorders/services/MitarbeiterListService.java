@@ -4,7 +4,11 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,6 +25,9 @@ import ch.zt.timerecorders.persistence.MitarbeiterRepository;
 @RestController // Annotation für Restservice für Framework (BR)
 public class MitarbeiterListService {
 	
+	
+	Logger logger = LoggerFactory.getLogger(MitarbeiterListService.class);
+	
 	@Autowired
 	private MitarbeiterRepository mitarbeiterRepository;
 
@@ -35,7 +42,8 @@ public class MitarbeiterListService {
 //		return mitarbeiterRepository.getMitarbeiterList();
 ////		System.out.println(mitarbeiterRepository.getMitarbeiterList().get(0));
 //	}
-
+	
+	
 	@GetMapping(path = "/timerecorders/erfasstemitarbeiter", produces = "application/json") 
 	public List<Mitarbeiter> getlistMitarbeiter() { // Filter Framework
 		return mitarbeiterRepository.getMitarbeiterList();
@@ -43,5 +51,6 @@ public class MitarbeiterListService {
 
 
 	}
-
 }
+	
+

@@ -46,7 +46,7 @@ public class MitarbeiterRepository {
 				freierPlatz = true;
 			}
 		}
-		mitarbeiter.setIntMitarbeiterID(START_OF_MITARBEITERID + localHöchstMöglicheMitarbeiterID);
+		mitarbeiter.setIntMitarbeiterID((long) (START_OF_MITARBEITERID + localHöchstMöglicheMitarbeiterID));
 		konkatMitarbeiterID(mitarbeiter);
 		mitarbeiterList.add(mitarbeiter);
 
@@ -60,7 +60,7 @@ public class MitarbeiterRepository {
 		for (int i = 0; i <= mitarbeiterList.size(); i++) {
 			Mitarbeiter localMitarbeiter = mitarbeiterList.get(i);
 
-			if (localMitarbeiter.getId() == localMitarbeiterID) {
+			if (localMitarbeiter.getMitarbeiterID() == localMitarbeiterID) {
 				mitarbeiter = localMitarbeiter;
 				mitarbeiterFound = true;
 			}
@@ -70,11 +70,11 @@ public class MitarbeiterRepository {
 
 	public void konkatMitarbeiterID(Mitarbeiter mitarbeiter) {
 
-		if (mitarbeiter.getId() == 0) {
+		if (mitarbeiter.getMitarbeiterID() == 0) {
 			System.out.println("Zahl ist 0 - Kommentar weg nehmen");
 
 		} else {
-			mitarbeiter.setMitarbeiterID(MITARBEITER_CODE + mitarbeiter.getId() + "");
+			System.out.println("MITARBEITER_CODE" + mitarbeiter.getMitarbeiterID());
 		}
 	}
 
