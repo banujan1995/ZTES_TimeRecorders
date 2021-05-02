@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/flick/jquery-ui.css">
     <title>Overview</title>
 </head>
-<body style="background-color: whitesmoke" onlo> 
+<body style="background-color: whitesmoke" > 
     
     <br>
     <br>
@@ -39,8 +39,11 @@
           </div>
           <li style="float:right" class="barItem"> <a href="/src/main/resources/static/views/profile_en.html" class="barItem">Profile</a> </li>
       </ul>
-    <br>
-    <br>
+   
+    <div style="display: block; text-align: center;width: 100%;">
+        <h1>Your weektable</h1>
+        <p> Please choose the week you would like to enter your working hours!</p>
+    </div>
     <br>
     <br>
     <div style="display: block; text-align: center;width: 100%;">
@@ -70,11 +73,11 @@
             <th style="text-align: center; min-width: 135px;" id="fifthDayofWeek"> </th>
             <th style="text-align: center; min-width: 135px;" id="sixthDayofWeek"></th>
             <th style="text-align: center; min-width: 135px;" id="seventhDayofWeek"></th>
-            <th style="text-align: center; min-width: 135px;"> Total </th> 
+            <th style="text-align: center; min-width: 135px;"> Total week: </th> 
         </tr>
 
         <tr>
-            <td style="text-align: center; height: 55px;">Morning <br>(Start - End):</td>
+            <th style="text-align: center; height: 55px;">Morning <br>(Start - End):</th>
             <td><input tabindex ="1" type="text" maxlength="5" style="width: 50px; height: 30px; margin-left: 10px; margin-right: 5px;" id="mondayMorningStart" oninput="calculateMondayTotal();"><input type="text" tabindex ="1" maxlength="5" style="width: 50px; height: 30px; margin-left: 5px;"  id="mondayMorningEnd" oninput="calculateMondayTotal();"></td>
             <td><input tabindex ="2" type="text" maxlength="5" style="width: 50px; height: 30px; margin-left: 10px; margin-right: 5px;" id="tuesdayMorningStart" oninput="calculateTuesdayTotal();"><input type="text" tabindex ="2" maxlength="5" style="width: 50px; height: 30px; margin-left: 5px;"  id="tuesdayMorningEnd" oninput="calculateTuesdayTotal();"></td>
             <td><input tabindex ="3" type="text" maxlength="5" style="width: 50px; height: 30px; margin-left: 10px; margin-right: 5px;" id="wednesdayMorningStart" oninput="calculateWednesdayTotal();"><input type="text" tabindex ="3" maxlength="5" style="width: 50px; height: 30px; margin-left: 5px;"  id="wednesdayMorningEnd" oninput="calculateWednesdayTotal();"></td>
@@ -82,11 +85,11 @@
             <td><input tabindex ="5" type="text" maxlength="5" style="width: 50px; height: 30px; margin-left: 10px; margin-right: 5px;" id="fridayMorningStart" oninput="calculateFridayTotal();"><input type="text" tabindex ="5" maxlength="5" style="width: 50px; height: 30px; margin-left: 5px;"  id="fridayMorningEnd" oninput="calculateFridayTotal();"></td>
             <td><input tabindex ="6" type="text" maxlength="5" style="width: 50px; height: 30px; margin-left: 10px; margin-right: 5px;" id="saturdayMorningStart" oninput="calculateSaturdayTotal();"><input type="text" tabindex ="6" maxlength="5" style="width: 50px; height: 30px; margin-left: 5px;"  id="saturdayMorningEnd" oninput="calculateSaturdayTotal();"></td>
             <td><input tabindex ="7" type="text" maxlength="5" style="width: 50px; height: 30px; margin-left: 10px; margin-right: 5px;" id="sundayMorningStart" oninput="calcutlateSundayTotal();"><input type="text" tabindex ="7" maxlength="5" style="width: 50px; height: 30px; margin-left: 5px;"  id="sundayMorningEnd" oninput="calcutlateSundayTotal();"></td>
-            <td></td>
+            <th></th>
         </tr>
 
         <tr>
-            <td style="text-align: center; height: 55px;">Afternoon <br> (Start - End):</td>
+            <th style="text-align: center; height: 55px;">Afternoon <br> (Start - End):</th>
             <td><input tabindex ="1" type="text" maxlength="5" style="width: 50px; height: 30px; margin-left: 10px; margin-right: 5px;" id="mondayAfternoonStart" oninput="calculateMondayTotal();"><input type="text" tabindex ="1" maxlength="5" style="width: 50px; height: 30px; margin-left: 5px;"  id="mondayAfternoonEnd" oninput="calculateMondayTotal();"></td>
             <td><input tabindex ="2" type="text" maxlength="5" style="width: 50px; height: 30px; margin-left: 10px; margin-right: 5px;" id="tuesdayAfternoonStart" oninput="calculateTuesdayTotal();"><input type="text" tabindex ="2" maxlength="5" style="width: 50px; height: 30px; margin-left: 5px;"  id="tuesdayAfternoonEnd" oninput="calculateTuesdayTotal();"></td>
             <td><input tabindex ="3" type="text" maxlength="5" style="width: 50px; height: 30px; margin-left: 10px; margin-right: 5px;" id="wednesdayAfternoonStart" oninput="calculateWednesdayTotal();"><input type="text" tabindex ="3" maxlength="5" style="width: 50px; height: 30px; margin-left: 5px;"  id="wednesdayAfternoonEnd" oninput="calculateWednesdayTotal();"></td>
@@ -94,23 +97,23 @@
             <td><input tabindex ="5" type="text" maxlength="5" style="width: 50px; height: 30px; margin-left: 10px; margin-right: 5px;" id="fridayAfternoonStart" oninput="calculateFridayTotal();"><input type="text" tabindex ="5" maxlength="5" style="width: 50px; height: 30px; margin-left: 5px;"  id="fridayAfternoonEnd" oninput="calculateFridayTotal();"></td>
             <td><input tabindex ="6" type="text" maxlength="5" style="width: 50px; height: 30px; margin-left: 10px; margin-right: 5px;" id="saturdayAfternoonStart" oninput="calculateSaturdayTotal();"><input type="text" tabindex ="6" maxlength="5" style="width: 50px; height: 30px; margin-left: 5px;"  id="saturdayAfternoonEnd" oninput="calculateSaturdayTotal();"></td>
             <td><input tabindex ="7" type="text" maxlength="5" style="width: 50px; height: 30px; margin-left: 10px; margin-right: 5px;" id="sundayAfternoonStart" oninput="calcutlateSundayTotal();"><input type="text" tabindex ="7" maxlength="5" style="width: 50px; height: 30px; margin-left: 5px;"  id="sundayAfternoonEnd" oninput="calcutlateSundayTotal();"></td>
-            <td></td>
+            <th></th>
         </tr>
 
         <tr>
-            <td style="text-align: center; height: 55px;">Total Today:</td>
-            <td style="text-align: center;" id="mondayTotal" class="total"></td>
-            <td style="text-align: center;" id="tuesdayTotal" class="total"></td>
-            <td style="text-align: center;" id="wednesdayTotal" class="total"></td>
-            <td style="text-align: center;" id="thursdayTotal" class="total"></td>
-            <td style="text-align: center;" id="fridayTotal" class="total"></td>
-            <td style="text-align: center;" id="saturdayTotal" class="total"></td>
-            <td style="text-align: center;" id="sundayTotal" class="total"></td>
-            <td style="text-align: center;"> </td>
+            <th style="text-align: center; height: 55px;">Total Today:</th>
+            <td style="text-align: center;" id="mondayTotal" onchange="sumTotalWeek();" class="total"></td>
+            <td style="text-align: center;" id="tuesdayTotal" onchange="sumTotalWeek();" class="total"></td>
+            <td style="text-align: center;" id="wednesdayTotal" onchange="sumTotalWeek();" class="total"></td>
+            <td style="text-align: center;" id="thursdayTotal" onchange="sumTotalWeek();" class="total"></td>
+            <td style="text-align: center;" id="fridayTotal" onchange="sumTotalWeek();" class="total"></td>
+            <td style="text-align: center;" id="saturdayTotal" onchange="sumTotalWeek();" class="total"></td>
+            <td style="text-align: center;" id="sundayTotal" onchange="sumTotalWeek();" class="total"></td>
+            <th style="text-align: center;" id="weekTotal" onchange="sumTotalWeek();" > </th>
         </tr>
 
         <tr>
-            <td style="text-align: center; height: 55px;">Target Time: </td>
+            <th style="text-align: center; height: 55px;">Target Time: </th>
             <td style="text-align: center;" id="mondayTargetTime" class="targetTime" ></td>
             <td style="text-align: center;" id="tuesdayTargetTime" class="targetTime"></td>
             <td style="text-align: center;" id="wednesdayTargetTime" class="targetTime"></td>
@@ -118,11 +121,11 @@
             <td style="text-align: center;" id="fridayTargetTime" class="targetTime"></td>
             <td style="text-align: center;" id="saturdayTargetTime" class="targetTime"></td>
             <td style="text-align: center;" id="sundayTargetTime" class="targetTime"></td>
-            <td style="text-align: center;" id="totalTargetTime" onload=""></td>
+            <th style="text-align: center;" id="totalTargetTime"></th>
         </tr>
 
         <tr>
-            <td style="text-align: center; height: 55px;">Overhours: </td>
+            <th style="text-align: center; height: 55px;">Overhours: </th>
             <td style="text-align: center;" id="mondayOverhours" class="overhours"></td>
             <td style="text-align: center;" id="tuesdayOverhours" class="overhours"></td>
             <td style="text-align: center;" id="wednesdayOverhours" class="overhours"></td>
@@ -130,7 +133,7 @@
             <td style="text-align: center;" id="fridayOverhours" class="overhours"></td>
             <td style="text-align: center;" id="saturdayOverhours" class="overhours"></td>
             <td style="text-align: center;" id="sundayOverhours" class="overhours"></td>
-            <td style="text-align: center;"></td>
+            <th style="text-align: center;"> Total Overhours</th>
         </tr>
     </table>
 
@@ -159,11 +162,10 @@
 
             if (isNaN(afternoonEnd && morningStart && morningEnd && afternoonStart)) {
                 // warten bis Eingabe aller Felder erfolgt
-                return false
-             }
+                return false;
+            }
             document.getElementById("mondayTotal").innerHTML =totalToday.toFixed(2);
-
-    }
+        }
 
         // berechnet Arbeitsstunden am Dienstag
         function calculateTuesdayTotal() {
@@ -677,8 +679,34 @@
         });
 
 
-        
+        /*function sumTotalWeek(){
+            var mondayTotal = document.getElementById("mondayTotal").value;
+            var tuesdayTotal = document.getElementById("tuesdayTotal").value;
+            var wednesdayTotal = document.getElementById("wednesdayTotal").value;
+            var thursdayTotal = document.getElementById("thursdayTotal").value;
+            var fridayTotal = document.getElementById("fridayTotal").value;
+            var saturdayTotal = document.getElementById("saturdayTotal").value;
+            var sundayTotal = document.getElementById("sundayTotal").value;
 
+            var weekTotal="100";
+
+            if (mondayTotal){
+                weekTotal = mondayTotal;
+                document.getElementById("weekTotal").innerHTML =weekTotal.toFixed(2);
+            }else
+                if (mondayTotal && tuesdayTotal){
+                weekTotal +=tuesdayTotal;
+                document.getElementById("weekTotal").innerHTML =weekTotal.toFixed(2);
+                } else
+                    if (mondayTotal && tuesdayTotal && wednesdayTotal){
+                    weekTotal +=wednesdayTotal;
+                    document.getElementById("weekTotal").innerHTML =weekTotal.toFixed(2);
+                    }
+                    
+                
+                
+        }
+        */
 
         window.onload = function () {
             setTargetTime();
