@@ -2,32 +2,30 @@ package ch.zt.timerecorders.start;
 
 import javax.annotation.PostConstruct;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.jdbc.core.JdbcTemplate;
 
+import ch.zt.timerecorders.businesslogic.Administrator;
 import ch.zt.timerecorders.businesslogic.Mitarbeiter;
+import ch.zt.timerecorders.persistence.AdministratorenRepository;
 import ch.zt.timerecorders.persistence.MitarbeiterRepository;
 
 @SpringBootApplication
 @ComponentScan ({"ch.zt.timerecorders.persistence", "ch.zt.timerecorders.businesslogic", "ch.zt.timerecorders.services" }) //Referenz, wenn es in den verschiedenen Packages ist. (BR)
-public class ZeiterfassungssystemTimeRecordersApplication{
-	
-	static Logger logger = LoggerFactory.getLogger(ZeiterfassungssystemTimeRecordersApplication.class);
+public class ZeiterfassungssystemTimeRecordersApplication {
 
-	
+
 	@Autowired
 	private MitarbeiterRepository mitarbeiterRepository;
+	
+	@Autowired
+	private AdministratorenRepository administratorRepository; 
 
 	
 	public static void main(String[] args) {
 		SpringApplication.run(ZeiterfassungssystemTimeRecordersApplication.class, args);
-		logger.trace("Application successfully startet on PORT 8081");
 	}
 	
 	/*
@@ -47,12 +45,16 @@ public class ZeiterfassungssystemTimeRecordersApplication{
 		mitarbeiterRepository.addMitarbeiter(jordiSchmidlin);
 		mitarbeiterRepository.addMitarbeiter(banujanRagunathan);
 		
-		logger.trace("Test data is ready to be viewed on PORT 8081");
 		
-		
+		Administrator lukasFrey = new Administrator("Lukas","Frey");
+		Administrator richardBradley = new Administrator("Richard","Bradley");
+		administratorRepository.addAdministrator(lukasFrey);
+		administratorRepository.addAdministrator(richardBradley);	
 	}
-
 	
-		
-	}
+	
+	
 
+
+
+}

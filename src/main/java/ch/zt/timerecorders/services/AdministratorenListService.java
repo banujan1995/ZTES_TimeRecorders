@@ -17,7 +17,7 @@ import ch.zt.timerecorders.persistence.AdministratorenRepository;
 
 @RestController
 public class AdministratorenListService {
-	
+
 	@Autowired
 	private AdministratorenRepository administratorenRepository;
 

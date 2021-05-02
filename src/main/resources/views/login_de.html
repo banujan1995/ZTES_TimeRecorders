@@ -1,67 +1,91 @@
 <!-- Erstellt durch: Jordi Schmidlin -->
-<html lang="en">
-  <head>
-      <meta charset="UTF-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-      <link rel="stylesheet" href="/src/main/resources/static/css/style.css">
-      <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-      <title> Anmeldung  </title>
-  </head>
-  <body style="background-color: whitesmoke">
-      <header>
-          <img src="/src/main/resources/static/images/Logo.png" alt="Logo" class="logo">  
-          <br><br><br><br><br><br>
-          <nav>
-            <label for="german" class="label_language"> Sprache wechseln: </label>
-              <a href="/src/main/resources/views/login_en.html"><img src="/src/main/resources/static/images/UK.png" alt="Deutsch" name="german"style="width: 20;height: 15;"></a>
-          </nav>
-          
-          <p class="title"> Zeiterfassungssystem</p> 
-          <p class="subtitle"> Anmelden </p>
-        
-      
-      </header>
-      <br><br><br>
-  
-      <i class="fa fa-user icon" style="display: block; text-align: center;width: 100%;"</i> 
-      <label for="loginUsername" class="text"  ><b>Benutzername: </b></label>
-      <input type="text" placeholder="Enter username" name="loginUsername" class="textField" required>
-  
-      <br><br>
-  
-      <i class="fa fa-key icon" style="display: block; text-align: center;width: 100%;" </i>
-      <label for="loginPassword" class="text" style="margin-right: 45px;"><b> Passwort:</b></label>
-      <input type="password" placeholder="Enter password" name="loginPassword" class="textField" id="loginPassword_EN" required>
-      <br><br>
-      <br>
-      <p id="capsON_en" >ACHTUNG! Festelltaste ist aktiviert!.</p>
-      <br>
-      <br>
-      
-      
-  
-      <input type="checkbox" onclick="showPassword()" id="showPassword"> Passwort anzeigen
-      
-      <br><br>
-  
-      <div class="w3-light-grey" style="max-width: 150px; margin-left: 45%;position: relative; margin: auto;">
-        <div id="loginProgress" class="w3-container w3-blue  w3-center" style="width:0%" >0%</div>
-      </div>
-      <br>
-    
-  
-      <button class="button" onclick="load()"> Anmelden</button>
-  
-      <br><br>
-  
-      <footer>
-          <a href="mailto:admin@jkbgmbh.ch" id="loginIssues"style="display: block; text-align: center;width: 100%;"> Loing Probleme?</a>    
-      </footer>
-      
-      
-      <script>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="css/icons.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<title>Anmeldung</title>
+</head>
+<body style="background-color: whitesmoke">
+	<header>
+		<img src="css/images/Logo.png" alt="Logo"
+			class="logo"> <br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<nav>
+			<label for="german" class="label_language"> Sprache wechseln:
+			</label> <a href="views/login_en.html"><img
+				src="css/images/UK.png" alt="Deutsch"
+				name="german" style="width: 20; height: 15;"></a>
+		</nav>
+
+		<p class="title">Zeiterfassungssystem</p>
+		<p class="subtitle">Anmelden</p>
+
+
+	</header>
+	<br>
+	<br>
+	<br>
+
+	<i class="fa fa-user icon"
+		style="display: block; text-align: center; width: 100%;"></i>
+	<label for="loginUsername" class="text"><b>Benutzername:
+	</b></label>
+	<input type="text" placeholder="Enter username" name="loginUsername"
+		class="textField" required>
+
+	<br>
+	<br>
+
+	<i class="fa fa-key icon"
+		style="display: block; text-align: center; width: 100%;"> </i>
+	<label for="loginPassword" class="text" style="margin-right: 45px;"><b>
+			Passwort:</b></label>
+	<input type="password" placeholder="Enter password"
+		name="loginPassword" class="textField" id="loginPassword_EN" required>
+	<br>
+	<br>
+	<br>
+	<p id="capsON_en">ACHTUNG! Festelltaste ist aktiviert!.</p>
+	<br>
+	<br>
+
+
+
+	<input type="checkbox" onclick="showPassword()" id="showPassword">
+	Passwort anzeigen
+
+	<br>
+	<br>
+
+	<div class="w3-light-grey"
+		style="max-width: 150px; margin-left: 45%; position: relative; margin: auto;">
+		<div id="loginProgress" class="w3-container w3-blue  w3-center"
+			style="width: 0%">0%</div>
+	</div>
+	<br>
+
+
+	<button class="button" onclick="load()">Anmelden</button>
+
+	<br>
+	<br>
+
+	<footer>
+		<a href="mailto:admin@jkbgmbh.ch" id="loginIssues"
+			style="display: block; text-align: center; width: 100%;"> Loing
+			Probleme?</a>
+	</footer>
+
+
+	<script>
           //credit to: www.w3schools.com/w3css/w3css_progressbar.asp
           function load() {
             var elem = document.getElementById("loginProgress");   
@@ -103,6 +127,6 @@
   
   
           </script>
-  
-  </body>
-  </html>
+
+</body>
+</html>
