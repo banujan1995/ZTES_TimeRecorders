@@ -3,11 +3,80 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <html lang="en">
+    <link rel="stylesheet" href="/src/main/resources/static/css/style.css"">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="//code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="jquery.weekpicker.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/flick/jquery-ui.css">
     <title>Profile</title>
 </head>
-<body style="background-color: whitesmoke">
-    <h1>Profile</h1>
-    <a href="/src/main/resources/static/views/main_en.html"> Back to Main </a>
+<body style="background-color: whitesmoke" > 
+    
+    <br>
+    <br>
+    <div style="max-width: 350px; position: relative; margin: auto;" >
+    <img src="/src/main/resources/static/images/Logo.png" alt="Logo" class= "logo" style="max-width: 350px;" > 
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+  
+    <ul class="navibar">
+        <li class="barItem"><a class="barItem">Home</a></li>
+        <li class="barItem"><a class="barItem">Report</a></li>
+        <li class="barItem"><a class="barItem">Absence</a></li>
+        
+        <li style="float:right" class="barItem"> <a href="/src/main/resources/static/views/login_en.html" class="barItem">Logout</a></li>
+        <li style="float:right" class="barItem">
+            <a href="javascript:void(0)" class="barItemBtn">Languages</a>
+            <div class="barItem-content">
+              <a href="">English</a>
+              <a href="">German</a>
+          </div>
+          <li style="float:right" class="barItem"> <a href="/src/main/resources/static/views/profile_en.html" class="barItem">Profile</a> </li>
+    </ul>
+
+    <div style="display: block; text-align: center;width: 100%;">
+        <h1>Profile</h1>
+    </div>
+
+    <br><br>
+    <table id="weekTable" style="position: relative; margin: auto; width: 50px;"> 
+        <tr>
+            <th style="text-align: center; min-width: 135px; height: 55px;"> Username: </th>
+            <td style="text-align: center; min-width: 135px; height: 55px;"> Admin1</td>
+        </tr>
+        <tr>
+            <th style="text-align: center; min-width: 135px; height: 55px;"> Workload: </th>
+            <td style="text-align: center; min-width: 135px; height: 55px;"> 100%</td>
+        </tr>
+        <tr>
+            <th style="text-align: center; min-width: 135px; height: 55px;"> Target Hours (weekly): </th>
+            <td style="text-align: center; min-width: 135px; height: 55px;"> 42</td>
+        </tr>
+    </table>
+
+    <br><br>
+
+    <div style="display: block; text-align: center; width: 100%;">
+        <button style="margin-right: 20px;"> Change Password</button>
+        <button style="margin-right: 20px;"> Edit employee list</button>
+    
+    
+    </div>
+    
+    <br>
+    <br><br>
+    <div style="display: block; text-align: center;width: 100%;">
+    
+        <a href="/src/main/resources/static/views/main_en.html"> Back to Main </a>
+    </div>
+   
     
 </body>
 </html>
