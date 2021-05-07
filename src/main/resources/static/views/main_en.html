@@ -1,3 +1,4 @@
+<!-- erstellt durch Jordi Schmidlin-->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -25,6 +26,7 @@
     <br>
     <br>
   
+    <!-- Navigationsbar-->
     <ul class="navibar">
         <li class="barItem"><a class="barItem">Home</a></li>
         <li class="barItem"><a class="barItem">Report</a></li>
@@ -46,6 +48,7 @@
     </div>
     <br>
     <br>
+    <!-- Kalender, um die entsprechende Woche anzuzeigen-->
     <div style="display: block; text-align: center;width: 100%;">
         <label for="week_ww_yyyy" >Select a week</label>
 		<input type="text" id="week_ww_yyyy" ></input>
@@ -54,15 +57,15 @@
     <br>
     <br> 
 
+    <!-- Button, um die Auswahl im Kalender zu bestätigen, soll angepasst werden-->
     <div style="max-width: 1px; position: relative; margin: auto;">
     <button onclick="getChoosenDay();"> Validate</button>
     </div>
 
     <br>
     <br>
-    <h3 id="date" style="display: block; text-align: center;width: 100%;"></h3>
-    <h3 id="day" style="display: block; text-align: center;width: 100%;"></h3>
 
+    <!-- Wochentabelle, Datum je nach Auswahl im Kalender + Button: Validieren-->
     <table id="weekTable" style="position: relative; margin: auto; width: 1215px;"> 
         <tr>
             <th style="text-align: center; min-width: 135px; height: 55px;"> Weektable: </th>
@@ -138,6 +141,8 @@
     </table>
 
     <script>
+        //Funktion via jQuery, nimmt die im Kalender gewählte Woche entgegen und zeigt diese an
+        // credits to: http://www.mihai-marica.ro
         (function ( $ ) {
             $( "#week_ww_yyyy" ).weekpicker();
         } )(jQuery)
@@ -306,12 +311,14 @@
             });
         }
 
-        // nimmt angewähltes Datum und erruiert, welches Wochentag und platziert es am richtigen Ort der Wochentabelle
+        // nimmt angewähltes Datum und erruiert, welchen Wochentag und platziert es am richtigen Ort der Wochentabelle
         function getChoosenDay(){
            
+    
             var date = document.getElementById("week_ww_yyyy").value;
             var d = new Date (date);  
 
+            // angewähltes Datum ist ein Sonntag
             switch (d.getDay()) {
                 case 0:
                     document.getElementById("seventhDayofWeek").innerHTML =d.toDateString();
@@ -344,6 +351,7 @@
 
             }
 
+            // angewähltes Datum ist ein Montag
             switch (d.getDay()) {
                 case 1:
                     document.getElementById("firstDayofWeek").innerHTML =d.toDateString();
@@ -376,6 +384,7 @@
 
             }
 
+            // angewähltes Datum ist ein Dienstag
             switch (d.getDay()) {
                 case 2:
                     document.getElementById("secondDayofWeek").innerHTML =d.toDateString();
@@ -407,7 +416,8 @@
                     break;
 
             }
-
+            
+            // angewähltes Datum ist ein Mittwoch
             switch (d.getDay()) {
                 case 3:
                     document.getElementById("thirdDayofWeek").innerHTML =d.toDateString();
@@ -439,6 +449,8 @@
                     break;
 
             }
+
+            // angewähltes Datum ist ein Donnerstag
             switch (d.getDay()) {
                 case 4:
                     document.getElementById("fourthDayofWeek").innerHTML =d.toDateString();
@@ -471,6 +483,7 @@
 
             }
 
+            // angewähltes Datum ist ein Freitag
             switch (d.getDay()) {
                 case 5:
                     document.getElementById("fifthDayofWeek").innerHTML =d.toDateString();
@@ -503,6 +516,7 @@
 
             }
 
+            // angewähltes Datum ist ein Samstag
             switch (d.getDay()) {
                 case 6:
                     document.getElementById("sixthDayofWeek").innerHTML =d.toDateString();
@@ -564,7 +578,7 @@
         }
  
         // berechnet Differenz zwischen Soll -und Ist-Zeit
-        // TODO:
+        // TODO: funktioniert noch nicht
         function calculateOverhours (){
            
                 //var mondayTotal = parseFloat(document.getElementById("mondayTotal").value);
@@ -678,7 +692,7 @@
             return /^\d*[.]?\d{0,2}$/.test(value) && (value === "" || parseFloat(value) <= 24.00);; 
         });
 
-
+        // TODO: Wochentotal errechnen 
         /*function sumTotalWeek(){
             var mondayTotal = document.getElementById("mondayTotal").value;
             var tuesdayTotal = document.getElementById("tuesdayTotal").value;

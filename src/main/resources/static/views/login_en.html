@@ -46,7 +46,8 @@
     <br>
     <br>
     
-    <!-- credits to: https://www.w3schools.com/howto/howto_js_detect_capslock.asp-->
+    <!-- Meldung über falsches Password
+    credits to: https://www.w3schools.com/howto/howto_js_detect_capslock.asp -->
     <div class="alert" id="wrongInputs" style="max-width: 380px;position: relative; margin: auto;">
       <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
       <strong> Incorrect password and/or user name!</strong> <br> Please enter the right credentials!
@@ -74,6 +75,7 @@
     
     
     <script>
+        // Login Ladeanzeige, erhöht Benutzerfreundlichkeit
         //credits to: https://www.w3schools.com/w3css/w3css_progressbar.asp
         function load() {
             var elem = document.getElementById("loginProgress");   
@@ -90,6 +92,7 @@
             }
           }
 
+      // Mit der Checkbox "Passwort anzeigen" wird das Passwort Inputfeld in ein Textfeld umgewandelt (zeigt den Inhalt)
       //credits to: https://www.w3schools.com/howto/howto_js_toggle_password.asp
         function showPassword() {
             var x = document.getElementById("loginPassword_EN");
@@ -99,7 +102,7 @@
             x.type = "password";
             }
         }
-        
+        // Erkennt, ob Feststelltaste aktiviert ist und gibt entsprechend eine Meldung an
         //credits to: https://www.w3schools.com/howto/howto_js_detect_capslock.asp'
         var input = document.getElementById("loginPassword_EN");
         var text = document.getElementById("capsON_en");
@@ -112,7 +115,7 @@
           }
         });
 
-        //@need to adapt
+        //@need to adapt, // Meldung, falls Passwort und/oder Benutzername falsch ist
         function checkInputs() {
         var user = document.getElementById("loginUserName_EN");
         var password = document.getElementById("loginPassword_EN");
@@ -126,6 +129,7 @@
       }
     }
     
+      // Funktion öffnet das Hauptansicht nach Login
       function openOverview(){
         window.location.href = "main_en.html";
       }
