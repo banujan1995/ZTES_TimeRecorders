@@ -21,10 +21,6 @@ public class Mitarbeiter {
 	}
 	
 
-	public Mitarbeiter() {
-	}
-
-
 	public Long getMitarbeiterID() {
 		return mitarbeiterID;
 	}
