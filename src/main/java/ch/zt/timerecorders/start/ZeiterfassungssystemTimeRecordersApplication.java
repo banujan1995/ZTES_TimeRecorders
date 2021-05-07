@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 
 import ch.zt.timerecorders.businesslogic.Administrator;
 import ch.zt.timerecorders.businesslogic.Mitarbeiter;
@@ -13,7 +14,7 @@ import ch.zt.timerecorders.persistence.AdministratorenRepository;
 import ch.zt.timerecorders.persistence.MitarbeiterRepository;
 
 @SpringBootApplication
-@ComponentScan ({"ch.zt.timerecorders.persistence", "ch.zt.timerecorders.businesslogic", "ch.zt.timerecorders.services" }) //Referenz, wenn es in den verschiedenen Packages ist. (BR)
+@ComponentScan({"ch.zt.timerecorders.persistence", "ch.zt.timerecorders.businesslogic", "ch.zt.timerecorders.services", "views" }) //Referenz, wenn es in den verschiedenen Packages ist. (BR)
 public class ZeiterfassungssystemTimeRecordersApplication {
 
 
