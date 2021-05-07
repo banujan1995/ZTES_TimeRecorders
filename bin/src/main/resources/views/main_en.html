@@ -1,0 +1,289 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/src/main/resources/static/css/style.css"">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Overview</title>
+</head>
+<body style="background-color: whitesmoke" onlo> 
+    
+    <br>
+    <br>
+    <div style="max-width: 350px; position: relative; margin: auto;" >
+    <img src="/src/main/resources/static/images/Logo.png" alt="Logo" class= "logo" style="max-width: 350px;" > 
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+  
+    <ul class="navibar">
+        <li class="barItem"><a href="" class="barItem">Home</a></li>
+        <li class="barItem"><a href="" class="barItem">Report</a></li>
+        <li class="barItem"><a href="" class="barItem">Absence</a></li>
+        
+        <li style="float:right" class="barItem"> <a href="/src/main/resources/views/login_en.html" class="barItem">Logout</a></li>
+        <li style="float:right" class="barItem">
+            <a href="javascript:void(0)" class="barItemBtn">Languages</a>
+            <div class="barItem-content">
+              <a href="">English</a>
+              <a href="">German</a>
+          </div>
+          <li style="float:right" class="barItem"> <a href="/src/main/resources/views/profile_en.html" class="barItem">Profile</a> </li>
+      </ul>
+ 
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <h3 style="max-width: 400px; position: relative; margin: auto; margin-bottom: 30px;">1. February 2021 - 7. February 2021</h3>
+
+    <table id="weekTable" style="position: relative; margin: auto; width: 1215px;"> 
+        <tr>
+            <th style="text-align: center; min-width: 135px;"> Weektable: </th>
+            <th style="text-align: center; min-width: 135px;"> 1. February 2021: <br> <br> Monday </th>
+            <th style="text-align: center; min-width: 135px;"> 2. February 2021: <br> <br> Tuesday </th>
+            <th style="text-align: center; min-width: 135px;"> 3. February 2021: <br> <br> Wednesday </th>
+            <th style="text-align: center; min-width: 135px;"> 4. February 2021: <br> <br> Thursday </th>
+            <th style="text-align: center; min-width: 135px;"> 5. February 2021: <br> <br> Friday </th>
+            <th style="text-align: center; min-width: 135px;"> 6. February 2021: <br> <br> Saturday </th>
+            <th style="text-align: center; min-width: 135px;"> 7. February 2021: <br> <br> Sunday </th>
+            <th style="text-align: center; min-width: 135px;"> Total </th> 
+        </tr>
+
+        <tr>
+            <td style="text-align: center;">Morning <br>(Start - End):</td>
+            <td><input type="text" style="width: 50px; height: 30px; margin-left: 10px; margin-right: 5px;" id="mondayMorningStart" oninput="calculateMondayTotal();"><input type="text" style="width: 50px; height: 30px; margin-left: 5px;"  id="mondayMorningEnd" oninput="calculateMondayTotal();"></td>
+            <td><input type="text" style="width: 50px; height: 30px; margin-left: 10px; margin-right: 5px;" id="tuesdayMorningStart" oninput="calculateTuesdayTotal();"><input type="text" style="width: 50px; height: 30px; margin-left: 5px;"  id="tuesdayMorningEnd" oninput="calculateTuesdayTotal();"></td>
+            <td><input type="text" style="width: 50px; height: 30px; margin-left: 10px; margin-right: 5px;" id="wednesdayMorningStart" oninput="calculateWednesdayTotal();"><input type="text" style="width: 50px; height: 30px; margin-left: 5px;"  id="wednesdayMorningEnd" oninput="calculateWednesdayTotal();"></td>
+            <td><input type="text" style="width: 50px; height: 30px; margin-left: 10px; margin-right: 5px;" id="thursdayMorningStart" oninput="calculateThursdayTotal();"><input type="text" style="width: 50px; height: 30px; margin-left: 5px;"  id="thursdayMorningEnd" oninput="calculateThursdayTotal();"></td>
+            <td><input type="text" style="width: 50px; height: 30px; margin-left: 10px; margin-right: 5px;" id="fridayMorningStart" oninput="calculateFridayTotal();"><input type="text" style="width: 50px; height: 30px; margin-left: 5px;"  id="fridayMorningEnd" oninput="calculateFridayTotal();"></td>
+            <td><input type="text" style="width: 50px; height: 30px; margin-left: 10px; margin-right: 5px;" id="saturdayMorningStart" oninput="calculateSaturdayTotal();"><input type="text" style="width: 50px; height: 30px; margin-left: 5px;"  id="saturdayMorningEnd" oninput="calculateSaturdayTotal();"></td>
+            <td><input type="text" style="width: 50px; height: 30px; margin-left: 10px; margin-right: 5px;" id="sundayMorningStart" oninput="calcutlateSundayTotal();"><input type="text" style="width: 50px; height: 30px; margin-left: 5px;"  id="sundayMorningEnd" oninput="calcutlateSundayTotal();"></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td style="text-align: center;">Afternoon <br> (Start - End):</td>
+            <td><input type="text" style="max-width: 50px; height: 30px; margin-left: 10px; margin-right: 5px;" id="mondayAfternoonStart" oninput="calculateMondayTotal();"><input type="text" style="width: 50px; height: 30px; margin-left: 5px;"  id="mondayAfternoonEnd" oninput="calculateMondayTotal();"></td>
+            <td><input type="text" style="width: 50px; height: 30px; margin-left: 10px; margin-right: 5px;" id="tuesdayAfternoonStart" oninput="calculateTuesdayTotal();"><input type="text" style="width: 50px; height: 30px; margin-left: 5px;"  id="tuesdayAfternoonEnd" oninput="calculateTuesdayTotal();"></td>
+            <td><input type="text" style="width: 50px; height: 30px; margin-left: 10px; margin-right: 5px;" id="wednesdayAfternoonStart" oninput="calculateWednesdayTotal();"><input type="text" style="width: 50px; height: 30px; margin-left: 5px;"  id="wednesdayAfternoonEnd" oninput="calculateWednesdayTotal();"></td>
+            <td><input type="text" style="width: 50px; height: 30px; margin-left: 10px; margin-right: 5px;" id="thursdayAfternoonStart" oninput="calculateThursdayTotal();"><input type="text" style="width: 50px; height: 30px; margin-left: 5px;"  id="thursdayAfternoonEnd" oninput="calculateThursdayTotal();"></td>
+            <td><input type="text" style="width: 50px; height: 30px; margin-left: 10px; margin-right: 5px;" id="fridayAfternoonStart" oninput="calculateFridayTotal();"><input type="text" style="width: 50px; height: 30px; margin-left: 5px;"  id="fridayAfternoonEnd" oninput="calculateFridayTotal();"></td>
+            <td><input type="text" style="width: 50px; height: 30px; margin-left: 10px; margin-right: 5px;" id="saturdayAfternoonStart" oninput="calculateSaturdayTotal();"><input type="text" style="width: 50px; height: 30px; margin-left: 5px;"  id="saturdayAfternoonEnd" oninput="calculateSaturdayTotal();"></td>
+            <td><input type="text" style="width: 50px; height: 30px; margin-left: 10px; margin-right: 5px;" id="sundayAfternoonStart" oninput="calcutlateSundayTotal();"><input type="text" style="width: 50px; height: 30px; margin-left: 5px;"  id="sundayAfternoonEnd" oninput="calcutlateSundayTotal();"></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td style="text-align: center;">Total Today:</td>
+            <td style="text-align: center;" id="mondayTotal" class="total"></td>
+            <td style="text-align: center;" id="tuesdayTotal" class="total"></td>
+            <td style="text-align: center;" id="wednesdayTotal" class="total"></td>
+            <td style="text-align: center;" id="thursdayTotal" class="total"></td>
+            <td style="text-align: center;" id="fridayTotal" class="total"></td>
+            <td style="text-align: center;" id="saturdayTotal" class="total"></td>
+            <td style="text-align: center;" id="sundayTotal" class="total"></td>
+            <td style="text-align: center;"> </td>
+        </tr>
+
+        <tr>
+            <td style="text-align: center;">Target Time: </td>
+            <td style="text-align: center;" id="mondayTargetTime" class="targetTime" >8.40</td>
+            <td style="text-align: center;" id="tuesdayTargetTime" class="targetTime">8.40 </td>
+            <td style="text-align: center;" id="wednesdayTargetTime" class="targetTime">8.40 </td>
+            <td style="text-align: center;" id="thursdayTargetTime" class="targetTime">8.40 </td>
+            <td style="text-align: center;" id="fridayTargetTime" class="targetTime">8.40 </td>
+            <td style="text-align: center;" id="saturdayTargetTime" class="targetTime">0.00 </td>
+            <td style="text-align: center;" id="sundayTargetTime" class="targetTime">0.00 </td>
+            <td style="text-align: center;" id="totalTargetTime" onload=""></td>
+        </tr>
+
+        <tr>
+            <td style="text-align: center;">Overhours: </td>
+            <td style="text-align: center;" id="mondayOverhours" class="overhours"></td>
+            <td style="text-align: center;" id="tuesdayOverhours" class="overhours"></td>
+            <td style="text-align: center;" id="wednesdayOverhours" class="overhours"></td>
+            <td style="text-align: center;" id="thursdayOverhours" class="overhours"></td>
+            <td style="text-align: center;" id="fridayOverhours" class="overhours"></td>
+            <td style="text-align: center;" id="saturdayOverhours" class="overhours"></td>
+            <td style="text-align: center;" id="sundayOverhours" class="overhours"></td>
+            <td style="text-align: center;"></td>
+        </tr>
+    </table>
+
+
+    <script>
+
+        // berechnet Arbeitsstunden am Montag
+        function calculateMondayTotal() {
+            var morningStart = document.getElementById("mondayMorningStart").value;
+            var morningStart = parseFloat(morningStart);
+            var morningEnd = document.getElementById("mondayMorningEnd").value;
+            var morningEnd = parseFloat(morningEnd);
+            var afternoonStart = document.getElementById("mondayAfternoonStart").value;
+            var afternoonStart = parseFloat(afternoonStart);
+            var afternoonEnd = document.getElementById("mondayAfternoonEnd").value;
+            var afternoonEnd = parseFloat(afternoonEnd);
+            var morning = morningEnd - morningStart;
+            var afternoon = afternoonEnd - afternoonStart;
+            var totalToday = afternoon + morning;
+
+            if (isNaN(afternoonEnd)) {
+                // warten bis Eingabe aller Felder erfolgt
+                return false
+             }
+            document.getElementById("mondayTotal").innerHTML =totalToday.toFixed(2);
+            //TODO: solve NaN issue
+            //var targetTime = document.getElementById("mondayTargetTime");
+            //var overhours = targetTime - totalToday;
+            //document.getElementById("mondayOverhours").innerHTML =overhours.toFixed(2);
+
+    }
+
+        // berechnet Arbeitsstunden am Dienstag
+        function calculateTuesdayTotal() {
+            var morningStart = document.getElementById("tuesdayMorningStart").value;
+            var morningStart = parseFloat(morningStart);
+            var morningEnd = document.getElementById("tuesdayMorningEnd").value;
+            var morningEnd = parseFloat(morningEnd);
+            var afternoonStart = document.getElementById("tuesdayAfternoonStart").value;
+            var afternoonStart = parseFloat(afternoonStart);
+            var afternoonEnd = document.getElementById("tuesdayAfternoonEnd").value;
+            var afternoonEnd = parseFloat(afternoonEnd);
+            var morning = morningEnd - morningStart;
+            var afternoon = afternoonEnd - afternoonStart;
+            var totalToday = afternoon + morning;
+            if (isNaN(afternoonEnd)) {
+                // warten bis Eingabe aller Felder erfolgt
+                return false
+             }
+            document.getElementById("tuesdayTotal").innerHTML =totalToday.toFixed(2);
+            
+        }
+
+        // berechnet Arbeitsstunden am Mittwoch
+        function calculateWednesdayTotal() {
+            var morningStart = document.getElementById("wednesdayMorningStart").value;
+            var morningStart = parseFloat(morningStart);
+            var morningEnd = document.getElementById("wednesdayMorningEnd").value;
+            var morningEnd = parseFloat(morningEnd);
+            var afternoonStart = document.getElementById("wednesdayAfternoonStart").value;
+            var afternoonStart = parseFloat(afternoonStart);
+            var afternoonEnd = document.getElementById("wednesdayAfternoonEnd").value;
+            var afternoonEnd = parseFloat(afternoonEnd);
+            var morning = morningEnd - morningStart;
+            var afternoon = afternoonEnd - afternoonStart;
+            var totalToday = afternoon + morning;
+            if (isNaN(afternoonEnd)) {
+                // warten bis Eingabe aller Felder erfolgt
+                return false
+             }
+            document.getElementById("wednesdayTotal").innerHTML =totalToday.toFixed(2);
+        }
+
+        // berechnet Arbeitsstunden am Donnerstag
+        function calculateThursdayTotal() {
+            var morningStart = document.getElementById("thursdayMorningStart").value;
+            var morningStart = parseFloat(morningStart);
+            var morningEnd = document.getElementById("thursdayMorningEnd").value;
+            var morningEnd = parseFloat(morningEnd);
+            var afternoonStart = document.getElementById("thursdayAfternoonStart").value;
+            var afternoonStart = parseFloat(afternoonStart);
+            var afternoonEnd = document.getElementById("thursdayAfternoonEnd").value;
+            var afternoonEnd = parseFloat(afternoonEnd);
+            var morning = morningEnd - morningStart;
+            var afternoon = afternoonEnd - afternoonStart;
+            var totalToday = afternoon + morning;
+            if (isNaN(afternoonEnd)) {
+                // warten bis Eingabe aller Felder erfolgt
+                return false
+             }
+            document.getElementById("thursdayTotal").innerHTML =totalToday.toFixed(2);
+        }
+
+        // berechnet Arbeitsstunden am Freitag
+        function calculateFridayTotal() {
+            var morningStart = document.getElementById("fridayMorningStart").value;
+            var morningStart = parseFloat(morningStart);
+            var morningEnd = document.getElementById("fridayMorningEnd").value;
+            var morningEnd = parseFloat(morningEnd);
+            var afternoonStart = document.getElementById("fridayAfternoonStart").value;
+            var afternoonStart = parseFloat(afternoonStart);
+            var afternoonEnd = document.getElementById("fridayAfternoonEnd").value;
+            var afternoonEnd = parseFloat(afternoonEnd);
+            var morning = morningEnd - morningStart;
+            var afternoon = afternoonEnd - afternoonStart;
+            var totalToday = afternoon + morning;
+            if (isNaN(afternoonEnd)) {
+                // warten bis Eingabe aller Felder erfolgt
+                return false
+             }
+            document.getElementById("fridayTotal").innerHTML =totalToday.toFixed(2);
+        }
+
+        // berechnet Arbeitsstunden am Samstag
+        function calculateSaturdayTotal() {
+            var morningStart = document.getElementById("saturdayMorningStart").value;
+            var morningStart = parseFloat(morningStart);
+            var morningEnd = document.getElementById("saturdayMorningEnd").value;
+            var morningEnd = parseFloat(morningEnd);
+            var afternoonStart = document.getElementById("saturdayAfternoonStart").value;
+            var afternoonStart = parseFloat(afternoonStart);
+            var afternoonEnd = document.getElementById("saturdayAfternoonEnd").value;
+            var afternoonEnd = parseFloat(afternoonEnd);
+            var morning = morningEnd - morningStart;
+            var afternoon = afternoonEnd - afternoonStart;
+            var totalToday = afternoon + morning;
+            if (isNaN(afternoonEnd)) {
+                // warten bis Eingabe aller Felder erfolgt
+                return false
+             }
+            document.getElementById("saturdayTotal").innerHTML =totalToday.toFixed(2);
+        }
+
+        // berechnet Arbeitsstunden am Sonntag
+        function calcutlateSundayTotal() {
+            var morningStart = document.getElementById("sundayMorningStart").value;
+            var morningStart = parseFloat(morningStart);
+            var morningEnd = document.getElementById("sundayMorningEnd").value;
+            var morningEnd = parseFloat(morningEnd);
+            var afternoonStart = document.getElementById("sundayAfternoonStart").value;
+            var afternoonStart = parseFloat(afternoonStart);
+            var afternoonEnd = document.getElementById("sundayAfternoonEnd").value;
+            var afternoonEnd = parseFloat(afternoonEnd);
+            var morning = morningEnd - morningStart;
+            var afternoon = afternoonEnd - afternoonStart;
+            var totalToday = afternoon + morning;
+            if (isNaN(afternoonEnd)) {
+                // warten bis Eingabe aller Felder erfolgt
+                return false
+             }
+            document.getElementById("sundayTotal").innerHTML =totalToday.toFixed(2);
+        }
+
+        // TODO: evalute input (just allow xx.xx)
+        function validInput (){
+
+        }
+
+        // TODO: fix total not showing issue
+        function calculateTotalTargetTime (){
+            document.getElementById("totalTargetTime").innerHTML= "yes";
+            
+        }
+
+        window.onload = function () {
+            calculateTotalTargetTime();
+        }
+    </script>
+
+</body>
+</html>

@@ -74,7 +74,7 @@ public class MitarbeiterRepository {
 			System.out.println("Zahl ist 0 - Kommentar weg nehmen");
 
 		} else {
-			System.out.println("MITARBEITER_CODE" + mitarbeiter.getMitarbeiterID());
+			
 		}
 	}
 
