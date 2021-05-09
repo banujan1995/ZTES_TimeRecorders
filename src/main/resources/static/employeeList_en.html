@@ -194,14 +194,13 @@
                             <input class="checkbox" type="checkbox" name="thursday" id="employeeList_thursday5" style="margin-left: 23px;" checked ="true" disabled>
                             <br>
                             <label for="friday">Friday: </label> 
-                            <input class="checkbox" type="checkbox" name="friday" id="employeeList_friday5" style="margin-left: 45px;" disabled>
+                            <input class="checkbox" type="checkbox" name="friday" id="employeeList_friday5" style="margin-left: 45px;" disabled></td>
                             <td style="text-align: center; min-width: 155px; height: 65px;"> 
                                 <button onclick="editEmployee(this);" type="button" > Edit </button> 
                                 <br>
                                 <br>
                                 <button onclick="deleteEmployee(this);" type="button" > Delete </button> 
                             </td>
-                        </td>
                     </tr>
                </table>  
              </div>
@@ -219,8 +218,9 @@
 
     <script>
 
+
         function addEmployee(){
-            
+            window.location.href = "addEmployee_en.html";
         }
 
 
