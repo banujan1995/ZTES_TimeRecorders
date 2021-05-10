@@ -1,5 +1,9 @@
-package ch.zt.timerecorders.businesslogic;
+package ch.zt.timerecorders.start;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  * 
@@ -7,8 +11,12 @@ package ch.zt.timerecorders.businesslogic;
  * @author Kiren Gondal
  *
  */
+@Entity
 public class Mitarbeiter {
 
+	
+	@Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
 	public Long mitarbeiterID;
 	
 	public String name;
