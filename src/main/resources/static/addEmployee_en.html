@@ -73,27 +73,27 @@
             <th style="text-align: center; min-width: 175px; height: 65px;"> Working Days: </th>
             <td id ="addEmployee_workingDays" style="text-align: center; min-width: 155px; height: 65px;">
                 <label for="monday">Monday: </label> 
-                <input class="checkbox" type="checkbox" name="monday" id="addEmployee_monday" style="margin-left: 33px;"> 
+                <input class="checkbox" type="checkbox" name="monday" id="addEmployee_monday" onchange="adaptWorkingDays();" style="margin-left: 33px;"> 
                 <br>
                 <label for="tuesday">Tuesday: </label> 
-                <input class="checkbox" type="checkbox" name="tuesday" id="addEmployee_tuesday" style="margin-left: 29px;">
+                <input class="checkbox" type="checkbox" name="tuesday" id="addEmployee_tuesday" onchange="adaptWorkingDays();" style="margin-left: 29px;">
                 <br>
                 <label for="wednesday">Wednesday: </label> 
-                <input class="checkbox" type="checkbox" name="wednesday" id="addEmployee_wednesday" style="margin-left: 5px;">
+                <input class="checkbox" type="checkbox" name="wednesday" id="addEmployee_wednesday" onchange="adaptWorkingDays();"  style="margin-left: 5px;">
                 <br>
                 <label for="thursday">Thursday: </label> 
-                <input class="checkbox" type="checkbox" name="thursday" id="addEmployee_thursday" style="margin-left: 23px;">
+                <input class="checkbox" type="checkbox" name="thursday" id="addEmployee_thursday" onchange="adaptWorkingDays();" style="margin-left: 23px;">
                 <br>
                 <label for="friday">Friday: </label> 
-                <input class="checkbox" type="checkbox" name="friday" id="addEmployee_friday" style="margin-left: 45px;"></td>
+                <input class="checkbox" type="checkbox" name="friday" id="addEmployee_friday" onchange="adaptWorkingDays();" style="margin-left: 45px;"></td>
         </tr>
         <tr>
             <th style="text-align: center; min-width: 175px; height: 65px;"> Workload: </th>
-            <td id ="addEmployee_workload"style="text-align: center; min-width: 235px; height: 55px;"> 100%</td>
+            <td id ="addEmployee_workload"style="text-align: center; min-width: 235px; height: 55px;"></td>
         </tr>
         <tr>
             <th style="text-align: center; min-width: 175px; height: 65px;"> Target Hours (weekly): </th>
-            <td id ="addEmployee_targetHours" style="text-align: center; min-width: 235px; height: 65px;"> 42</td>
+            <td id ="addEmployee_targetHours" style="text-align: center; min-width: 235px; height: 65px;"></td>
         </tr>
     </table>
 
@@ -108,13 +108,22 @@
 
     <script>
 
+        // fügt einen neuen MA hinzu + Erfolgsmeldung
         function addEmployee(){
+
+            if (validUserInput()) {
             var surname = document.getElementById("addEmployee_givenname").value;
-            var familyname = document.getElementById("addEmployee_givenname").value;
-            var message = ("Dear Admin \n\n"+ surname+" "+familyname+" has been added!");
+            var familyname = document.getElementById("addEmployee_familyname").value;
+            var username = document.getElementById("addEmployee_username").value;
+
+            // Erfolgsmeldung
+            var message = ("Dear Admin \n\nThe employee "+ surname+" "+familyname+" has been added! \n\nThe assigned username is: "+username);
             alert(message)
+            reset();
+            }
         }
 
+        // Leert alle mögliche Eingabemöglichkeiten
         function reset(){
             document.getElementById("addEmployee_givenname").value ="";
             document.getElementById("addEmployee_familyname").value ="";
@@ -128,6 +137,66 @@
                         uncheck[i].checked=false;
                     }
                 }
+        }
+
+        // Je nach Wahl der Anzahl Arbeitstag wird Pensum sowie Soll-Zeit angezeigt
+        function adaptWorkingDays(){
+
+            // nimmt Anzahl angeklickter Checkboxes entgegen
+            var checkBoxCounter = document.querySelectorAll('input[type="checkbox"]:checked').length;
+        
+            switch (checkBoxCounter){
+
+                case 0:
+                    document.getElementById("addEmployee_workload").innerHTML ="";
+                    document.getElementById("addEmployee_targetHours").innerHTML ="";
+
+                case 1:
+                    document.getElementById("addEmployee_workload").innerHTML ="20%";
+                    document.getElementById("addEmployee_targetHours").innerHTML ="8h 24min";
+                break;
+
+                case 2:
+                    document.getElementById("addEmployee_workload").innerHTML ="40%";
+                    document.getElementById("addEmployee_targetHours").innerHTML ="16h 48min";
+                break;
+
+                case 3:
+                    document.getElementById("addEmployee_workload").innerHTML ="60%";
+                    document.getElementById("addEmployee_targetHours").innerHTML ="25h 12min";
+                break;
+
+                case 4:
+                    document.getElementById("addEmployee_workload").innerHTML ="80%";
+                    document.getElementById("addEmployee_targetHours").innerHTML ="33h 36min";
+                break;
+
+                case 5:
+                    document.getElementById("addEmployee_workload").innerHTML ="100%";
+                    document.getElementById("addEmployee_targetHours").innerHTML ="42h 00min";
+                break;
+            }
+        }
+
+        // überprüft, ob alle Werte erfasst wurde, sonst erscheint eine Fehler meldung
+        function validUserInput (){
+            var surname = document.getElementById("addEmployee_givenname").innerText;
+            var familyname = document.getElementById("addEmployee_familyname").innerText;
+            var username = document.getElementById("addEmployee_username").innerText;
+            var password = document.getElementById("addEmployee_password").innerText;
+            var passwordRepeat = document.getElementById("addEmployee_repeatPassword").innerText;
+            var checkBoxCounter = document.querySelectorAll('input[type="checkbox"]:checked').length;
+
+            //alle Textfelder müssen einen Wert aufweise + mind. 1 Arbeitstag muss erfasst sein
+            //TODO:
+            if (surname==="" && familyname==="" && username==="" && password==="" && passwordRepeat===""  && checkBoxCounter === 0 || checkBoxCounter){
+
+                var message = ("Dear Admin \n\nPlease fill out all the textfields and check all employees working days!!");
+                alert(message);
+                return false;
+            }
+            return true;
+
         }
 
     </script>
