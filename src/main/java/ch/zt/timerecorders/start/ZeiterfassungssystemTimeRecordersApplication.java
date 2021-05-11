@@ -11,17 +11,19 @@ import ch.zt.timerecorders.businesslogic.Administrator;
 import ch.zt.timerecorders.businesslogic.Mitarbeiter;
 import ch.zt.timerecorders.persistence.AdministratorenRepository;
 import ch.zt.timerecorders.persistence.MitarbeiterRepository;
+import ch.zt.timerecorders.view.ViewsController;
 
 @SpringBootApplication
-@ComponentScan ({"ch.zt.timerecorders.persistence", "ch.zt.timerecorders.businesslogic", "ch.zt.timerecorders.services" }) //Referenz, wenn es in den verschiedenen Packages ist. (BR)
+@ComponentScan ({"ch.zt.timerecorders.persistence", "ch.zt.timerecorders.businesslogic", "ch.zt.timerecorders.services", "ch.zt.timerecorders.view" }) //Referenz, wenn es in den verschiedenen Packages ist. (BR)
 public class ZeiterfassungssystemTimeRecordersApplication {
-
 
 	@Autowired
 	private MitarbeiterRepository mitarbeiterRepository;
 	
 	@Autowired
 	private AdministratorenRepository administratorRepository; 
+	
+	
 
 	
 	public static void main(String[] args) {
@@ -51,6 +53,8 @@ public class ZeiterfassungssystemTimeRecordersApplication {
 		administratorRepository.addAdministrator(lukasFrey);
 		administratorRepository.addAdministrator(richardBradley);	
 	}
+	
+
 	
 	
 	

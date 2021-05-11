@@ -46,34 +46,7 @@ public class MitarbeiterListService {
 ////		System.out.println(mitarbeiterRepository.getMitarbeiterList().get(0));
 //	}
 	
-	/**
-	 * Methoden Annotation Kiren: html files anzeigen und richtig verlinken
-	 * 
-	 */
-	@RequestMapping(method = RequestMethod.GET, value = "/login")
-	public String showLogin(Model model) {
-		
-		return "login_de.html";
-	}
-	
-	@RequestMapping(method = RequestMethod.GET, value = "/loginen")
-	public String showLoginEng(Model model) {
-		
-		return "login_en.html";
-	}
-	
-	@RequestMapping(method = RequestMethod.GET, value = "/main")
-	public String showMain(Model model) {
-		
-		return "main_en.html";
-	}
-	
-	@RequestMapping(method = RequestMethod.GET, value = "/profile")
-	public String showProfile(Model model) {
-		
-		return "profile_en.html";
-	}
-	
+
 	@GetMapping(path = "/timerecorders/erfasstemitarbeiter", produces = "application/json") 
 	public List<Mitarbeiter> getlistMitarbeiter() { // Filter Framework
 		return mitarbeiterRepository.getMitarbeiterList();

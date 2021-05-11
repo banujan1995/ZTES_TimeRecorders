@@ -3,7 +3,6 @@
 <meta charset="utf-8">
 
 <title>Zeiterfassungssystem TimeRecorders</title>
-<link rel="stylesheet" href="css/stylesheet.css">
 
 <script src="https://code.jquery.com/jquery-3.5.1.js"
 	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
@@ -12,13 +11,19 @@
 
 <body>
 
+	<!-- Hier wird der Redirect erstellt um die Seite direkt auf die Loginseite zu bringen (BR) 
+	Quelle: https://www.w3schools.com/js/js_window_location.asp -->
+
+	<script>
+		function redirect() {
+			console.log("Redirect Methode wurde durchgeführt")
+			window.location.assign("http://localhost:8081/login")
+		}
 	
-	<div class="container text-center">
-		<h1 id="headline">Welcome to the Time Recorder's World'</h1>
-		<h2 id="firmenName">JKB GMBH</h2>
-		<h3><a href="/login">Go To Login</a></h3>
-	</div>
 
+	<!-- Hier die Ausführung -->
+	redirect();
 
+	</script>
 </body>
 </html>
