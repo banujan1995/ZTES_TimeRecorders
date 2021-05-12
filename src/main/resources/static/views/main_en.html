@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css"">
+    <link rel="stylesheet" href="/src/main/resources/static/css/style.css"">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="//code.jquery.com/jquery-1.12.4.min.js"></script>
     <script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-    <script src="js/jquery.weekpicker.js"></script>
+    <script src="jquery.weekpicker.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/flick/jquery-ui.css">
     <title>Overview</title>
 </head>
@@ -17,7 +17,7 @@
     <br>
     <br>
     <div style="max-width: 350px; position: relative; margin: auto;" >
-    <img src="css/images/Logo.png" alt="Logo" class= "logo" style="max-width: 350px;" > 
+    <img src="/src/main/resources/static/images/Logo.png" alt="Logo" class= "logo" style="max-width: 350px;" > 
     </div>
     <br>
     <br>
@@ -32,17 +32,16 @@
         <li class="barItem"><a class="barItem">Report</a></li>
         <li class="barItem"><a class="barItem">Absence</a></li>
         
-        <li style="float:right" class="barItem"> <a href="login_en.html" class="barItem">Logout</a></li>
+        <li style="float:right" class="barItem"> <a href="/src/main/resources/static/views/login_en.html" class="barItem">Logout</a></li>
         <li style="float:right" class="barItem">
             <a href="javascript:void(0)" class="barItemBtn">Languages</a>
             <div class="barItem-content">
               <a href="">English</a>
               <a href="">German</a>
           </div>
-          <li style="float:right" class="barItem"> <a href="profile_en.html" class="barItem">Profile</a> </li>
+          <li style="float:right" class="barItem"> <a href="/src/main/resources/static/views/profile_en.html" class="barItem">Profile</a> </li>
       </ul>
    
-      <br>
     <div style="display: block; text-align: center;width: 100%;">
         <h1>Your weektable</h1>
         <p> Please choose the week you would like to enter your working hours!</p>
@@ -140,8 +139,6 @@
             <th style="text-align: center;"> Total Overhours</th>
         </tr>
     </table>
-
-    <div class="footer"></div>
 
     <script>
         //Funktion via jQuery, nimmt die im Kalender gewählte Woche entgegen und zeigt diese an

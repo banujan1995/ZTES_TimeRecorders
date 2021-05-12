@@ -13,7 +13,9 @@
 <body style="background-color: whitesmoke">
 	<header>
 		<br>
-		<img src="css/images/Logo.png" alt="Logo"class="logo"> 
+		<div style="max-width: 450px; position: relative; margin: auto;">
+      <img src="css/images/Logo.png" alt="Logo" class="logo" style="height: 100px;width: 350px;"> 
+    </div>
 		<br>
 		<br>
 		<br>
@@ -22,7 +24,7 @@
 		<br>
 		<nav>
 			<label for="german" class="label_language"> Sprache wechseln:
-			</label> <a href="/loginen"><img
+			</label> <a href="login_en.html"><img
 				src="css/images/UK.png" alt="Deutsch"
 				name="german" style="width: 20; height: 15;"></a>
 		</nav>
@@ -36,9 +38,6 @@
 	<br>
 	<br>
 
-	<br>
-	<br>
-
 	<i class="fa fa-user icon" style="display: block; text-align: center;width: 100%;"</i> 
     <label for="loginUsername" class="text"  ><b>Benutzername: </b></label>
     <input type="text" placeholder="Benutzername eingeben" name="loginUsername" class="textField" id="loginUserName_EN"required>
@@ -47,9 +46,13 @@
 
     <i class="fa fa-key icon" style="display: block; text-align: center;width: 100%;" </i>
     <label for="loginPassword" class="text" ><b>Password: </b></label>
+
     <input type="password" placeholder="Password eingeben" name="loginPassword" class="textField" id="loginPassword_EN" required>
 	<br>
 	<br>
+
+
+
 	<br>
 	<p id="capsON_en">ACHTUNG! Festelltaste ist aktiviert!.</p>
 	<br>
@@ -142,7 +145,7 @@
     }
   
 		function openOverview(){
-        window.location.href = "/main";
+        window.location.href = "main_en.html";
       }
 
   

@@ -18,7 +18,7 @@
     <br>
     <br>
     <div style="max-width: 350px; position: relative; margin: auto;" >
-    <img src="css/images/Logo.png" alt="Logo" class= "logo" style="max-width: 350px;" > 
+    <img src="/src/main/resources/static/images/Logo.png" alt="Logo" class= "logo" style="max-width: 350px;" > 
     </div>
     <br>
     <br>
@@ -28,21 +28,20 @@
     <br>
     <!-- Navigationsbar-->
     <ul class="navibar">
-        <li class="barItem"><a class="barItem" href="main_en.html">Home</a></li>
+        <li class="barItem"><a class="barItem">Home</a></li>
         <li class="barItem"><a class="barItem">Report</a></li>
         <li class="barItem"><a class="barItem">Absence</a></li>
         
-        <li style="float:right" class="barItem"> <a href="login_en.html" class="barItem">Logout</a></li>
+        <li style="float:right" class="barItem"> <a href="/src/main/resources/static/views/login_en.html" class="barItem">Logout</a></li>
         <li style="float:right" class="barItem">
             <a href="javascript:void(0)" class="barItemBtn">Languages</a>
             <div class="barItem-content">
               <a href="">English</a>
               <a href="">German</a>
           </div>
-          <li style="float:right" class="barItem"> <a class="barItem">Profile</a> </li>
+          <li style="float:right" class="barItem"> <a href="/src/main/resources/static/views/profile_en.html" class="barItem">Profile</a> </li>
     </ul>
 
-    <br>
     <div style="display: block; text-align: center;width: 100%;">
         <h1>Profile</h1>
     </div>
@@ -51,24 +50,16 @@
     <!-- Tabelle mit den Profilangaben-->
     <table id="weekTable" style="position: relative; margin: auto; width: 50px;"> 
         <tr>
-            <th style="text-align: center; min-width: 135px; height: 65px;"> Username: </th>
-            <td id ="profile_username"style="text-align: center; min-width: 235px; height: 65px;"> Admin1</td>
+            <th style="text-align: center; min-width: 135px; height: 55px;"> Username: </th>
+            <td style="text-align: center; min-width: 135px; height: 55px;"> Admin1</td>
         </tr>
         <tr>
-            <th style="text-align: center; min-width: 135px; height: 65px;"> Workload: </th>
-            <td id ="profile_workload"style="text-align: center; min-width: 235px; height: 55px;"> 100%</td>
+            <th style="text-align: center; min-width: 135px; height: 55px;"> Workload: </th>
+            <td style="text-align: center; min-width: 135px; height: 55px;"> 100%</td>
         </tr>
         <tr>
-            <th style="text-align: center; min-width: 135px; height: 65px;"> Working Days: </th>
-            <td id ="profile_workingDays" style="text-align: center; min-width: 235px; height: 65px;"> Mo, Tu, We, Th, Fr</td>
-        </tr>
-        <tr>
-            <th style="text-align: center; min-width: 135px; height: 65px;"> Target Hours (weekly): </th>
-            <td id ="profile_targetHours" style="text-align: center; min-width: 235px; height: 65px;"> 42</td>
-        </tr>
-        <tr>
-            <th style="text-align: center; min-width: 135px; height: 65px;"> Total Overhours: </th>
-            <td id ="profile_totalOverhours" style="text-align: center; min-width: 235px; height: 65px;"> 3.50</td>
+            <th style="text-align: center; min-width: 135px; height: 55px;"> Target Hours (weekly): </th>
+            <td style="text-align: center; min-width: 135px; height: 55px;"> 42</td>
         </tr>
     </table>
 
@@ -77,21 +68,18 @@
     <!-- Buttons, die der Administrator benötigt-->
     <div style="display: block; text-align: center; width: 100%;">
         <button style="margin-right: 20px;"> Change Password</button>
-        <button style="margin-right: 20px;" onclick="openEmployeeList();"> Edit employee list</button>
+        <button style="margin-right: 20px;"> Edit employee list</button>
+    
+    
     </div>
     
     <br>
     <br><br>
+    <div style="display: block; text-align: center;width: 100%;">
+    
+        <a href="/src/main/resources/static/views/main_en.html"> Back to Main </a>
+    </div>
    
-    <div class="footer"></div>
-
-    <script>
-        
-    function openEmployeeList (){
-        window.location.href = "employeeList_en.html";
-    }
-
-    </script>
     
 </body>
 </html>
