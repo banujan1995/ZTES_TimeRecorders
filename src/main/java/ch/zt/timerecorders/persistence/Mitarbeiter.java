@@ -1,5 +1,9 @@
-package ch.zt.timerecorders.businesslogic;
+package ch.zt.timerecorders.persistence;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import ch.zt.timerecorders.businesslogic.Pensum;
+import ch.zt.timerecorders.start.ServiceLocator;
 
 /**
  * 
@@ -8,18 +12,19 @@ package ch.zt.timerecorders.businesslogic;
  *
  */
 public class Mitarbeiter {
-
+	
 	public Long mitarbeiterID;
-	
 	public String name;
-	
 	public String vorname;
+	public String passwort; 
+	public Pensum pensum; 
 
-	public Mitarbeiter(String name, String vorname) {
+	
+	public Mitarbeiter(String name, String vorname, Pensum pensum) {
 		this.name = name;
 		this.vorname = vorname;
+		this.pensum = pensum; 
 	}
-	
 
 	public Long getMitarbeiterID() {
 		return mitarbeiterID;
