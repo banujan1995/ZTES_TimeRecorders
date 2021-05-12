@@ -5,8 +5,6 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import ch.zt.timerecorders.businesslogic.Mitarbeiter;
-
 /**
  * @author Banujan Ragunathan
  */
@@ -73,9 +71,6 @@ public class MitarbeiterRepository {
 		if (mitarbeiter.getMitarbeiterID() == 0) {
 			System.out.println("Zahl ist 0 - Kommentar weg nehmen");
 
-		} else {
-			
 		}
 	}
-
 }
