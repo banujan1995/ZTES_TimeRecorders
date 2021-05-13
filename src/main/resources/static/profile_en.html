@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="//code.jquery.com/jquery-1.12.4.min.js"></script>
     <script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-    <script src="jquery.weekpicker.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/flick/jquery-ui.css">
     <title>Profile</title>
 </head>
@@ -60,7 +59,22 @@
         </tr>
         <tr>
             <th style="text-align: center; min-width: 135px; height: 65px;"> Working Days: </th>
-            <td id ="profile_workingDays" style="text-align: center; min-width: 235px; height: 65px;"> Mo, Tu, We, Th, Fr</td>
+            <td id ="profile_workingDays" style="text-align: center; min-width: 155px; height: 65px;">
+                <label for="monday">Monday: </label> 
+                <input class="checkbox" type="checkbox" name="monday" id="addEmployee_monday" style="margin-left: 33px;" checked="true" disabled> 
+                <br>
+                <label for="tuesday">Tuesday: </label> 
+                <input class="checkbox" type="checkbox" name="tuesday" id="addEmployee_tuesday" style="margin-left: 29px;" checked="true" disabled>
+                <br>
+                <label for="wednesday">Wednesday: </label> 
+                <input class="checkbox" type="checkbox" name="wednesday" id="addEmployee_wednesday" style="margin-left: 5px;" checked="true" disabled>
+                <br>
+                <label for="thursday">Thursday: </label> 
+                <input class="checkbox" type="checkbox" name="thursday" id="addEmployee_thursday" style="margin-left: 23px;" checked="true" disabled>
+                <br>
+                <label for="friday">Friday: </label> 
+                <input class="checkbox" type="checkbox" name="friday" id="addEmployee_friday" style="margin-left: 45px;" checked="true" disabled>
+            </td>
         </tr>
         <tr>
             <th style="text-align: center; min-width: 135px; height: 65px;"> Target Hours (weekly): </th>

@@ -258,3 +258,9 @@ float: right;
     background-color:grey;
     color: white;
 }
+.total {
+    font-family: Arial;
+    font-size: 17px;
+    color: white;
+    font-weight: bold;
+}
