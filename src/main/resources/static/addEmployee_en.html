@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <html lang="en">
-    <link rel="stylesheet" href="/src/main/resources/static/css/style.css"">
+    <link rel="stylesheet" href="css/style.css"">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="//code.jquery.com/jquery-1.12.4.min.js"></script>
     <script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
@@ -29,15 +29,15 @@
     <!-- Navigationsbar-->
     <ul class="navibar">
         <li class="barItem"><a class="barItem" href="main_en.html">Home</a></li>
-        <li class="barItem"><a class="barItem">Report</a></li>
+        <li class="barItem"><a class="barItem" href="report_en.html">Report</a></li>
         <li class="barItem"><a class="barItem">Absence</a></li>
         
         <li style="float:right" class="barItem"> <a href="login_en.html" class="barItem">Logout</a></li>
         <li style="float:right" class="barItem">
             <a href="javascript:void(0)" class="barItemBtn">Languages</a>
             <div class="barItem-content">
-              <a href="">English</a>
-              <a href="">German</a>
+              <a>English</a>
+              <a>German</a>
           </div>
           <li style="float:right" class="barItem"> <a href="profile_en.html" class="barItem">Profile</a> </li>
     </ul>
@@ -100,8 +100,9 @@
     <br><br>
     <div style="display: block; text-align: center; width: 100%;">
         <td style="text-align: center; min-width: 135px; height: 55px;" > </td>
-        <button id ="addEmployee_confirm" style="margin-right: 20px;" onclick="addEmployee();" type="button" > Add Employee</button>
-        <button id ="addEmployee_cancel" style="margin-right: 20px;" onclick="reset();" type="button" > Reset</button>
+        <a href="employeeList_en.html" class="buttonLinks" style="text-decoration: none; margin-right: 20px; padding: 10px 37px;"> Return</a>
+        <button id ="addEmployee_confirm" style="margin-right: 20px;" onclick="addEmployee();" type="button" class="button"> Add Employee</button>
+        <button id ="addEmployee_cancel" onclick="reset();" type="button" class="button"> Reset</button>
      </div>
 
     <div class="footer"></div>
@@ -120,6 +121,7 @@
             var message = ("Dear Admin \n\nThe employee "+ surname+" "+familyname+" has been added! \n\nThe assigned username is: "+username);
             alert(message)
             reset();
+            backToEmployeeList();
             }
         }
 
@@ -189,7 +191,7 @@
 
             //alle Textfelder müssen einen Wert aufweise + mind. 1 Arbeitstag muss erfasst sein
             //TODO:
-            if (surname==="" && familyname==="" && username==="" && password==="" && passwordRepeat===""  && checkBoxCounter === 0 || checkBoxCounter){
+            if (surname==="" && familyname==="" && username==="" && password==="" && passwordRepeat===""  && checkBoxCounter == 0){
 
                 var message = ("Dear Admin \n\nPlease fill out all the textfields and check all employees working days!!");
                 alert(message);
@@ -197,6 +199,10 @@
             }
             return true;
 
+        }
+
+        function backToEmployeeList(){
+            window.location.href = "employeeList_en.html";
         }
 
     </script>
