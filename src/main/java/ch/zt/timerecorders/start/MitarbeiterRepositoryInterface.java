@@ -1,78 +1,21 @@
 package ch.zt.timerecorders.start;
 
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
+
 
 /**
- * @author Banujan Ragunathan
+ * @author Kiren Gondal
  */
 @Repository
-public interface MitarbeiterRepositoryInterface extends CrudRepository<Mitarbeiter, Long> {
+public interface MitarbeiterRepositoryInterface extends JpaRepository<Mitarbeiter, Long> {
+	
+	public List<Mitarbeiter> findByMitarbeiterID(long mitarbeiterID);
+	
 
-//	private List<Mitarbeiter> mitarbeiterList = new ArrayList<>();
-//	private final int START_OF_MITARBEITERID = 100;
-//	public final String MITARBEITER_CODE = "MA";
-//
-//	public List<Mitarbeiter> getMitarbeiterList() {
-//		return mitarbeiterList;
-//	}
-//
-//	//Hier wird der Mitarbeiter Hauptklasse in die ArrayList eingetragen.
-//	public void addMitarbeiter(Mitarbeiter mitarbeiter) {
-//		int localHöchstMöglicheMitarbeiterID = 0;
-//		Mitarbeiter localMB;
-//
-//		// ID wird vor dem Abspeichern noch vergeben als letzter Ansatz (BR)
-//		boolean freierPlatz = false;
-//
-//		// freier Platz im Array (BR)
-//		if (mitarbeiterList.size() == 0) {
-//			freierPlatz = true;
-//			localHöchstMöglicheMitarbeiterID = 0;
-//			freierPlatz = false;
-//		} else {
-//
-//			if (freierPlatz == false) {
-//
-//				for (int i = 0; i <= mitarbeiterList.size() - 1; i++) {
-//					localMB = mitarbeiterList.get(i);
-//					localHöchstMöglicheMitarbeiterID += 1;
-//				}
-//				freierPlatz = true;
-//			}
-//		}
-//		mitarbeiter.setIntMitarbeiterID((long) (START_OF_MITARBEITERID + localHöchstMöglicheMitarbeiterID));
-//		konkatMitarbeiterID(mitarbeiter);
-//		mitarbeiterList.add(mitarbeiter);
-//
-//	}
-//
-//	public Mitarbeiter getSingleMitarbeiter(String mitarbeiterID) {
-//		boolean mitarbeiterFound = false;
-//		Mitarbeiter mitarbeiter = null;
-//		int localMitarbeiterID = Integer.parseInt(mitarbeiterID.trim().substring(3));
-//
-//		for (int i = 0; i <= mitarbeiterList.size(); i++) {
-//			Mitarbeiter localMitarbeiter = mitarbeiterList.get(i);
-//
-//			if (localMitarbeiter.getMitarbeiterID() == localMitarbeiterID) {
-//				mitarbeiter = localMitarbeiter;
-//				mitarbeiterFound = true;
-//			}
-//		}
-//		return mitarbeiter;
-//	}
-//
-//	public void konkatMitarbeiterID(Mitarbeiter mitarbeiter) {
-//
-//		if (mitarbeiter.getMitarbeiterID() == 0) {
-//			System.out.println("Zahl ist 0 - Kommentar weg nehmen");
-//
-//		} else {
-//			System.out.println("MITARBEITER_CODE" + mitarbeiter.getMitarbeiterID());
-//		}
-//	}
+	 
 
 }

@@ -11,12 +11,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Repository;
 
-import ch.zt.timerecorders.businesslogic.Administrator;
 import ch.zt.timerecorders.persistence.AdministratorenRepository;
 import ch.zt.timerecorders.persistence.MitarbeiterRepository;
 
 @SpringBootApplication
-@ComponentScan({"ch.zt.timerecorders.persistence", "ch.zt.timerecorders.businesslogic", "ch.zt.timerecorders.services", "views" }) //Referenz, wenn es in den verschiedenen Packages ist. (BR)
+@ComponentScan({"ch.zt.timerecorders.start","ch.zt.timerecorders.persistence", "ch.zt.timerecorders.businesslogic", "ch.zt.timerecorders.services", "views" }) //Referenz, wenn es in den verschiedenen Packages ist. (BR)
 public class ZeiterfassungssystemTimeRecordersApplication {
 	
 	@Autowired
@@ -26,10 +25,10 @@ public class ZeiterfassungssystemTimeRecordersApplication {
 	private AdministratorenRepository administratorRepository; 
 	
 	@Autowired
-	private MitarbeiterRepositoryInterface mitarbeiterRepo; 
+	private AdministratorRepositoryInterface adminRepo; 
 	
-
-
+	@Autowired MitarbeiterRepositoryInterface maRepo;
+	
 	
 	public static void main(String[] args) {
 		SpringApplication.run(ZeiterfassungssystemTimeRecordersApplication.class, args);

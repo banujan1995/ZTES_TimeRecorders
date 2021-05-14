@@ -7,8 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import ch.zt.timerecorders.businesslogic.Administrator;
 import ch.zt.timerecorders.persistence.AdministratorenRepository;
+import ch.zt.timerecorders.start.Administrator;
 
 /**
  * 

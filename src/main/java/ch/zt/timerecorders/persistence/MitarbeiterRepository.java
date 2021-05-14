@@ -48,36 +48,36 @@ public class MitarbeiterRepository {
 				freierPlatz = true;
 			}
 		}
-		mitarbeiter.setIntMitarbeiterID((long) (START_OF_MITARBEITERID + localHöchstMöglicheMitarbeiterID));
-		konkatMitarbeiterID(mitarbeiter);
-		mitarbeiterList.add(mitarbeiter);
-
+//		mitarbeiter.setIntMitarbeiterID((long) (START_OF_MITARBEITERID + localHöchstMöglicheMitarbeiterID));
+//		konkatMitarbeiterID(mitarbeiter);
+//		mitarbeiterList.add(mitarbeiter);
+//
+//	}
+//
+//	public Mitarbeiter getSingleMitarbeiter(String mitarbeiterID) {
+//		boolean mitarbeiterFound = false;
+//		Mitarbeiter mitarbeiter = null;
+//		int localMitarbeiterID = Integer.parseInt(mitarbeiterID.trim().substring(3));
+//
+//		for (int i = 0; i <= mitarbeiterList.size(); i++) {
+//			Mitarbeiter localMitarbeiter = mitarbeiterList.get(i);
+//
+//			if (localMitarbeiter.getMitarbeiterID() == localMitarbeiterID) {
+//				mitarbeiter = localMitarbeiter;
+//				mitarbeiterFound = true;
+//			}
+//		}
+//		return mitarbeiter;
+//	}
+//
+//	public void konkatMitarbeiterID(Mitarbeiter mitarbeiter) {
+//
+//		if (mitarbeiter.getMitarbeiterID() == 0) {
+//			System.out.println("Zahl ist 0 - Kommentar weg nehmen");
+//
+//		} else {
+//			System.out.println("MITARBEITER_CODE" + mitarbeiter.getMitarbeiterID());
+//		}
+//	}
 	}
-
-	public Mitarbeiter getSingleMitarbeiter(String mitarbeiterID) {
-		boolean mitarbeiterFound = false;
-		Mitarbeiter mitarbeiter = null;
-		int localMitarbeiterID = Integer.parseInt(mitarbeiterID.trim().substring(3));
-
-		for (int i = 0; i <= mitarbeiterList.size(); i++) {
-			Mitarbeiter localMitarbeiter = mitarbeiterList.get(i);
-
-			if (localMitarbeiter.getMitarbeiterID() == localMitarbeiterID) {
-				mitarbeiter = localMitarbeiter;
-				mitarbeiterFound = true;
-			}
-		}
-		return mitarbeiter;
-	}
-
-	public void konkatMitarbeiterID(Mitarbeiter mitarbeiter) {
-
-		if (mitarbeiter.getMitarbeiterID() == 0) {
-			System.out.println("Zahl ist 0 - Kommentar weg nehmen");
-
-		} else {
-			System.out.println("MITARBEITER_CODE" + mitarbeiter.getMitarbeiterID());
-		}
-	}
-
 }

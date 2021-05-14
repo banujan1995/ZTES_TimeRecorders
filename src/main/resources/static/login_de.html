@@ -40,7 +40,8 @@
 	<label for="loginUsername" class="text"><b>Benutzername:
 	</b></label>
 	<input type="text" placeholder="Enter username" name="loginUsername"
-		class="textField" required>
+		class="textField" id="loginUserName_EN"required>
+	<td>
 
 	<br>
 	<br>
@@ -79,7 +80,7 @@
 	<br>
 
 
-	<button class="button" onclick="load(); checkInputs(); setTimeout(openOverview, 2000)" > Anmelden</button>
+	<button class="button" onclick="load(), checkInputs(), openOverview()" > Anmelden</button>
 
 	<br>
 	<br>
@@ -147,7 +148,17 @@
 		function openOverview(){
         window.location.href = "/main";
       }
-
+		
+			
+			function formdata() 
+			{
+			var firstname1= document.getElementById("loginUserName_EN").value;
+			var lastname1= document.getElementById("loginPassword_EN").value;
+			document.writeln("<h1>Confirmation Page</h1><br>");
+			document.writeln("Thank you for completing this form.<br><br>");
+			document.writeln("The first name you entered is " + firstname1 + "<br>");
+			document.writeln("The last name you entered is " + firstname1);
+			}
   
   
           </script>

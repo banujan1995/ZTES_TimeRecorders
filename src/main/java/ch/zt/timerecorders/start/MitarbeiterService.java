@@ -52,11 +52,10 @@ public class MitarbeiterService {
 	 * 
 	 */
 	
-	@GetMapping("/login")
+	@RequestMapping(method = RequestMethod.GET, value = "/login")
 	public String showLogin(Model model) {
-	model.addAttribute("m1", new Mitarbeiter());
 		
-		return "login_de.html";
+		return "addEmployee.html";
 	}
 	
 	

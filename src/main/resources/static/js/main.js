@@ -4,7 +4,7 @@
 
 $(document).ready(function() {
 	console.log("Zeiterfassungssystem der JKB wurde gestartet");
-	$.getJSON("http://localhost:8081/timerecorders/erfasstemitarbeiter").done(handleMitarbeiterListReply)
+	$.pushJSON("http://localhost:8081/addEmployee").done(handleMitarbeiterListReply)
 
 });
 
@@ -12,24 +12,15 @@ $(document).ready(function() {
 // Funktion Kundenliste befüllen
 //////////////////////////////////
 
-function handleMitarbeiterListReply(erfasstemitarbeiter) {
-	console.log(erfasstemitarbeiter)
-	$("#tblMitarbeiterliste tbody").empty();
-	for (let mitarbeiter of erfasstemitarbeiter) {
-		fillupTablewithContent(mitarbeiter);
-
-	}
-
-	function fillupTablewithContent(mitarbeiter) {
-
-		var newRow = "<tr>";
-		newRow += "<td>" + mitarbeiter['name'] + "</td>";
-		newRow += "<td>" + mitarbeiter['vorname'] + "</td>";
-		newRow += "<td>" + mitarbeiter['mitarbeiterID'] + "</td>";
-		newRow += "</tr>";
-
-		$("#tblMitarbeiterliste tbody").append(newRow);
-	}
-
-
+	function addEmployee(mitarbeiter){
+    var link = "createNewMa("+mitarbeiter["id"]+")";
+    	
+    var newRow = "<tr>";
+    newRow += "<td><a href=\""+link+"\">" + mitarbeiter['name'] + " " + mitarbeiter['passwort'] + "</a></td>";
+    newRow += "<td>" + mitarbeiter['pensum'] + "</td>";
+    newRow += "</tr>";
+    	
+    $("#tblnewMA tbody").append(newRow);	
 }
+
+
