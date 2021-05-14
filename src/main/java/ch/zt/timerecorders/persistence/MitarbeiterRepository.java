@@ -14,7 +14,7 @@ public class MitarbeiterRepository {
 
 	private List<Mitarbeiter> mitarbeiterList = new ArrayList<>();
 	private final int START_OF_MITARBEITERID = 100;
-	public final String MITARBEITER_CODE = "MA";
+	
 
 	public List<Mitarbeiter> getMitarbeiterList() {
 		return mitarbeiterList;
@@ -44,21 +44,48 @@ public class MitarbeiterRepository {
 				freierPlatz = true;
 			}
 		}
-		mitarbeiter.setIntMitarbeiterID((long) (START_OF_MITARBEITERID + localHöchstMöglicheMitarbeiterID));
-		konkatMitarbeiterID(mitarbeiter);
+		mitarbeiter.setMitarbeiterID((long) (START_OF_MITARBEITERID + localHöchstMöglicheMitarbeiterID));
+//		konkatMitarbeiterID(mitarbeiter);
 		mitarbeiterList.add(mitarbeiter);
 
 	}
+	
+//	public void konkatMitarbeiterID(Mitarbeiter mitarbeiter) {
+//
+//		if (mitarbeiter.getMitarbeiterID() == 0) {
+//			System.out.println("Zahl ist 0 - Kommentar weg nehmen");
+//
+//		}
+//	}
+	
 
-	public Mitarbeiter getSingleMitarbeiter(String mitarbeiterID) {
+	//Soll Objekt mit dem Mitarbeiter zurückgeben bzw. den ganzen Mitarbeiter - mit MitarbeiterID (BR)
+	public Mitarbeiter getSingleMitarbeiterID(int mitarbeiterID) {
 		boolean mitarbeiterFound = false;
 		Mitarbeiter mitarbeiter = null;
-		int localMitarbeiterID = Integer.parseInt(mitarbeiterID.trim().substring(3));
 
-		for (int i = 0; i <= mitarbeiterList.size(); i++) {
+		for (int i = 0; i <= mitarbeiterList.size() - 1; i++) {
 			Mitarbeiter localMitarbeiter = mitarbeiterList.get(i);
 
-			if (localMitarbeiter.getMitarbeiterID() == localMitarbeiterID) {
+			if (localMitarbeiter.getMitarbeiterID() == mitarbeiterID) {
+				mitarbeiter = localMitarbeiter;
+				mitarbeiterFound = true;
+			} else {
+				mitarbeiterFound = false; 
+			}
+		}
+		return mitarbeiter;
+	}
+	
+	//Soll Objekt mit dem Mitarbeiter zurückgeben bzw. den ganzen Mitarbeiter - mit Name (BR)
+	public Mitarbeiter getSingleMitarbeiterName(String name) {
+		boolean mitarbeiterFound = false;
+		Mitarbeiter mitarbeiter = null;
+
+		for (int i = 0; i <= mitarbeiterList.size() - 1; i++) {
+			Mitarbeiter localMitarbeiter = mitarbeiterList.get(i);
+
+			if (localMitarbeiter.getName().equalsIgnoreCase(name)) {
 				mitarbeiter = localMitarbeiter;
 				mitarbeiterFound = true;
 			}
@@ -66,11 +93,5 @@ public class MitarbeiterRepository {
 		return mitarbeiter;
 	}
 
-	public void konkatMitarbeiterID(Mitarbeiter mitarbeiter) {
-
-		if (mitarbeiter.getMitarbeiterID() == 0) {
-			System.out.println("Zahl ist 0 - Kommentar weg nehmen");
-
-		}
-	}
+	
 }

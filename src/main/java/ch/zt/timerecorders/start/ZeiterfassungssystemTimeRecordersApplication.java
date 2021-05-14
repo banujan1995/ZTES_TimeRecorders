@@ -50,10 +50,10 @@ public class ZeiterfassungssystemTimeRecordersApplication {
 
 	@PostConstruct
 	public void createTestData() {
-		Mitarbeiter mariaAndreas = new Mitarbeiter("Andreas", "Maria", Pensum.HundertProzent);
-		Mitarbeiter kirenGondal = new Mitarbeiter("Gondal", "Kiren", Pensum.HundertProzent);
-		Mitarbeiter jordiSchmidlin = new Mitarbeiter("Schmidlin", "Jordi", Pensum.HundertProzent);
-		Mitarbeiter banujanRagunathan = new Mitarbeiter("Ragunathan", "Banujan", Pensum.HundertProzent);
+		Mitarbeiter mariaAndreas = new Mitarbeiter("Andreas", "Maria", "1234", Pensum.HundertProzent);
+		Mitarbeiter kirenGondal = new Mitarbeiter("Gondal", "Kiren","1234", Pensum.HundertProzent);
+		Mitarbeiter jordiSchmidlin = new Mitarbeiter("Schmidlin", "Jordi", "1234", Pensum.HundertProzent);
+		Mitarbeiter banujanRagunathan = new Mitarbeiter("Ragunathan", "Banujan","1234", Pensum.HundertProzent);
 		mitarbeiterRepository.addMitarbeiter(mariaAndreas);
 		mitarbeiterRepository.addMitarbeiter(kirenGondal);
 		mitarbeiterRepository.addMitarbeiter(jordiSchmidlin);
