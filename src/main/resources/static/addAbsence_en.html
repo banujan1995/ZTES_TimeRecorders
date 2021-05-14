@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <html lang="en">
     <link rel="stylesheet" href="css/style.css"">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="//code.jquery.com/jquery-1.12.4.min.js"></script>
-    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-    <script src="jquery.weekpicker.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/flick/jquery-ui.css">
     <title>Add new absence</title>
 </head>
@@ -50,20 +50,23 @@
     <!-- Tabelle um neuen MA hinzuzufügen-->
     <table id="table" style="position: relative; margin: auto; width: 50px;"> 
         <tr>
-            <th style="text-align: center; min-width: 175px; height: 65px;"> From: </th>
-            <td style="text-align: center; min-width: 235px; height: 65px;"> <input type="text" id="addAbsence_from"></td>
-        </tr>
-        <tr>
-            <th style="text-align: center; min-width: 175px; height: 65px;"> To: </th>
-            <td style="text-align: center; min-width: 235px; height: 65px;"> <input type="text" id="addAbsence_to"></td>
+            <th style="text-align: center; min-width: 175px; height: 65px;"> Period: </th>
+            <td style="text-align: center; min-width: 235px; height: 65px;"> <input type="text" name="daterange" id="daterange"></td>
         </tr>
         <tr>
             <th style="text-align: center; min-width: 175px; height: 65px;"> Reason: </th>
-            <td style="text-align: center; min-width: 235px; height: 65px;"> <input type="text" id="addAbsence_reason"></td>
+            <td style="text-align: center; min-width: 235px; height: 65px;"> 
+                <select id="absenceReason" style="min-width: 155px; align-content: center;" required> 
+                    <option class = "options">Please Select</option>
+                    <option class = "options">Holidays</option>
+                    <option class = "options">Relocation</option>
+                    <option class = "options">Sickness</option>
+                </select>
+            </td>
         </tr>
         <tr>
             <th style="text-align: center; min-width: 175px; height: 65px;"> Number of working days:</th>
-            <td style="text-align: center; min-width: 235px; height: 65px;"> <input type="text" id="addAbsence_numberOfDays"></td>
+            <td style="text-align: center; min-width: 235px; height: 65px;"> <p id="addAbsence_numberOfDays"></p></td>
         </tr>
     </table>
 
@@ -77,29 +80,61 @@
 
     <div class="footer"></div>
 
-    <script>
 
-        // fügt einen neuen MA hinzu + Erfolgsmeldung
-        function addEmployee(){
+    <script type="text/javascript">
+        // Jquery für Abwesenheitserfassung
+        // full credits to: https://daterangepicker.com/
+        $(function() {
 
-            if (validUserInput()) {
-            var surname = document.getElementById("addEmployee_givenname").value;
-            var familyname = document.getElementById("addEmployee_familyname").value;
-            var username = document.getElementById("addEmployee_username").value;
+            //Konfiguration
+            $('#daterange').daterangepicker({
+                "minYear": 2021,
+                "autoUpdateInput": false,
+                "showWeekNumbers": true,
+                "minDate": "01/01/2021",
+                "opens": "center",
+                "drops": "down", 
+                locale: { 
+                    cancelLabel: 'Clear',
+                    daysOfWeek: [
+                    "Mo",
+                    "Tu",
+                    "We",
+                    "Th",
+                    "Fr",
+                    "Sa",
+                    "Su"
+                    ], 
+                }  
+            });
 
-            // Erfolgsmeldung
-            var message = ("Dear Admin \n\nThe employee "+ surname+" "+familyname+" has been added! \n\nThe assigned username is: "+username);
-            alert(message)
-            reset();
-            backToEmployeeList();
-            }
-        }
+            //reset-Funktion
+            $('#daterange').on('cancel.daterangepicker', function(ev, picker) {
+                $('#daterange').val('');
+            });
+
+            $('#daterange').on('apply.daterangepicker', function(ev, picker) {
+                 $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
+                
+                var startDate = picker.startDate;
+                var endDate = picker.endDate;
+
+                // Berechnung Anzahl Tage
+                // full credits to: https://stackoverflow.com/questions/2627473/how-to-calculate-the-number-of-days-between-two-dates
+                const oneDay = 24 * 60 * 60 * 1000; 
+                const firstDate = picker.startDate;
+                const secondDate = picker.endDate;
+
+                const diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay));
+                document.getElementById("addAbsence_numberOfDays").innerHTML = diffDays;
+            });    
+        });
 
         // Leert alle mögliche Eingabemöglichkeiten
         function reset(){
-            document.getElementById("addAbsence_from").value ="";
-            document.getElementById("addAbsence_to").value ="";
-            document.getElementById("addAbsence_reason").value ="";
+            document.getElementById("daterange").value ="";
+            var dropDown = document.getElementById("absenceReason");
+            dropDown.selectedIndex = 0;
             document.getElementById("addAbsence_numberOfDays").value ="";
         }
 
