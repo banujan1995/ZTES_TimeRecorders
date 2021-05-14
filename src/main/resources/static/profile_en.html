@@ -5,11 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <html lang="en">
-    <link rel="stylesheet" href="/src/main/resources/static/css/style.css"">
+    <link rel="stylesheet" href="css/style.css"">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="//code.jquery.com/jquery-1.12.4.min.js"></script>
     <script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-    <script src="jquery.weekpicker.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/flick/jquery-ui.css">
     <title>Profile</title>
 </head>
@@ -29,15 +28,15 @@
     <!-- Navigationsbar-->
     <ul class="navibar">
         <li class="barItem"><a class="barItem" href="main_en.html">Home</a></li>
-        <li class="barItem"><a class="barItem">Report</a></li>
+        <li class="barItem"><a class="barItem" href="report_en.html">Report</a></li>
         <li class="barItem"><a class="barItem">Absence</a></li>
         
         <li style="float:right" class="barItem"> <a href="login_en.html" class="barItem">Logout</a></li>
         <li style="float:right" class="barItem">
             <a href="javascript:void(0)" class="barItemBtn">Languages</a>
             <div class="barItem-content">
-              <a href="">English</a>
-              <a href="">German</a>
+                <a>English</a>
+                <a>German</a>
           </div>
           <li style="float:right" class="barItem"> <a class="barItem">Profile</a> </li>
     </ul>
@@ -60,7 +59,22 @@
         </tr>
         <tr>
             <th style="text-align: center; min-width: 135px; height: 65px;"> Working Days: </th>
-            <td id ="profile_workingDays" style="text-align: center; min-width: 235px; height: 65px;"> Mo, Tu, We, Th, Fr</td>
+            <td id ="profile_workingDays" style="text-align: center; min-width: 155px; height: 65px;">
+                <label for="monday">Monday: </label> 
+                <input class="checkbox" type="checkbox" name="monday" id="addEmployee_monday" style="margin-left: 33px;" checked="true" disabled> 
+                <br>
+                <label for="tuesday">Tuesday: </label> 
+                <input class="checkbox" type="checkbox" name="tuesday" id="addEmployee_tuesday" style="margin-left: 29px;" checked="true" disabled>
+                <br>
+                <label for="wednesday">Wednesday: </label> 
+                <input class="checkbox" type="checkbox" name="wednesday" id="addEmployee_wednesday" style="margin-left: 5px;" checked="true" disabled>
+                <br>
+                <label for="thursday">Thursday: </label> 
+                <input class="checkbox" type="checkbox" name="thursday" id="addEmployee_thursday" style="margin-left: 23px;" checked="true" disabled>
+                <br>
+                <label for="friday">Friday: </label> 
+                <input class="checkbox" type="checkbox" name="friday" id="addEmployee_friday" style="margin-left: 45px;" checked="true" disabled>
+            </td>
         </tr>
         <tr>
             <th style="text-align: center; min-width: 135px; height: 65px;"> Target Hours (weekly): </th>
@@ -72,12 +86,12 @@
         </tr>
     </table>
 
-    <br><br>
+    <br><br><br>
 
     <!-- Buttons, die der Administrator benötigt-->
     <div style="display: block; text-align: center; width: 100%;">
-        <button style="margin-right: 20px;"> Change Password</button>
-        <button style="margin-right: 20px;" onclick="openEmployeeList();"> Edit employee list</button>
+        <a href="profile_en.html" class="buttonLinks" style="margin-right: 20px; text-decoration: none;"> Change Password</a>
+        <a href="employeeList_en.html" class="buttonLinks" style="text-decoration: none;"> Edit employee list</a>
     </div>
     
     <br>
@@ -86,10 +100,7 @@
     <div class="footer"></div>
 
     <script>
-        
-    function openEmployeeList (){
-        window.location.href = "employeeList_en.html";
-    }
+    
 
     </script>
     

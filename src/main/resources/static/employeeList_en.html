@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <html lang="en">
-    <link rel="stylesheet" href="/src/main/resources/static/css/style.css"">
+    <link rel="stylesheet" href="css/style.css"">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="//code.jquery.com/jquery-1.12.4.min.js"></script>
     <script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
@@ -29,15 +29,15 @@
     <!-- Navigationsbar-->
     <ul class="navibar">
         <li class="barItem"><a class="barItem" href="main_en.html">Home</a></li>
-        <li class="barItem"><a class="barItem">Report</a></li>
+        <li class="barItem"><a class="barItem" href="report_en.html">Report</a></li>
         <li class="barItem"><a class="barItem">Absence</a></li>
         
         <li style="float:right" class="barItem"> <a href="login_en.html" class="barItem">Logout</a></li>
         <li style="float:right" class="barItem">
             <a href="javascript:void(0)" class="barItemBtn">Languages</a>
             <div class="barItem-content">
-              <a href="">English</a>
-              <a href="">German</a>
+                <a>English</a>
+                <a>German</a>
           </div>
           <li style="float:right" class="barItem"> <a href="profile_en.html" class="barItem">Profile</a> </li>
     </ul>
@@ -75,24 +75,24 @@
                     <td id ="employeeList_workload1" style="text-align: center; min-width: 155px; height: 65px;">100%</td>
                     <td id ="employeeList_workingDays1" style="text-align: center; min-width: 155px; height: 65px;">
                         <label for="monday">Monday: </label> 
-                        <input class="checkbox" type="checkbox" name="monday" id="employeeList_monday1" style="margin-left: 33px;" checked ="true" disabled> 
+                        <input class="checkbox0" type="checkbox" name="monday" id="employeeList_monday1" style="margin-left: 33px;" checked ="true" disabled> 
                         <br>
                         <label for="tuesday">Tuesday: </label> 
-                        <input class="checkbox" type="checkbox" name="tuesday" id="employeeList_tuesday1" style="margin-left: 29px;" checked ="true" disabled>
+                        <input class="checkbox0" type="checkbox" name="tuesday" id="employeeList_tuesday1" style="margin-left: 29px;" checked ="true" disabled>
                         <br>
                         <label for="wednesday">Wednesday: </label> 
-                        <input class="checkbox" type="checkbox" name="wednesday" id="employeeList_wednesday1" style="margin-left: 5px;" checked ="true" disabled>
+                        <input class="checkbox0" type="checkbox" name="wednesday" id="employeeList_wednesday1" style="margin-left: 5px;" checked ="true" disabled>
                         <br>
                         <label for="thursday">Thursday: </label> 
-                        <input class="checkbox" type="checkbox" name="thursday" id="employeeList_thursday1" style="margin-left: 23px;" checked ="true" disabled>
+                        <input class="checkbox0" type="checkbox" name="thursday" id="employeeList_thursday1" style="margin-left: 23px;" checked ="true" disabled>
                         <br>
-                        <label for="friday">Friday: </label> 
+                        <label for="friday0">Friday: </label> 
                         <input class="checkbox" type="checkbox" name="friday" id="employeeList_friday1" style="margin-left: 45px;" checked ="true" disabled>
                         <td style="text-align: center; min-width: 155px; height: 65px;"> 
-                            <button onclick="editEmployee(this);" type="button" > Edit </button> 
+                            <button onclick="editEmployee(this);" class="buttonEmployeeList" id ="button0" type="button" > Edit </button> 
                             <br>
                             <br>
-                            <button onclick="deleteEmployee(this);" type="button" > Delete </button> 
+                            <button onclick="deleteEmployee(this);" class="buttonEmployeeList" type="button" > Delete </button> 
                         </td>
                     </td>
                 </tr>
@@ -116,10 +116,10 @@
                         <label for="friday">Friday: </label> 
                         <input class="checkbox" type="checkbox" name="friday" id="employeeList_friday2" style="margin-left: 45px;" disabled>
                         <td style="text-align: center; min-width: 155px; height: 65px;"> 
-                            <button onclick="editEmployee(this);" type="button" > Edit </button> 
+                            <button onclick="editEmployee(this);" class="buttonEmployeeList" type="button" > Edit </button> 
                             <br>
                             <br>
-                            <button onclick="deleteEmployee(this);" type="button" > Delete </button> 
+                            <button onclick="deleteEmployee(this);" class="buttonEmployeeList" type="button" > Delete </button> 
                         </td>
                     </td>
                 <tr id="employee3" class="row">
@@ -142,10 +142,10 @@
                             <label for="friday">Friday: </label> 
                             <input class="checkbox" type="checkbox" name="friday" id="employeeList_friday3" style="margin-left: 45px;" checked ="true" disabled>
                             <td style="text-align: center; min-width: 155px; height: 65px;"> 
-                                <button onclick="editEmployee(this);" type="button" > Edit </button> 
+                                <button onclick="editEmployee(this);" class="buttonEmployeeList" type="button" > Edit </button> 
                                 <br>
                                 <br>
-                                <button onclick="deleteEmployee(this);" type="button" > Delete </button> 
+                                <button onclick="deleteEmployee(this);" class="buttonEmployeeList" type="button" > Delete </button> 
                             </td>
                         </td>
                     </tr>
@@ -169,10 +169,10 @@
                             <label for="friday">Friday: </label> 
                             <input class="checkbox" type="checkbox" name="friday" id="employeeList_friday4" style="margin-left: 45px;" disabled>
                             <td style="text-align: center; min-width: 155px; height: 65px;"> 
-                                <button onclick="editEmployee(this);" type="button" > Edit </button> 
+                                <button onclick="editEmployee(this);" class="buttonEmployeeList" type="button" > Edit </button> 
                                 <br>
                                 <br>
-                                <button onclick="deleteEmployee(this);" type="button" > Delete </button> 
+                                <button onclick="deleteEmployee(this);" class="buttonEmployeeList" type="button" > Delete </button> 
                             </td>
                         </td>
                     </tr>
@@ -196,10 +196,10 @@
                             <label for="friday">Friday: </label> 
                             <input class="checkbox" type="checkbox" name="friday" id="employeeList_friday5" style="margin-left: 45px;" disabled></td>
                             <td style="text-align: center; min-width: 155px; height: 65px;"> 
-                                <button onclick="editEmployee(this);" type="button" > Edit </button> 
+                                <button onclick="editEmployee(this);" class="buttonEmployeeList" type="button"> Edit </button> 
                                 <br>
                                 <br>
-                                <button onclick="deleteEmployee(this);" type="button" > Delete </button> 
+                                <button onclick="deleteEmployee(this);" class="buttonEmployeeList" type="button" > Delete </button> 
                             </td>
                     </tr>
                </table>  
@@ -211,7 +211,8 @@
       <br><br>
       <div style="display: block; text-align: center; width: 100%;">
         <td id ="employeeList_workload1" style="text-align: center; min-width: 135px; height: 55px;" > </td>
-        <button style="margin-right: 20px;" onclick="addEmployee();" type="button" > Add Employee</button>
+        <a href="profile_en.html" class="buttonLinks" style="margin-right: 20px; text-decoration: none;"> Return to Profile</a>
+        <a href="addEmployee_en.html" class="buttonLinks" style="text-decoration: none;"> Add Employee</a>
      </div>
    
     <div class="footer"></div>
@@ -219,22 +220,13 @@
     <script>
 
 
-        function addEmployee(){
-            window.location.href = "addEmployee_en.html";
-        }
-
-
         function editEmployee(x){
 
             var row = x.parentNode.parentNode.rowIndex;
 
-            var a =document.getElementsByClassName("checkbox").rowIndex(row);
-
-            alert(a);
+            var y = document.getElementsByClassName("checkbox"+x).disabled = false;
             //document.getElementById("employeeTableContent").rowIndex(row).cells[3].disable = false;
             //document.getElementsByClassName("checkbox").disabled = true;
-
-
         }
 
         //Mitarbeiter löschen
@@ -247,6 +239,7 @@
             } else {
              }
         }
+
 
     </script>
     
