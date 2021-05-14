@@ -30,7 +30,7 @@
     <ul class="navibar">
         <li class="barItem"><a class="barItem">Home</a></li>
         <li class="barItem"><a class="barItem" href="report_en.html">Report</a></li>
-        <li class="barItem"><a class="barItem">Absence</a></li>
+        <li class="barItem"><a class="barItem" href="absence_en.html"> Absence</a></li>
         
         <li style="float:right" class="barItem"> <a href="login_en.html" class="barItem">Logout</a></li>
         <li style="float:right" class="barItem">
@@ -53,7 +53,7 @@
     <div style="display: block; text-align: center;width: 100%;">
         <label for="week_ww_yyyy" >Select a week</label>
 		<input type="text" id="week_ww_yyyy" ></input>
-        <button class="buttonEmployeeList" onclick="getChoosenDay();"> Validate</button>
+        <button class="buttonList" onclick="getChoosenDay();"> Validate</button>
     </div>
     
     <br>
@@ -62,7 +62,7 @@
     <br>
 
     <!-- Wochentabelle, Datum je nach Auswahl im Kalender + Button: Validieren-->
-    <table id="weekTable" style="position: relative; margin: auto; width: 1215px;" title="Use Format: hh:mm"> 
+    <table id="table" style="position: relative; margin: auto; width: 1215px;" title="Use Format: hh:mm"> 
         <tr>
             <th style="text-align: center; min-width: 135px; height: 55px;"> Weektable: </th>
             <th style="text-align: center; min-width: 135px;" id="firstDayofWeek"> </th>

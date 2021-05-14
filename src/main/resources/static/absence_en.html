@@ -1,0 +1,142 @@
+<!-- erstellt durch Jordi Schmidlin-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <html lang="en">
+    <link rel="stylesheet" href="css/style.css"">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="//code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/flick/jquery-ui.css">
+    <title>Absence</title>
+</head>
+<body style="background-color: whitesmoke" > 
+    
+    <br>
+    <br>
+    <div style="max-width: 350px; position: relative; margin: auto;" >
+    <img src="css/images/Logo.png" alt="Logo" class= "logo" style="max-width: 350px;" > 
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <!-- Navigationsbar-->
+    <ul class="navibar">
+        <li class="barItem"><a class="barItem" href="main_en.html">Home</a></li>
+        <li class="barItem"><a class="barItem" href="report_en.html">Report</a></li>
+        <li class="barItem"><a class="barItem">Absence</a></li>
+        
+        <li style="float:right" class="barItem"> <a href="login_en.html" class="barItem">Logout</a></li>
+        <li style="float:right" class="barItem">
+            <a href="javascript:void(0)" class="barItemBtn">Languages</a>
+            <div class="barItem-content">
+                <a>English</a>
+                <a>German</a>
+          </div>
+          <li style="float:right" class="barItem"> <a href="profile_en.html" class="barItem">Profile</a> </li>
+    </ul>
+    <br>
+    <div style="display: block; text-align: center;width: 100%;">
+        <h1>Absence</h1>
+    </div>
+    <br><br>
+    <!-- Tabelle mit aktuell erfassten Abwesenheiten-->
+    <!-- Header als eigene Tabelle zum Inhalt scrollbar machen zu können-->  
+    <table cellspacing="0" cellpadding="0" border="0" id="table" style="position: relative; margin: auto; width: 50px;">
+        <tr>
+          <td>
+             <table cellspacing="0" cellpadding="1" border="1" width="00" >
+               <tr style="color:white;background-color:grey">
+                <th style="text-align: center; min-width: 155px; height: 65px;"> From: </th>
+                <th style="text-align: center; min-width: 155px; height: 65px;"> To: </th>
+                <th style="text-align: center; min-width: 155px; height: 65px;"> Reason: </th>
+                <th style="text-align: center; min-width: 155px; height: 65px;"> Number of <br>working days: </th>
+                <th style="text-align: center; min-width: 155px; height: 65px;"> Delete Absence: </th>
+               </tr>
+             </table>
+          </td>
+        </tr>
+        <tr>
+          <td>
+              <!-- Tabelle für "Inhalt"-->  
+             <div style="width:885px; height:500px; overflow:auto;">
+               <table cellspacing="0" cellpadding="1" border="1" width="300" id="absenceTableContent" >
+                <tr id="absence1" class="row">
+                    <td id ="absenceList_from" style="text-align: center; min-width: 155px; height: 65px;" >14/05/2021</td>
+                    <td id ="absenceList_to" style="text-align: center; min-width: 155px; height: 65px;"> 20/05/2021</td>
+                    <td id ="absenceList_Reason" style="text-align: center; min-width: 155px; height: 65px;">Holidays</td>
+                    <td id ="absenceList_workingDays" style="text-align: center; min-width: 155px; height: 65px;"> 5</td>
+                    <td style="text-align: center; min-width: 155px; height: 65px;"> 
+                            <button onclick="deleteAbsence(this);" class="buttonList" type="button" > Delete </button></td>
+                </tr>
+                <tr id="absence2" class="row">
+                    <td id ="absenceList_from" style="text-align: center; min-width: 155px; height: 65px;" >29/04/2021</td>
+                    <td id ="absenceList_to" style="text-align: center; min-width: 155px; height: 65px;">  06/05/2021</td>
+                    <td id ="absenceList_Reason" style="text-align: center; min-width: 155px; height: 65px;">Holidays</td>
+                    <td id ="absenceList_workingDays" style="text-align: center; min-width: 155px; height: 65px;"> 6</td>
+                    <td style="text-align: center; min-width: 155px; height: 65px;"> 
+                            <button onclick="deleteAbsence(this);" class="buttonList" type="button" > Delete </button></td>
+                </tr>
+                <tr id="absence3" class="row">
+                    <td id ="absenceList_from" style="text-align: center; min-width: 155px; height: 65px;" >16/04/2021</td>
+                    <td id ="absenceList_to" style="text-align: center; min-width: 155px; height: 65px;"> 19/04/2021</td>
+                    <td id ="absenceList_Reason" style="text-align: center; min-width: 155px; height: 65px;">Sickness</td>
+                    <td id ="absenceList_workingDays" style="text-align: center; min-width: 155px; height: 65px;"> 2</td>
+                    <td style="text-align: center; min-width: 155px; height: 65px;"> 
+                            <button onclick="deleteAbsence(this);" class="buttonList" type="button" > Delete </button></td>
+                </tr>
+                <tr id="absence4" class="row">
+                    <td id ="absenceList_from" style="text-align: center; min-width: 155px; height: 65px;" >26/02/2021</td>
+                    <td id ="absenceList_to" style="text-align: center; min-width: 155px; height: 65px;"> 01/03/2021</td>
+                    <td id ="absenceList_Reason" style="text-align: center; min-width: 155px; height: 65px;">Relocation</td>
+                    <td id ="absenceList_workingDays" style="text-align: center; min-width: 155px; height: 65px;"> 2</td>
+                    <td style="text-align: center; min-width: 155px; height: 65px;"> 
+                            <button onclick="deleteAbsence(this);" class="buttonList" type="button" > Delete </button></td>
+                </tr>
+                <tr id="absence5" class="row">
+                    <td id ="absenceList_from" style="text-align: center; min-width: 155px; height: 65px;" >28/12/2020</td>
+                    <td id ="absenceList_to" style="text-align: center; min-width: 155px; height: 65px;"> 01/01/2021</td>
+                    <td id ="absenceList_Reason" style="text-align: center; min-width: 155px; height: 65px;">Holidays</td>
+                    <td id ="absenceList_workingDays" style="text-align: center; min-width: 155px; height: 65px;"> 4</td>
+                    <td style="text-align: center; min-width: 155px; height: 65px;"> 
+                            <button onclick="deleteAbsence(this);" class="buttonList" type="button" > Delete </button></td>
+                </tr>                
+               </table>  
+             </div>
+          </td>
+        </tr>
+      </table>
+      <br><br>
+
+    <!-- Button für Abwesenheitserfassung-->
+    <div style="display: block; text-align: center; width: 100%;">
+        <a href="addAbsence_en.html" class="buttonLinks" style="text-decoration: none;"> Add Absence</a>
+    </div>
+   
+    <div class="footer"></div>
+
+    <script>
+
+      //Absenz löschen
+      function deleteAbsence(x){
+            //nimmt Daten der Abwesenheit entgegen und gibt diese in einem Alert an
+            var from = x.parentNode.parentNode.cells[0].innerHTML;
+            var to = x.parentNode.parentNode.cells[1].innerHTML;
+            var reason = x.parentNode.parentNode.cells[2].innerHTML;
+            if (confirm("Dear User \n\nPlease confirm the the deletion of the following absence: \n \nReason:  "+reason+"\n"+"From:     "+from+"\nTo:         "+to+" \n\nThanks!")) {
+                var i = x.parentNode.parentNode.rowIndex;
+                document.getElementById("absenceTableContent").deleteRow(i);
+            } else {
+             }
+        }   
+    
+
+    </script>
+    
+</body>
+</html>
