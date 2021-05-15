@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/flick/jquery-ui.css">
     <title>List of Employees</title>
 </head>
-<body style="background-color: whitesmoke" > 
+<body style="background-color: rgb(217, 240, 216)">
     
     <br>
     <br>
@@ -30,7 +30,7 @@
     <ul class="navibar">
         <li class="barItem"><a class="barItem" href="main_en.html">Home</a></li>
         <li class="barItem"><a class="barItem" href="report_en.html">Report</a></li>
-        <li class="barItem"><a class="barItem">Absence</a></li>
+        <li class="barItem"><a class="barItem" href="absence_en.html">Absence</a></li>
         
         <li style="float:right" class="barItem"> <a href="login_en.html" class="barItem">Logout</a></li>
         <li style="float:right" class="barItem">
@@ -52,13 +52,13 @@
     <table cellspacing="0" cellpadding="0" border="0" id="employeeTable" style="position: relative; margin: auto; width: 50px;">
         <tr>
           <td>
-             <table cellspacing="0" cellpadding="1" border="1" width="00" >
-               <tr style="color:white;background-color:grey">
-                <th style="text-align: center; min-width: 155px; height: 65px;"> Employee ID: </th>
-                <th style="text-align: center; min-width: 155px; height: 65px;"> Username: </th>
-                <th style="text-align: center; min-width: 155px; height: 65px;"> Workingload: </th>
-                <th style="text-align: center; min-width: 155px; height: 65px;"> Working Days: </th>
-                <th style="text-align: center; min-width: 155px; height: 65px;"> Edit: </th>
+             <table cellspacing="0" cellpadding="1" id="employeeTable"border="1" width="" >
+               <tr>
+                <th style="text-align: center; width: 155px; height: 65px;"> Employee ID: </th>
+                <th style="text-align: center; width: 155px; height: 65px;"> Username: </th>
+                <th style="text-align: center; width: 155px; height: 65px;"> Workingload: </th>
+                <th style="text-align: center; width: 155px; height: 65px;"> Working Days: </th>
+                <th style="text-align: center; width: 155px; height: 65px;"> Edit: </th>
 
                </tr>
              </table>
@@ -67,9 +67,9 @@
         <tr>
           <td>
               <!-- Tabelle für "Inhalt"-->  
-             <div style="width:885px; height:500px; overflow:auto;">
-               <table cellspacing="0" cellpadding="1" border="1" width="300" id="employeeTableContent" >
-                <tr id="employee1" class="row">
+             <div style="width:900px; height:500px; overflow:auto;">
+               <table cellspacing="0" cellpadding="1" border="1" width="300" id="tableContent" >
+                <tr id="employee1" class="row"  style="background-color: whitesmoke">
                     <td id ="employeeList_id1" style="text-align: center; min-width: 155px; height: 65px;" >1</td>
                     <td id ="employeeList_username1" style="text-align: center; min-width: 155px; height: 65px;"> Luca Muster</td>
                     <td id ="employeeList_workload1" style="text-align: center; min-width: 155px; height: 65px;">100%</td>
@@ -89,14 +89,14 @@
                         <label for="friday0">Friday: </label> 
                         <input class="checkbox" type="checkbox" name="friday" id="employeeList_friday1" style="margin-left: 45px;" checked ="true" disabled>
                         <td style="text-align: center; min-width: 155px; height: 65px;"> 
-                            <button onclick="editEmployee(this);" class="buttonEmployeeList" id ="button0" type="button" > Edit </button> 
+                            <button onclick="editEmployee(this);" class="buttonList" id ="button0" type="button" > Edit </button> 
                             <br>
                             <br>
-                            <button onclick="deleteEmployee(this);" class="buttonEmployeeList" type="button" > Delete </button> 
+                            <button onclick="deleteEmployee(this);" class="buttonList" type="button" > Delete </button> 
                         </td>
                     </td>
                 </tr>
-                <tr id="employee2" class="row">
+                <tr id="employee2" class="row"  style="background-color: whitesmoke">
                     <td id ="employeeList_id2" style="text-align: center; min-width: 155px; height: 65px;"> 2</td>
                     <td id ="employeeList_username2" style="text-align: center; min-width: 155px; height: 65px;"> Max Muster</td>
                     <td id ="employeeList_workload2" style="text-align: center; min-width: 155px; height: 65px;">80%</td>
@@ -116,13 +116,13 @@
                         <label for="friday">Friday: </label> 
                         <input class="checkbox" type="checkbox" name="friday" id="employeeList_friday2" style="margin-left: 45px;" disabled>
                         <td style="text-align: center; min-width: 155px; height: 65px;"> 
-                            <button onclick="editEmployee(this);" class="buttonEmployeeList" type="button" > Edit </button> 
+                            <button onclick="editEmployee(this);" class="buttonList" type="button" > Edit </button> 
                             <br>
                             <br>
-                            <button onclick="deleteEmployee(this);" class="buttonEmployeeList" type="button" > Delete </button> 
+                            <button onclick="deleteEmployee(this);" class="buttonList" type="button" > Delete </button> 
                         </td>
                     </td>
-                <tr id="employee3" class="row">
+                <tr id="employee3" class="row" style="background-color: whitesmoke">
                         <td id ="employeeList_id3" style="text-align: center; min-width: 155px; height: 65px;"> 3</td>
                         <td id ="employeeList_username3" style="text-align: center; min-width: 155px; height: 65px;"> Mia Muster</td>
                         <td id ="employeeList_workload3" style="text-align: center; min-width: 155px; height: 65px;">80%</td>
@@ -142,14 +142,14 @@
                             <label for="friday">Friday: </label> 
                             <input class="checkbox" type="checkbox" name="friday" id="employeeList_friday3" style="margin-left: 45px;" checked ="true" disabled>
                             <td style="text-align: center; min-width: 155px; height: 65px;"> 
-                                <button onclick="editEmployee(this);" class="buttonEmployeeList" type="button" > Edit </button> 
+                                <button onclick="editEmployee(this);" class="buttonList" type="button" > Edit </button> 
                                 <br>
                                 <br>
-                                <button onclick="deleteEmployee(this);" class="buttonEmployeeList" type="button" > Delete </button> 
+                                <button onclick="deleteEmployee(this);" class="buttonList" type="button" > Delete </button> 
                             </td>
                         </td>
                     </tr>
-                    <tr id="employee4" class="row">
+                    <tr id="employee4" class="row"  style="background-color: whitesmoke">
                         <td id ="employeeList_id4" style="text-align: center; min-width: 155px; height: 65px;"> 4</td>
                         <td id ="employeeList_username4" style="text-align: center; min-width: 155px; height: 65px;"> Peter Muster</td>
                         <td id ="employeeList_workload4" style="text-align: center; min-width: 155px; height: 65px;">60%</td>
@@ -169,14 +169,14 @@
                             <label for="friday">Friday: </label> 
                             <input class="checkbox" type="checkbox" name="friday" id="employeeList_friday4" style="margin-left: 45px;" disabled>
                             <td style="text-align: center; min-width: 155px; height: 65px;"> 
-                                <button onclick="editEmployee(this);" class="buttonEmployeeList" type="button" > Edit </button> 
+                                <button onclick="editEmployee(this);" class="buttonList" type="button" > Edit </button> 
                                 <br>
                                 <br>
-                                <button onclick="deleteEmployee(this);" class="buttonEmployeeList" type="button" > Delete </button> 
+                                <button onclick="deleteEmployee(this);" class="buttonList" type="button" > Delete </button> 
                             </td>
                         </td>
                     </tr>
-                    <tr id="employee5" class="row">
+                    <tr id="employee5" class="row"  style="background-color: whitesmoke">
                         <td id ="employeeList_id5" style="text-align: center; min-width: 155px; height: 65px;"> 5</td>
                         <td id ="employeeList_username5" style="text-align: center; min-width: 155px; height: 65px;"> Lewis Muster</td>
                         <td id ="employeeList_workload5" style="text-align: center; min-width: 155px; height: 65px;">40%</td>
@@ -196,10 +196,10 @@
                             <label for="friday">Friday: </label> 
                             <input class="checkbox" type="checkbox" name="friday" id="employeeList_friday5" style="margin-left: 45px;" disabled></td>
                             <td style="text-align: center; min-width: 155px; height: 65px;"> 
-                                <button onclick="editEmployee(this);" class="buttonEmployeeList" type="button"> Edit </button> 
+                                <button onclick="editEmployee(this);" class="buttonList" type="button"> Edit </button> 
                                 <br>
                                 <br>
-                                <button onclick="deleteEmployee(this);" class="buttonEmployeeList" type="button" > Delete </button> 
+                                <button onclick="deleteEmployee(this);" class="buttonList" type="button" > Delete </button> 
                             </td>
                     </tr>
                </table>  
@@ -235,7 +235,7 @@
             var user = x.parentNode.parentNode.cells[1].innerHTML;
             if (confirm("Dear Admin \n\nAre you sure to delete to"+ user+"? \n \nPlease use the appriopate button! \n\nThanks!")) {
                 var i = x.parentNode.parentNode.rowIndex;
-                document.getElementById("employeeTableContent").deleteRow(i);
+                document.getElementById("tableContent").deleteRow(i);
             } else {
              }
         }

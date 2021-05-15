@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <title>Login</title>
 </head>
-<body style="background-color: whitesmoke">
+<body style="background-color: rgb(217, 240, 216)">
 	<header>
 		<br>
 		<div style="max-width: 450px; position: relative; margin: auto;">
@@ -37,33 +37,30 @@
 	<br>
 	<br>
 
-	<i class="fa fa-user icon"
-		style="display: block; text-align: center; width: 100%;"</i>
+	<i class="fa fa-user icon" style="display: block; text-align: center; width: 100%;"</i>
 	<label for="loginUsername" class="text"><b>User name: </b></label>
-	<input type="text" placeholder="Enter username" name="loginUsername"
-		class="textField" id="loginUserName_EN" required>
+	<input type="text" style="min-width: 160px; text-align: center;" placeholder="Enter user name" name="loginUsername" onkeyup="enableButton()" class="textField" id="loginUserName_EN" required>
 
 	<br>
 	<br>
 
-	<i class="fa fa-key icon"
-		style="display: block; text-align: center; width: 100%;"</i>
+	<i class="fa fa-key icon" style="display: block; text-align: center; width: 100%;"</i>
 	<label for="loginPassword" class="text"><b>Password: </b></label>
-	<input type="password" placeholder="Enter password"
-		name="loginPassword" class="textField" id="loginPassword_EN" required>
+	<input type="password" style="min-width: 160px; text-align: center;" placeholder="Enter password" name="loginPassword" onkeyup="enableButton()" class="textField" id="loginPassword_EN" required>
 
+	<br>
+	<br>
 	<br>
 	<p id="capsON_en">WARNING! Caps lock is ON.</p>
 	<br>
 	<br>
 
+	<!-- Meldung, falls Benutzername oder Passwort falsch sind-->
 	<!-- credits to: https://www.w3schools.com/howto/howto_js_detect_capslock.asp-->
-	<div class="alert" id="wrongInputs"
-		style="max-width: 380px; position: relative; margin: auto;">
-		<span class="closebtn"
-			onclick="this.parentElement.style.display='none';">&times;</span> <strong>
-			Incorrect password and/or user name! | Credentials missing</strong> <br>
-		Please enter the right credentials!
+	<div class="alert" id="wrongInputs" style="max-width: 380px; position: relative; margin: auto;">
+		<span class="closebtn"onclick="this.parentElement.style.display='none';">&times;</span> 
+			<strong> Incorrect password and/or user name!</strong> 
+			<br> Please enter the right credentials!
 	</div>
 	<br>
 	<br>
@@ -75,27 +72,31 @@
 	<br>
 	<br>
 
-	<div class="w3-light-grey"
-		style="max-width: 150px; position: relative; margin: auto;">
-		<div id="loginProgress" class="w3-container w3-blue  w3-center"
-			style="width: 0%">0%</div>
+	<div class="w3-light-grey"style="max-width: 150px; position: relative; margin: auto;">
+		<div id="loginProgress" class="w3-container w3-blue  w3-center" style="width: 0%">0%</div>
 	</div>
 	<br>
 
 
-	<button class="button" onclick="load(); checkInputs()">Login</button>
+	<button class="button" onclick="load(); checkInputs()" id="loginButton" disabled>Login</button>
 
 	<br>
 	<br>
 
 	<footer>
-		<a href="mailto:admin@jkbgmbh.ch" id="loginIssues"
-			style="display: block; text-align: center; width: 100%;"> Login
-			issues?</a>
+		<a href="mailto:admin@jkbgmbh.ch" id="loginIssues" style="display: block; text-align: center; width: 100%;"> Login issues?</a>
 	</footer>
 
 
 	<script>
+
+		//Button wird nur enabled, falls Password und User einen Wert aufweisen
+    	//TODO: muss beides überprüfen
+    	function enableButton(){
+        	document.getElementById("loginButton").disabled = false;
+    	}
+
+		//Progessbar ladet
 		//credits to: https://www.w3schools.com/w3css/w3css_progressbar.asp
 		function load() {
 			var elem = document.getElementById("loginProgress");
@@ -112,6 +113,7 @@
 			}
 		}
 
+		//Macht das Passwortfeld sichtbar
 		//credits to: https://www.w3schools.com/howto/howto_js_toggle_password.asp
 		function showPassword() {
 			var x = document.getElementById("loginPassword_EN");
@@ -122,6 +124,7 @@
 			}
 		}
 
+		//gibt eine Warnung an, falls Feststelltaste aktiviert ist
 		//credits to: https://www.w3schools.com/howto/howto_js_detect_capslock.asp'
 		var input = document.getElementById("loginPassword_EN");
 		var text = document.getElementById("capsON_en");

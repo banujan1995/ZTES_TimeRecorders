@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <title>Anmeldung</title>
 </head>
-<body style="background-color: whitesmoke">
+<body style="background-color: rgb(217, 240, 216)">
 	<header>
 		<br>
 		<div style="max-width: 450px; position: relative; margin: auto;">
@@ -34,37 +34,29 @@
 	<br>
 	<br>
 
-	<i class="fa fa-user icon"
-		style="display: block; text-align: center; width: 100%;"</i>
+	<i class="fa fa-user icon" style="display: block; text-align: center; width: 100%;"</i>
 	<label for="loginUsername" class="text"><b>Benutzername: </b></label>
-	<input type="text" placeholder="Benutzername eingeben"
-		name="loginUsername" class="textField" id="loginUserName_EN" required>
+	<input type="text" style="min-width: 160px; text-align: center;" placeholder="Benutzername eingeben"	onkeyup="enableButton()" name="loginUsername" class="textField" id="loginUserName_DE" required>
 
 	<br>
 	<br>
 
-	<i class="fa fa-key icon"
-		style="display: block; text-align: center; width: 100%;"</i>
-	<label for="loginPassword" class="text"><b>Password: </b></label>
-
-	<input type="password" placeholder="Password eingeben"
-		name="loginPassword" class="textField" id="loginPassword_EN" required>
+	<i class="fa fa-key icon"	style="display: block; text-align: center; width: 100%;"</i>
+	<label for="loginPassword" class="text"><b>Passwort: </b></label>
+	<input type="password" style="min-width: 160px; margin-left: 33px; text-align: center;" placeholder="Password eingeben" onkeyup="enableButton()" name="loginPassword" class="textField" id="loginPassword_DE" required>
 	<br>
 	<br>
-
-
-
 	<br>
 	<p id="capsON_en">ACHTUNG! Festelltaste ist aktiviert!.</p>
 	<br>
 	<br>
 
+  <!-- Meldung, falls Benutzername oder Passwort falsch sind-->
 	<!-- credits to: https://www.w3schools.com/howto/howto_js_detect_capslock.asp-->
-	<div class="alert" id="wrongInputs"
-		style="max-width: 380px; position: relative; margin: auto;">
-		<span class="closebtn"
-			onclick="this.parentElement.style.display='none';">&times;</span> <strong>
-			Passwort ist falsch! / Kein Wert eingeben!</strong> <br> Bitte nochmals versuchen!
+	<div class="alert" id="wrongInputs" style="max-width: 380px; position: relative; margin: auto;">
+		<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+    <strong> Falscher Passwort und/oder falscher Benutzername!</strong> 
+    <br> Bitte nochmals versuchen!
 	</div>
 	<br>
 	<br>
@@ -75,28 +67,32 @@
 	<br>
 	<br>
 
-	<div class="w3-light-grey"
-		style="max-width: 150px; margin-left: 45%; position: relative; margin: auto;">
-		<div id="loginProgress" class="w3-container w3-blue  w3-center"
-			style="width: 0%">0%</div>
+	<div class="w3-light-grey" style="max-width: 150px; margin-left: 45%; position: relative; margin: auto;">
+		<div id="loginProgress" class="w3-container w3-blue  w3-center"style="width: 0%">0%</div>
 	</div>
-	<br>
+ <br>
 
 
-	<button class="button" onclick="load(); checkInputs()">
-		Anmelden</button>
+	<button class="button" id="loginButton" onclick="load(); checkInputs()" disabled> Anmelden</button>
 
 	<br>
 	<br>
 
 	<footer>
-		<a href="mailto:admin@jkbgmbh.ch" id="loginIssues"
-			style="display: block; text-align: center; width: 100%;"> Login
-			Problem?</a>
+		<a href="mailto:admin@jkbgmbh.ch" id="loginIssues" style="display: block; text-align: center; width: 100%;"> Login Problem?</a>
 	</footer>
 
 
 	<script>
+
+    //Button wird nur enabled, falls Password und User einen Wert aufweisen
+    //TODO: muss beides überprüfen
+    function enableButton(){
+        document.getElementById("loginButton").disabled = false;
+    }
+
+
+    //Progessbar ladet
 		//credit to: www.w3schools.com/w3css/w3css_progressbar.asp
 		function load() {
 			var elem = document.getElementById("loginProgress");
@@ -113,9 +109,10 @@
 			}
 		}
 
+    //Macht das Passwortfeld sichtbar
 		//credit to: https://www.w3schools.com/howto/howto_js_toggle_password.asp
 		function showPassword() {
-			var x = document.getElementById("loginPassword_EN");
+			var x = document.getElementById("loginPassword_DE");
 			if (x.type === "password") {
 				x.type = "text";
 			} else {
@@ -123,8 +120,9 @@
 			}
 		}
 
+    //gibt eine Warnung an, falls Feststelltaste aktiviert ist
 		//credits to: https://www.w3schools.com/howto/howto_js_detect_capslock.asp
-		var input = document.getElementById("loginPassword_EN");
+		var input = document.getElementById("loginPassword_DE");
 		var text = document.getElementById("capsON_en");
 		input.addEventListener("keyup", function(event) {
 
@@ -143,8 +141,8 @@
 		function checkInputs() {
 			console.log("kommt in Checkinputs");
 
-			var user = document.getElementById("loginUserName_EN").value;
-			var password = document.getElementById("loginPassword_EN").value;
+			var user = document.getElementById("loginUserName_DE").value;
+			var password = document.getElementById("loginPassword_DE").value;
 			var alert = document.getElementById("wrongInputs")
 
 			// see: https://api.jquery.com/jquery.post/

@@ -1,9 +1,17 @@
-#capsON_EN {display:none;color:red}
-#capsON_DE {display:none;color:red}
+#capsON_EN {
+    display:none; 
+    font-weight: bold; 
+    color:red
+}
+#capsON_DE {
+    display:none; 
+    font-weight: bold; 
+    color:red
+}
 
 
 .title{
-    background-color: grey;
+    background-color: rgb(126, 172, 168);
     text-align: center; 
     padding: 20px;
     font-size: 30;
@@ -11,19 +19,21 @@
     font-weight: bold;
     margin: 50; 
     margin-top: 50px;
-   
+    border: 2px solid white;
+
 }
 
 
 .subtitle{
-    background-color: grey;
+    background-color:rgb(126, 172, 168);
     text-align: center; 
     padding: 20px;
     font-size: 30;
     font-weight: bold;
     margin: 50; 
     margin-bottom: 10;
-    
+    border: 2px solid white;
+    border-radius: 5px;
 
 }
 
@@ -60,7 +70,7 @@
     color: black;
 }
 
-.buttonEmployeeList{
+.buttonList{
     background-color:cadetblue;
     padding: 5px;
     font-family: Arial, Helvetica, sans-serif;
@@ -83,6 +93,7 @@
     width: 301px;
     float: right;
     margin-right: 10%;
+    border-radius:50px;
  
 }
 
@@ -128,10 +139,11 @@ float: right;
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
+    border: 1px black;
 }
   
 #weekTable td, #weekTable th {
-    border: 1px solid #ddd;
+    border: 1px solid black;
     padding: 8px;
 }
   
@@ -143,11 +155,11 @@ float: right;
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
-    background-color:grey;
+    background-color:rgb(126, 172, 168);;
     color: white;
 }
 
-#employeeTable {
+#table {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
@@ -156,21 +168,22 @@ float: right;
 
 }
   
-#employeeTable td, #employeeTable th {
-    border: 1px solid #ddd;
+#table td, #table th {
+    border: 1px solid black;
     padding: 8px;
 }
   
-#employeeTable th {
+#table th {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
-    background-color:grey;
+    background-color:rgb(126, 172, 168);
     color: white;
+    
 }
 
 .row:hover {
-    background-color:#ddd;
+    background-color:whitesmoke;
 }
 
 .navibar {
@@ -178,7 +191,7 @@ float: right;
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: gainsboro;
+    background-color: rgb(126, 172, 168);
 }
 .barItem {
     float: left;
@@ -232,35 +245,99 @@ float: right;
     width: 100%;
     height: 70px;
     margin-bottom: 20px;
-    background-color:gainsboro;
+    background-color:rgb(126, 172, 168);
     text-align: center;
  }
-
-
- #addEmployeeTable {
-    font-family: Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-    overflow:hidden;
-    overflow-y: scroll;
-
-}
-  
-#addEmployeeTable td, #addEmployeeTable th {
-    border: 1px solid #ddd;
-    padding: 8px;
-}
-  
-#addEmployeeTable th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color:grey;
-    color: white;
-}
 .total {
     font-family: Arial;
     font-size: 17px;
     color: white;
     font-weight: bold;
+}
+
+#absenceTable {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    overflow:hidden;
+    overflow-y: scroll;
+    
+
+}
+  
+#absenceTable td, #absenceTable th {
+    padding: 8px;
+}
+  
+#absenceTable th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color:rgb(126, 172, 168);
+    color: white;
+}
+
+#employeeTable {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    overflow:hidden;
+    overflow-y: scroll;
+    border: 2px black;
+
+}
+  
+#employeeTable td, employeeTable th {
+    padding: 8px;
+}
+  
+#employeeTable th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color:rgb(126, 172, 168);
+    color: white;
+}
+
+#tableContent {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    overflow:hidden;
+    overflow-y: scroll;
+    border: 2px black;
+}
+  
+#tableContent td, tableContent th {
+    padding: 8px;
+}
+  
+#tableContent th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color:rgb(126, 172, 168);
+    color: white;
+} 
+
+#profileTable {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    overflow:hidden;
+    overflow-y: scroll;
+    border: 2px black;
+
+}
+  
+#profileTable td, #profileTable th {
+    padding: 8px;
+}
+  
+#profileTable th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color:rgb(126, 172, 168);
+    color: white;
 }

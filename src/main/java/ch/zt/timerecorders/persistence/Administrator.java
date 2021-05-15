@@ -21,12 +21,14 @@ public class Administrator {
 	protected String mitarbeiterCode = "AD";
 	protected String name;
 	protected String vorname;
+	protected String benutzername; 
 	protected String passwort;
 	protected Pensum pensum;
 
-	public Administrator(String vorname, String name, String passwort, Pensum pensum) {
-		this.vorname = vorname;
+	public Administrator(String name, String vorname,String benutzername, String passwort, Pensum pensum) {
 		this.name = name;
+		this.vorname = vorname;
+		this.benutzername = benutzername; 
 		this.pensum = pensum;
 //		this.passwort = enryptionOfPW(passwort);		
 		this.passwort = passwort;
