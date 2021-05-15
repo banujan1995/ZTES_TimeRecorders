@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <html lang="en">
-    <link rel="stylesheet" href="css/style.css"">
+    <link rel="stylesheet" href="css/style.css">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
@@ -51,13 +51,12 @@
     <table id="table" style="position: relative; margin: auto; width: 50px;"> 
         <tr>
             <th style="text-align: center; min-width: 175px; height: 65px;"> Period: </th>
-            <td style="text-align: center; min-width: 235px; height: 65px;"> <input type="text" name="daterange" id="daterange"></td>
+            <td style="text-align: center; min-width: 235px; height: 65px;"> <input style="min-width: 200;" type="text" name="daterange" id="daterange" value=" "></td>
         </tr>
         <tr>
             <th style="text-align: center; min-width: 175px; height: 65px;"> Reason: </th>
             <td style="text-align: center; min-width: 235px; height: 65px;"> 
-                <select id="absenceReason" style="min-width: 155px; align-content: center;" required> 
-                    <option class = "options">Please Select</option>
+                <select id="absenceReason" style="min-width: 200px; align-content: center;"> 
                     <option class = "options">Holidays</option>
                     <option class = "options">Relocation</option>
                     <option class = "options">Sickness</option>
@@ -75,7 +74,7 @@
         <td style="text-align: center; min-width: 135px; height: 55px;" > </td>
         <a href="absence_en.html" class="buttonLinks" style="text-decoration: none; margin-right: 20px; padding: 10px 37px;"> Return</a>
         <button id ="addEmployee_cancel" onclick="reset();" type="button" class="button"> Reset</button>
-        <button id ="addEmployee_confirm" style="margin-left: 20px;" onclick="addAbsence();" type="button" class="button"> Add absence</button>
+        <button id ="addEmployee_confirm" style="margin-left: 20px;" onclick="addAbsence();" type="submit" class="button" disabled> Add absence</button>
      </div>
 
     <div class="footer"></div>
@@ -121,6 +120,7 @@
 
                 // Berechnung Anzahl Tage
                 // full credits to: https://stackoverflow.com/questions/2627473/how-to-calculate-the-number-of-days-between-two-dates
+                //TODO: Mit Berücksichtigen, ob Samstag, Sonntag & gesetzloche Feiertage dabei sind Feiertage --> evtl. alles serverseitig und Anzahl Tage kommt vom Server
                 const oneDay = 24 * 60 * 60 * 1000; 
                 const firstDate = picker.startDate;
                 const secondDate = picker.endDate;
@@ -128,6 +128,15 @@
                 const diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay));
                 document.getElementById("addAbsence_numberOfDays").innerHTML = diffDays;
             });    
+
+
+            // Button AddAbsence wird aktiviert, sobald eine Auswahl einer Periode gemacht wurde
+            $(document).ready(function () {
+                $('#daterange').on('apply.daterangepicker', function(ev, picker) {
+                      $('#addEmployee_confirm').prop('disabled', false);
+                    
+                });
+            });
         });
 
         // Leert alle mögliche Eingabemöglichkeiten
@@ -135,9 +144,21 @@
             document.getElementById("daterange").value ="";
             var dropDown = document.getElementById("absenceReason");
             dropDown.selectedIndex = 0;
-            document.getElementById("addAbsence_numberOfDays").value ="";
+            document.getElementById("addAbsence_numberOfDays").innerHTML ="";
         }
 
+        // fügt Absence hinzu & zeigt eine Erfolgsmeldung an
+        function addAbsence(){
+            //TODO: send to server
+
+            var period = document.getElementById('daterange').value;
+            var reason = document.getElementById('absenceReason').value;
+            var numberOfWorkingDays = document.getElementById("addAbsence_numberOfDays").innerHTML;
+
+            var message = ("Dear User\n\nFollowing absence has been added:\n\nReason: "+reason+"\nPeriod: "+period+"\nNumber of working days: "+numberOfWorkingDays)
+            alert(message);
+            reset();
+        }
     </script>
 
 </body>
