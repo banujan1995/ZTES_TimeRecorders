@@ -5,9 +5,11 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import ch.zt.timerecorders.businesslogic.Pensum;
 import ch.zt.timerecorders.persistence.Administrator;
@@ -20,9 +22,9 @@ import ch.zt.timerecorders.view.ViewsController;
 
 
 @SpringBootApplication
-@ComponentScan({ "ch.zt.timerecorders.persistence", "ch.zt.timerecorders.businesslogic", "ch.zt.timerecorders.services",
+@ComponentScan({ "ch.zt.timerecorders.persistence", "ch.zt.timerecorders.persistence", "ch.zt.timerecorders.businesslogic", "ch.zt.timerecorders.services",
 		"ch.zt.timerecorders.view", "ch.zt.timerecorders.start"  }) // Referenz, wenn es in den verschiedenen Packages ist. (BR)
-public class ZeiterfassungssystemTimeRecordersApplication {
+public class ZeiterfassungssystemTimeRecordersApplication{
 	
 	@Autowired
 	private ServiceLocator serviceLocator;
@@ -38,6 +40,9 @@ public class ZeiterfassungssystemTimeRecordersApplication {
 	
 	@Autowired 
 	private MitarbeiterRepositoryInterface maRepo;
+	
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
 	
 	
 
@@ -67,5 +72,6 @@ public class ZeiterfassungssystemTimeRecordersApplication {
 //		administratorRepository.addAdministrator(lukasFrey);
 //		administratorRepository.addAdministrator(richardBradley);	
 	}
+
 
 }
