@@ -61,6 +61,36 @@ public class MitarbeiterService {
 	 */
 
 	// Mitarbeiter erstellen KG
+
+	@PostMapping(path = "/addEmployee/", produces = "application/json")
+	public long createNewMa(@RequestBody MessageMaRegister m) {
+
+
+		MitarbeiterRegister m1 = new MitarbeiterRegister();
+		m1.setSurname(m.getSurname());
+		m1.setFamilyname(m.getFamilyname());
+		m1.setName(m.getName());
+		m1.setPasswort(m.getPasswort());
+		m1.setPensum(m.getPensum());
+		
+		m1 = maRepo.save(m1); // beim Speichern wird eine MAId automatisch vergeben
+		logger.info("MA erfolgreich hinzugefügt");
+		return m1.getMitarbeiterID();
+	
+	}
+	
+	
+	@ResponseBody
+	@GetMapping("/mitarbeiterList/")
+	public List allMA() {
+		
+	List<MitarbeiterRegister> ma = maRepo.findAll();
+		System.out.println(ma.toString());
+		logger.info("Liste wurde erfolgreich erstellt");
+		return ma;
+	
+	}
+
 //	@PostMapping(path = "/addEmployee/", produces = "application/json")
 //	public long createNewMa(@RequestBody MessageMaRegister m) {
 //
@@ -76,6 +106,7 @@ public class MitarbeiterService {
 //		logger.info("MA erfolgreich hinzugefügt");
 //		return m1.getMitarbeiterID();
 //	}
+
 
 	// Mitarbeiter mutieren von MA zu AD (BR)
 
