@@ -23,7 +23,7 @@ import ch.zt.timerecorders.view.ViewsController;
 
 @SpringBootApplication
 @ComponentScan({ "ch.zt.timerecorders.persistence", "ch.zt.timerecorders.persistence", "ch.zt.timerecorders.businesslogic", "ch.zt.timerecorders.services",
-		"ch.zt.timerecorders.view", "ch.zt.timerecorders.start"  }) // Referenz, wenn es in den verschiedenen Packages ist. (BR)
+		"ch.zt.timerecorders.view", "ch.zt.timerecorders.start", "ch.zt.timerecorders.database"}) // Referenz, wenn es in den verschiedenen Packages ist. (BR)
 public class ZeiterfassungssystemTimeRecordersApplication{
 	
 	@Autowired
@@ -39,7 +39,7 @@ public class ZeiterfassungssystemTimeRecordersApplication{
 	private Zeiterfassungsrepository zeiterfassungsRepository;
 	
 	@Autowired 
-//	private MitarbeiterRepositoryInterface maRepo;
+	private MitarbeiterRepositoryInterface mitarbeiterRepositoryInterface;
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;

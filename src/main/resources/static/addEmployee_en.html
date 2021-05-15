@@ -150,12 +150,10 @@
         
         function successCredentials(response) {
 			if (response == true) {
-				//$.getJSON("http://localhost:8081/timerecorders/mitarbeiterlogin/").done(
-				//handleSuccessCreditals);
+				
 				handleSuccessCreditals(response);
 
 			} else {
-				//$.getJSON("http://localhost:8081/timerecorders/mitarbeiterlogin/").fail(handleFailureCreditals);
 				handleFailureCreditals(response);
 			}
 		}

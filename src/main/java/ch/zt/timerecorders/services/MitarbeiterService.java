@@ -19,13 +19,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-//import ch.zt.timerecorders.database.MitarbeiterRegister;
 import ch.zt.timerecorders.persistence.Administrator;
 import ch.zt.timerecorders.persistence.AdministratorenRepository;
 import ch.zt.timerecorders.persistence.Mitarbeiter;
 import ch.zt.timerecorders.persistence.MitarbeiterRepository;
 import ch.zt.timerecorders.persistence.Zeiterfassungsrepository;
-//import ch.zt.timerecorders.start.MitarbeiterRepositoryInterface;
+import ch.zt.timerecorders.start.MitarbeiterRegister;
+import ch.zt.timerecorders.start.MitarbeiterRepositoryInterface;
 import ch.zt.timerecorders.start.ServiceLocator;
 
 /**
@@ -48,8 +48,8 @@ public class MitarbeiterService {
 	@Autowired
 	private Zeiterfassungsrepository zeiterfassungsrepository;
 	
-//	@Autowired
-//	private MitarbeiterRepositoryInterface maRepo;
+	@Autowired
+	private MitarbeiterRepositoryInterface mitarbeiterRepositoryInterface;
 
 	/**
 	 * Methoden Annotation (BR) - MIT GET MIT PARAMETER - Rückgabewert JSON Methode
@@ -73,7 +73,7 @@ public class MitarbeiterService {
 		m1.setPasswort(m.getPasswort());
 		m1.setPensum(m.getPensum());
 		
-		m1 = maRepo.save(m1); // beim Speichern wird eine MAId automatisch vergeben
+		m1 = mitarbeiterRepositoryInterface.save(m1); // beim Speichern wird eine MAId automatisch vergeben
 		logger.info("MA erfolgreich hinzugefügt");
 		return m1.getMitarbeiterID();
 	
@@ -84,7 +84,7 @@ public class MitarbeiterService {
 	@GetMapping("/mitarbeiterList/")
 	public List allMA() {
 		
-	List<MitarbeiterRegister> ma = maRepo.findAll();
+	List<MitarbeiterRegister> ma = mitarbeiterRepositoryInterface.findAll();
 		System.out.println(ma.toString());
 		logger.info("Liste wurde erfolgreich erstellt");
 		return ma;
