@@ -20,7 +20,7 @@ import ch.zt.timerecorders.start.ServiceLocator;
  */
 
 @RestController
-public class AdministratorenListService {
+public class AdministratorenService {
 	
 	Logger logger = ServiceLocator.getServiceLocator().getLogger();
 
