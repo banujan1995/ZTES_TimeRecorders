@@ -37,7 +37,7 @@ public class ZeiterfassungssystemTimeRecordersApplication {
 	private Zeiterfassungsrepository zeiterfassungsRepository;
 	
 	@Autowired 
-	private MitarbeiterRepositoryInterface maRepo;
+//	private MitarbeiterRepositoryInterface maRepo;
 	
 	
 
@@ -53,19 +53,19 @@ public class ZeiterfassungssystemTimeRecordersApplication {
 
 	@PostConstruct
 	public void createTestData() {
-		Mitarbeiter mariaAndreas = new Mitarbeiter("Andreas", "Maria", "1234", Pensum.HundertProzent);
-		Mitarbeiter kirenGondal = new Mitarbeiter("Gondal", "Kiren","1234", Pensum.HundertProzent);
-		Mitarbeiter jordiSchmidlin = new Mitarbeiter("Schmidlin", "Jordi", "1234", Pensum.HundertProzent);
-		Mitarbeiter banujanRagunathan = new Mitarbeiter("Ragunathan", "Banujan","1234", Pensum.HundertProzent);
+		Mitarbeiter mariaAndreas = new Mitarbeiter("Andreas", "Maria", "amaria", "1234", Pensum.HundertProzent);
+		Mitarbeiter kirenGondal = new Mitarbeiter("Gondal", "Kiren", "gkiren","1234", Pensum.HundertProzent);
+		Mitarbeiter jordiSchmidlin = new Mitarbeiter("Schmidlin", "Jordi", "sjordi", "1234", Pensum.HundertProzent);
+		Mitarbeiter banujanRagunathan = new Mitarbeiter("Ragunathan", "Banujan", "rbanujan","1234", Pensum.HundertProzent);
 		mitarbeiterRepository.addMitarbeiter(mariaAndreas);
 		mitarbeiterRepository.addMitarbeiter(kirenGondal);
 		mitarbeiterRepository.addMitarbeiter(jordiSchmidlin);
 		mitarbeiterRepository.addMitarbeiter(banujanRagunathan);
 
-//		Administrator lukasFrey = new Administrator("Lukas","Frey", 8.24, 122.0);
-//		Administrator richardBradley = new Administrator("Richard","Bradley", 8.24, 122.0);
-//		administratorRepository.addAdministrator(lukasFrey);
-//		administratorRepository.addAdministrator(richardBradley);	
+		Administrator lukasFrey = new Administrator("Frey","Lukas", "flukas", "1234", Pensum.HundertProzent);
+		Administrator richardBradley = new Administrator("Bradley","Richard", "brichard", "1234", Pensum.HundertProzent);
+		administratorRepository.addAdministrator(lukasFrey);
+		administratorRepository.addAdministrator(richardBradley);	
 	}
 
 }

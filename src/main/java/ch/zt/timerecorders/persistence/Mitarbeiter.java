@@ -16,30 +16,33 @@ import ch.zt.timerecorders.start.ServiceLocator;
  *
  */
 
-
 public class Mitarbeiter {
 
 	Logger logger = ServiceLocator.getServiceLocator().getLogger();
 
 	
-	protected String name;
-	protected String vorname;
 	protected Long mitarbeiterID;
 	protected String mitarbeiterCode = "MA";
+	
+	protected String name;
+	protected String vorname;
+	protected String benutzername;
 	protected String passwort;
 	protected Pensum pensum;
 
-	public Mitarbeiter(String name, String vorname, String passwort, Pensum pensum) {
+	public Mitarbeiter(String name, String vorname, String benutzername, String passwort, Pensum pensum) {
 		this.name = name;
 		this.vorname = vorname;
-		this.pensum = pensum;
+		this.benutzername = benutzername;
+		
 		this.passwort = passwort;
+		this.pensum = pensum;
 	}
 
 	public Long getMitarbeiterID() {
 		return mitarbeiterID;
 	}
-	
+
 	public void setMitarbeiterID(Long string) {
 		this.mitarbeiterID = string;
 	}
@@ -58,6 +61,14 @@ public class Mitarbeiter {
 
 	public void setMitarbeiterVorname(String vorname) {
 		this.vorname = vorname;
+	}
+
+	public String getBenutzername() {
+		return benutzername;
+	}
+
+	public void setBenutzername(String benutzername) {
+		this.benutzername = benutzername;
 	}
 
 	public String getMitarbeiterCode() {
