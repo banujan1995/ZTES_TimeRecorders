@@ -1,0 +1,165 @@
+<!-- erstellt durch Jordi Schmidlin-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <html lang="en">
+    <link rel="stylesheet" href="css/style.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/flick/jquery-ui.css">
+    <title>Add new absence</title>
+</head>
+<body style="background-color: rgb(217, 240, 216)">
+    
+    <br>
+    <br>
+    <div style="max-width: 350px; position: relative; margin: auto;" >
+    <img src="css/images/Logo.png" alt="Logo" class= "logo" style="max-width: 350px;" > 
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <!-- Navigationsbar-->
+    <ul class="navibar">
+        <li class="barItem"><a class="barItem" href="main_en.html">Home</a></li>
+        <li class="barItem"><a class="barItem" href="report_en.html">Report</a></li>
+        <li class="barItem"><a class="barItem" href="absence_en.html">Absence</a></li>
+        
+        <li style="float:right" class="barItem"> <a href="login_en.html" class="barItem">Logout</a></li>
+        <li style="float:right" class="barItem">
+            <a href="javascript:void(0)" class="barItemBtn">Languages</a>
+            <div class="barItem-content">
+              <a>English</a>
+              <a>German</a>
+          </div>
+          <li style="float:right" class="barItem"> <a href="profile_en.html" class="barItem">Profile</a> </li>
+    </ul>
+    <br>
+    <div style="display: block; text-align: center;width: 100%;">
+        <h1>Add a new absence</h1>
+    </div>
+    <br><br>
+
+    <!-- Tabelle um neuen MA hinzuzufügen-->
+    <table id="table" style="position: relative; margin: auto; width: 50px;"> 
+        <tr style="background-color: whitesmoke">
+            <th style="text-align: center; min-width: 175px; height: 65px;"> Period: </th>
+            <td style="text-align: center; min-width: 235px; height: 65px;"> <input style="min-width: 200;" type="text" name="daterange" id="daterange" value=" "></td>
+        </tr>
+        <tr style="background-color: whitesmoke">
+            <th style="text-align: center; min-width: 175px; height: 65px;"> Reason: </th>
+            <td style="text-align: center; min-width: 235px; height: 65px;"> 
+                <select id="absenceReason" style="min-width: 200px; align-content: center;"> 
+                    <option class = "options">Holidays</option>
+                    <option class = "options">Relocation</option>
+                    <option class = "options">Sickness</option>
+                </select>
+            </td>
+        </tr>
+        <tr style="background-color: whitesmoke">
+            <th style="text-align: center; min-width: 175px; height: 65px;"> Number of working days:</th>
+            <td style="text-align: center; min-width: 235px; height: 65px;"> <p id="addAbsence_numberOfDays"></p></td>
+        </tr>
+    </table>
+
+    <br><br><br>
+    <div style="display: block; text-align: center; width: 100%;">
+        <td style="text-align: center; min-width: 135px; height: 55px;" > </td>
+        <a href="absence_en.html" class="buttonLinks" style="text-decoration: none; margin-right: 20px; padding: 10px 37px;"> Return</a>
+        <button id ="addEmployee_cancel" onclick="reset();" type="button" class="button"> Reset</button>
+        <button id ="addEmployee_confirm" style="margin-left: 20px;" onclick="addAbsence();" type="submit" class="button" disabled> Add absence</button>
+     </div>
+
+    <div class="footer"></div>
+
+
+    <script type="text/javascript">
+        // Jquery für Abwesenheitserfassung
+        // full credits to: https://daterangepicker.com/
+        $(function() {
+
+            //Konfiguration
+            $('#daterange').daterangepicker({
+                "minYear": 2021,
+                "autoUpdateInput": false,
+                "showWeekNumbers": true,
+                "minDate": "01/01/2021",
+                "opens": "center",
+                "drops": "down", 
+                locale: { 
+                    cancelLabel: 'Clear',
+                    daysOfWeek: [
+                    "Mo",
+                    "Tu",
+                    "We",
+                    "Th",
+                    "Fr",
+                    "Sa",
+                    "Su"
+                    ], 
+                }  
+            });
+
+            //reset-Funktion
+            $('#daterange').on('cancel.daterangepicker', function(ev, picker) {
+                $('#daterange').val('');
+            });
+
+            $('#daterange').on('apply.daterangepicker', function(ev, picker) {
+                 $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
+                
+                var startDate = picker.startDate;
+                var endDate = picker.endDate;
+
+                // Berechnung Anzahl Tage
+                // full credits to: https://stackoverflow.com/questions/2627473/how-to-calculate-the-number-of-days-between-two-dates
+                //TODO: Mit Berücksichtigen, ob Samstag, Sonntag & gesetzloche Feiertage dabei sind Feiertage --> evtl. alles serverseitig und Anzahl Tage kommt vom Server
+                const oneDay = 24 * 60 * 60 * 1000; 
+                const firstDate = picker.startDate;
+                const secondDate = picker.endDate;
+
+                const diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay));
+                document.getElementById("addAbsence_numberOfDays").innerHTML = diffDays;
+            });    
+
+
+            // Button AddAbsence wird aktiviert, sobald eine Auswahl einer Periode gemacht wurde
+            $(document).ready(function () {
+                $('#daterange').on('apply.daterangepicker', function(ev, picker) {
+                      $('#addEmployee_confirm').prop('disabled', false);
+                    
+                });
+            });
+        });
+
+        // Leert alle mögliche Eingabemöglichkeiten
+        function reset(){
+            document.getElementById("daterange").value ="";
+            var dropDown = document.getElementById("absenceReason");
+            dropDown.selectedIndex = 0;
+            document.getElementById("addAbsence_numberOfDays").innerHTML ="";
+        }
+
+        // fügt Absence hinzu & zeigt eine Erfolgsmeldung an
+        function addAbsence(){
+            //TODO: send to server
+
+            var period = document.getElementById('daterange').value;
+            var reason = document.getElementById('absenceReason').value;
+            var numberOfWorkingDays = document.getElementById("addAbsence_numberOfDays").innerHTML;
+
+            var message = ("Dear User\n\nFollowing absence has been added:\n\nReason: "+reason+"\nPeriod: "+period+"\nNumber of working days: "+numberOfWorkingDays)
+            alert(message);
+            reset();
+        }
+    </script>
+
+</body>
+</html>

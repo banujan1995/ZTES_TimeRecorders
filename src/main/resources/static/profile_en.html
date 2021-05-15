@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/flick/jquery-ui.css">
     <title>Profile</title>
 </head>
-<body style="background-color: whitesmoke" > 
+<body style="background-color: rgb(217, 240, 216)">
     
     <br>
     <br>
@@ -29,7 +29,7 @@
     <ul class="navibar">
         <li class="barItem"><a class="barItem" href="main_en.html">Home</a></li>
         <li class="barItem"><a class="barItem" href="report_en.html">Report</a></li>
-        <li class="barItem"><a class="barItem">Absence</a></li>
+        <li class="barItem"><a class="barItem" href="absence_en.html">Absence</a></li>
         
         <li style="float:right" class="barItem"> <a href="login_en.html" class="barItem">Logout</a></li>
         <li style="float:right" class="barItem">
@@ -48,16 +48,16 @@
 
     <br><br>
     <!-- Tabelle mit den Profilangaben-->
-    <table id="weekTable" style="position: relative; margin: auto; width: 50px;"> 
-        <tr>
+    <table cellspacing="0" cellpadding="1" border="1" id="profileTable" style="position: relative; margin: auto; width: 50px;"> 
+        <tr style="background-color: whitesmoke">
             <th style="text-align: center; min-width: 135px; height: 65px;"> Username: </th>
             <td id ="profile_username"style="text-align: center; min-width: 235px; height: 65px;"> Admin1</td>
         </tr>
-        <tr>
+        <tr style="background-color: whitesmoke">
             <th style="text-align: center; min-width: 135px; height: 65px;"> Workload: </th>
             <td id ="profile_workload"style="text-align: center; min-width: 235px; height: 55px;"> 100%</td>
         </tr>
-        <tr>
+        <tr style="background-color: whitesmoke">
             <th style="text-align: center; min-width: 135px; height: 65px;"> Working Days: </th>
             <td id ="profile_workingDays" style="text-align: center; min-width: 155px; height: 65px;">
                 <label for="monday">Monday: </label> 
@@ -76,11 +76,11 @@
                 <input class="checkbox" type="checkbox" name="friday" id="addEmployee_friday" style="margin-left: 45px;" checked="true" disabled>
             </td>
         </tr>
-        <tr>
+        <tr style="background-color: whitesmoke">
             <th style="text-align: center; min-width: 135px; height: 65px;"> Target Hours (weekly): </th>
             <td id ="profile_targetHours" style="text-align: center; min-width: 235px; height: 65px;"> 42</td>
         </tr>
-        <tr>
+        <tr style="background-color: whitesmoke">
             <th style="text-align: center; min-width: 135px; height: 65px;"> Total Overhours: </th>
             <td id ="profile_totalOverhours" style="text-align: center; min-width: 235px; height: 65px;"> 3.50</td>
         </tr>

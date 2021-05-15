@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/style.css"">
     <title>Report</title>
 </head>
-<body style="background-color: whitesmoke" > 
+<body style="background-color: rgb(217, 240, 216)">
     
     <br>
     <br>
@@ -25,7 +25,7 @@
     <ul class="navibar">
         <li class="barItem"><a class="barItem" href="main_en.html">Home</a></li>
         <li class="barItem"><a class="barItem">Report</a></li>
-        <li class="barItem"><a class="barItem">Absence</a></li>
+        <li class="barItem"><a class="barItem" href="absence_en.html">Absence</a></li>
         
         <li style="float:right" class="barItem"> <a href="login_en.html" class="barItem">Logout</a></li>
         <li style="float:right" class="barItem">
@@ -45,10 +45,9 @@
 
     <form>
     <div style="display: block; text-align: center;width: 100%;">
-    <label for="month">Choose report month:</label>
-    <input id="month" type="month" name="month"
-           min="2021-01" max="2024-12" required>
-           <input style="margin-left: 20px;" type="submit" class = "buttonEmployeeList" value="Generate">
+    <label style="margin-right: 10px; font-weight: bold;" for="month">Choose report month:</label>
+    <input id="month" type="month" name="month" min="2021-01" max="2024-12" required>
+    <input style="margin-left: 20px;" type="submit" class ="buttonList" value="Generate">
     <span class="validity"></span>
     </div>
     </form>
