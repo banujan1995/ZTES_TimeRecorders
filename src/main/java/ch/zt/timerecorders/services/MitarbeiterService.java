@@ -76,6 +76,19 @@ public class MitarbeiterService {
 		m1 = maRepo.save(m1); // beim Speichern wird eine MAId automatisch vergeben
 		logger.info("MA erfolgreich hinzugefügt");
 		return m1.getMitarbeiterID();
+	
+	}
+	
+	
+	@ResponseBody
+	@GetMapping("/mitarbeiter/")
+	public List allMA() {
+		
+	List<MitarbeiterRegister> ma = maRepo.findAll();
+		System.out.println(ma.toString());
+		logger.info("Liste wurde erfolgreich erstellt");
+		return ma;
+	
 	}
 
 	// Mitarbeiter mutieren von MA zu AD (BR)
