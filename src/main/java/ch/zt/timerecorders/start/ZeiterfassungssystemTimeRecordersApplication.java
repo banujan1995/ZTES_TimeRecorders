@@ -36,6 +36,9 @@ public class ZeiterfassungssystemTimeRecordersApplication {
 	@Autowired
 	private Zeiterfassungsrepository zeiterfassungsRepository;
 	
+	@Autowired 
+	private MitarbeiterRepositoryInterface maRepo;
+	
 	
 
 	public static void main(String[] args) {

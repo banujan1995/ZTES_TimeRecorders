@@ -49,5 +49,19 @@ public class ViewsController {
 		logger.info("Das HTML PROFILE-EN wurde geladen.");
 		return "profile_en.html";
 	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/employeeList")
+	public String showEmployeeList(Model model) {
+		logger.info("Das HTML EmployeeList wurde geladen.");
+		return "employeeList_en.html";
+		
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/addEmployee")
+	public String showAddEmployee(Model model) {
+		logger.info("Das HTML addEmployee wurde geladen.");
+		return "addEmployee_en.html";
+		
+	}
 
 }
