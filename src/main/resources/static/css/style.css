@@ -132,53 +132,56 @@
 }
 
 .float{
-float: right;
+    float: right;
 }
 
-#weekTable {
-    font-family: Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-    border: 1px black;
-}
-  
-#weekTable td, #weekTable th {
-    border: 1px solid black;
-    padding: 8px;
-}
-  
-#weekTable tr:nth-child(even){background-color: #f2f2f2;}
-  
-#weekTable tr:hover {background-color: #ddd;}
-  
-#weekTable th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color:rgb(126, 172, 168);;
-    color: white;
-}
 
-#table {
+.table {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
-    width: 100%;
     overflow:hidden;
     overflow-y: scroll;
 
 }
   
-#table td, #table th {
+.table td{
     border: 1px solid black;
-    padding: 8px;
+    text-align: center;
+    min-width: 110px;
+    height: 55px;
+}
+
+.table tr{
+    background-color: whitesmoke;
+    text-align: center;
+    min-width: 110px;
+    height: 55px;
 }
   
-#table th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
+.table th {
+    text-align: center;
+    border: 1px solid black;
+    min-width: 135px;
+    max-width: 135px;
+    height: 55px;
     background-color:rgb(126, 172, 168);
     color: white;
+}
+
+.timeInput {
+    width: 45px; 
+    height: 30px; 
+    margin-left: 2px; 
+    margin-right: 2px;
+}
+
+.resultsTimeInput{
+    background-color: transparent;
+    border: 0; 
+    height: 30px; 
+    max-width: 110px;
+    font-size: 16px;
+    text-align: center;
     
 }
 
@@ -238,21 +241,15 @@ float: right;
     display: block;
 }
   
-.footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 70px;
-    margin-bottom: 20px;
-    background-color:rgb(126, 172, 168);
-    text-align: center;
- }
 .total {
     font-family: Arial;
     font-size: 17px;
     color: white;
     font-weight: bold;
+    background-color: transparent;
+    border: 0; 
+    height: 30px; 
+    text-align: center;
 }
 
 #absenceTable {
