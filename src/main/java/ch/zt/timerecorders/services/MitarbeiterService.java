@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ch.zt.timerecorders.persistence.Administrator;
 import ch.zt.timerecorders.persistence.AdministratorenRepository;
+import ch.zt.timerecorders.persistence.ArbeitstagRepository;
 import ch.zt.timerecorders.persistence.Mitarbeiter;
 import ch.zt.timerecorders.persistence.MitarbeiterRepository;
 import ch.zt.timerecorders.persistence.Zeiterfassungsrepository;
@@ -49,7 +50,10 @@ public class MitarbeiterService {
 
 	@Autowired
 	private Zeiterfassungsrepository zeiterfassungsrepository;
-	
+
+	@Autowired
+	private ArbeitstagRepository arbeitstagRepository;
+
 	@Autowired
 	private MitarbeiterRepositoryInterface mitarbeiterRepositoryInterface;
 
@@ -67,32 +71,30 @@ public class MitarbeiterService {
 	@PostMapping(path = "/addEmployee/", produces = "application/json")
 	public long createNewMa(@RequestBody MessageMaRegister m) {
 
-
 		MitarbeiterRegister m1 = new MitarbeiterRegister();
 		m1.setSurname(m.getSurname());
 		m1.setFamilyname(m.getFamilyname());
 		m1.setName(m.getName());
 		m1.setPasswort(m.getPasswort());
 		m1.setPensum(m.getPensum());
-		
+
 		m1 = mitarbeiterRepositoryInterface.save(m1); // beim Speichern wird eine MAId automatisch vergeben
 		logger.info("MA erfolgreich hinzugefügt");
 		return m1.getMitarbeiterID();
-	
+
 	}
-	
+
 	// KG: MA Liste erstellen als JSON
 	@ResponseBody
 	@GetMapping(path = "/mitarbeiterList/", produces = "application/json")
 	public List allMA() {
-		
-	List<MitarbeiterRegister> ma = mitarbeiterRepositoryInterface.findAll();
+
+		List<MitarbeiterRegister> ma = mitarbeiterRepositoryInterface.findAll();
 		System.out.println(ma.toString());
 		logger.info("Liste wurde erfolgreich erstellt");
 		return ma;
-	
+
 	}
-	
 
 	// Mitarbeiter mutieren von MA zu AD (BR)
 
@@ -140,46 +142,56 @@ public class MitarbeiterService {
 
 	@PostMapping(path = "/timerecorders/mitarbeiterlogin/", produces = "application/json")
 	public boolean passwortCreaditalCheck(@RequestBody MessageLogin login) {
-		
-			switch (adminORMaListFinder(login.getUser())) {
 
-			case "Mitarbeiter":
+		switch (adminORMaListFinder(login.getUser())) {
 
-				if (login.getPassword().equalsIgnoreCase(
-						mitarbeiterRepository.getSingleMitarbeiterName(login.getUser()).getPasswort())) {
-					return true;
+		case "Mitarbeiter":
 
-				} else {
-					return false;
+			if (login.getPassword()
+					.equalsIgnoreCase(mitarbeiterRepository.getSingleMitarbeiterName(login.getUser()).getPasswort())) {
+				return true;
 
-				}
-
-			case "Administrator":
-				if (login.getPassword().equalsIgnoreCase(
-						administratorenRepository.getSingleAdministratorName(login.getUser()).getPasswort())) {
-					return true;
-
-				} else {
-					return false;
-
-				}
-
-			default:
-				logger.warning("Es wurde ein Login eingegeben, welche nicht als Admin oder Mitarbeiter gibt "
-						+ "/ A login was entered which does not exist as an admin or employee.");
+			} else {
 				return false;
+
 			}
 
+		case "Administrator":
+			if (login.getPassword().equalsIgnoreCase(
+					administratorenRepository.getSingleAdministratorName(login.getUser()).getPasswort())) {
+				return true;
 
-		
+			} else {
+				return false;
+
+			}
+
+		default:
+			logger.warning("Es wurde ein Login eingegeben, welche nicht als Admin oder Mitarbeiter gibt "
+					+ "/ A login was entered which does not exist as an admin or employee.");
+			return false;
+		}
 
 	}
 
-	// Mitarbeiter Logout (BR)
+	/*
+	 * Mitarbeiter Zeiterfassung (BR), Die Methode soll den korrekten Tag anhand der
+	 * TagesID holen und dann Einstempeln und Ausstempeln registrieren.
+	 */
 
-	// Mitarbeiter einstempeln (BR)
+	@PostMapping(path = "/timerecorders/zeiterfassung/", produces = "application/json")
+	public boolean einstempeln(@RequestBody MessageTimeStamp einstempeln) {
 
-	// Mitarbeiter ausstempeln (BR)
+		return true;
+	}
+
+	// Mitarbeiter Zeiterfassung - Veränderung (BR)
+
+	@PutMapping(path = "/timerecorders/zeiterfassung/changes/", produces = "application/json")
+	public boolean zeitveränderung(@RequestBody MessageTimeStamp einstempeln) {
+
+		return true;
+	}
 
 	// Mitarbeiter - Ferien erfassen (BR)
 

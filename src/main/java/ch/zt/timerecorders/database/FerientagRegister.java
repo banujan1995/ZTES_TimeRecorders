@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "ferientag")
-public class Ferientag {
+public class FerientagRegister {
 	
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -26,7 +26,7 @@ public class Ferientag {
 	private int anzahlStd;
 	
 	
-	public Ferientag(Long ferienID, Long mitarbeiterID, int tag, int anzahlStd) {
+	public FerientagRegister(Long ferienID, Long mitarbeiterID, int tag, int anzahlStd) {
 		super();
 		this.ferienID = ferienID;
 		this.mitarbeiterID = mitarbeiterID;

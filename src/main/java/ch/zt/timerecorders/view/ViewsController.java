@@ -32,6 +32,8 @@ public class ViewsController {
 		logger.info("Das erste HTML LOGIN-DE wurde geladen.");
 		return "login_de.html";
 	}
+	
+	
 
 	@RequestMapping(method = RequestMethod.GET, value = "/loginen")
 	public String showLoginEng(Model model) {
