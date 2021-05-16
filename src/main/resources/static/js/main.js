@@ -4,7 +4,7 @@
 
 $(document).ready(function() {
 	console.log("Zeiterfassungssystem der JKB wurde gestartet");
-	$.getJSON("http://localhost:8081/timerecorders/erfasstemitarbeiter").done(handleMitarbeiterListReply)
+	$.getJSON("http://localhost:8081/mitarbeiterList/").done(handleMitarbeiterListReply)
 
 });
 
@@ -12,24 +12,29 @@ $(document).ready(function() {
 // Funktion Kundenliste befüllen
 //////////////////////////////////
 
-function handleMitarbeiterListReply(erfasstemitarbeiter) {
-	console.log(erfasstemitarbeiter)
-	$("#tblMitarbeiterliste tbody").empty();
-	for (let mitarbeiter of erfasstemitarbeiter) {
-		fillupTablewithContent(mitarbeiter);
+	
+	// KG: Methode zum Liste erstellen
+            function handleMitarbeiterlistReply(mitarbeiterList){
+                console.log("mitarbeiter");
+                
+                $("#tblKundenliste tbody").empty();
+                
+                for ( let mitatbeiter of mitarbeiterList ) {
+                	addEmployeeToList(mitarbeiter);	
+                }
+            }
+         
+         function addEmployeeToList( mitarbeiterRegister ){
+        	console.log("kommt in addEmployeeList");
+             var link = "javascript:/mitarbeiterList/("+mitarbeiterRegister["mitarbeiterID"]+")";
+                	
+             var newRow = "<tr>";
+              	newRow += "<td><a href=\""+link+"\">" + mitarbeiterRegister['username'] +"</a></td>";
+                newRow += "<td>" + mitarbeiterRegister['workload'] + "</td>";
+                newRow += "</tr>";
+                	
+             $("#tblKundenliste tbody").append(newRow);
+            }
+            
+   
 
-	}
-
-	function fillupTablewithContent(mitarbeiter) {
-
-		var newRow = "<tr>";
-		newRow += "<td>" + mitarbeiter['name'] + "</td>";
-		newRow += "<td>" + mitarbeiter['vorname'] + "</td>";
-		newRow += "<td>" + mitarbeiter['mitarbeiterID'] + "</td>";
-		newRow += "</tr>";
-
-		$("#tblMitarbeiterliste tbody").append(newRow);
-	}
-
-
-}

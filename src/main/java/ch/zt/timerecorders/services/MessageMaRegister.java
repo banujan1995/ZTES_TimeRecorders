@@ -2,6 +2,12 @@ package ch.zt.timerecorders.services;
 
 import java.util.Date;
 
+/**
+ * 
+ * @author Kiren Gondal
+ *
+ */
+
 public class MessageMaRegister {
 	
 	private Long mitarbeiterId;

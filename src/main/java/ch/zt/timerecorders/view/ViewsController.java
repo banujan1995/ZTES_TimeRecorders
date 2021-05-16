@@ -20,6 +20,7 @@ import ch.zt.timerecorders.start.ServiceLocator;
 @Controller // Annotation für den Framework 
 public class ViewsController {
 	
+	//BR
 	Logger logger = ServiceLocator.getServiceLocator().getLogger();
 
 	/**
@@ -61,6 +62,12 @@ public class ViewsController {
 	public String showAddEmployee(Model model) {
 		logger.info("Das HTML addEmployee wurde geladen.");
 		return "addEmployee_en.html";
+		
+	}
+	@RequestMapping(method = RequestMethod.GET, value = "/report")
+	public String showReport(Model model) {
+		logger.info("Das HTML Report wurde geladen.");
+		return "report_en.html";
 		
 	}
 
