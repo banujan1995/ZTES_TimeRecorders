@@ -135,13 +135,13 @@
     float: right;
 }
 
-
 .table {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     overflow:hidden;
     overflow-y: scroll;
-
+    position: relative; 
+    margin: auto;
 }
   
 .table td{
@@ -252,7 +252,7 @@
     text-align: center;
 }
 
-#absenceTable {
+.absenceTable {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
@@ -262,16 +262,60 @@
 
 }
   
-#absenceTable td, #absenceTable th {
+.absenceTable td {
     padding: 8px;
 }
   
-#absenceTable th {
+.absenceTable th {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
     background-color:rgb(126, 172, 168);
     color: white;
+    text-align: center;
+    min-width: 155px; 
+    height: 65px;
+    padding: 8px;
+}
+
+.absenceTable tr {
+    color: white;
+}
+
+.absenceTableContent {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    overflow:hidden;
+    overflow-y: scroll;
+
+}
+  
+.absenceTableContent td{
+    padding: 8px;
+    text-align: center; 
+    min-width: 155px; 
+    height: 65px;
+    background-color: whitesmoke;
+    text-align: center;
+    min-width: 155px; 
+    height: 65px;
+    color: black;
+}
+  
+.absenceTableContent th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color:rgb(126, 172, 168);
+    color: white;
+    text-align: center;
+    min-width: 155px; 
+    height: 65px;
+}
+
+.absenceTableContent tr {
+    background-color: whitesmoke;
 }
 
 #employeeTable {
