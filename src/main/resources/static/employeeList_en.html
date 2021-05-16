@@ -14,13 +14,9 @@
     <title>List of Employees</title>
 </head>
 <body style="background-color: rgb(217, 240, 216)">
-    
-    <br>
-    <br>
     <div style="max-width: 350px; position: relative; margin: auto;" >
     <img src="css/images/Logo.png" alt="Logo" class= "logo" style="max-width: 350px;" > 
     </div>
-    <br>
     <br>
     <br>
     <br>
@@ -42,24 +38,22 @@
           <li style="float:right" class="barItem"> <a href="profile_en.html" class="barItem">Profile</a> </li>
     </ul>
 
-    <br>
     <div style="display: block; text-align: center;width: 100%;">
         <h1>List of Employees</h1>
     </div>
-    <br><br>
+    <br>
     <!-- Tabelle mit den Mitarbeitenden-->  
     <!-- Header als eigene Tabelle zum Inhalt scrollbar machen zu können-->  
-    <table cellspacing="0" cellpadding="0" border="0" id="employeeTable" style="position: relative; margin: auto; width: 50px;">
+    <table class="employeeTable" cellspacing="0" cellpadding="0" border="0" id="employeeTable" style="position: relative; margin: auto; width: 955px;">
         <tr>
           <td>
-             <table cellspacing="0" cellpadding="1" id="employeeTable"border="1" width="" >
+             <table cellspacing="0" cellpadding="1" id="employeeTableContent" border="1" >
                <tr>
-                <th style="text-align: center; width: 155px; height: 65px;"> Employee ID: </th>
-                <th style="text-align: center; width: 155px; height: 65px;"> Username: </th>
-                <th style="text-align: center; width: 155px; height: 65px;"> Workingload: </th>
-                <th style="text-align: center; width: 155px; height: 65px;"> Working Days: </th>
-                <th style="text-align: center; width: 155px; height: 65px;"> Edit: </th>
-
+                <th> Employee ID: </th>
+                <th> Username: </th>
+                <th> Workingload: </th>
+                <th> Working Days: </th>
+                <th> Edit: </th>
                </tr>
              </table>
           </td>
@@ -67,13 +61,13 @@
         <tr>
           <td>
               <!-- Tabelle für "Inhalt"-->  
-             <div style="width:900px; height:500px; overflow:auto;">
-               <table cellspacing="0" cellpadding="1" border="1" width="300" id="tableContent" >
-                <tr id="employee1" class="row"  style="background-color: whitesmoke">
-                    <td id ="employeeList_id1" style="text-align: center; min-width: 155px; height: 65px;" >1</td>
-                    <td id ="employeeList_username1" style="text-align: center; min-width: 155px; height: 65px;"> Luca Muster</td>
-                    <td id ="employeeList_workload1" style="text-align: center; min-width: 155px; height: 65px;">100%</td>
-                    <td id ="employeeList_workingDays1" style="text-align: center; min-width: 155px; height: 65px;">
+             <div style=" height:500px; overflow:auto;">
+               <table class="employeeTableContent" cellspacing="0" cellpadding="1" border="1" id="tableContent" >
+                <tr id="employee1">
+                    <td id ="employeeList_id1" >1</td>
+                    <td id ="employeeList_username1"> Luca Muster</td>
+                    <td id ="employeeList_workload1">100%</td>
+                    <td id ="employeeList_workingDays1">
                         <label for="monday">Monday: </label> 
                         <input class="checkbox0" type="checkbox" name="monday" id="employeeList_monday1" style="margin-left: 33px;" checked ="true" disabled> 
                         <br>
@@ -88,7 +82,7 @@
                         <br>
                         <label for="friday0">Friday: </label> 
                         <input class="checkbox" type="checkbox" name="friday" id="employeeList_friday1" style="margin-left: 45px;" checked ="true" disabled>
-                        <td style="text-align: center; min-width: 155px; height: 65px;"> 
+                        <td> 
                             <button onclick="editEmployee(this);" class="buttonList" id ="button0" type="button" > Edit </button> 
                             <br>
                             <br>
@@ -96,11 +90,11 @@
                         </td>
                     </td>
                 </tr>
-                <tr id="employee2" class="row"  style="background-color: whitesmoke">
-                    <td id ="employeeList_id2" style="text-align: center; min-width: 155px; height: 65px;"> 2</td>
-                    <td id ="employeeList_username2" style="text-align: center; min-width: 155px; height: 65px;"> Max Muster</td>
-                    <td id ="employeeList_workload2" style="text-align: center; min-width: 155px; height: 65px;">80%</td>
-                    <td id ="employeeList_workingDays2" style="text-align: center; min-width: 155px; height: 65px;">
+                <tr id="employee2">
+                    <td id ="employeeList_id2" > 2</td>
+                    <td id ="employeeList_username2"> Max Muster</td>
+                    <td id ="employeeList_workload2">80%</td>
+                    <td id ="employeeList_workingDays2">
                         <label for="monday">Monday: </label> 
                         <input class="checkbox" type="checkbox" name="monday" id="employeeList_monday2" style="margin-left: 33px;" checked ="true" disabled> 
                         <br>
@@ -115,18 +109,18 @@
                         <br>
                         <label for="friday">Friday: </label> 
                         <input class="checkbox" type="checkbox" name="friday" id="employeeList_friday2" style="margin-left: 45px;" disabled>
-                        <td style="text-align: center; min-width: 155px; height: 65px;"> 
+                        <td> 
                             <button onclick="editEmployee(this);" class="buttonList" type="button" > Edit </button> 
                             <br>
                             <br>
                             <button onclick="deleteEmployee(this);" class="buttonList" type="button" > Delete </button> 
                         </td>
                     </td>
-                <tr id="employee3" class="row" style="background-color: whitesmoke">
-                        <td id ="employeeList_id3" style="text-align: center; min-width: 155px; height: 65px;"> 3</td>
-                        <td id ="employeeList_username3" style="text-align: center; min-width: 155px; height: 65px;"> Mia Muster</td>
-                        <td id ="employeeList_workload3" style="text-align: center; min-width: 155px; height: 65px;">80%</td>
-                        <td id ="employeeList_workingDays3" style="text-align: center; min-width: 155px; height: 65px;">
+                <tr id="employee3">
+                        <td id ="employeeList_id3"> 3</td>
+                        <td id ="employeeList_username3"> Mia Muster</td>
+                        <td id ="employeeList_workload3">80%</td>
+                        <td id ="employeeList_workingDays3">
                             <label for="monday">Monday: </label> 
                             <input class="checkbox" type="checkbox" name="monday" id="employeeList_monday3" style="margin-left: 33px;" checked ="true" disabled> 
                             <br>
@@ -141,7 +135,7 @@
                             <br>
                             <label for="friday">Friday: </label> 
                             <input class="checkbox" type="checkbox" name="friday" id="employeeList_friday3" style="margin-left: 45px;" checked ="true" disabled>
-                            <td style="text-align: center; min-width: 155px; height: 65px;"> 
+                            <td> 
                                 <button onclick="editEmployee(this);" class="buttonList" type="button" > Edit </button> 
                                 <br>
                                 <br>
@@ -149,11 +143,11 @@
                             </td>
                         </td>
                     </tr>
-                    <tr id="employee4" class="row"  style="background-color: whitesmoke">
-                        <td id ="employeeList_id4" style="text-align: center; min-width: 155px; height: 65px;"> 4</td>
-                        <td id ="employeeList_username4" style="text-align: center; min-width: 155px; height: 65px;"> Peter Muster</td>
-                        <td id ="employeeList_workload4" style="text-align: center; min-width: 155px; height: 65px;">60%</td>
-                        <td id ="employeeList_workingDays4" style="text-align: center; min-width: 155px; height: 65px;">
+                    <tr id="employee4">
+                        <td id ="employeeList_id4"> 4</td>
+                        <td id ="employeeList_username4"> Peter Muster</td>
+                        <td id ="employeeList_workload4">60%</td>
+                        <td id ="employeeList_workingDays4">
                             <label for="monday">Monday: </label> 
                             <input class="checkbox" type="checkbox" name="monday" id="employeeList_monday4" style="margin-left: 33px;" checked ="true" disabled> 
                             <br>
@@ -168,7 +162,7 @@
                             <br>
                             <label for="friday">Friday: </label> 
                             <input class="checkbox" type="checkbox" name="friday" id="employeeList_friday4" style="margin-left: 45px;" disabled>
-                            <td style="text-align: center; min-width: 155px; height: 65px;"> 
+                            <td> 
                                 <button onclick="editEmployee(this);" class="buttonList" type="button" > Edit </button> 
                                 <br>
                                 <br>
@@ -176,11 +170,11 @@
                             </td>
                         </td>
                     </tr>
-                    <tr id="employee5" class="row"  style="background-color: whitesmoke">
-                        <td id ="employeeList_id5" style="text-align: center; min-width: 155px; height: 65px;"> 5</td>
-                        <td id ="employeeList_username5" style="text-align: center; min-width: 155px; height: 65px;"> Lewis Muster</td>
-                        <td id ="employeeList_workload5" style="text-align: center; min-width: 155px; height: 65px;">40%</td>
-                        <td id ="employeeList_workingDays5" style="text-align: center; min-width: 155px; height: 65px;">
+                    <tr id="employee5">
+                        <td id ="employeeList_id5"> 5</td>
+                        <td id ="employeeList_username5"> Lewis Muster</td>
+                        <td id ="employeeList_workload5">40%</td>
+                        <td id ="employeeList_workingDays5">
                             <label for="monday">Monday: </label> 
                             <input class="checkbox" type="checkbox" name="monday" id="employeeList_monday5" style="margin-left: 33px;"  disabled> 
                             <br>
@@ -195,7 +189,7 @@
                             <br>
                             <label for="friday">Friday: </label> 
                             <input class="checkbox" type="checkbox" name="friday" id="employeeList_friday5" style="margin-left: 45px;" disabled></td>
-                            <td style="text-align: center; min-width: 155px; height: 65px;"> 
+                            <td> 
                                 <button onclick="editEmployee(this);" class="buttonList" type="button"> Edit </button> 
                                 <br>
                                 <br>
@@ -214,8 +208,7 @@
         <a href="profile_en.html" class="buttonLinks" style="margin-right: 20px; text-decoration: none;"> Return to Profile</a>
         <a href="addEmployee_en.html" class="buttonLinks" style="text-decoration: none;"> Add Employee</a>
      </div>
-   
-    <div class="footer"></div>
+     <br><br>
 
     <script>
 

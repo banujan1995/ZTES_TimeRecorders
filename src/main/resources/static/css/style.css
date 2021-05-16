@@ -357,29 +357,31 @@
     border: 1px solid black;
 }
 
-#employeeTable {
+.employeeTable {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
-    width: 100%;
     overflow:hidden;
     overflow-y: scroll;
     border: 2px black;
 
 }
   
-#employeeTable td, employeeTable th {
+.employeeTable td {
     padding: 8px;
 }
   
-#employeeTable th {
+.employeeTable th {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
     background-color:rgb(126, 172, 168);
     color: white;
+    text-align: center; 
+    height: 65px;
+    width: 180px; 
 }
 
-#tableContent {
+.employeeTableContent {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
@@ -388,11 +390,19 @@
     border: 2px black;
 }
   
-#tableContent td, tableContent th {
-    padding: 8px;
+.employeeTableContent td{
+
+    text-align: center;
+    width: 170px; 
+    height: 65px;
+}
+
+.employeeTableContent tr {
+    background-color: whitesmoke;
+    border: 1px solid black;
 }
   
-#tableContent th {
+.employeeTableContent th {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
@@ -410,7 +420,7 @@
 
 }
   
-#profileTable td, #profileTable th {
+#profileTable td {
     padding: 8px;
 }
   
@@ -420,4 +430,36 @@
     text-align: left;
     background-color:rgb(126, 172, 168);
     color: white;
+}
+
+.addeEmployeeTable {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    overflow:hidden;
+    overflow-y: scroll;
+    border: 2px black;
+
+}
+  
+.addeEmployeeTable td {
+    padding: 8px;
+    text-align: center; 
+    min-width: 235px; 
+    height: 65px;
+}
+  
+.addeEmployeeTable th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color:rgb(126, 172, 168);
+    color: white;
+    text-align: center; 
+    min-width: 175px; 
+    height: 65px;
+}
+
+.addeEmployeeTable tr {
+    padding: 8px;
+    background-color: whitesmoke
 }
