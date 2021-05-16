@@ -53,7 +53,7 @@
 
     <!-- Wochentabelle, Datum je nach Auswahl im Kalender + Button: Validieren-->
     <div  style="position: relative; margin: auto;">
-    <table id="table" class="table" title="Use Format: hh:mm"> 
+    <table id="table" class="table"> 
         <tr>
             <th> Weektable: </th>
             <th id="firstDayofWeek"> </th>
@@ -63,7 +63,7 @@
             <th id="fifthDayofWeek"> </th>
             <th id="sixthDayofWeek"></th>
             <th id="seventhDayofWeek"></th>
-            <th> Total week: </th> 
+            <th></th> 
         </tr>
 
         <tr>
@@ -191,7 +191,7 @@
         <tr>
             <th>Total Today:</th>
             <td> 
-                <input type="text" id="mondayTotal" class="resultsTimeInput" onchange="sumTotalWeek()" disabled >
+                <input type="text" id="mondayTotal" class="resultsTimeInput"  disabled >
             </td>
             <td>
                 <input type="text" id="tuesdayTotal"  class="resultsTimeInput" disabled>
@@ -219,7 +219,7 @@
         <tr>
             <th>Target Time:</th>
             <td> 
-                <input type="text" id="mondayTargetTime" class="resultsTimeInput" onchange="sumTotalWeek()" disabled >
+                <input type="text" id="mondayTargetTime" class="resultsTimeInput" disabled >
             </td>
             <td>
                 <input type="text" id="tuesdayTargetTime" class="resultsTimeInput" disabled>
@@ -247,7 +247,7 @@
         <tr>
             <th>Overhours:</th>
             <td> 
-                <input type="text" id="mondayOverhours" class="resultsTimeInput" onchange="sumTotalWeek()" disabled >
+                <input type="text" id="mondayOverhours" class="resultsTimeInput" disabled >
             </td>
             <td>
                 <input type="text" id="tuesdayOverhours"  class="resultsTimeInput" disabled>
@@ -272,8 +272,8 @@
             </th>
     </table>
 
-    <div style="display: block; text-align: center;width: 178%; margin-top: 20px;">
-        <button  class="buttonList" id="confirmSunday"> Confirm changes</button>
+    <div style="display: block; text-align: center;width: 100%; margin-top: 30px;">
+        <button  id="confirmSunday"> Confirm changes</button>
     </div>
     
 </div>
@@ -331,145 +331,154 @@
             var tuesdayAfternoonEndHours = document.getElementById("tuesdayAfternoonEndHours").value;
             var tuesdayAfternoonEndMin = document.getElementById("tuesdayAfternoonEndMin").value;
 
-            var mondayMorningEndDeci = mondayMorningEndMin * (1/60);
-            var mondayMorningStartMinDeci = tuesdayMorningStartMin * (1/60);
-            var tuesdayAfternoonEndMin = tuesdayAfternoonEndMin * (1/60);
-            var tuesdayAfternoonStartMin = tuesdayAfternoonStartMin * (1/60);
+            var tuesdayMorningEndMinDeci = tuesdayMorningEndMin * (1/60);
+            var tuesdayMorningStartMinDeci = tuesdayMorningStartMin * (1/60);
+            var tuesdayAfternoonEndMinDeci = tuesdayAfternoonEndMin * (1/60);
+            var tuesdayAfternoonStartMinDeci = tuesdayAfternoonStartMin * (1/60);
 
-            var mondayMorningTotal = (mondayMorningEndHours - mondayMorningStartHours) + (mondayMorningEndDeci - mondayMorningStartMinDeci);
-            var mondayAfternoonTotal = (mondayAfternoonEndHours - mondayAfternoonStartHours) + (mondayAfternoonEndMinDeci - mondayAfternoonStartMinDeci);
+            var morningTotal = (tuesdayMorningEndHours - tuesdayMorningStartHours) + (tuesdayMorningEndMinDeci - tuesdayMorningStartMinDeci);
+            var afternoonTotal = (tuesdayAfternoonEndHours - tuesdayAfternoonStartHours) + (tuesdayAfternoonStartMinDeci - tuesdayAfternoonEndMinDeci);
 
-            var mondayTotalDeci = parseFloat(mondayMorningTotal + mondayAfternoonTotal);
+            var totalDeci = parseFloat(morningTotal + afternoonTotal);
 
-            var mondayTotalTimeFormat = h_mm(mondayTotalDeci);
+            var totalTimeFormat = h_mm(totalDeci);
 
-            document.getElementById("tuesdayTotal").value =totalToday.toFixed(2);
+            document.getElementById("tuesdayTotal").value =totalTimeFormat;
         }
 
         // berechnet Arbeitsstunden am Mittwoch
         function calculateWednesdayTotal() {
-            var mondayMorningStartHours =  document.getElementById("mondayMorningStartHours").value;
-            var mondayMorningStartMin = document.getElementById("mondayMorningStartMin").value;
-            var mondayMorningEndHours = document.getElementById("mondayMorningEndHours").value;
-            var mondayMorningEndMin = document.getElementById("mondayMorningEndMin").value;
+            var morningstartHours =  document.getElementById("wednesdayMorningStartHours").value;
+            var morningStartMin = document.getElementById("wednesdayMorningStartMin").value;
+            var morningEndHours = document.getElementById("wednesdayMorningEndHours").value;
+            var morningEndMin = document.getElementById("wednesdayMorningEndMin").value;
             
-            var mondayAfternoonStartHours = document.getElementById("mondayAfternoonStartHours").value;
-            var mondayAfternoonStartMin = document.getElementById("mondayAfternoonStartMin").value;
-            var mondayAfternoonEndHours = document.getElementById("mondayAfternoonEndHours").value;
-            var mondayAfternoonEndMin = document.getElementById("mondayAfternoonEndMin").value;
+            var afternoonStartHours = document.getElementById("wednesdayAfternoonStartHours").value;
+            var afternoonStartMin = document.getElementById("wednesdayAfternoonStartMin").value;
+            var afternoonEndHours = document.getElementById("wednesdayAfternoonEndHours").value;
+            var afternoonEndMin = document.getElementById("wednesdayAfternoonEndMin").value;
 
-            var mondayMorningEndDeci = mondayMorningEndMin * (1/60);
-            var mondayMorningStartMinDeci = mondayMorningStartMin * (1/60);
-            var mondayAfternoonEndMinDeci = mondayAfternoonEndMin * (1/60);
-            var mondayAfternoonStartMinDeci = mondayAfternoonStartMin * (1/60);
+            var morningEndMinDeci = morningEndMin * (1/60);
+            var morningStartMinDeci = morningStartMin * (1/60);
+            var afternoonEndMinDeci = afternoonEndMin * (1/60);
+            var afternoonStartMinDeci = afternoonStartMin * (1/60);
 
-            var mondayMorningTotal = (mondayMorningEndHours - mondayMorningStartHours) + (mondayMorningEndDeci - mondayMorningStartMinDeci);
-            var mondayAfternoonTotal = (mondayAfternoonEndHours - mondayAfternoonStartHours) + (mondayAfternoonEndMinDeci - mondayAfternoonStartMinDeci);
+            var morningTotal = (morningEndHours - morningstartHours) + (morningEndMinDeci - morningStartMinDeci);
+            var afternoonTotal = (afternoonEndHours - afternoonStartHours) + (afternoonEndMinDeci - afternoonStartMinDeci);
 
-            var mondayTotalDeci = parseFloat(mondayMorningTotal + mondayAfternoonTotal);
+            var totalDeci = parseFloat(morningTotal + afternoonTotal);
 
-            var mondayTotalTimeFormat = h_mm(mondayTotalDeci);
-             
-            document.getElementById("wednesdayTotal").value =mondayTotalTimeFormat;
+            var totalTimeFormat = h_mm(totalDeci);
+
+            document.getElementById("wednesdayTotal").value =totalTimeFormat;
         }
 
         // berechnet Arbeitsstunden am Donnerstag
         function calculateThursdayTotal() {
-            var mondayMorningStartHours =  document.getElementById("mondayMorningStartHours").value;
-            var mondayMorningStartMin = document.getElementById("mondayMorningStartMin").value;
-            var mondayMorningEndHours = document.getElementById("mondayMorningEndHours").value;
-            var mondayMorningEndMin = document.getElementById("mondayMorningEndMin").value;
+            var morningstartHours =  document.getElementById("thursdayMorningStartHours").value;
+            var morningStartMin = document.getElementById("thursdayMorningStartMin").value;
+            var morningEndHours = document.getElementById("thursdayMorningEndHours").value;
+            var morningEndMin = document.getElementById("thursdayMorningEndMin").value;
             
-            var mondayAfternoonStartHours = document.getElementById("mondayAfternoonStartHours").value;
-            var mondayAfternoonStartMin = document.getElementById("mondayAfternoonStartMin").value;
-            var mondayAfternoonEndHours = document.getElementById("mondayAfternoonEndHours").value;
-            var mondayAfternoonEndMin = document.getElementById("mondayAfternoonEndMin").value;
+            var afternoonStartHours = document.getElementById("thursdayAfternoonStartHours").value;
+            var afternoonStartMin = document.getElementById("thursdayAfternoonStartMin").value;
+            var afternoonEndHours = document.getElementById("thursdayAfternoonEndHours").value;
+            var afternoonEndMin = document.getElementById("thursdayAfternoonEndMin").value;
 
-            var mondayMorningEndDeci = mondayMorningEndMin * (1/60);
-            var mondayMorningStartMinDeci = mondayMorningStartMin * (1/60);
-            var mondayAfternoonEndMinDeci = mondayAfternoonEndMin * (1/60);
-            var mondayAfternoonStartMinDeci = mondayAfternoonStartMin * (1/60);
+            var morningEndMinDeci = morningEndMin * (1/60);
+            var morningStartMinDeci = morningStartMin * (1/60);
+            var afternoonEndMinDeci = afternoonEndMin * (1/60);
+            var afternoonStartMinDeci = afternoonStartMin * (1/60);
 
-            var mondayMorningTotal = (mondayMorningEndHours - mondayMorningStartHours) + (mondayMorningEndDeci - mondayMorningStartMinDeci);
-            var mondayAfternoonTotal = (mondayAfternoonEndHours - mondayAfternoonStartHours) + (mondayAfternoonEndMinDeci - mondayAfternoonStartMinDeci);
+            var morningTotal = (morningEndHours - morningstartHours) + (morningEndMinDeci - morningStartMinDeci);
+            var afternoonTotal = (afternoonEndHours - afternoonStartHours) + (afternoonEndMinDeci - afternoonStartMinDeci);
 
-            var mondayTotalDeci = parseFloat(mondayMorningTotal + mondayAfternoonTotal);
+            var totalDeci = parseFloat(morningTotal + afternoonTotal);
 
-            var mondayTotalTimeFormat = h_mm(mondayTotalDeci);
-             
-            document.getElementById("wednesdayTotal").value =mondayTotalTimeFormat;
+            var totalTimeFormat = h_mm(totalDeci);
+
+            document.getElementById("thursdayTotal").value =totalTimeFormat;
         }
 
         // berechnet Arbeitsstunden am Freitag
         function calculateFridayTotal() {
-            var mondayMorningStartHours =  document.getElementById("mondayMorningStartHours").value;
-            var mondayMorningStartMin = document.getElementById("mondayMorningStartMin").value;
-            var mondayMorningEndHours = document.getElementById("mondayMorningEndHours").value;
-            var mondayMorningEndMin = document.getElementById("mondayMorningEndMin").value;
+            var morningstartHours =  document.getElementById("fridayMorningStartHours").value;
+            var morningStartMin = document.getElementById("fridayMorningStartMin").value;
+            var morningEndHours = document.getElementById("fridayMorningEndHours").value;
+            var morningEndMin = document.getElementById("fridayMorningEndMin").value;
             
-            var mondayAfternoonStartHours = document.getElementById("mondayAfternoonStartHours").value;
-            var mondayAfternoonStartMin = document.getElementById("mondayAfternoonStartMin").value;
-            var mondayAfternoonEndHours = document.getElementById("mondayAfternoonEndHours").value;
-            var mondayAfternoonEndMin = document.getElementById("mondayAfternoonEndMin").value;
+            var afternoonStartHours = document.getElementById("fridayAfternoonStartHours").value;
+            var afternoonStartMin = document.getElementById("fridayAfternoonStartMin").value;
+            var afternoonEndHours = document.getElementById("fridayAfternoonEndHours").value;
+            var afternoonEndMin = document.getElementById("fridayAfternoonEndMin").value;
 
-            var mondayMorningEndDeci = mondayMorningEndMin * (1/60);
-            var mondayMorningStartMinDeci = mondayMorningStartMin * (1/60);
-            var mondayAfternoonEndMinDeci = mondayAfternoonEndMin * (1/60);
-            var mondayAfternoonStartMinDeci = mondayAfternoonStartMin * (1/60);
+            var morningEndMinDeci = morningEndMin * (1/60);
+            var morningStartMinDeci = morningStartMin * (1/60);
+            var afternoonEndMinDeci = afternoonEndMin * (1/60);
+            var afternoonStartMinDeci = afternoonStartMin * (1/60);
 
-            var mondayMorningTotal = (mondayMorningEndHours - mondayMorningStartHours) + (mondayMorningEndDeci - mondayMorningStartMinDeci);
-            var mondayAfternoonTotal = (mondayAfternoonEndHours - mondayAfternoonStartHours) + (mondayAfternoonEndMinDeci - mondayAfternoonStartMinDeci);
+            var morningTotal = (morningEndHours - morningstartHours) + (morningEndMinDeci - morningStartMinDeci);
+            var afternoonTotal = (afternoonEndHours - afternoonStartHours) + (afternoonEndMinDeci - afternoonStartMinDeci);
 
-            var mondayTotalDeci = parseFloat(mondayMorningTotal + mondayAfternoonTotal);
-            document.getElementById("fridayTotal").value =totalToday.toFixed(2);
+            var totalDeci = parseFloat(morningTotal + afternoonTotal);
+
+            var totalTimeFormat = h_mm(totalDeci);
+
+            document.getElementById("fridayTotal").value =totalTimeFormat;
         }
 
         // berechnet Arbeitsstunden am Samstag
         function calculateSaturdayTotal() {
-            var mondayMorningStartHours =  document.getElementById("mondayMorningStartHours").value;
-            var mondayMorningStartMin = document.getElementById("mondayMorningStartMin").value;
-            var mondayMorningEndHours = document.getElementById("mondayMorningEndHours").value;
-            var mondayMorningEndMin = document.getElementById("mondayMorningEndMin").value;
+            var morningstartHours =  document.getElementById("saturdayMorningStartHours").value;
+            var morningStartMin = document.getElementById("saturdayMorningStartMin").value;
+            var morningEndHours = document.getElementById("saturdayMorningEndHours").value;
+            var morningEndMin = document.getElementById("saturdayMorningEndMin").value;
             
-            var mondayAfternoonStartHours = document.getElementById("mondayAfternoonStartHours").value;
-            var mondayAfternoonStartMin = document.getElementById("mondayAfternoonStartMin").value;
-            var mondayAfternoonEndHours = document.getElementById("mondayAfternoonEndHours").value;
-            var mondayAfternoonEndMin = document.getElementById("mondayAfternoonEndMin").value;
+            var afternoonStartHours = document.getElementById("saturdayAfternoonStartHours").value;
+            var afternoonStartMin = document.getElementById("saturdayAfternoonStartMin").value;
+            var afternoonEndHours = document.getElementById("saturdayAfternoonEndHours").value;
+            var afternoonEndMin = document.getElementById("saturdayAfternoonEndMin").value;
 
-            var mondayMorningEndDeci = mondayMorningEndMin * (1/60);
-            var mondayMorningStartMinDeci = mondayMorningStartMin * (1/60);
-            var mondayAfternoonEndMinDeci = mondayAfternoonEndMin * (1/60);
-            var mondayAfternoonStartMinDeci = mondayAfternoonStartMin * (1/60);
+            var morningEndMinDeci = morningEndMin * (1/60);
+            var morningStartMinDeci = morningStartMin * (1/60);
+            var afternoonEndMinDeci = afternoonEndMin * (1/60);
+            var afternoonStartMinDeci = afternoonStartMin * (1/60);
 
-            var mondayMorningTotal = (mondayMorningEndHours - mondayMorningStartHours) + (mondayMorningEndDeci - mondayMorningStartMinDeci);
-            var mondayAfternoonTotal = (mondayAfternoonEndHours - mondayAfternoonStartHours) + (mondayAfternoonEndMinDeci - mondayAfternoonStartMinDeci);
+            var morningTotal = (morningEndHours - morningstartHours) + (morningEndMinDeci - morningStartMinDeci);
+            var afternoonTotal = (afternoonEndHours - afternoonStartHours) + (afternoonEndMinDeci - afternoonStartMinDeci);
 
-            var mondayTotalDeci = parseFloat(mondayMorningTotal + mondayAfternoonTotal);
-            document.getElementById("saturdayTotal").value =totalToday.toFixed(2);
+            var totalDeci = parseFloat(morningTotal + afternoonTotal);
+
+            var totalTimeFormat = h_mm(totalDeci);
+
+            document.getElementById("saturdayTotal").value =totalTimeFormat;
         }
 
         // berechnet Arbeitsstunden am Sonntag
         function calcutlateSundayTotal() {
-            var mondayMorningStartHours =  document.getElementById("mondayMorningStartHours").value;
-            var mondayMorningStartMin = document.getElementById("mondayMorningStartMin").value;
-            var mondayMorningEndHours = document.getElementById("mondayMorningEndHours").value;
-            var mondayMorningEndMin = document.getElementById("mondayMorningEndMin").value;
+            var morningstartHours =  document.getElementById("sundayMorningStartHours").value;
+            var morningStartMin = document.getElementById("sundayMorningStartMin").value;
+            var morningEndHours = document.getElementById("sundayMorningEndHours").value;
+            var morningEndMin = document.getElementById("sundayMorningEndMin").value;
             
-            var mondayAfternoonStartHours = document.getElementById("mondayAfternoonStartHours").value;
-            var mondayAfternoonStartMin = document.getElementById("mondayAfternoonStartMin").value;
-            var mondayAfternoonEndHours = document.getElementById("mondayAfternoonEndHours").value;
-            var mondayAfternoonEndMin = document.getElementById("mondayAfternoonEndMin").value;
+            var afternoonStartHours = document.getElementById("sundayAfternoonStartHours").value;
+            var afternoonStartMin = document.getElementById("sundayAfternoonStartMin").value;
+            var afternoonEndHours = document.getElementById("sundayAfternoonEndHours").value;
+            var afternoonEndMin = document.getElementById("sundayAfternoonEndMin").value;
 
-            var mondayMorningEndDeci = mondayMorningEndMin * (1/60);
-            var mondayMorningStartMinDeci = mondayMorningStartMin * (1/60);
-            var mondayAfternoonEndMinDeci = mondayAfternoonEndMin * (1/60);
-            var mondayAfternoonStartMinDeci = mondayAfternoonStartMin * (1/60);
+            var morningEndMinDeci = morningEndMin * (1/60);
+            var morningStartMinDeci = morningStartMin * (1/60);
+            var afternoonEndMinDeci = afternoonEndMin * (1/60);
+            var afternoonStartMinDeci = afternoonStartMin * (1/60);
 
-            var mondayMorningTotal = (mondayMorningEndHours - mondayMorningStartHours) + (mondayMorningEndDeci - mondayMorningStartMinDeci);
-            var mondayAfternoonTotal = (mondayAfternoonEndHours - mondayAfternoonStartHours) + (mondayAfternoonEndMinDeci - mondayAfternoonStartMinDeci);
+            var morningTotal = (morningEndHours - morningstartHours) + (morningEndMinDeci - morningStartMinDeci);
+            var afternoonTotal = (afternoonEndHours - afternoonStartHours) + (afternoonEndMinDeci - afternoonStartMinDeci);
 
-            var mondayTotalDeci = parseFloat(mondayMorningTotal + mondayAfternoonTotal);
-            document.getElementById("sundayTotal").value =totalToday.toFixed(2);
+            var totalDeci = parseFloat(morningTotal + afternoonTotal);
+
+            var totalTimeFormat = h_mm(totalDeci);
+
+            document.getElementById("sundayTotal").value =totalTimeFormat;
         }
 
         // Restriktion für Eingabe der Uhrzeit
@@ -751,23 +760,8 @@
 
             var sunday ="0.00";
             document.getElementById("sundayTargetTime").value =sunday;
-
-            var total = parseFloat(monday) + parseFloat(tuesday) + parseFloat(wednesday) + parseFloat(thursday) + parseFloat(friday) + parseFloat(saturday) + parseFloat(sunday)
-            parseFloat(total);
-            document.getElementById("totalTargetTime").value =total.toFixed(2);
         }
  
-        // berechnet Differenz zwischen Soll -und Ist-Zeit
-        // TODO: funktioniert noch nicht
-        function calculateOverhours (){
-           
-                //var mondayTotal = parseFloat(document.getElementById("mondayTotal").value);
-                var mondayTargetTime = parseFloat(document.getElementById("mondayTargetTime").value);
-
-                var mondayOverhours = parseFloat(mondayTargetTime) - parseFloat (mondayTotal);
-                document.getElementById("mondayOverhours").innerHTML = mondayOverhours.toFixed(2);
-
-        }
 
         /* Inputfilter für alle Inputfelder, muss einzeln gemacht werden, da getElementbyClassName nicht funktioniert
          * 
@@ -787,7 +781,6 @@
         setInputFilter(document.getElementById("mondayAfternoonEndHours"), function(value) {
             return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 23); });
 
-
          // Inputfilter für Montag (Minuten)
         setInputFilter(document.getElementById("mondayMorningStartMin"), function(value) {
             return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 59); });
@@ -803,105 +796,171 @@
 
 
 
-        // Inputfilter für Dienstag
-        setInputFilter(document.getElementById("tuesdayMorningStart"), function(value) {
-            return /^\d*[.]?\d{0,2}$/.test(value) && (value === "" || parseFloat(value) <= 24.00);
-        });
-        setInputFilter(document.getElementById("tuesdayMorningEnd"), function(value) {
-            return /^\d*[.]?\d{0,2}$/.test(value) && (value === "" || parseFloat(value) <= 24.00);
-        });
-        setInputFilter(document.getElementById("tuesdayAfternoonStart"), function(value) {
-            return /^\d*[.]?\d{0,2}$/.test(value) && (value === "" || parseFloat(value) <= 24.00);
-        });
-        setInputFilter(document.getElementById("tuesdayAfternoonEnd"), function(value) {
-            return /^\d*[.]?\d{0,2}$/.test(value) && (value === "" || parseFloat(value) <= 24.00);
-        });
+        // Inputfilter für Dienstag (Stunden)
+        setInputFilter(document.getElementById("tuesdayMorningStartHours"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 23); });
 
-        // Inputfilter für Mittwoch
-        setInputFilter(document.getElementById("wednesdayMorningStart"), function(value) {
-            return /^\d*[.]?\d{0,2}$/.test(value) && (value === "" || parseFloat(value) <= 24.00);
-        });
-        setInputFilter(document.getElementById("wednesdayMorningEnd"), function(value) {
-            return /^\d*[.]?\d{0,2}$/.test(value) && (value === "" || parseFloat(value) <= 24.00);; 
-        });
-        setInputFilter(document.getElementById("wednesdayAfternoonStart"), function(value) {
-            return /^\d*[.]?\d{0,2}$/.test(value) && (value === "" || parseFloat(value) <= 24.00);; 
-        });
-        setInputFilter(document.getElementById("wednesdayAfternoonEnd"), function(value) {
-            return /^\d*[.]?\d{0,2}$/.test(value) && (value === "" || parseFloat(value) <= 24.00);; 
-        });
+        setInputFilter(document.getElementById("tuesdayMorningEndHours"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 23); });
 
-        // Inputfilter für Donnerstag
-        setInputFilter(document.getElementById("thursdayMorningStart"), function(value) {
-            return /^\d*[.]?\d{0,2}$/.test(value) && (value === "" || parseFloat(value) <= 24.00);; 
-        });
-        setInputFilter(document.getElementById("thursdayMorningEnd"), function(value) {
-            return /^\d*[.]?\d{0,2}$/.test(value) && (value === "" || parseFloat(value) <= 24.00);; 
-        });
-        setInputFilter(document.getElementById("thursdayAfternoonStart"), function(value) {
-            return /^\d*[.]?\d{0,2}$/.test(value) && (value === "" || parseFloat(value) <= 24.00);; 
-        });
-        setInputFilter(document.getElementById("thursdayAfternoonEnd"), function(value) {
-            return /^\d*[.]?\d{0,2}$/.test(value) && (value === "" || parseFloat(value) <= 24.00);; 
-        });
+        setInputFilter(document.getElementById("tuesdayAfternoonStartHours"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 23); });
 
-        // Inputfilter für Freitag
-        setInputFilter(document.getElementById("fridayMorningStart"), function(value) {
-            return /^\d*[.]?\d{0,2}$/.test(value) && (value === "" || parseFloat(value) <= 24.00);; 
-        });
-        setInputFilter(document.getElementById("fridayMorningEnd"), function(value) {
-            return /^\d*[.]?\d{0,2}$/.test(value) && (value === "" || parseFloat(value) <= 24.00);; 
-        });
-        setInputFilter(document.getElementById("fridayAfternoonStart"), function(value) {
-            return /^\d*[.]?\d{0,2}$/.test(value) && (value === "" || parseFloat(value) <= 24.00);; 
-        });
-        setInputFilter(document.getElementById("fridayAfternoonEnd"), function(value) {
-            return /^\d*[.]?\d{0,2}$/.test(value) && (value === "" || parseFloat(value) <= 24.00);; 
-        });
+        setInputFilter(document.getElementById("tuesdayAfternoonEndHours"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 23); });
 
-        // Inputfilter für Samstag
-        setInputFilter(document.getElementById("saturdayMorningStart"), function(value) {
-            return /^\d*[.]?\d{0,2}$/.test(value) && (value === "" || parseFloat(value) <= 24.00);; 
-        });
-        setInputFilter(document.getElementById("saturdayMorningEnd"), function(value) {
-            return /^\d*[.]?\d{0,2}$/.test(value) && (value === "" || parseFloat(value) <= 24.00);; 
-        });
-        setInputFilter(document.getElementById("saturdayAfternoonStart"), function(value) {
-            return /^\d*[.]?\d{0,2}$/.test(value) && (value === "" || parseFloat(value) <= 24.00);; 
-        });
-        setInputFilter(document.getElementById("saturdayAfternoonEnd"), function(value) {
-            return /^\d*[.]?\d{0,2}$/.test(value) && (value === "" || parseFloat(value) <= 24.00);; 
-        });
+         // Inputfilter für Dienstag (Minuten)
+        setInputFilter(document.getElementById("tuesdayMorningStartMin"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 59); });
 
-        // Inputfilter für Sonntag
-        setInputFilter(document.getElementById("sundayMorningStart"), function(value) {
-            return /^\d*[.]?\d{0,2}$/.test(value) && (value === "" || parseFloat(value) <= 24.00);; 
-        });
-        setInputFilter(document.getElementById("sundayMorningEnd"), function(value) {
-            return /^\d*[.]?\d{0,2}$/.test(value) && (value === "" || parseFloat(value) <= 24.00);; 
-        });
-        setInputFilter(document.getElementById("sundayAfternoonStart"), function(value) {
-            return /^\d*[.]?\d{0,2}$/.test(value) && (value === "" || parseFloat(value) <= 24.00);; 
-        });
-        setInputFilter(document.getElementById("sundayAfternoonEnd"), function(value) {
-            return /^\d*[.]?\d{0,2}$/.test(value) && (value === "" || parseFloat(value) <= 24.00);; 
-        });
+        setInputFilter(document.getElementById("tuesdayMorningEndMin"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 59); });        
 
-        function changeToDezimal(hours, minutes){
-        var stunden = hours;
-        var minuten = minutes;
-        var concatTime = parseInt(`${stunden}${umrechnerDezimal(minuten)}`);
-        //console(console.log(concatTime));
-        
-        //parseInt(`${stunden}${umrechnerDezimal(minuten)}`);
+        setInputFilter(document.getElementById("tuesdayAfternoonStartMin"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 59); });   
 
-        }
+        setInputFilter(document.getElementById("tuesdayAfternoonEndMin"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 59); });   
 
-        function umrechnerDezimal(minuten){
 
-        var dezimal = (1 / 60) * (parseInt(minuten));
-        return dezimal;
-        }   
+
+        // Inputfilter für Mittwoch (Stunden)
+        setInputFilter(document.getElementById("wednesdayMorningStartHours"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 23); });
+
+        setInputFilter(document.getElementById("wednesdayMorningEndHours"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 23); });
+
+        setInputFilter(document.getElementById("wednesdayAfternoonStartHours"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 23); });
+
+        setInputFilter(document.getElementById("wednesdayAfternoonEndHours"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 23); });
+
+         // Inputfilter für Mittwoch (Minuten)
+        setInputFilter(document.getElementById("wednesdayMorningStartMin"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 59); });
+
+        setInputFilter(document.getElementById("wednesdayMorningEndMin"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 59); });        
+
+        setInputFilter(document.getElementById("wednesdayAfternoonStartMin"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 59); });   
+
+        setInputFilter(document.getElementById("wednesdayAfternoonEndMin"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 59); });   
+
+
+
+        // Inputfilter für Donnerstag (Stunden)
+        setInputFilter(document.getElementById("thursdayMorningStartHours"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 23); });
+
+        setInputFilter(document.getElementById("thursdayMorningEndHours"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 23); });
+
+        setInputFilter(document.getElementById("thursdayAfternoonStartHours"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 23); });
+
+        setInputFilter(document.getElementById("thursdayAfternoonEndHours"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 23); });
+
+         // Inputfilter für Donnerstag (Minuten)
+        setInputFilter(document.getElementById("thursdayMorningStartMin"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 59); });
+
+        setInputFilter(document.getElementById("thursdayMorningEndMin"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 59); });        
+
+        setInputFilter(document.getElementById("thursdayAfternoonStartMin"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 59); });   
+
+        setInputFilter(document.getElementById("thursdayAfternoonEndMin"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 59); });   
+
+
+
+        // Inputfilter für Freitag (Stunden)
+        setInputFilter(document.getElementById("fridayMorningStartHours"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 23); });
+
+        setInputFilter(document.getElementById("fridayMorningEndHours"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 23); });
+
+        setInputFilter(document.getElementById("fridayAfternoonStartHours"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 23); });
+
+        setInputFilter(document.getElementById("fridayAfternoonEndHours"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 23); });
+
+         // Inputfilter für Freitag (Minuten)
+        setInputFilter(document.getElementById("fridayMorningStartMin"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 59); });
+
+        setInputFilter(document.getElementById("fridayMorningEndMin"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 59); });        
+
+        setInputFilter(document.getElementById("fridayAfternoonStartMin"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 59); });   
+
+        setInputFilter(document.getElementById("fridayAfternoonEndMin"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 59); });   
+
+
+
+        // Inputfilter für Samstag (Stunden)
+        setInputFilter(document.getElementById("saturdayMorningStartHours"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 23); });
+
+        setInputFilter(document.getElementById("saturdayMorningEndHours"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 23); });
+
+        setInputFilter(document.getElementById("saturdayAfternoonStartHours"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 23); });
+
+        setInputFilter(document.getElementById("saturdayAfternoonEndHours"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 23); });
+
+         // Inputfilter für Samstag (Minuten)
+        setInputFilter(document.getElementById("saturdayMorningStartMin"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 59); });
+
+        setInputFilter(document.getElementById("saturdayMorningEndMin"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 59); });        
+
+        setInputFilter(document.getElementById("saturdayAfternoonStartMin"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 59); });   
+
+        setInputFilter(document.getElementById("saturdayAfternoonEndMin"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 59); });   
+
+
+
+        // Inputfilter für Sonntag (Stunden)
+        setInputFilter(document.getElementById("sundayMorningStartHours"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 23); });
+
+        setInputFilter(document.getElementById("sundayMorningEndHours"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 23); });
+
+        setInputFilter(document.getElementById("sundayAfternoonStartHours"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 23); });
+
+        setInputFilter(document.getElementById("sundayAfternoonEndHours"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 23); });
+
+         // Inputfilter für Sonntag (Minuten)
+        setInputFilter(document.getElementById("sundayMorningStartMin"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 59); });
+
+        setInputFilter(document.getElementById("sundayMorningEndMin"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 59); });        
+
+        setInputFilter(document.getElementById("sundayAfternoonStartMin"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 59); });   
+
+        setInputFilter(document.getElementById("sundayAfternoonEndMin"), function(value) {
+            return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 59); });   
 
 
         // Konvertiert Dezimal ins Zeitformat
@@ -911,39 +970,8 @@
         return (Wert < 0 ? "-" : "") + parseInt(Minuten / 60) + (100 + (Minuten % 60)).toString().replace(/^1/,":") ;
         }
 
-        // TODO: Wochentotal errechnen 
-        function sumTotalWeek(){
-
-            var mondayTotal = document.getElementById("mondayTotal").value;
-            var tuesdayTotal = document.getElementById("tuesdayTotal").value;
-            var wednesdayTotal = document.getElementById("wednesdayTotal").value;
-            var thursdayTotal = document.getElementById("thursdayTotal").value;
-            var fridayTotal = document.getElementById("fridayTotal").value;
-            var saturdayTotal = document.getElementById("saturdayTotal").value;
-            var sundayTotal = document.getElementById("sundayTotal").value;
-
-
-            if (typeof mondayTotal == 'number'){
-                weekTotal = mondayTotal;
-                document.getElementById("weekTotal").innerHTML =weekTotal.toFixed(2);
-            }else
-                if (typeof mondayTotal == 'number' && typeof tuesdayTotal == 'number'){
-                weekTotal +=tuesdayTotal;
-                document.getElementById("weekTotal").innerHTML =weekTotal.toFixed(2);
-                } else
-                    if (typeof mondayTotal == 'number' && typeof tuesdayTotal == 'number' && typeof wednesdayTotal == 'number'){
-                    weekTotal +=wednesdayTotal;
-                    document.getElementById("weekTotal").innerHTML =weekTotal.toFixed(2);
-                    }
-                    
-                
-                
-        }
-        
-
         window.onload = function () {
             setTargetTime();
-            //calculateOverhours();
         }
 
             
