@@ -318,6 +318,45 @@
     background-color: whitesmoke;
 }
 
+.addAbsenceTable {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    overflow:hidden;
+    overflow-y: scroll;
+    border: 1px solid black;
+}
+  
+.addAbsenceTable td{
+    padding: 8px;
+    text-align: center; 
+    min-width: 155px; 
+    height: 65px;
+    background-color: whitesmoke;
+    text-align: center;
+    min-width: 155px; 
+    height: 65px;
+    color: black;
+    border: 1px solid black;
+}
+  
+.addAbsenceTable th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color:rgb(126, 172, 168);
+    color: white;
+    text-align: center;
+    min-width: 155px; 
+    height: 65px;
+    border: 1px solid black;
+}
+
+.addAbsenceTable tr {
+    background-color: whitesmoke;
+    border: 1px solid black;
+}
+
 #employeeTable {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
