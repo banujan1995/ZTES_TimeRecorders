@@ -94,6 +94,8 @@ public class MitarbeiterService {
 	// Mitarbeiter mutieren von MA zu AD (BR)
 
 	// Mitarbeiter löschen (BR)
+	
+	
 
 	/**
 	 * Mitarbeiter verändern (BR) - je nach Daten eine anderen Code nötig
