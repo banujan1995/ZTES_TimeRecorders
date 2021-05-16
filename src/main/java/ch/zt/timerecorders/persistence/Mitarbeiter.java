@@ -29,6 +29,9 @@ public class Mitarbeiter {
 	protected String benutzername;
 	protected String passwort;
 	protected Pensum pensum;
+	
+	
+	
 
 	public Mitarbeiter(String name, String vorname, String benutzername, String passwort, Pensum pensum) {
 		this.name = name;

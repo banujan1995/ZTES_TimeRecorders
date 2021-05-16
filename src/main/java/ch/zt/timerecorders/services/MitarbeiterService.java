@@ -23,7 +23,7 @@ import ch.zt.timerecorders.persistence.Administrator;
 import ch.zt.timerecorders.persistence.AdministratorenRepository;
 import ch.zt.timerecorders.persistence.Mitarbeiter;
 import ch.zt.timerecorders.persistence.MitarbeiterRepository;
-import ch.zt.timerecorders.persistence.Zeiterfassungsrepository;
+import ch.zt.timerecorders.persistence.ArbeitstagRepository;
 import ch.zt.timerecorders.start.MitarbeiterRegister;
 import ch.zt.timerecorders.start.MitarbeiterRepositoryInterface;
 import ch.zt.timerecorders.start.ServiceLocator;
@@ -46,7 +46,7 @@ public class MitarbeiterService {
 	private AdministratorenRepository administratorenRepository;
 
 	@Autowired
-	private Zeiterfassungsrepository zeiterfassungsrepository;
+	private ArbeitstagRepository arbeitstagRepository;
 	
 	@Autowired
 	private MitarbeiterRepositoryInterface mitarbeiterRepositoryInterface;
@@ -90,23 +90,6 @@ public class MitarbeiterService {
 		return ma;
 	
 	}
-
-//	@PostMapping(path = "/addEmployee/", produces = "application/json")
-//	public long createNewMa(@RequestBody MessageMaRegister m) {
-//
-//
-//		MitarbeiterRegister m1 = new MitarbeiterRegister();
-//		m1.setSurname(m.getSurname());
-//		m1.setFamilyname(m.getFamilyname());
-//		m1.setName(m.getName());
-//		m1.setPasswort(m.getPasswort());
-//		m1.setPensum(m.getPensum());
-//		
-//		m1 = maRepo.save(m1); // beim Speichern wird eine MAId automatisch vergeben
-//		logger.info("MA erfolgreich hinzugefügt");
-//		return m1.getMitarbeiterID();
-//	}
-
 
 	// Mitarbeiter mutieren von MA zu AD (BR)
 
@@ -182,18 +165,36 @@ public class MitarbeiterService {
 				logger.warning("Es wurde ein Login eingegeben, welche nicht als Admin oder Mitarbeiter gibt "
 						+ "/ A login was entered which does not exist as an admin or employee.");
 				return false;
-			}
-
-
-		
-
+			}		
 	}
 
-	// Mitarbeiter Logout (BR)
 
-	// Mitarbeiter einstempeln (BR)
-
-	// Mitarbeiter ausstempeln (BR)
+	/*
+	 * Mitarbeiter Zeiterfassung (BR),
+	 * Die Methode soll den korrekten Tag anhand der TagesID holen und dann Einstempeln 
+	 * und Ausstempeln registrieren. 
+	 */
+	
+	
+	@PostMapping(path = "/timerecorders/zeiterfassung/", produces = "application/json")
+	public boolean einstempeln(@RequestBody MessageTimeStamp einstempeln) { 
+	
+		
+		
+		
+		return true;
+	}
+	
+	
+	//Mitarbeiter Zeiterfassung - Veränderung (BR)
+	
+	@PutMapping(path = "/timerecorders/zeiterfassung/changes/", produces = "application/json")
+	public boolean zeitveränderung(@RequestBody MessageTimeStamp einstempeln) { 
+	
+		
+		
+		return true;
+	}
 
 	// Mitarbeiter - Ferien erfassen (BR)
 

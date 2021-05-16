@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "arbeitstag")
-public class Arbeitstag {
+public class ArbeitstagRegister {
 	
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -26,7 +26,7 @@ public class Arbeitstag {
 	public int date;
 	public Long ferienID;
 	
-	public Arbeitstag(Long arbeitstagID, int vmAnfang, int nmAnfang, int vmEnde, int nmEnde, int date, Long ferienID) {
+	public ArbeitstagRegister(Long arbeitstagID, int vmAnfang, int nmAnfang, int vmEnde, int nmEnde, int date, Long ferienID) {
 		
 		this.arbeitstagID = arbeitstagID;
 		this.vmAnfang = vmAnfang;
