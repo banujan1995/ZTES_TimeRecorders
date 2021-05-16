@@ -13,9 +13,6 @@
     <title>Overview</title>
 </head>
 <body style="background-color: rgb(217, 240, 216)">
-    
-    <br>
-    <br>
     <div style="max-width: 350px; position: relative; margin: auto;" >
     <img src="css/images/Logo.png" alt="Logo" class= "logo" style="max-width: 350px;" > 
     </div>
@@ -24,8 +21,6 @@
     <br>
     <br>
     <br>
-    <br>
-  
     <!-- Navigationsbar-->
     <ul class="navibar">
         <li class="barItem"><a class="barItem">Home</a></li>
@@ -41,11 +36,9 @@
           </div>
           <li style="float:right" class="barItem"> <a href="http://localhost:8081/profile" class="barItem">Profile</a> </li>
       </ul>
-   
       <br>
     <div style="display: block; text-align: center;width: 100%;">
         <h1 >Your weektable</h1>
-        <br>
         <p style="font-weight: bold;"> Please choose the desired week!</p>
     </div>
     <br>
@@ -56,162 +49,161 @@
     </div>
     
     <br>
-    <br> 
-    <br>
     <br>
 
     <!-- Wochentabelle, Datum je nach Auswahl im Kalender + Button: Validieren-->
-    <table id="table" style="position: relative; margin: auto; width: 1215px;" title="Use Format: hh:mm"> 
+    <div  style="position: relative; margin: auto;">
+    <table id="table" class="table" title="Use Format: hh:mm"> 
         <tr>
-            <th style="text-align: center; min-width: 135px; height: 55px;"> Weektable: </th>
-            <th style="text-align: center; min-width: 135px;" id="firstDayofWeek"> </th>
-            <th style="text-align: center; min-width: 135px;" id="secondDayofWeek"> </th>
-            <th style="text-align: center; min-width: 135px;" id="thirdDayofWeek"> </th>
-            <th style="text-align: center; min-width: 135px;" id="fourthDayofWeek"> </th>
-            <th style="text-align: center; min-width: 135px;" id="fifthDayofWeek"> </th>
-            <th style="text-align: center; min-width: 135px;" id="sixthDayofWeek"></th>
-            <th style="text-align: center; min-width: 135px;" id="seventhDayofWeek"></th>
-            <th style="text-align: center; min-width: 135px;"> Total week: </th> 
+            <th> Weektable: </th>
+            <th id="firstDayofWeek"> </th>
+            <th id="secondDayofWeek"> </th>
+            <th id="thirdDayofWeek"> </th>
+            <th id="fourthDayofWeek"> </th>
+            <th id="fifthDayofWeek"> </th>
+            <th id="sixthDayofWeek"></th>
+            <th id="seventhDayofWeek"></th>
+            <th> Total week: </th> 
         </tr>
 
-        <tr style="background-color: whitesmoke">
-            <th style="text-align: center; height: 55px;">Morning <br>(Start - End):</th>
-            <td><input tabindex ="1" type="text" maxlength="5" style="width: 50px; height: 30px; margin-left: 10px; margin-right: 5px;" id="mondayMorningStart" oninput="calculateMondayTotal();">
-                <input type="text" tabindex ="1" maxlength="5" style="width: 50px; height: 30px; margin-left: 5px;"  id="mondayMorningEnd" oninput="calculateMondayTotal();">
+        <tr>
+            <th> Morning <br>(Start - End):</th>
+            <td><input class="timeInput" tabindex ="1" type="text" maxlength="5" id="mondayMorningStart" oninput="calculateMondayTotal();">
+                <input class="timeInput" type="text" tabindex ="1" maxlength="5" id="mondayMorningEnd" oninput="calculateMondayTotal();">
             </td>
-            <td><input tabindex ="2" type="text" maxlength="5" style="width: 50px; height: 30px; margin-left: 10px; margin-right: 5px;" id="tuesdayMorningStart" oninput="calculateTuesdayTotal();">
-                <input type="text" tabindex ="2" maxlength="5" style="width: 50px; height: 30px; margin-left: 5px;"  id="tuesdayMorningEnd" oninput="calculateTuesdayTotal();">
+            <td><input class="timeInput" tabindex ="2" type="text" maxlength="5" id="tuesdayMorningStart" oninput="calculateTuesdayTotal();">
+                <input class="timeInput" type="text" tabindex ="2" maxlength="5" id="tuesdayMorningEnd" oninput="calculateTuesdayTotal();">
             </td>
-            <td><input tabindex ="3" type="text" maxlength="5" style="width: 50px; height: 30px; margin-left: 10px; margin-right: 5px;" id="wednesdayMorningStart" oninput="calculateWednesdayTotal();">
-                <input type="text" tabindex ="3" maxlength="5" style="width: 50px; height: 30px; margin-left: 5px;"  id="wednesdayMorningEnd" oninput="calculateWednesdayTotal();">
+            <td><input class="timeInput" tabindex ="3" type="text" maxlength="5" id="wednesdayMorningStart" oninput="calculateWednesdayTotal();">
+                <input class="timeInput"type="text" tabindex ="3" maxlength="5" id="wednesdayMorningEnd" oninput="calculateWednesdayTotal();">
             </td>
-            <td><input tabindex ="4" type="text" maxlength="5" style="width: 50px; height: 30px; margin-left: 10px; margin-right: 5px;" id="thursdayMorningStart" oninput="calculateThursdayTotal();">
-                <input type="text" tabindex ="4" maxlength="5" style="width: 50px; height: 30px; margin-left: 5px;"  id="thursdayMorningEnd" oninput="calculateThursdayTotal();">
+            <td><input class="timeInput" tabindex ="4" type="text" maxlength="5" id="thursdayMorningStart" oninput="calculateThursdayTotal();">
+                <input class="timeInput"type="text" tabindex ="4" maxlength="5" id="thursdayMorningEnd" oninput="calculateThursdayTotal();">
             </td>
-            <td><input tabindex ="5" type="text" maxlength="5" style="width: 50px; height: 30px; margin-left: 10px; margin-right: 5px;" id="fridayMorningStart" oninput="calculateFridayTotal();">
-                <input type="text" tabindex ="5" maxlength="5" style="width: 50px; height: 30px; margin-left: 5px;"  id="fridayMorningEnd" oninput="calculateFridayTotal();">
+            <td><input class="timeInput" tabindex ="5" type="text" maxlength="5" id="fridayMorningStart" oninput="calculateFridayTotal();">
+                <input class="timeInput" type="text" tabindex ="5" maxlength="5" id="fridayMorningEnd" oninput="calculateFridayTotal();">
             </td>
-            <td><input tabindex ="6" type="text" maxlength="5" style="width: 50px; height: 30px; margin-left: 10px; margin-right: 5px;" id="saturdayMorningStart" oninput="calculateSaturdayTotal();">
-                <input type="text" tabindex ="6" maxlength="5" style="width: 50px; height: 30px; margin-left: 5px;"  id="saturdayMorningEnd" oninput="calculateSaturdayTotal();">
+            <td><input class="timeInput" tabindex ="6" type="text" maxlength="5" id="saturdayMorningStart" oninput="calculateSaturdayTotal();">
+                <input class="timeInput" type="text" tabindex ="6" maxlength="5" id="saturdayMorningEnd" oninput="calculateSaturdayTotal();">
             </td>
-            <td><input tabindex ="7" type="text" maxlength="5" style="width: 50px; height: 30px; margin-left: 10px; margin-right: 5px;" id="sundayMorningStart" oninput="calcutlateSundayTotal();">
-                <input type="text" tabindex ="7" maxlength="5" style="width: 50px; height: 30px; margin-left: 5px;"  id="sundayMorningEnd" oninput="calcutlateSundayTotal();">
+            <td><input class="timeInput" tabindex ="7" type="text" maxlength="5" id="sundayMorningStart" oninput="calcutlateSundayTotal();">
+                <input class="timeInput" type="text" tabindex ="7" maxlength="5" id="sundayMorningEnd" oninput="calcutlateSundayTotal();">
             </td>
             <th></th>
         </tr>
 
-        <tr style="background-color: whitesmoke">
-            <th style="text-align: center; height: 55px;">Afternoon <br> (Start - End):</th>
-            <td><input tabindex ="1" type="text" maxlength="5" style="width: 50px; height: 30px; margin-left: 10px; margin-right: 5px;" id="mondayAfternoonStart" oninput="calculateMondayTotal();">
-                <input type="text" tabindex ="1" maxlength="5" style="width: 50px; height: 30px; margin-left: 5px;"  id="mondayAfternoonEnd" oninput="calculateMondayTotal(); ">
+        <tr>
+            <th>Afternoon <br> (Start - End):</th>
+            <td><input class="timeInput" tabindex ="1" type="text" maxlength="5" id="mondayAfternoonStart" oninput="calculateMondayTotal();">
+                <input class="timeInput" type="text" tabindex ="1" maxlength="5" id="mondayAfternoonEnd" oninput="calculateMondayTotal(); ">
             </td>
-            <td><input tabindex ="2" type="text" maxlength="5" style="width: 50px; height: 30px; margin-left: 10px; margin-right: 5px;" id="tuesdayAfternoonStart" oninput="calculateTuesdayTotal();">
-                <input type="text" tabindex ="2" maxlength="5" style="width: 50px; height: 30px; margin-left: 5px;"  id="tuesdayAfternoonEnd" oninput="calculateTuesdayTotal();">
+            <td><input class="timeInput" tabindex ="2" type="text" maxlength="5" id="tuesdayAfternoonStart" oninput="calculateTuesdayTotal();">
+                <input class="timeInput" type="text" tabindex ="2" maxlength="5" id="tuesdayAfternoonEnd" oninput="calculateTuesdayTotal();">
             </td>
-            <td><input tabindex ="3" type="text" maxlength="5" style="width: 50px; height: 30px; margin-left: 10px; margin-right: 5px;" id="wednesdayAfternoonStart" oninput="calculateWednesdayTotal();">
-                <input type="text" tabindex ="3" maxlength="5" style="width: 50px; height: 30px; margin-left: 5px;"  id="wednesdayAfternoonEnd" oninput="calculateWednesdayTotal();">
+            <td><input class="timeInput" tabindex ="3" type="text" maxlength="5" id="wednesdayAfternoonStart" oninput="calculateWednesdayTotal();">
+                <input class="timeInput" type="text" tabindex ="3" maxlength="5" id="wednesdayAfternoonEnd" oninput="calculateWednesdayTotal();">
             </td>
-            <td><input tabindex ="4" type="text" maxlength="5" style="width: 50px; height: 30px; margin-left: 10px; margin-right: 5px;" id="thursdayAfternoonStart" oninput="calculateThursdayTotal();">
-                <input type="text" tabindex ="4" maxlength="5" style="width: 50px; height: 30px; margin-left: 5px;"  id="thursdayAfternoonEnd" oninput="calculateThursdayTotal();">
+            <td><input class="timeInput" tabindex ="4" type="text" maxlength="5" id="thursdayAfternoonStart" oninput="calculateThursdayTotal();">
+                <input class="timeInput" type="text" tabindex ="4" maxlength="5" id="thursdayAfternoonEnd" oninput="calculateThursdayTotal();">
             </td>
-            <td><input tabindex ="5" type="text" maxlength="5" style="width: 50px; height: 30px; margin-left: 10px; margin-right: 5px;" id="fridayAfternoonStart" oninput="calculateFridayTotal();">
-                <input type="text" tabindex ="5" maxlength="5" style="width: 50px; height: 30px; margin-left: 5px;"  id="fridayAfternoonEnd" oninput="calculateFridayTotal();">
+            <td><input class="timeInput" tabindex ="5" type="text" maxlength="5" id="fridayAfternoonStart" oninput="calculateFridayTotal();">
+                <input class="timeInput" type="text" tabindex ="5" maxlength="5" id="fridayAfternoonEnd" oninput="calculateFridayTotal();">
             </td>
-            <td><input tabindex ="6" type="text" maxlength="5" style="width: 50px; height: 30px; margin-left: 10px; margin-right: 5px;" id="saturdayAfternoonStart" oninput="calculateSaturdayTotal();">
-                <input type="text" tabindex ="6" maxlength="5" style="width: 50px; height: 30px; margin-left: 5px;"  id="saturdayAfternoonEnd" oninput="calculateSaturdayTotal();">
+            <td><input class="timeInput" tabindex ="6" type="text" maxlength="5" id="saturdayAfternoonStart" oninput="calculateSaturdayTotal();">
+                <input class="timeInput" type="text" tabindex ="6" maxlength="5" id="saturdayAfternoonEnd" oninput="calculateSaturdayTotal();">
             </td>
-            <td><input tabindex ="7" type="text" maxlength="5" style="width: 50px; height: 30px; margin-left: 10px; margin-right: 5px;" id="sundayAfternoonStart" oninput="calcutlateSundayTotal();">
-                <input type="text" tabindex ="7" maxlength="5" style="width: 50px; height: 30px; margin-left: 5px;"  id="sundayAfternoonEnd" oninput="calcutlateSundayTotal();">
+            <td><input class="timeInput" tabindex ="7" type="text" maxlength="5" id="sundayAfternoonStart" oninput="calcutlateSundayTotal();">
+                <input class="timeInput" type="text" tabindex ="7" maxlength="5" id="sundayAfternoonEnd" oninput="calcutlateSundayTotal();">
             </td>
             <th></th>
         </tr>
 
-        <tr style="background-color: whitesmoke">
-            <th style="text-align: center; height: 55px;">Total Today:</th>
-            <td style="text-align: center;"> 
-                <input type="text" id="mondayTotal" style="width: 130px; background-color: transparent; border: 0; height: 30px; font-size: 16px; text-align: center;" onchange="sumTotalWeek()" disabled >
+        <tr>
+            <th>Total Today:</th>
+            <td> 
+                <input type="text" id="mondayTotal" class="resultsTimeInput" onchange="sumTotalWeek()" disabled >
             </td>
-            <td style="text-align: center;">
-                <input type="text" id="tuesdayTotal" style="width: 130px; background-color: transparent; border: 0; height: 30px; font-size: 16px; text-align: center;" disabled>
+            <td>
+                <input type="text" id="tuesdayTotal"  class="resultsTimeInput" disabled>
             </td>
-            <td style="text-align: center;">
-                <input type="text" id="wednesdayTotal" style="width: 130px; background-color: transparent; border: 0; height: 30px; font-size: 16px; text-align: center;" disabled>
+            <td>
+                <input type="text" id="wednesdayTotal" class="resultsTimeInput" disabled>
             </td>
-            <td style="text-align: center;">
-                <input type="text" id="thursdayTotal" style="width: 130px; background-color: transparent; border: 0; height: 30px; font-size: 16px; text-align: center;" disabled>
+            <td>
+                <input type="text" id="thursdayTotal" class="resultsTimeInput" disabled>
             </td>
-            <td style="text-align: center;">
-                <input type="text" id="fridayTotal" style="width: 130px; background-color: transparent; border: 0; height: 30px; font-size: 16px; text-align: center;" disabled>
+            <td>
+                <input type="text" id="fridayTotal" class="resultsTimeInput" disabled>
             </td>
-            <td style="text-align: center;">
-                <input type="text" id="saturdayTotal" style="width: 130px; background-color: transparent; border: 0; height: 30px; font-size: 16px; text-align: center;" disabled>
+            <td>
+                <input type="text" id="saturdayTotal" class="resultsTimeInput" disabled>
             </td>
-            <td style="text-align: center;">
-                <input type="text" id="sundayTotal" style="width: 130px; background-color: transparent; border: 0; height: 30px; font-size: 16px; text-align: center;" disabled>
+            <td>
+                <input type="text" id="sundayTotal" class="resultsTimeInput" disabled>
             </td>
-            <th style="text-align: center;">
-                <input type="text" id="sundayTotal" style="width: 130px; background-color: transparent; border: 0; height: 30px; font-size: 16px; text-align: center;" disabled>
+            <th>
+                <input type="text" id="weekTotal" class="resultsTimeInput" disabled>
             </th>
         </tr>
 
-        <tr style="background-color: whitesmoke">
-            <th style="text-align: center; height: 55px;">Target Time:</th>
-            <td style="text-align: center;"> 
-                <input type="text" id="mondayTargetTime" style="width: 130px; background-color: transparent; border: 0; height: 30px; font-size: 16px; text-align: center;" onchange="sumTotalWeek()" disabled >
+        <tr>
+            <th>Target Time:</th>
+            <td> 
+                <input type="text" id="mondayTargetTime" class="resultsTimeInput" onchange="sumTotalWeek()" disabled >
             </td>
-            <td style="text-align: center;">
-                <input type="text" id="tuesdayTargetTime" style="width: 130px; background-color: transparent; border: 0; height: 30px; font-size: 16px; text-align: center;" disabled>
+            <td>
+                <input type="text" id="tuesdayTargetTime" class="resultsTimeInput" disabled>
             </td>
-            <td style="text-align: center;">
-                <input type="text" id="wednesdayTargetTime" style="width: 130px; background-color: transparent; border: 0; height: 30px; font-size: 16px; text-align: center;" disabled>
+            <td>
+                <input type="text" id="wednesdayTargetTime" class="resultsTimeInput" disabled>
             </td>
-            <td style="text-align: center;">
-                <input type="text" id="thursdayTargetTime" style="width: 130px; background-color: transparent; border: 0; height: 30px; font-size: 16px; text-align: center;" disabled>
+            <td>
+                <input type="text" id="thursdayTargetTime" class="resultsTimeInput" disabled>
             </td>
-            <td style="text-align: center;">
-                <input type="text" id="fridayTargetTime" style="width: 130px; background-color: transparent; border: 0; height: 30px; font-size: 16px; text-align: center;" disabled>
+            <td>
+                <input type="text" id="fridayTargetTime" class="resultsTimeInput" disabled>
             </td>
-            <td style="text-align: center;">
-                <input type="text" id="saturdayTargetTime" style="width: 130px; background-color: transparent; border: 0; height: 30px; font-size: 16px; text-align: center;" disabled>
+            <td>
+                <input type="text" id="saturdayTargetTime" class="resultsTimeInput" disabled>
             </td>
-            <td style="text-align: center;">
-                <input type="text" id="sundayTargetTime" style="width: 130px; background-color: transparent; border: 0; height: 30px; font-size: 16px; text-align: center;" disabled>
+            <td>
+                <input type="text" id="sundayTargetTime" class="resultsTimeInput" disabled>
             </td>
-            <th style="text-align: center;">
-                <input type="text" class="total" id="totalTargetTime" style="width: 130px; background-color: transparent; border: 0; height: 30px; font-size: 16px; text-align: center;" disabled>
+            <th>
+                <input type="text" class="total" id="totalTargetTime" style="max-width: 110px;" disabled>
             </th>
         </tr>
 
-        <tr style="background-color: whitesmoke">
-            <th style="text-align: center; height: 55px;">Overhours:</th>
-            <td style="text-align: center;"> 
-                <input type="text" id="mondayOverhours" style="width: 130px; background-color: transparent; border: 0; height: 30px; font-size: 16px; text-align: center;" onchange="sumTotalWeek()" disabled >
+        <tr>
+            <th>Overhours:</th>
+            <td> 
+                <input type="text" id="mondayOverhours" class="resultsTimeInput" onchange="sumTotalWeek()" disabled >
             </td>
-            <td style="text-align: center;">
-                <input type="text" id="tuesdayOverhours" style="width: 130px; background-color: transparent; border: 0; height: 30px; font-size: 16px; text-align: center;" disabled>
+            <td>
+                <input type="text" id="tuesdayOverhours"  class="resultsTimeInput" disabled>
             </td>
-            <td style="text-align: center;">
-                <input type="text" id="wednesdayOverhours" style="width: 130px; background-color: transparent; border: 0; height: 30px; font-size: 16px; text-align: center;" disabled>
+            <td>
+                <input type="text" id="wednesdayOverhours" class="resultsTimeInput" disabled>
             </td>
-            <td style="text-align: center;">
-                <input type="text" id="thursdayOverhours" style="width: 130px; background-color: transparent; border: 0; height: 30px; font-size: 16px; text-align: center;" disabled>
+            <td>
+                <input type="text" id="thursdayOverhours"  class="resultsTimeInput" disabled>
             </td>
-            <td style="text-align: center;">
-                <input type="text" id="fridayOverhours" style="width: 130px; background-color: transparent; border: 0; height: 30px; font-size: 16px; text-align: center;" disabled>
+            <td>
+                <input type="text" id="fridayOverhours" class="resultsTimeInput"disabled>
             </td>
-            <td style="text-align: center;">
-                <input type="text" id="saturdayOverhours" style="width: 130px; background-color: transparent; border: 0; height: 30px; font-size: 16px; text-align: center;" disabled>
+            <td>
+                <input type="text" id="saturdayOverhours" class="resultsTimeInput" disabled>
             </td>
-            <td style="text-align: center;">
-                <input type="text" id="sundayOverhours" style="width: 130px; background-color: transparent; border: 0; height: 30px; font-size: 16px; text-align: center;" disabled>
+            <td>
+                <input type="text" id="sundayOverhours"  class="resultsTimeInput" disabled>
             </td>
             <th style="text-align: center;">
-                <input type="text" class="total" id="totalOverhours" style="width: 130px; background-color: transparent; border: 0; height: 30px; font-size: 16px; text-align: center;" disabled>
+                <input type="text" class="resultsTimeInput" class="total" id="totalOverhours" disabled>
             </th>
         </tr>
     </table>
-
-    <div class="footer"></div>
+</div>
+    <br><br><br><br>
 
     <script>
         //Funktion via jQuery, nimmt die im Kalender gewählte Woche entgegen und zeigt diese an
@@ -302,7 +294,7 @@
                 // warten bis Eingabe aller Felder erfolgt
                 return false
              }
-            document.getElementById("thursdayTotal").innerHTML =totalToday.toFixed(2);
+            document.getElementById("thursdayTotal").value =totalToday.toFixed(2);
         }
 
         // berechnet Arbeitsstunden am Freitag

@@ -14,13 +14,9 @@
     <title>Add new Employee</title>
 </head>
 <body style="background-color: rgb(217, 240, 216)">
-    
-    <br>
-    <br>
     <div style="max-width: 350px; position: relative; margin: auto;" >
     <img src="css/images/Logo.png" alt="Logo" class= "logo" style="max-width: 350px;" > 
     </div>
-    <br>
     <br>
     <br>
     <br>
@@ -41,37 +37,36 @@
           </div>
           <li style="float:right" class="barItem"> <a href="profile_en.html" class="barItem">Profile</a> </li>
     </ul>
-    <br>
+
     <div style="display: block; text-align: center;width: 100%;">
         <h1>Add new Employee</h1>
     </div>
-    <br><br>
-
+    <br>
     <!-- Tabelle um neuen MA hinzuzufügen-->
-    <table cellspacing="0" cellpadding="1" border="1" id="table" style="position: relative; margin: auto; width: 50px;"> 
-        <tr style="background-color: whitesmoke">
-            <th style="text-align: center; min-width: 175px; height: 65px;"> Enter Surname: </th>
-            <td style="text-align: center; min-width: 235px; height: 65px;"> <input type="text" id="addEmployee_givenname"></td>
+    <table class="addeEmployeeTable" cellspacing="0" cellpadding="1" border="1" id="addEmployeetable" style="position: relative; margin: auto; width: 50px;"> 
+        <tr>
+            <th> Enter Surname: </th>
+            <td> <input type="text" id="addEmployee_givenname"></td>
         </tr>
-        <tr style="background-color: whitesmoke">
-            <th style="text-align: center; min-width: 175px; height: 65px;"> Enter Familyname: </th>
-            <td style="text-align: center; min-width: 235px; height: 65px;"> <input type="text" id="addEmployee_familyname"></td>
+        <tr>
+            <th> Enter Familyname: </th>
+            <td> <input type="text" id="addEmployee_familyname"></td>
         </tr>
-        <tr style="background-color: whitesmoke">
-            <th style="text-align: center; min-width: 175px; height: 65px;"> Enter Username: </th>
-            <td style="text-align: center; min-width: 235px; height: 65px;"> <input type="text" id="addEmployee_username"></td>
+        <tr>
+            <th> Enter Username: </th>
+            <td> <input type="text" id="addEmployee_username"></td>
         </tr>
-        <tr style="background-color: whitesmoke">
-            <th style="text-align: center; min-width: 175px; height: 65px;"> Enter Password: </th>
-            <td style="text-align: center; min-width: 235px; height: 65px;"> <input type="text" id="addEmployee_password"></td>
+        <tr>
+            <th> Enter Password: </th>
+            <td> <input type="text" id="addEmployee_password"></td>
         </tr>
-        <tr style="background-color: whitesmoke">
-            <th style="text-align: center; min-width: 175px; height: 65px;"> Repeat Password: </th>
-            <td style="text-align: center; min-width: 235px; height: 65px;"> <input type="text" id="addEmployee_repeatPassword"></td>
+        <tr>
+            <th> Repeat Password: </th>
+            <td> <input type="text" id="addEmployee_repeatPassword"></td>
         </tr>
-        <tr style="background-color: whitesmoke">
-            <th style="text-align: center; min-width: 175px; height: 65px;"> Working Days: </th>
-            <td id ="addEmployee_workingDays" style="text-align: center; min-width: 155px; height: 65px;">
+        <tr>
+            <th> Working Days: </th>
+            <td id ="addEmployee_workingDays">
                 <label for="monday">Monday: </label> 
                 <input class="checkbox" type="checkbox" name="monday" id="addEmployee_monday" onchange="adaptWorkingDays();" style="margin-left: 33px;"> 
                 <br>
@@ -105,8 +100,7 @@
         <button id ="addEmployee_confirm" style="margin-right: 20px;" onclick="addEmployee();" type="button" class="button">  Add Employee</button>
         <button id ="addEmployee_cancel" onclick="reset();" type="button" class="button"> Reset</button>
      </div>
-
-    <div class="footer"></div>
+     <br><br>
 
     <script>
 

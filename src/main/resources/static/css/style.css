@@ -132,53 +132,56 @@
 }
 
 .float{
-float: right;
+    float: right;
 }
 
-#weekTable {
+.table {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
-    width: 100%;
-    border: 1px black;
-}
-  
-#weekTable td, #weekTable th {
-    border: 1px solid black;
-    padding: 8px;
-}
-  
-#weekTable tr:nth-child(even){background-color: #f2f2f2;}
-  
-#weekTable tr:hover {background-color: #ddd;}
-  
-#weekTable th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color:rgb(126, 172, 168);;
-    color: white;
-}
-
-#table {
-    font-family: Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
     overflow:hidden;
     overflow-y: scroll;
-
+    position: relative; 
+    margin: auto;
 }
   
-#table td, #table th {
+.table td{
     border: 1px solid black;
-    padding: 8px;
+    text-align: center;
+    min-width: 110px;
+    height: 55px;
+}
+
+.table tr{
+    background-color: whitesmoke;
+    text-align: center;
+    min-width: 110px;
+    height: 55px;
 }
   
-#table th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
+.table th {
+    text-align: center;
+    border: 1px solid black;
+    min-width: 135px;
+    max-width: 135px;
+    height: 55px;
     background-color:rgb(126, 172, 168);
     color: white;
+}
+
+.timeInput {
+    width: 45px; 
+    height: 30px; 
+    margin-left: 2px; 
+    margin-right: 2px;
+}
+
+.resultsTimeInput{
+    background-color: transparent;
+    border: 0; 
+    height: 30px; 
+    max-width: 110px;
+    font-size: 16px;
+    text-align: center;
     
 }
 
@@ -238,24 +241,18 @@ float: right;
     display: block;
 }
   
-.footer {
-    position: fixed;
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 70px;
-    margin-bottom: 20px;
-    background-color:rgb(126, 172, 168);
-    text-align: center;
- }
 .total {
     font-family: Arial;
     font-size: 17px;
     color: white;
     font-weight: bold;
+    background-color: transparent;
+    border: 0; 
+    height: 30px; 
+    text-align: center;
 }
 
-#absenceTable {
+.absenceTable {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
@@ -265,41 +262,126 @@ float: right;
 
 }
   
-#absenceTable td, #absenceTable th {
+.absenceTable td {
     padding: 8px;
 }
   
-#absenceTable th {
+.absenceTable th {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
     background-color:rgb(126, 172, 168);
     color: white;
+    text-align: center;
+    min-width: 155px; 
+    height: 65px;
+    padding: 8px;
 }
 
-#employeeTable {
+.absenceTable tr {
+    color: white;
+}
+
+.absenceTableContent {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
+    overflow:hidden;
+    overflow-y: scroll;
+
+}
+  
+.absenceTableContent td{
+    padding: 8px;
+    text-align: center; 
+    min-width: 155px; 
+    height: 65px;
+    background-color: whitesmoke;
+    text-align: center;
+    min-width: 155px; 
+    height: 65px;
+    color: black;
+}
+  
+.absenceTableContent th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color:rgb(126, 172, 168);
+    color: white;
+    text-align: center;
+    min-width: 155px; 
+    height: 65px;
+}
+
+.absenceTableContent tr {
+    background-color: whitesmoke;
+}
+
+.addAbsenceTable {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    overflow:hidden;
+    overflow-y: scroll;
+    border: 1px solid black;
+}
+  
+.addAbsenceTable td{
+    padding: 8px;
+    text-align: center; 
+    min-width: 155px; 
+    height: 65px;
+    background-color: whitesmoke;
+    text-align: center;
+    min-width: 155px; 
+    height: 65px;
+    color: black;
+    border: 1px solid black;
+}
+  
+.addAbsenceTable th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color:rgb(126, 172, 168);
+    color: white;
+    text-align: center;
+    min-width: 155px; 
+    height: 65px;
+    border: 1px solid black;
+}
+
+.addAbsenceTable tr {
+    background-color: whitesmoke;
+    border: 1px solid black;
+}
+
+.employeeTable {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
     overflow:hidden;
     overflow-y: scroll;
     border: 2px black;
 
 }
   
-#employeeTable td, employeeTable th {
+.employeeTable td {
     padding: 8px;
 }
   
-#employeeTable th {
+.employeeTable th {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
     background-color:rgb(126, 172, 168);
     color: white;
+    text-align: center; 
+    height: 65px;
+    width: 180px; 
 }
 
-#tableContent {
+.employeeTableContent {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: 100%;
@@ -308,11 +390,19 @@ float: right;
     border: 2px black;
 }
   
-#tableContent td, tableContent th {
-    padding: 8px;
+.employeeTableContent td{
+
+    text-align: center;
+    width: 170px; 
+    height: 65px;
+}
+
+.employeeTableContent tr {
+    background-color: whitesmoke;
+    border: 1px solid black;
 }
   
-#tableContent th {
+.employeeTableContent th {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
@@ -330,7 +420,7 @@ float: right;
 
 }
   
-#profileTable td, #profileTable th {
+#profileTable td {
     padding: 8px;
 }
   
@@ -340,4 +430,36 @@ float: right;
     text-align: left;
     background-color:rgb(126, 172, 168);
     color: white;
+}
+
+.addeEmployeeTable {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    overflow:hidden;
+    overflow-y: scroll;
+    border: 2px black;
+
+}
+  
+.addeEmployeeTable td {
+    padding: 8px;
+    text-align: center; 
+    min-width: 235px; 
+    height: 65px;
+}
+  
+.addeEmployeeTable th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color:rgb(126, 172, 168);
+    color: white;
+    text-align: center; 
+    min-width: 175px; 
+    height: 65px;
+}
+
+.addeEmployeeTable tr {
+    padding: 8px;
+    background-color: whitesmoke
 }
