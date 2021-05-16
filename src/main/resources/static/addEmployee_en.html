@@ -7,10 +7,10 @@
     <html lang="en">
     <link rel="stylesheet" href="css/style.css"">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="//code.jquery.com/jquery-1.12.4.min.js"></script>
-    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-    <script src="jquery.weekpicker.js"></script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/flick/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="js/jquery.weekpicker.js"></script>   
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/flick/jquery-ui.css">
     <title>Add new Employee</title>
 </head>
 <body style="background-color: rgb(217, 240, 216)">
@@ -96,7 +96,8 @@
     <div style="display: block; text-align: center; width: 100%;">
         <td style="text-align: center; min-width: 135px; height: 55px;" > </td>
         <a href="employeeList_en.html" class="buttonLinks" style="text-decoration: none; margin-right: 20px; padding: 10px 37px;"> Return</a>
-        <button id ="addEmployee_confirm" style="margin-right: 20px;" onclick="addEmployee();" type="button" class="button"> Add Employee</button>
+        
+        <button id ="addEmployee_confirm" style="margin-right: 20px;" onclick="addEmployee();" type="button" class="button">  Add Employee</button>
         <button id ="addEmployee_cancel" onclick="reset();" type="button" class="button"> Reset</button>
      </div>
      <br><br>
@@ -105,11 +106,33 @@
 
         // fügt einen neuen MA hinzu + Erfolgsmeldung
         function addEmployee(){
+        	console.log("kommt in addEmployee");
 
             if (validUserInput()) {
             var surname = document.getElementById("addEmployee_givenname").value;
             var familyname = document.getElementById("addEmployee_familyname").value;
             var username = document.getElementById("addEmployee_username").value;
+            var passwort = document.getElementById("addEmployee_password").value;
+            document.getElementById("addEmployee_repeatPassword").value;
+            var pensum = document.getElementById("addEmployee_workload").innerHTML;
+            document.getElementById("addEmployee_targetHours").innerHTML;
+            
+            $.ajax({
+				type : "POST",
+				url : "/addEmployee/",
+				data : JSON.stringify({
+					surname : surname,
+					familyname : familyname,
+					username : username,
+					passwort : passwort,
+					pensum : pensum
+
+				}),
+				success : successCredentials,
+				dataType : 'json',
+				contentType : 'application/json'
+			});
+
 
             // Erfolgsmeldung
             var message = ("Dear Admin \n\nThe employee "+ surname+" "+familyname+" has been added! \n\nThe assigned username is: "+username);
@@ -118,11 +141,42 @@
             backToEmployeeList();
             }
         }
+        
+        function successCredentials(response) {
+			if (response == true) {
+				
+				handleSuccessCreditals(response);
+
+			} else {
+				handleFailureCreditals(response);
+			}
+		}
+
+		/* Hier ist die Weiterleitung bei einer erfolgreichen oder 
+		nicht erfolgreichen Eingaben der Credentials (BR)*/
+		
+		function handleSuccessCreditals(response) {
+			var alert = document.getElementById("wrongInputs")
+
+			console.log("Authorisation successful");
+			alert.style.display = "none";
+			window.location.assign("http://localhost:8081/main")
+
+		}
+
+		function handleFailureCreditals(response) {
+			var alert = document.getElementById("wrongInputs")
+
+			console.log("Authorisation failure / Missing value");
+			alert.style.display = "block";
+
+		}
+
 
         // Leert alle mögliche Eingabemöglichkeiten
         function reset(){
-            document.getElementById("addEmployee_givenname").value ="";
-            document.getElementById("addEmployee_familyname").value ="";
+           	document.getElementById("addEmployee_givenname").value ="";
+           	document.getElementById("addEmployee_familyname").value ="";
             document.getElementById("addEmployee_username").value ="";
             document.getElementById("addEmployee_password").value ="";
             document.getElementById("addEmployee_repeatPassword").value ="";
@@ -198,10 +252,13 @@
         }
 
         function backToEmployeeList(){
-            window.location.href = "employeeList_en.html";
+            window.location.href = "http://localhost:8081/employeeList";
         }
 
     </script>
-
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+		integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+		crossorigin="anonymous"></script>
+		
 </body>
 </html>

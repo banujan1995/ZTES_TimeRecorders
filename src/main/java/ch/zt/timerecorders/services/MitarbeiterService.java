@@ -24,6 +24,8 @@ import ch.zt.timerecorders.persistence.AdministratorenRepository;
 import ch.zt.timerecorders.persistence.Mitarbeiter;
 import ch.zt.timerecorders.persistence.MitarbeiterRepository;
 import ch.zt.timerecorders.persistence.Zeiterfassungsrepository;
+import ch.zt.timerecorders.start.MitarbeiterRegister;
+import ch.zt.timerecorders.start.MitarbeiterRepositoryInterface;
 import ch.zt.timerecorders.start.ServiceLocator;
 
 /**
@@ -45,6 +47,9 @@ public class MitarbeiterService {
 
 	@Autowired
 	private Zeiterfassungsrepository zeiterfassungsrepository;
+	
+	@Autowired
+	private MitarbeiterRepositoryInterface mitarbeiterRepositoryInterface;
 
 	/**
 	 * Methoden Annotation (BR) - MIT GET MIT PARAMETER - Rückgabewert JSON Methode
@@ -55,7 +60,53 @@ public class MitarbeiterService {
 	 * CRUD Methoden, um Mitarbeiter zu erfassen, mutieren, verändern, löschen (BR)
 	 */
 
-	// Mitarbeiter erstellen (BR)
+	// Mitarbeiter erstellen KG
+
+	@PostMapping(path = "/addEmployee/", produces = "application/json")
+	public long createNewMa(@RequestBody MessageMaRegister m) {
+
+
+		MitarbeiterRegister m1 = new MitarbeiterRegister();
+		m1.setSurname(m.getSurname());
+		m1.setFamilyname(m.getFamilyname());
+		m1.setName(m.getName());
+		m1.setPasswort(m.getPasswort());
+		m1.setPensum(m.getPensum());
+		
+		m1 = mitarbeiterRepositoryInterface.save(m1); // beim Speichern wird eine MAId automatisch vergeben
+		logger.info("MA erfolgreich hinzugefügt");
+		return m1.getMitarbeiterID();
+	
+	}
+	
+	
+	@ResponseBody
+	@GetMapping("/mitarbeiterList/")
+	public List allMA() {
+		
+	List<MitarbeiterRegister> ma = mitarbeiterRepositoryInterface.findAll();
+		System.out.println(ma.toString());
+		logger.info("Liste wurde erfolgreich erstellt");
+		return ma;
+	
+	}
+
+//	@PostMapping(path = "/addEmployee/", produces = "application/json")
+//	public long createNewMa(@RequestBody MessageMaRegister m) {
+//
+//
+//		MitarbeiterRegister m1 = new MitarbeiterRegister();
+//		m1.setSurname(m.getSurname());
+//		m1.setFamilyname(m.getFamilyname());
+//		m1.setName(m.getName());
+//		m1.setPasswort(m.getPasswort());
+//		m1.setPensum(m.getPensum());
+//		
+//		m1 = maRepo.save(m1); // beim Speichern wird eine MAId automatisch vergeben
+//		logger.info("MA erfolgreich hinzugefügt");
+//		return m1.getMitarbeiterID();
+//	}
+
 
 	// Mitarbeiter mutieren von MA zu AD (BR)
 
