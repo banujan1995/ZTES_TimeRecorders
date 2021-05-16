@@ -2,8 +2,9 @@ package ch.zt.timerecorders.services;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +12,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
-
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -79,9 +81,9 @@ public class MitarbeiterService {
 	
 	}
 	
-	
+	// KG: MA Liste erstellen als JSON
 	@ResponseBody
-	@GetMapping("/mitarbeiterList/")
+	@GetMapping(path = "/mitarbeiterList/", produces = "application/json")
 	public List allMA() {
 		
 	List<MitarbeiterRegister> ma = mitarbeiterRepositoryInterface.findAll();
@@ -90,23 +92,7 @@ public class MitarbeiterService {
 		return ma;
 	
 	}
-
-//	@PostMapping(path = "/addEmployee/", produces = "application/json")
-//	public long createNewMa(@RequestBody MessageMaRegister m) {
-//
-//
-//		MitarbeiterRegister m1 = new MitarbeiterRegister();
-//		m1.setSurname(m.getSurname());
-//		m1.setFamilyname(m.getFamilyname());
-//		m1.setName(m.getName());
-//		m1.setPasswort(m.getPasswort());
-//		m1.setPensum(m.getPensum());
-//		
-//		m1 = maRepo.save(m1); // beim Speichern wird eine MAId automatisch vergeben
-//		logger.info("MA erfolgreich hinzugefügt");
-//		return m1.getMitarbeiterID();
-//	}
-
+	
 
 	// Mitarbeiter mutieren von MA zu AD (BR)
 
