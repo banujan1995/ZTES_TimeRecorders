@@ -1,5 +1,8 @@
 package ch.zt.timerecorders.start;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,10 +10,13 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.springframework.context.annotation.ComponentScan;
+
+
 
 /**
  * 
@@ -37,6 +43,9 @@ public class MitarbeiterRegister {
 	public String username;
 	public String passwort;
 	public String pensum;
+	
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<MitarbeiterRegister> mitarbeiter = new ArrayList<>();
 
 
 	public MitarbeiterRegister(Long mitarbeiterID, String surname, String familyname, String username, String passwort, String pensum) {
@@ -116,6 +125,10 @@ public class MitarbeiterRegister {
 
 	public void setFamilyname(String familyname) {
 		this.familyname = familyname;
+	}
+	
+	public List<MitarbeiterRegister> getMitarbeiter() {
+		return mitarbeiter;
 	}
 	
 	
