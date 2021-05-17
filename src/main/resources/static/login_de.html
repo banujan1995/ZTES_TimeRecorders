@@ -141,8 +141,8 @@
 		function checkInputs() {
 			console.log("kommt in Checkinputs");
 
-			var user = document.getElementById("loginUserName_DE").value;
-			var password = document.getElementById("loginPassword_DE").value;
+			var username= document.getElementById("loginUserName_DE").value;
+			var passwort = document.getElementById("loginPassword_DE").value;
 			var alert = document.getElementById("wrongInputs")
 
 			// see: https://api.jquery.com/jquery.post/
@@ -151,8 +151,8 @@
 				type : "POST",
 				url : "/timerecorders/mitarbeiterlogin/",
 				data : JSON.stringify({
-					user : user,
-					password : password
+					username : username,
+					passwort : passwort
 				}),
 				success : successCredentials,
 				dataType : 'json',

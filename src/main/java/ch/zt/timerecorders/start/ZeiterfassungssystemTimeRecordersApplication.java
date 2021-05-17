@@ -72,6 +72,8 @@ public class ZeiterfassungssystemTimeRecordersApplication{
 		administratorRepository.addAdministrator(lukasFrey);
 		administratorRepository.addAdministrator(richardBradley);	
 	}
-
-
+	
 }
+
+
+

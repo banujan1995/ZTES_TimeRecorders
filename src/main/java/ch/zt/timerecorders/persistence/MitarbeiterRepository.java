@@ -5,13 +5,14 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import ch.zt.timerecorders.start.MitarbeiterRegister;
+
 /**
  * @author Banujan Ragunathan
  */
 
 @Component
 public class MitarbeiterRepository {
-
 	private List<Mitarbeiter> mitarbeiterList = new ArrayList<>();
 	private final int START_OF_MITARBEITERID = 100;
 	
