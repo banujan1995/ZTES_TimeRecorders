@@ -10,12 +10,14 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -23,12 +25,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ch.zt.timerecorders.persistence.Administrator;
 import ch.zt.timerecorders.persistence.AdministratorenRepository;
+import ch.zt.timerecorders.persistence.Arbeitstag;
+import ch.zt.timerecorders.persistence.ArbeitstagRepository;
 import ch.zt.timerecorders.persistence.Mitarbeiter;
 import ch.zt.timerecorders.persistence.MitarbeiterRepository;
-import ch.zt.timerecorders.persistence.Zeiterfassungsrepository;
 import ch.zt.timerecorders.start.MitarbeiterRegister;
 import ch.zt.timerecorders.start.MitarbeiterRepositoryInterface;
 import ch.zt.timerecorders.start.ServiceLocator;
+
 
 /**
  * 
@@ -47,9 +51,10 @@ public class MitarbeiterService {
 	@Autowired
 	private AdministratorenRepository administratorenRepository;
 
-	@Autowired
-	private Zeiterfassungsrepository zeiterfassungsrepository;
 	
+	@Autowired
+	private ArbeitstagRepository arbeitstagRepository;
+
 	@Autowired
 	private MitarbeiterRepositoryInterface mitarbeiterRepositoryInterface;
 
@@ -67,32 +72,30 @@ public class MitarbeiterService {
 	@PostMapping(path = "/addEmployee/", produces = "application/json")
 	public long createNewMa(@RequestBody MessageMaRegister m) {
 
-
 		MitarbeiterRegister m1 = new MitarbeiterRegister();
 		m1.setSurname(m.getSurname());
 		m1.setFamilyname(m.getFamilyname());
-		m1.setName(m.getName());
+		m1.setName(m.getUsername());
 		m1.setPasswort(m.getPasswort());
 		m1.setPensum(m.getPensum());
-		
+
 		m1 = mitarbeiterRepositoryInterface.save(m1); // beim Speichern wird eine MAId automatisch vergeben
 		logger.info("MA erfolgreich hinzugefügt");
 		return m1.getMitarbeiterID();
-	
+
 	}
-	
+
 	// KG: MA Liste erstellen als JSON
 	@ResponseBody
 	@GetMapping(path = "/mitarbeiterList/", produces = "application/json")
 	public List allMA() {
-		
-	List<MitarbeiterRegister> ma = mitarbeiterRepositoryInterface.findAll();
+
+		List<MitarbeiterRegister> ma = mitarbeiterRepositoryInterface.findAll();
 		System.out.println(ma.toString());
 		logger.info("Liste wurde erfolgreich erstellt");
 		return ma;
-	
+
 	}
-	
 
 	// Mitarbeiter mutieren von MA zu AD (BR)
 
@@ -124,6 +127,9 @@ public class MitarbeiterService {
 	}
 
 	// Mitarbeiter Zeitregister auslesen(BR)
+	
+	
+	
 
 	// Mitarbeiter einzelne Zeitelement auslesen
 
@@ -132,54 +138,117 @@ public class MitarbeiterService {
 	 * Webapplikation (BR)
 	 */
 
+	@PostMapping(path = "/timerecorders/mitarbeiterlogin/", produces = "application/json")
+	public boolean isValidUser(@RequestBody MessageMaRegister login) {
+
+		
+	List<MitarbeiterRegister> ma = mitarbeiterRepositoryInterface.findAll();
+	
+	for (MitarbeiterRegister m : ma) {
+		if(m.getUsername().equals(login.getUserame())) {
+			System.out.println("Mitarbeiter wurde gefunden");
+			
+	return true;
+	
+		}else {
+			System.out.println("Mitarbeiter wurde nicht gefunden");
+	
+	}
+	
+	}
+	return false;
+	
+	}
+	
 	/*
 	 * Mitarbeiter Login (BR) Hilfestellung bei der Lösung:
 	 * https://stackoverflow.com/questions/11291933/requestbody-and-responsebody-
 	 * annotations-in-spring
 	 */
 
-	@PostMapping(path = "/timerecorders/mitarbeiterlogin/", produces = "application/json")
-	public boolean passwortCreaditalCheck(@RequestBody MessageLogin login) {
+//	@PostMapping(path = "/timerecorders/mitarbeiterlogin/", produces = "application/json")
+//	public boolean passwortCreaditalCheck(@RequestBody MessageLogin login) {
+//
+//		switch (adminORMaListFinder(login.getUser())) {
+//
+//		case "Mitarbeiter":
+//
+//			if (login.getPassword()
+//					.equalsIgnoreCase(mitarbeiterRepository.getSingleMitarbeiterName(login.getUser()).getPasswort())) {
+//				return true; 
+//
+//			} else {
+//				return false;
+//
+//			}
+//
+//		case "Administrator":
+//			if (login.getPassword().equalsIgnoreCase(
+//					administratorenRepository.getSingleAdministratorName(login.getUser()).getPasswort())) {
+//				return true;
+//
+//			} else {
+//				return false;
+//
+//			}
+//
+//		default:
+//			logger.warning("Es wurde ein Login eingegeben, welche nicht als Admin oder Mitarbeiter gibt "
+//					+ "/ A login was entered which does not exist as an admin or employee.");
+//			return false;
+//		}
+//
+//	}
+
+	/*
+	 * Mitarbeiter Zeiterfassung (BR), Die Methode soll den korrekten Tag anhand der
+	 * TagesID ins DB speichern. 
+	 */
+
+	@PostMapping(path = "/timerecorders/zeiterfassung/", produces = "application/json")
+	public boolean zeitenInServer(@RequestBody MessageTimeStamp zeiterfassung) {
+
+		Arbeitstag workingday = new Arbeitstag((long) 1, zeiterfassung.getDate()); 
+				
+		//Vormittag Stunden
+		workingday.setZeitVormittagEndH(zeiterfassung.getMorningEndHours());
+		workingday.setZeitVormittagStartH(zeiterfassung.getMorningstartHours());
 		
-			switch (adminORMaListFinder(login.getUser())) {
-
-			case "Mitarbeiter":
-
-				if (login.getPassword().equalsIgnoreCase(
-						mitarbeiterRepository.getSingleMitarbeiterName(login.getUser()).getPasswort())) {
-					return true;
-
-				} else {
-					return false;
-
-				}
-
-			case "Administrator":
-				if (login.getPassword().equalsIgnoreCase(
-						administratorenRepository.getSingleAdministratorName(login.getUser()).getPasswort())) {
-					return true;
-
-				} else {
-					return false;
-
-				}
-
-			default:
-				logger.warning("Es wurde ein Login eingegeben, welche nicht als Admin oder Mitarbeiter gibt "
-						+ "/ A login was entered which does not exist as an admin or employee.");
-				return false;
-			}
-
-
 		
+		//Vormittag Minuten
+		workingday.setZeitVormittagEndMin(zeiterfassung.getMorningEndMinDeci());
+		workingday.setZeitVormittagStartMin(zeiterfassung.getMorningStartMinDeci());
+		
+		//Summe Vormittag in Dezimal
+		workingday.setZeitNachmittagSummeHAndMin(zeiterfassung.getMorningTotal());
+		
+		
+		// Nachmittag Stunden
+		workingday.setZeitNachmittagEndH(zeiterfassung.getAfternoonEndHours());
+		workingday.setZeitNachmittagStartH(zeiterfassung.getAfternoonStartHours());
 
+		// Nachmittag Minuten
+		workingday.setZeitNachmittagEndMin(zeiterfassung.getAfternoonEndMinDeci());
+		workingday.setZeitNachmittagStartMin(zeiterfassung.getAfternoonStartMinDeci());
+
+		//Summe Nachmittag in Dezimal
+		workingday.setZeitNachmittagSummeHAndMin(zeiterfassung.getAfternoonTotal());
+
+		arbeitstagRepository.addZeiterfassung(workingday);
+		System.out.println(zeiterfassung);
+		
+		return true;
 	}
 
-	// Mitarbeiter Logout (BR)
+	// Mitarbeiter Zeiterfassung - Veränderung (BR)
 
-	// Mitarbeiter einstempeln (BR)
+	@PutMapping(path = "/timerecorders/zeiterfassung/changes/", produces = "application/json")
+	public boolean zeitveränderung(@RequestBody MessageTimeStamp einstempeln) {
 
-	// Mitarbeiter ausstempeln (BR)
+		
+		
+		return true;
+	}
 
 	// Mitarbeiter - Ferien erfassen (BR)
 
@@ -192,41 +261,41 @@ public class MitarbeiterService {
 	 * Administrator handelt anhand Name (BR)
 	 */
 
-	public String adminORMaListFinder(String name) {
-		boolean isMitarbeiter = true;
-		boolean isAdmin = false;
-		String isMaorAd = "";
-
-		if (isMitarbeiter) {
-			boolean isFound = true;
-
-			if (isFound == true) {
-				Mitarbeiter localMa = mitarbeiterRepository.getSingleMitarbeiterName(name);
-				if (localMa == null) {
-					isMitarbeiter = false;
-					isFound = false;
-				} else {
-					isMaorAd = "Mitarbeiter";
-				}
-
-			} else if (isFound == false) {
-
-				Administrator localAD = administratorenRepository.getSingleAdministratorName(name);
-				if (localAD == null) {
-					isAdmin = false;
-				} else {
-					isMaorAd = "Administrator";
-
-				}
-
-			} else if (isAdmin && isMitarbeiter == false) {
-				logger.warning("Mitarbeiter wurde in beiden Listen nicht gefunden!");
-			}
-
-		}
-
-		return isMaorAd;
-	}
+//	public String adminORMaListFinder(String name) {
+//		boolean isMitarbeiter = true;
+//		boolean isAdmin = false;
+//		String isMaorAd = "";
+//
+//		if (isMitarbeiter) {
+//			boolean isFound = true;
+//
+//			if (isFound == true) {
+//				Mitarbeiter localMa = mitarbeiterRepository.getSingleMitarbeiterName(name);
+//				if (localMa == null) {
+//					isMitarbeiter = false;
+//					isFound = false;
+//				} else {
+//					isMaorAd = "Mitarbeiter";
+//				}
+//
+//			} else if (isFound == false) {
+//
+//				Administrator localAD = administratorenRepository.getSingleAdministratorName(name);
+//				if (localAD == null) {
+//					isAdmin = false;
+//				} else {
+//					isMaorAd = "Administrator";
+//
+//				}
+//
+//			} else if (isAdmin && isMitarbeiter == false) {
+//				logger.warning("Mitarbeiter wurde in beiden Listen nicht gefunden!");
+//			}
+//
+//		}
+//
+//		return isMaorAd;
+//	}
 
 	// Hier wird das Passwort bereits gehasht bevor es abgespeichert wird!
 	public String enryptionOfPW(String passwort) {

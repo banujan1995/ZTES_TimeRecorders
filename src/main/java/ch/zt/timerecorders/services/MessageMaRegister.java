@@ -27,7 +27,7 @@ public class MessageMaRegister {
 		this.mitarbeiterId = mitarbeiterId;
 	}
 
-	public String getName() {
+	public String getUserame() {
 		return username;
 	}
 
@@ -65,6 +65,10 @@ public class MessageMaRegister {
 
 	public void setFamilyname(String familyname) {
 		this.familyname = familyname;
+	}
+
+	public String getUsername() {
+		return username;
 	}
 	
 	
