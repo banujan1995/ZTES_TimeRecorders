@@ -14,10 +14,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import ch.zt.timerecorders.businesslogic.Pensum;
 import ch.zt.timerecorders.persistence.Administrator;
 import ch.zt.timerecorders.persistence.AdministratorenRepository;
+import ch.zt.timerecorders.persistence.ArbeitstagRepository;
 import ch.zt.timerecorders.persistence.Mitarbeiter;
 import ch.zt.timerecorders.persistence.MitarbeiterRepository;
-import ch.zt.timerecorders.persistence.Zeiterfassung;
-import ch.zt.timerecorders.persistence.Zeiterfassungsrepository;
+
 import ch.zt.timerecorders.view.ViewsController;
 
 
@@ -36,7 +36,7 @@ public class ZeiterfassungssystemTimeRecordersApplication{
 	private AdministratorenRepository administratorRepository;
 
 	@Autowired
-	private Zeiterfassungsrepository zeiterfassungsRepository;
+	private ArbeitstagRepository arbeitstagRepository;
 	
 	@Autowired 
 	private MitarbeiterRepositoryInterface mitarbeiterRepositoryInterface;

@@ -1,285 +1,397 @@
 <!-- erstellt durch Jordi Schmidlin-->
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css"">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-    <script src="js/jquery.weekpicker.js"></script>
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/flick/jquery-ui.css">
-    <title>Overview</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="css/style.css"">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+<script src="js/jquery.weekpicker.js"></script>
+<link rel="stylesheet"
+	href="https://code.jquery.com/ui/1.12.1/themes/flick/jquery-ui.css">
+<title>Overview</title>
 </head>
 <body style="background-color: rgb(217, 240, 216)">
-    <div style="max-width: 350px; position: relative; margin: auto;" >
-    <img src="css/images/Logo.png" alt="Logo" class= "logo" style="max-width: 350px;" > 
-    </div>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <!-- Navigationsbar-->
-    <ul class="navibar">
-        <li class="barItem"><a class="barItem">Home</a></li>
-        <li class="barItem"><a class="barItem" href="http://localhost:8081/report">Report</a></li>
-        <li class="barItem"><a class="barItem" href="absence_en.html"> Absence</a></li>
-        
-        <li style="float:right" class="barItem"> <a href="login_en.html" class="barItem">Logout</a></li>
-        <li style="float:right" class="barItem">
-            <a href="javascript:void(0)" class="barItemBtn">Languages</a>
-            <div class="barItem-content">
-              <a>English</a>
-              <a>German</a>
-          </div>
-          <li style="float:right" class="barItem"> <a href="http://localhost:8081/profile" class="barItem">Profile</a> </li>
-      </ul>
-      <br>
-    <div style="display: block; text-align: center;width: 100%;">
-        <h1 >Your weektable</h1>
-        <p style="font-weight: bold;"> Please choose the desired week!</p>
-    </div>
-    <br>
-    <!-- Kalender, um die entsprechende Woche anzuzeigen-->
-    <div style="display: block; text-align: center;width: 100%;">
-		<input type="text" id="week_ww_yyyy" ></input>
-        <button class="buttonList" style="margin-left: 20px;"  onclick="getChoosenDay();"> Validate</button>
-    </div>
-    
-    <br>
-    <br>
+	<div style="max-width: 350px; position: relative; margin: auto;">
+		<img src="css/images/Logo.png" alt="Logo" class="logo"
+			style="max-width: 350px;">
+	</div>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<!-- Navigationsbar-->
+	<ul class="navibar">
+		<li class="barItem"><a class="barItem">Home</a></li>
+		<li class="barItem"><a class="barItem"
+			href="http://localhost:8081/report">Report</a></li>
+		<li class="barItem"><a class="barItem" href="absence_en.html">
+				Absence</a></li>
 
-    <!-- Wochentabelle, Datum je nach Auswahl im Kalender + Button: Validieren-->
-    <div  style="position: relative; margin: auto;">
-    <table id="table" class="table"> 
-        <tr>
-            <th> Weektable: </th>
-            <th id="firstDayofWeek"> </th>
-            <th id="secondDayofWeek"> </th>
-            <th id="thirdDayofWeek"> </th>
-            <th id="fourthDayofWeek"> </th>
-            <th id="fifthDayofWeek"> </th>
-            <th id="sixthDayofWeek"></th>
-            <th id="seventhDayofWeek"></th>
-            <th></th> 
-        </tr>
+		<li style="float: right" class="barItem"><a href="login_en.html"
+			class="barItem">Logout</a></li>
+		<li style="float: right" class="barItem"><a
+			href="javascript:void(0)" class="barItemBtn">Languages</a>
+			<div class="barItem-content">
+				<a>English</a> <a>German</a>
+			</div>
+		<li style="float: right" class="barItem"><a
+			href="http://localhost:8081/profile" class="barItem">Profile</a></li>
+	</ul>
+	<br>
+	<div style="display: block; text-align: center; width: 100%;">
+		<h1>Your weektable</h1>
+		<p style="font-weight: bold;">Please choose the desired week!</p>
+	</div>
+	<br>
+	<!-- Kalender, um die entsprechende Woche anzuzeigen-->
+	<div style="display: block; text-align: center; width: 100%;">
+		<input type="text" id="week_ww_yyyy"></input>
+		<button class="buttonList" style="margin-left: 20px;"
+			onclick="getChoosenDay();">Validate</button>
+	</div>
 
-        <tr>
-            <th> Morning </th>
-            <td>
-                <label for="mondayMorningStartHours" style="font-size: 14px;"> Start:</label>
-                <input class="timeInput" tabindex ="1" type="text" maxlength="2" id="mondayMorningStartHours" oninput="calculateMondayTotal();" placeholder="hh">
-                <input class="timeInput" tabindex ="1" type="text" maxlength="2" id="mondayMorningStartMin" oninput="calculateMondayTotal();"  placeholder="mm"> <br>
-                <label for="mondayMorningStartHours" style="font-size: 14px; margin-right: 5px;"> End:</label>
-                <input class="timeInput" tabindex ="1" type="text" maxlength="2" id="mondayMorningEndHours" oninput="calculateMondayTotal();"  placeholder="hh">
-                <input class="timeInput" tabindex ="1" type="text" maxlength="2" id="mondayMorningEndMin" oninput="calculateMondayTotal();"  placeholder="mm">
-            </td>
-            <td>
-                <label for="tuesdayMorningStart" style="font-size: 14px;"> Start:</label>
-                <input class="timeInput" tabindex ="2" type="text" maxlength="2" id="tuesdayMorningStartHours" oninput="calculateTuesdayTotal();"  placeholder="hh">
-                <input class="timeInput" tabindex ="2" type="text" maxlength="2" id="tuesdayMorningStartMin" oninput="calculateTuesdayTotal();"  placeholder="mm"> <br>
-                <label for="tuesdayMorningEndHours" style="font-size: 14px; margin-right: 5px;"> End:</label>
-                <input class="timeInput" tabindex ="2" type="text" maxlength="2" id="tuesdayMorningEndHours" oninput="calculateTuesdayTotal();" placeholder="hh">
-                <input class="timeInput" tabindex ="2" type="text" maxlength="2" id="tuesdayMorningEndMin" oninput="calculateTuesdayTotal();" placeholder="mm">
-            </td>
-            <td>
-                <label for="wednesdayMorningStart" style="font-size: 14px;"> Start:</label>
-                <input class="timeInput" tabindex ="3" type="text" maxlength="2" id="wednesdayMorningStartHours" oninput="calculateWednesdayTotal();" placeholder="hh">
-                <input class="timeInput" tabindex ="3" type="text" maxlength="2" id="wednesdayMorningStartMin" oninput="calculateWednesdayTotal();" placeholder="mm"> <br>
-                <label for="wednesdayMorningEndHours" style="font-size: 14px; margin-right: 5px;"> End:</label>
-                <input class="timeInput" tabindex ="3" type="text" maxlength="2" id="wednesdayMorningEndHours" oninput="calculateWednesdayTotal();" placeholder="hh">
-                <input class="timeInput" tabindex ="3" type="text" maxlength="2" id="wednesdayMorningEndMin" oninput="calculateWednesdayTotal();" placeholder="mm">
-            </td>
-            <td>
-                <label for="thursdayMorningStartHours" style="font-size: 14px;"> Start:</label>
-                <input class="timeInput" tabindex ="4" type="text" maxlength="2" id="thursdayMorningStartHours" oninput="calculateThursdayTotal();" placeholder="hh">
-                <input class="timeInput" tabindex ="4" type="text" maxlength="2" id="thursdayMorningStartMin" oninput="calculateThursdayTotal();" placeholder="mm"> <br>
-                <label for="thursdayMorningEndHours" style="font-size: 14px; margin-right: 5px;"> End:</label>
-                <input class="timeInput" tabindex ="4" type="text" maxlength="2" id="thursdayMorningEndHours" oninput="calculateThursdayTotal();" placeholder="hh">
-                <input class="timeInput" tabindex ="4" type="text" maxlength="2" id="thursdayMorningEndMin" oninput="calculateThursdayTotal();" placeholder="mm">
-            </td>
-            <td>
-                <label for="fridayMorningStartHours" style="font-size: 14px;"> Start:</label>
-                <input class="timeInput" tabindex ="5" type="text" maxlength="2" id="fridayMorningStartHours" oninput="calculateFridayTotal();" placeholder="mm">
-                <input class="timeInput" tabindex ="5" type="text" maxlength="2" id="fridayMorningStartMin" oninput="calculateFridayTotal();" placeholder="hh"> <br>
-                <label for="fridayMorningEndHours" style="font-size: 14px; margin-right: 5px;"> End:</label>
-                <input class="timeInput" tabindex ="5" type="text" maxlength="2" id="fridayMorningEndHours" oninput="calculateFridayTotal();" placeholder="mm">
-                <input class="timeInput" tabindex ="5" type="text" maxlength="2" id="fridayMorningEndMin" oninput="calculateFridayTotal();" placeholder="hh">
-            </td>
-            <td>
-                <label for="saturdayMorningStartHours" style="font-size: 14px;"> Start:</label>
-                <input class="timeInput" tabindex ="6" type="text" maxlength="2" id="saturdayMorningStartHours" oninput="calculateSaturdayTotal();" placeholder="hh">
-                <input class="timeInput" tabindex ="6" type="text" maxlength="2" id="saturdayMorningStartMin" oninput="calculateSaturdayTotal();" placeholder="mm"> <br>
-                <label for="saturdayMorningEndHours" style="font-size: 14px; margin-right: 5px;"> End:</label>
-                <input class="timeInput" tabindex ="6" type="text" maxlength="2" id="saturdayMorningEndHours" oninput="calculateSaturdayTotal();" placeholder="hh">
-                <input class="timeInput" tabindex ="6" type="text" maxlength="2" id="saturdayMorningEndMin" oninput="calculateSaturdayTotal();" placeholder="mm">
-            </td>
-            <td>
-                <label for="sundayMorningStartHours" style="font-size: 14px;"> Start:</label>
-                <input class="timeInput" tabindex ="7" type="text" maxlength="2" id="sundayMorningStartHours" oninput="calcutlateSundayTotal();" placeholder="hh">
-                <input class="timeInput" tabindex ="7" type="text" maxlength="2" id="sundayMorningStartMin" oninput="calcutlateSundayTotal();" placeholder="mm"> <br>
-                <label for="sundayMorningEndHours" style="font-size: 14px; margin-right: 5px;"> End:</label>
-                <input class="timeInput" tabindex ="7" type="text" maxlength="2" id="sundayMorningEndHours" oninput="calcutlateSundayTotal();" placeholder="hh">
-                <input class="timeInput" tabindex ="7" type="text" maxlength="2" id="sundayMorningEndMin" oninput="calcutlateSundayTotal();" placeholder="mm">
-            </td>
-            <th></th>
-        </tr>
+	<br>
+	<br>
 
-        <tr>
-            <th>Afternoon</th>
-            <td>
-                <label for="mondayMorningStartHours" style="font-size: 14px;"> Start:</label>
-                <input class="timeInput" tabindex ="1" type="text" maxlength="2" id="mondayAfternoonStartHours" oninput="calculateMondayTotal();" placeholder="hh">
-                <input class="timeInput" tabindex ="1" type="text" maxlength="2" id="mondayAfternoonStartMin" oninput="calculateMondayTotal();"  placeholder="mm"> <br>
-                <label for="mondayMorningStartHours" style="font-size: 14px; margin-right: 5px;"> End:</label>
-                <input class="timeInput" tabindex ="1" type="text" maxlength="2" id="mondayAfternoonEndHours" oninput="calculateMondayTotal();"  placeholder="hh">
-                <input class="timeInput" tabindex ="1" type="text" maxlength="2" id="mondayAfternoonEndMin" oninput="calculateMondayTotal();"  placeholder="mm">
-            </td>
-            <td>
-                <label for="tuesdayMorningStart" style="font-size: 14px;"> Start:</label>
-                <input class="timeInput" tabindex ="2" type="text" maxlength="2" id="tuesdayAfternoonStartHours" oninput="calculateTuesdayTotal();"  placeholder="hh">
-                <input class="timeInput" tabindex ="2" type="text" maxlength="2" id="tuesdayAfternoonStartMin" oninput="calculateTuesdayTotal();"  placeholder="mm"> <br>
-                <label for="tuesdayMorningEndHours" style="font-size: 14px; margin-right: 5px;"> End:</label>
-                <input class="timeInput" tabindex ="2" type="text" maxlength="2" id="tuesdayAfternoonEndHours" oninput="calculateTuesdayTotal();" placeholder="hh">
-                <input class="timeInput" tabindex ="2" type="text" maxlength="2" id="tuesdayAfternoonEndMin" oninput="calculateTuesdayTotal();" placeholder="mm">
-            </td>
-            <td>
-                <label for="wednesdayMorningStart" style="font-size: 14px;"> Start:</label>
-                <input class="timeInput" tabindex ="3" type="text" maxlength="2" id="wednesdayAfternoonStartHours" oninput="calculateWednesdayTotal();" placeholder="hh">
-                <input class="timeInput" tabindex ="3" type="text" maxlength="2" id="wednesdayAfternoonStartMin" oninput="calculateWednesdayTotal();" placeholder="mm"> <br>
-                <label for="wednesdayMorningEndHours" style="font-size: 14px; margin-right: 5px;"> End:</label>
-                <input class="timeInput" tabindex ="3" type="text" maxlength="2" id="wednesdayAfternoonEndHours" oninput="calculateWednesdayTotal();" placeholder="hh">
-                <input class="timeInput" tabindex ="3" type="text" maxlength="2" id="wednesdayAfternoonEndMin" oninput="calculateWednesdayTotal();" placeholder="mm">
-            </td>
-            <td>
-                <label for="thursdayMorningStartHours" style="font-size: 14px;"> Start:</label>
-                <input class="timeInput" tabindex ="4" type="text" maxlength="2" id="thursdayAfternoonStartHours" oninput="calculateThursdayTotal();" placeholder="hh">
-                <input class="timeInput" tabindex ="4" type="text" maxlength="2" id="thursdayAfternoonStartMin" oninput="calculateThursdayTotal();" placeholder="mm"> <br>
-                <label for="thursdayMorningEndHours" style="font-size: 14px; margin-right: 5px;"> End:</label>
-                <input class="timeInput" tabindex ="4" type="text" maxlength="2" id="thursdayAfternoonEndHours" oninput="calculateThursdayTotal();" placeholder="hh">
-                <input class="timeInput" tabindex ="4" type="text" maxlength="2" id="thursdayAfternoonEndMin" oninput="calculateThursdayTotal();" placeholder="mm">
-            </td>
-            <td>
-                <label for="fridayMorningStartHours" style="font-size: 14px;"> Start:</label>
-                <input class="timeInput" tabindex ="5" type="text" maxlength="2" id="fridayAfternoonStartHours" oninput="calculateFridayTotal();" placeholder="mm">
-                <input class="timeInput" tabindex ="5" type="text" maxlength="2" id="fridayAfternoonStartMin" oninput="calculateFridayTotal();" placeholder="hh"> <br>
-                <label for="fridayMorningEndHours" style="font-size: 14px; margin-right: 5px;"> End:</label>
-                <input class="timeInput" tabindex ="5" type="text" maxlength="2" id="fridayAfternoonEndHours" oninput="calculateFridayTotal();" placeholder="mm">
-                <input class="timeInput" tabindex ="5" type="text" maxlength="2" id="fridayAfternoonEndMin" oninput="calculateFridayTotal();" placeholder="hh">
-            </td>
-            <td>
-                <label for="saturdayMorningStartHours" style="font-size: 14px;"> Start:</label>
-                <input class="timeInput" tabindex ="6" type="text" maxlength="2" id="saturdayAfternoonStartHours" oninput="calculateSaturdayTotal();" placeholder="hh">
-                <input class="timeInput" tabindex ="6" type="text" maxlength="2" id="saturdayAfternoonStartMin" oninput="calculateSaturdayTotal();" placeholder="mm"> <br>
-                <label for="saturdayMorningEndHours" style="font-size: 14px; margin-right: 5px;"> End:</label>
-                <input class="timeInput" tabindex ="6" type="text" maxlength="2" id="saturdayAfternoonEndHours" oninput="calculateSaturdayTotal();" placeholder="hh">
-                <input class="timeInput" tabindex ="6" type="text" maxlength="2" id="saturdayAfternoonEndMin" oninput="calculateSaturdayTotal();" placeholder="mm">
-            </td>
-            <td>
-                <label for="sundayMorningStartHours" style="font-size: 14px;"> Start:</label>
-                <input class="timeInput" tabindex ="7" type="text" maxlength="2" id="sundayAfternoonStartHours" oninput="calcutlateSundayTotal();" placeholder="hh">
-                <input class="timeInput" tabindex ="7" type="text" maxlength="2" id="sundayAfternoonStartMin" oninput="calcutlateSundayTotal();" placeholder="mm"> <br>
-                <label for="sundayMorningEndHours" style="font-size: 14px; margin-right: 5px;"> End:</label>
-                <input class="timeInput" tabindex ="7" type="text" maxlength="2" id="sundayAfternoonEndHours" oninput="calcutlateSundayTotal();" placeholder="hh">
-                <input class="timeInput" tabindex ="7" type="text" maxlength="2" id="sundayAfternoonEndMin" oninput="calcutlateSundayTotal();" placeholder="mm">
-            </td>
-            <th></th>
-        </tr>
+	<!-- Wochentabelle, Datum je nach Auswahl im Kalender + Button: Validieren-->
+	<div style="position: relative; margin: auto;">
+		<table id="table" class="table">
+			<tr>
+				<th>Weektable:</th>
+				<th id="firstDayofWeek"></th>
+				<th id="secondDayofWeek"></th>
+				<th id="thirdDayofWeek"></th>
+				<th id="fourthDayofWeek"></th>
+				<th id="fifthDayofWeek"></th>
+				<th id="sixthDayofWeek"></th>
+				<th id="seventhDayofWeek"></th>
+				<th></th>
+			</tr>
 
-        <tr>
-            <th>Total Today:</th>
-            <td> 
-                <input type="text" id="mondayTotal" class="resultsTimeInput"  disabled >
-            </td>
-            <td>
-                <input type="text" id="tuesdayTotal"  class="resultsTimeInput" disabled>
-            </td>
-            <td>
-                <input type="text" id="wednesdayTotal" class="resultsTimeInput" disabled>
-            </td>
-            <td>
-                <input type="text" id="thursdayTotal" class="resultsTimeInput" disabled>
-            </td>
-            <td>
-                <input type="text" id="fridayTotal" class="resultsTimeInput" disabled>
-            </td>
-            <td>
-                <input type="text" id="saturdayTotal" class="resultsTimeInput" disabled>
-            </td>
-            <td>
-                <input type="text" id="sundayTotal" class="resultsTimeInput" disabled>
-            </td>
-            <th>
-                <input type="text" id="weekTotal" class="resultsTimeInput" disabled>
-            </th>
-        </tr>
+			<tr>
+				<th>Morning</th>
+				<td><label for="mondayMorningStartHours"
+					style="font-size: 14px;"> Start:</label> <input class="timeInput"
+					tabindex="1" type="text" maxlength="2" id="mondayMorningStartHours"
+					oninput="calculateMondayTotal();" placeholder="hh"
+					onkeyup="enableButton()"> <input class="timeInput"
+					tabindex="1" type="text" maxlength="2" id="mondayMorningStartMin"
+					oninput="calculateMondayTotal();" placeholder="mm"
+					onkeyup="enableButton()"> <br> <label
+					for="mondayMorningStartHours"
+					style="font-size: 14px; margin-right: 5px;"> End:</label> <input
+					class="timeInput" tabindex="1" type="text" maxlength="2"
+					id="mondayMorningEndHours" oninput="calculateMondayTotal();"
+					placeholder="hh" onkeyup="enableButton()"> <input
+					class="timeInput" tabindex="1" type="text" maxlength="2"
+					id="mondayMorningEndMin" oninput="calculateMondayTotal();"
+					placeholder="mm" onkeyup="enableButton()"></td>
+				<td><label for="tuesdayMorningStart" style="font-size: 14px;">
+						Start:</label> <input class="timeInput" tabindex="2" type="text"
+					maxlength="2" id="tuesdayMorningStartHours"
+					oninput="calculateTuesdayTotal();" placeholder="hh"
+					onkeyup="enableButton()"> <input class="timeInput"
+					tabindex="2" type="text" maxlength="2" id="tuesdayMorningStartMin"
+					oninput="calculateTuesdayTotal();" placeholder="mm"
+					onkeyup="enableButton()"> <br> <label
+					for="tuesdayMorningEndHours"
+					style="font-size: 14px; margin-right: 5px;"> End:</label> <input
+					class="timeInput" tabindex="2" type="text" maxlength="2"
+					id="tuesdayMorningEndHours" oninput="calculateTuesdayTotal();"
+					placeholder="hh" onkeyup="enableButton()"> <input
+					class="timeInput" tabindex="2" type="text" maxlength="2"
+					id="tuesdayMorningEndMin" oninput="calculateTuesdayTotal();"
+					placeholder="mm" onkeyup="enableButton()"></td>
+				<td><label for="wednesdayMorningStart" style="font-size: 14px;">
+						Start:</label> <input class="timeInput" tabindex="3" type="text"
+					maxlength="2" id="wednesdayMorningStartHours"
+					oninput="calculateWednesdayTotal();" placeholder="hh"
+					onkeyup="enableButton()"> <input class="timeInput"
+					tabindex="3" type="text" maxlength="2"
+					id="wednesdayMorningStartMin" oninput="calculateWednesdayTotal();"
+					placeholder="mm" onkeyup="enableButton()"> <br> <label
+					for="wednesdayMorningEndHours"
+					style="font-size: 14px; margin-right: 5px;"> End:</label> <input
+					class="timeInput" tabindex="3" type="text" maxlength="2"
+					id="wednesdayMorningEndHours" oninput="calculateWednesdayTotal();"
+					placeholder="hh" onkeyup="enableButton()"> <input
+					class="timeInput" tabindex="3" type="text" maxlength="2"
+					id="wednesdayMorningEndMin" oninput="calculateWednesdayTotal();"
+					placeholder="mm" onkeyup="enableButton()"></td>
+				<td><label for="thursdayMorningStartHours"
+					style="font-size: 14px;"> Start:</label> <input class="timeInput"
+					tabindex="4" type="text" maxlength="2"
+					id="thursdayMorningStartHours" oninput="calculateThursdayTotal();"
+					placeholder="hh" onkeyup="enableButton()"> <input
+					class="timeInput" tabindex="4" type="text" maxlength="2"
+					id="thursdayMorningStartMin" oninput="calculateThursdayTotal();"
+					placeholder="mm" onkeyup="enableButton()"> <br> <label
+					for="thursdayMorningEndHours"
+					style="font-size: 14px; margin-right: 5px;"> End:</label> <input
+					class="timeInput" tabindex="4" type="text" maxlength="2"
+					id="thursdayMorningEndHours" oninput="calculateThursdayTotal();"
+					placeholder="hh" onkeyup="enableButton()"> <input
+					class="timeInput" tabindex="4" type="text" maxlength="2"
+					id="thursdayMorningEndMin" oninput="calculateThursdayTotal();"
+					placeholder="mm" onkeyup="enableButton()"></td>
+				<td><label for="fridayMorningStartHours"
+					style="font-size: 14px;"> Start:</label> <input class="timeInput"
+					tabindex="5" type="text" maxlength="2" id="fridayMorningStartHours"
+					oninput="calculateFridayTotal();" placeholder="mm"
+					onkeyup="enableButton()"> <input class="timeInput"
+					tabindex="5" type="text" maxlength="2" id="fridayMorningStartMin"
+					oninput="calculateFridayTotal();" placeholder="hh"
+					onkeyup="enableButton()"> <br> <label
+					for="fridayMorningEndHours"
+					style="font-size: 14px; margin-right: 5px;"> End:</label> <input
+					class="timeInput" tabindex="5" type="text" maxlength="2"
+					id="fridayMorningEndHours" oninput="calculateFridayTotal();"
+					placeholder="mm" onkeyup="enableButton()"> <input
+					class="timeInput" tabindex="5" type="text" maxlength="2"
+					id="fridayMorningEndMin" oninput="calculateFridayTotal();"
+					placeholder="hh" onkeyup="enableButton()"></td>
+				<td><label for="saturdayMorningStartHours"
+					style="font-size: 14px;"> Start:</label> <input class="timeInput"
+					tabindex="6" type="text" maxlength="2"
+					id="saturdayMorningStartHours" oninput="calculateSaturdayTotal();"
+					placeholder="hh" onkeyup="enableButton()"> <input
+					class="timeInput" tabindex="6" type="text" maxlength="2"
+					id="saturdayMorningStartMin" oninput="calculateSaturdayTotal();"
+					placeholder="mm" onkeyup="enableButton()"> <br> <label
+					for="saturdayMorningEndHours"
+					style="font-size: 14px; margin-right: 5px;"> End:</label> <input
+					class="timeInput" tabindex="6" type="text" maxlength="2"
+					id="saturdayMorningEndHours" oninput="calculateSaturdayTotal();"
+					placeholder="hh" onkeyup="enableButton()"> <input
+					class="timeInput" tabindex="6" type="text" maxlength="2"
+					id="saturdayMorningEndMin" oninput="calculateSaturdayTotal();"
+					placeholder="mm" onkeyup="enableButton()"></td>
+				<td><label for="sundayMorningStartHours"
+					style="font-size: 14px;"> Start:</label> <input class="timeInput"
+					tabindex="7" type="text" maxlength="2" id="sundayMorningStartHours"
+					oninput="calcutlateSundayTotal();" placeholder="hh"
+					onkeyup="enableButton()"> <input class="timeInput"
+					tabindex="7" type="text" maxlength="2" id="sundayMorningStartMin"
+					oninput="calcutlateSundayTotal();" placeholder="mm"
+					onkeyup="enableButton()"> <br> <label
+					for="sundayMorningEndHours"
+					style="font-size: 14px; margin-right: 5px;"> End:</label> <input
+					class="timeInput" tabindex="7" type="text" maxlength="2"
+					id="sundayMorningEndHours" oninput="calcutlateSundayTotal();"
+					placeholder="hh" onkeyup="enableButton()"> <input
+					class="timeInput" tabindex="7" type="text" maxlength="2"
+					id="sundayMorningEndMin" oninput="calcutlateSundayTotal();"
+					placeholder="mm" onkeyup="enableButton()"></td>
+				<th></th>
+			</tr>
 
-        <tr>
-            <th>Target Time:</th>
-            <td> 
-                <input type="text" id="mondayTargetTime" class="resultsTimeInput" disabled >
-            </td>
-            <td>
-                <input type="text" id="tuesdayTargetTime" class="resultsTimeInput" disabled>
-            </td>
-            <td>
-                <input type="text" id="wednesdayTargetTime" class="resultsTimeInput" disabled>
-            </td>
-            <td>
-                <input type="text" id="thursdayTargetTime" class="resultsTimeInput" disabled>
-            </td>
-            <td>
-                <input type="text" id="fridayTargetTime" class="resultsTimeInput" disabled>
-            </td>
-            <td>
-                <input type="text" id="saturdayTargetTime" class="resultsTimeInput" disabled>
-            </td>
-            <td>
-                <input type="text" id="sundayTargetTime" class="resultsTimeInput" disabled>
-            </td>
-            <th>
-                <input type="text" class="total" id="totalTargetTime" style="max-width: 110px;" disabled>
-            </th>
-        </tr>
+			<tr>
+				<th>Afternoon</th>
+				<td><label for="mondayMorningStartHours"
+					style="font-size: 14px;"> Start:</label> <input class="timeInput"
+					tabindex="1" type="text" maxlength="2"
+					id="mondayAfternoonStartHours" oninput="calculateMondayTotal();"
+					placeholder="hh" onkeyup="enableButton()"> <input
+					class="timeInput" tabindex="1" type="text" maxlength="2"
+					id="mondayAfternoonStartMin" oninput="calculateMondayTotal();"
+					placeholder="mm" onkeyup="enableButton()"> <br> <label
+					for="mondayMorningStartHours"
+					style="font-size: 14px; margin-right: 5px;"> End:</label> <input
+					class="timeInput" tabindex="1" type="text" maxlength="2"
+					id="mondayAfternoonEndHours" oninput="calculateMondayTotal();"
+					placeholder="hh" onkeyup="enableButton()"> <input
+					class="timeInput" tabindex="1" type="text" maxlength="2"
+					id="mondayAfternoonEndMin" oninput="calculateMondayTotal();"
+					placeholder="mm" onkeyup="enableButton()"></td>
+				<td><label for="tuesdayMorningStart" style="font-size: 14px;">
+						Start:</label> <input class="timeInput" tabindex="2" type="text"
+					maxlength="2" id="tuesdayAfternoonStartHours"
+					oninput="calculateTuesdayTotal();" placeholder="hh"
+					onkeyup="enableButton()"> <input class="timeInput"
+					tabindex="2" type="text" maxlength="2"
+					id="tuesdayAfternoonStartMin" oninput="calculateTuesdayTotal();"
+					placeholder="mm" onkeyup="enableButton()"> <br> <label
+					for="tuesdayMorningEndHours"
+					style="font-size: 14px; margin-right: 5px;"> End:</label> <input
+					class="timeInput" tabindex="2" type="text" maxlength="2"
+					id="tuesdayAfternoonEndHours" oninput="calculateTuesdayTotal();"
+					placeholder="hh" onkeyup="enableButton()"> <input
+					class="timeInput" tabindex="2" type="text" maxlength="2"
+					id="tuesdayAfternoonEndMin" oninput="calculateTuesdayTotal();"
+					placeholder="mm" onkeyup="enableButton()"></td>
+				<td><label for="wednesdayMorningStart" style="font-size: 14px;">
+						Start:</label> <input class="timeInput" tabindex="3" type="text"
+					maxlength="2" id="wednesdayAfternoonStartHours"
+					oninput="calculateWednesdayTotal();" placeholder="hh"
+					onkeyup="enableButton()"> <input class="timeInput"
+					tabindex="3" type="text" maxlength="2"
+					id="wednesdayAfternoonStartMin"
+					oninput="calculateWednesdayTotal();" placeholder="mm"
+					onkeyup="enableButton()"> <br> <label
+					for="wednesdayMorningEndHours"
+					style="font-size: 14px; margin-right: 5px;"> End:</label> <input
+					class="timeInput" tabindex="3" type="text" maxlength="2"
+					id="wednesdayAfternoonEndHours"
+					oninput="calculateWednesdayTotal();" placeholder="hh"
+					onkeyup="enableButton()"> <input class="timeInput"
+					tabindex="3" type="text" maxlength="2"
+					id="wednesdayAfternoonEndMin" oninput="calculateWednesdayTotal();"
+					placeholder="mm" onkeyup="enableButton()"></td>
+				<td><label for="thursdayMorningStartHours"
+					style="font-size: 14px;"> Start:</label> <input class="timeInput"
+					tabindex="4" type="text" maxlength="2"
+					id="thursdayAfternoonStartHours"
+					oninput="calculateThursdayTotal();" placeholder="hh"> <input
+					class="timeInput" tabindex="4" type="text" maxlength="2"
+					id="thursdayAfternoonStartMin" oninput="calculateThursdayTotal();"
+					placeholder="mm" onkeyup="enableButton()"> <br> <label
+					for="thursdayMorningEndHours"
+					style="font-size: 14px; margin-right: 5px;"> End:</label> <input
+					class="timeInput" tabindex="4" type="text" maxlength="2"
+					id="thursdayAfternoonEndHours" oninput="calculateThursdayTotal();"
+					placeholder="hh" onkeyup="enableButton()"> <input
+					class="timeInput" tabindex="4" type="text" maxlength="2"
+					id="thursdayAfternoonEndMin" oninput="calculateThursdayTotal();"
+					placeholder="mm" onkeyup="enableButton()"></td>
+				<td><label for="fridayMorningStartHours"
+					style="font-size: 14px;"> Start:</label> <input class="timeInput"
+					tabindex="5" type="text" maxlength="2"
+					id="fridayAfternoonStartHours" oninput="calculateFridayTotal();"
+					placeholder="mm" onkeyup="enableButton()"> <input
+					class="timeInput" tabindex="5" type="text" maxlength="2"
+					id="fridayAfternoonStartMin" oninput="calculateFridayTotal();"
+					placeholder="hh" onkeyup="enableButton()"> <br> <label
+					for="fridayMorningEndHours"
+					style="font-size: 14px; margin-right: 5px;"> End:</label> <input
+					class="timeInput" tabindex="5" type="text" maxlength="2"
+					id="fridayAfternoonEndHours" oninput="calculateFridayTotal();"
+					placeholder="mm" onkeyup="enableButton()"> <input
+					class="timeInput" tabindex="5" type="text" maxlength="2"
+					id="fridayAfternoonEndMin" oninput="calculateFridayTotal();"
+					placeholder="hh" onkeyup="enableButton()"></td>
+				<td><label for="saturdayMorningStartHours"
+					style="font-size: 14px;"> Start:</label> <input class="timeInput"
+					tabindex="6" type="text" maxlength="2"
+					id="saturdayAfternoonStartHours"
+					oninput="calculateSaturdayTotal();" placeholder="hh"
+					onkeyup="enableButton()"> <input class="timeInput"
+					tabindex="6" type="text" maxlength="2"
+					id="saturdayAfternoonStartMin" oninput="calculateSaturdayTotal();"
+					placeholder="mm" onkeyup="enableButton()"> <br> <label
+					for="saturdayMorningEndHours"
+					style="font-size: 14px; margin-right: 5px;"> End:</label> <input
+					class="timeInput" tabindex="6" type="text" maxlength="2"
+					id="saturdayAfternoonEndHours" oninput="calculateSaturdayTotal();"
+					placeholder="hh" onkeyup="enableButton()"> <input
+					class="timeInput" tabindex="6" type="text" maxlength="2"
+					id="saturdayAfternoonEndMin" oninput="calculateSaturdayTotal();"
+					placeholder="mm" onkeyup="enableButton()"></td>
+				<td><label for="sundayMorningStartHours"
+					style="font-size: 14px;"> Start:</label> <input class="timeInput"
+					tabindex="7" type="text" maxlength="2"
+					id="sundayAfternoonStartHours" oninput="calcutlateSundayTotal();"
+					placeholder="hh" onkeyup="enableButton()"> <input
+					class="timeInput" tabindex="7" type="text" maxlength="2"
+					id="sundayAfternoonStartMin" oninput="calcutlateSundayTotal();"
+					placeholder="mm" onkeyup="enableButton()"> <br> <label
+					for="sundayMorningEndHours"
+					style="font-size: 14px; margin-right: 5px;"> End:</label> <input
+					class="timeInput" tabindex="7" type="text" maxlength="2"
+					id="sundayAfternoonEndHours" oninput="calcutlateSundayTotal();"
+					placeholder="hh" onkeyup="enableButton()"> <input
+					class="timeInput" tabindex="7" type="text" maxlength="2"
+					id="sundayAfternoonEndMin" oninput="calcutlateSundayTotal();"
+					placeholder="mm" onkeyup="enableButton()"></td>
+				<th></th>
+			</tr>
 
-        <tr>
-            <th>Overhours:</th>
-            <td> 
-                <input type="text" id="mondayOverhours" class="resultsTimeInput" disabled >
-            </td>
-            <td>
-                <input type="text" id="tuesdayOverhours"  class="resultsTimeInput" disabled>
-            </td>
-            <td>
-                <input type="text" id="wednesdayOverhours" class="resultsTimeInput" disabled>
-            </td>
-            <td>
-                <input type="text" id="thursdayOverhours"  class="resultsTimeInput" disabled>
-            </td>
-            <td>
-                <input type="text" id="fridayOverhours" class="resultsTimeInput"disabled>
-            </td>
-            <td>
-                <input type="text" id="saturdayOverhours" class="resultsTimeInput" disabled>
-            </td>
-            <td>
-                <input type="text" id="sundayOverhours"  class="resultsTimeInput" disabled>
-            </td>
-            <th style="text-align: center;">
-                <input type="text" class="resultsTimeInput" class="total" id="totalOverhours" disabled>
-            </th>
-    </table>
+			<tr>
+				<th>Total Today:</th>
+				<td><input type="text" id="mondayTotal"
+					class="resultsTimeInput" disabled></td>
+				<td><input type="text" id="tuesdayTotal"
+					class="resultsTimeInput" disabled></td>
+				<td><input type="text" id="wednesdayTotal"
+					class="resultsTimeInput" disabled></td>
+				<td><input type="text" id="thursdayTotal"
+					class="resultsTimeInput" disabled></td>
+				<td><input type="text" id="fridayTotal"
+					class="resultsTimeInput" disabled></td>
+				<td><input type="text" id="saturdayTotal"
+					class="resultsTimeInput" disabled></td>
+				<td><input type="text" id="sundayTotal"
+					class="resultsTimeInput" disabled></td>
+				<th><input type="text" id="weekTotal" class="resultsTimeInput"
+					disabled></th>
+			</tr>
 
-    <div style="display: block; text-align: center;width: 100%; margin-top: 30px;">
-        <button  id="confirmSunday"> Confirm changes</button>
-    </div>
-    
-</div>
-    <br><br><br><br>
+			<tr>
+				<th>Target Time:</th>
+				<td><input type="text" id="mondayTargetTime"
+					class="resultsTimeInput" disabled></td>
+				<td><input type="text" id="tuesdayTargetTime"
+					class="resultsTimeInput" disabled></td>
+				<td><input type="text" id="wednesdayTargetTime"
+					class="resultsTimeInput" disabled></td>
+				<td><input type="text" id="thursdayTargetTime"
+					class="resultsTimeInput" disabled></td>
+				<td><input type="text" id="fridayTargetTime"
+					class="resultsTimeInput" disabled></td>
+				<td><input type="text" id="saturdayTargetTime"
+					class="resultsTimeInput" disabled></td>
+				<td><input type="text" id="sundayTargetTime"
+					class="resultsTimeInput" disabled></td>
+				<th><input type="text" class="total" id="totalTargetTime"
+					style="max-width: 110px;" disabled></th>
+			</tr>
 
-    <script>
+			<tr>
+				<th>Overhours:</th>
+				<td><input type="text" id="mondayOverhours"
+					class="resultsTimeInput" disabled></td>
+				<td><input type="text" id="tuesdayOverhours"
+					class="resultsTimeInput" disabled></td>
+				<td><input type="text" id="wednesdayOverhours"
+					class="resultsTimeInput" disabled></td>
+				<td><input type="text" id="thursdayOverhours"
+					class="resultsTimeInput" disabled></td>
+				<td><input type="text" id="fridayOverhours"
+					class="resultsTimeInput" disabled></td>
+				<td><input type="text" id="saturdayOverhours"
+					class="resultsTimeInput" disabled></td>
+				<td><input type="text" id="sundayOverhours"
+					class="resultsTimeInput" disabled></td>
+				<th style="text-align: center;"><input type="text"
+					class="resultsTimeInput" class="total" id="totalOverhours" disabled>
+				</th>
+		</table>
+
+		<div
+			style="display: block; text-align: center; width: 100%; margin-top: 30px;">
+			<button id="confirmSunday" disabled>Confirm
+				changes</button>
+		</div>
+
+	</div>
+	<br>
+	<br>
+	<br>
+	<br>
+
+	<script>
+		
+	//Button confirm change wird enabled wenn ein Wert eingegeben wird
+	function enableButton(){
+		 document.getElementById("confirmSunday").disabled = false;
+		}
+	
+	
+	
         //Funktion via jQuery, nimmt die im Kalender gewählte Woche entgegen und zeigt diese an
         // credits to: http://www.mihai-marica.ro
         (function ( $ ) {
@@ -288,7 +400,7 @@
     </script>
 
 
-    <script>
+	<script>
 
         // berechnet Arbeitsstunden am Montag
         function calculateMondayTotal() {
@@ -316,6 +428,7 @@
             var mondayTotalTimeFormat = h_mm(mondayTotalDeci);
 
             document.getElementById("mondayTotal").value =mondayTotalTimeFormat;
+            
         }
 
 
@@ -344,6 +457,7 @@
             var totalTimeFormat = h_mm(totalDeci);
 
             document.getElementById("tuesdayTotal").value =totalTimeFormat;
+            
         }
 
         // berechnet Arbeitsstunden am Mittwoch
@@ -515,6 +629,7 @@
                     var monday = new Date (d);
                     monday.setDate(d.getDate() - 6);
                     document.getElementById("firstDayofWeek").innerHTML =monday.toDateString();
+                    
 
                     var tuesday = new Date (d);
                     tuesday.setDate(d.getDate() - 5);
@@ -972,6 +1087,54 @@
 
         window.onload = function () {
             setTargetTime();
+        }
+        
+        function safeDataAndTimetoDB(date, morningEndHours, morningstartHours, morningEndMinDeci, morningStartMinDeci,
+        		afternoonEndHours, afternoonStartHours, afternoonEndMinDeci, afternoonStartMinDeci,morningTotal,
+        		afternoonTotal,totalDeci){
+	        
+		console.log("kommt in safeDataAndTimetoDB");
+        	
+        	$.ajax({
+				type : "POST",
+				url : "/timerecorders/zeiterfassung/",
+				data : JSON.stringify({
+
+					date : date,
+					morningEndHours : morningEndHours,
+					morningstartHours : morningstartHours,
+					morningEndMinDeci : morningEndMinDeci,
+					morningStartMinDeci : morningStartMinDeci,
+					afternoonEndHours : afternoonEndHours,
+					afternoonStartHours : afternoonStartHours,
+					afternoonEndMinDeci : afternoonStartMinDeci,
+					afternoonStartMinDeci : afternoonStartMinDeci,
+					morningTotal : morningTotal,
+					afternoonTotal : afternoonTotal,
+					totalDeci : totalDeci,
+				}),
+				success : successSafeTimeServer,
+				dataType : 'json',
+				contentType : 'application/json'
+			});
+        	
+			
+        
+        }
+        
+        function alreadyValueSafed(){
+		
+        }
+        
+        
+        function bringUpDataAndTimefromDB(){
+
+        
+        }
+        
+        function successSafeTimeServer(){
+        	console.log("kommt in successSafeTimeServer");
+        
         }
 
             

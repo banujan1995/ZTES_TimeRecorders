@@ -10,12 +10,14 @@ import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -23,13 +25,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ch.zt.timerecorders.persistence.Administrator;
 import ch.zt.timerecorders.persistence.AdministratorenRepository;
+import ch.zt.timerecorders.persistence.Arbeitstag;
 import ch.zt.timerecorders.persistence.ArbeitstagRepository;
 import ch.zt.timerecorders.persistence.Mitarbeiter;
 import ch.zt.timerecorders.persistence.MitarbeiterRepository;
-import ch.zt.timerecorders.persistence.Zeiterfassungsrepository;
 import ch.zt.timerecorders.start.MitarbeiterRegister;
 import ch.zt.timerecorders.start.MitarbeiterRepositoryInterface;
 import ch.zt.timerecorders.start.ServiceLocator;
+
 
 /**
  * 
@@ -48,9 +51,7 @@ public class MitarbeiterService {
 	@Autowired
 	private AdministratorenRepository administratorenRepository;
 
-	@Autowired
-	private Zeiterfassungsrepository zeiterfassungsrepository;
-
+	
 	@Autowired
 	private ArbeitstagRepository arbeitstagRepository;
 
@@ -126,6 +127,9 @@ public class MitarbeiterService {
 	}
 
 	// Mitarbeiter Zeitregister auslesen(BR)
+	
+	
+	
 
 	// Mitarbeiter einzelne Zeitelement auslesen
 
@@ -149,7 +153,7 @@ public class MitarbeiterService {
 
 			if (login.getPassword()
 					.equalsIgnoreCase(mitarbeiterRepository.getSingleMitarbeiterName(login.getUser()).getPasswort())) {
-				return true;
+				return true; 
 
 			} else {
 				return false;
@@ -176,12 +180,41 @@ public class MitarbeiterService {
 
 	/*
 	 * Mitarbeiter Zeiterfassung (BR), Die Methode soll den korrekten Tag anhand der
-	 * TagesID holen und dann Einstempeln und Ausstempeln registrieren.
+	 * TagesID ins DB speichern. 
 	 */
 
 	@PostMapping(path = "/timerecorders/zeiterfassung/", produces = "application/json")
-	public boolean einstempeln(@RequestBody MessageTimeStamp einstempeln) {
+	public boolean zeitenInServer(@RequestBody MessageTimeStamp zeiterfassung) {
 
+		Arbeitstag workingday = new Arbeitstag((long) 1, zeiterfassung.getDate()); 
+				
+		//Vormittag Stunden
+		workingday.setZeitVormittagEndH(zeiterfassung.getMorningEndHours());
+		workingday.setZeitVormittagStartH(zeiterfassung.getMorningstartHours());
+		
+		
+		//Vormittag Minuten
+		workingday.setZeitVormittagEndMin(zeiterfassung.getMorningEndMinDeci());
+		workingday.setZeitVormittagStartMin(zeiterfassung.getMorningStartMinDeci());
+		
+		//Summe Vormittag in Dezimal
+		workingday.setZeitNachmittagSummeHAndMin(zeiterfassung.getMorningTotal());
+		
+		
+		// Nachmittag Stunden
+		workingday.setZeitNachmittagEndH(zeiterfassung.getAfternoonEndHours());
+		workingday.setZeitNachmittagStartH(zeiterfassung.getAfternoonStartHours());
+
+		// Nachmittag Minuten
+		workingday.setZeitNachmittagEndMin(zeiterfassung.getAfternoonEndMinDeci());
+		workingday.setZeitNachmittagStartMin(zeiterfassung.getAfternoonStartMinDeci());
+
+		//Summe Nachmittag in Dezimal
+		workingday.setZeitNachmittagSummeHAndMin(zeiterfassung.getAfternoonTotal());
+
+		arbeitstagRepository.addZeiterfassung(workingday);
+		System.out.println(zeiterfassung);
+		
 		return true;
 	}
 
@@ -190,6 +223,8 @@ public class MitarbeiterService {
 	@PutMapping(path = "/timerecorders/zeiterfassung/changes/", produces = "application/json")
 	public boolean zeitveränderung(@RequestBody MessageTimeStamp einstempeln) {
 
+		
+		
 		return true;
 	}
 

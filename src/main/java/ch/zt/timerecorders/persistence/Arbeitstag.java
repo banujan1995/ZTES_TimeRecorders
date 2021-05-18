@@ -1,5 +1,9 @@
 package ch.zt.timerecorders.persistence;
 
+import java.util.logging.Logger;
+
+import ch.zt.timerecorders.start.ServiceLocator;
+
 /**
  * @author Banujan Ragunathan
  */
@@ -11,35 +15,47 @@ package ch.zt.timerecorders.persistence;
  */
 
 public class Arbeitstag {
+	Logger logger = ServiceLocator.getServiceLocator().getLogger();
 
 	private final Long TAGESID; // Zuordnung mit dem Mitarbeiter oder Administrator
 	protected Long mitarbeiterID;
 
 	protected String date;
-	protected String time;
 
 	protected int tag;
 	protected int monat;
 	protected int jahr;
 
-	protected double zeitVormittagStart;
-	protected double zeitVormittagEnd;
-	protected double zeitVormittagSumme;
+	// Stunden Vormittag
+	protected int zeitVormittagStartH;
+	protected int zeitVormittagEndH;
 
-	protected double zeitNachmittagStart;
-	protected double zeitNachmittagEnd;
-	protected double zeitNachmittagSumme;
+	// Minuten Vormittag
+	protected double zeitVormittagStartMin;
+	protected double zeitVormittagEndMin;
+
+	// Summe Vormittag in Dezimal
+	protected double zeitVormittagSummeHAndMin;
+
+	// Stunden Nachmittag
+	protected int zeitNachmittagStartH;
+	protected int zeitNachmittagEndH;
+
+	// Minuten Nachmittag
+	protected double zeitNachmittagStartMin;
+	protected double zeitNachmittagEndMin;
+
+	// Summe Nachmittag in Dezimal
+	protected double zeitNachmittagSummeHAndMin;
 
 	protected double überzeit = 0.0;
 
 	public Arbeitstag(Long mitarbeiterID, String date) {
 		this.mitarbeiterID = mitarbeiterID;
 		this.date = date;
-
+		splittingDateAndTime(date);
 		this.TAGESID = tagesIDGenerator();
 
-		this.zeitVormittagSumme = calculateVormittagZeit(zeitVormittagStart, zeitVormittagEnd);
-		this.zeitNachmittagSumme = calculateNachmittagZeit(zeitNachmittagStart, zeitNachmittagEnd);
 	}
 
 	// Alle Tageserfassungen erhalten einen Unique TagesID und das kann auch
@@ -50,21 +66,88 @@ public class Arbeitstag {
 		return localLongTagesID;
 	}
 
+	// Format of the Data: Mon May 17 2021
 	public void splittingDateAndTime(String date) {
 
+		// Monat
+		String localmonat = date.substring(4, 7);
+
+		switch (localmonat) {
+
+		case "Jan":
+			this.monat = 1;
+			break;
+
+		case "Feb":
+			this.monat = 2;
+			break;
+
+		case "Mar":
+			this.monat = 3;
+			break;
+
+		case "Apr":
+			this.monat = 4;
+			break;
+
+		case "May":
+			this.monat = 5;
+			break;
+
+		case "Jun":
+			this.monat = 6;
+			break;
+
+		case "Jul":
+			this.monat = 7;
+			break;
+
+		case "Aug":
+			this.monat = 8;
+			break;
+
+		case "Sep":
+			this.monat = 9;
+			break;
+
+		case "Oct":
+			this.monat = 10;
+			break;
+
+		case "Nov":
+			this.monat = 11;
+			break;
+
+		case "Dec":
+			this.monat = 12;
+			break;
+
+		default:
+			logger.info("Der Monatswert ist kein gültiger Wert - Fehler");
+
+		}
+
+		// Tag
+		String localTag = date.substring(8, 10);
+		this.tag = Integer.parseInt(localTag);
+
+		// Jahr
+		String localJahr = date.substring(11, 15);
+		this.tag = Integer.parseInt(localJahr);
+
 	}
 
-	public double calculateVormittagZeit(double zeitVormittagStart, double zeitVormittagEnd) {
-		double localSumme = zeitVormittagEnd - zeitVormittagStart;
-		return localSumme;
+//	public double calculateVormittagZeit(double zeitVormittagStart, double zeitVormittagEnd) {
+//		double localSumme = zeitVormittagEnd - zeitVormittagStart;
+//		return localSumme;
+//
+//	}
 
-	}
-
-	public double calculateNachmittagZeit(double zeitNachmittagStart, double zeitNachmittagEnd) {
-		double localSumme = zeitNachmittagEnd - zeitNachmittagStart;
-		return localSumme;
-
-	}
+//	public double calculateNachmittagZeit(double zeitNachmittagStart, double zeitNachmittagEnd) {
+//		double localSumme = zeitNachmittagEnd - zeitNachmittagStart;
+//		return localSumme;
+//
+//	}
 
 	public int getTag() {
 		return tag;
@@ -90,48 +173,96 @@ public class Arbeitstag {
 		this.jahr = jahr;
 	}
 
-	public double getZeitVormittagStart() {
-		return zeitVormittagStart;
-	}
-
-	public void setZeitVormittagStart(double zeitVormittagStart) {
-		this.zeitVormittagStart = zeitVormittagStart;
-	}
-
-	public double getZeitVormittagEnd() {
-		return zeitVormittagEnd;
-	}
-
-	public void setZeitVormittagEnd(double zeitVormittagEnd) {
-		this.zeitVormittagEnd = zeitVormittagEnd;
-	}
-
-	public double getZeitNachmittagStart() {
-		return zeitNachmittagStart;
-	}
-
-	public void setZeitNachmittagStart(double zeitNachmittagStart) {
-		this.zeitNachmittagStart = zeitNachmittagStart;
-	}
-
-	public double getZeitNachmittagEnd() {
-		return zeitNachmittagEnd;
-	}
-
-	public void setZeitNachmittagEnd(double zeitNachmittagEnd) {
-		this.zeitNachmittagEnd = zeitNachmittagEnd;
-	}
-
 	public Long getTAGESID() {
 		return TAGESID;
 	}
 
-	public double getZeitVormittagSumme() {
-		return zeitVormittagSumme;
+	public String getDate() {
+		return date;
 	}
 
-	public double getZeitNachmittagSumme() {
-		return zeitNachmittagSumme;
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public int getZeitVormittagStartH() {
+		return zeitVormittagStartH;
+	}
+
+	public void setZeitVormittagStartH(int zeitVormittagStartH) {
+		this.zeitVormittagStartH = zeitVormittagStartH;
+	}
+
+	public int getZeitVormittagEndH() {
+		return zeitVormittagEndH;
+	}
+
+	public void setZeitVormittagEndH(int zeitVormittagEndH) {
+		this.zeitVormittagEndH = zeitVormittagEndH;
+	}
+
+	public double getZeitVormittagStartMin() {
+		return zeitVormittagStartMin;
+	}
+
+	public void setZeitVormittagStartMin(double zeitVormittagStartMin) {
+		this.zeitVormittagStartMin = zeitVormittagStartMin;
+	}
+
+	public double getZeitVormittagEndMin() {
+		return zeitVormittagEndMin;
+	}
+
+	public void setZeitVormittagEndMin(double zeitVormittagEndMin) {
+		this.zeitVormittagEndMin = zeitVormittagEndMin;
+	}
+
+	public double getZeitVormittagSummeHAndMin() {
+		return zeitVormittagSummeHAndMin;
+	}
+
+	public void setZeitVormittagSummeHAndMin(double zeitVormittagSummeHAndMin) {
+		this.zeitVormittagSummeHAndMin = zeitVormittagSummeHAndMin;
+	}
+
+	public int getZeitNachmittagStartH() {
+		return zeitNachmittagStartH;
+	}
+
+	public void setZeitNachmittagStartH(int zeitNachmittagStartH) {
+		this.zeitNachmittagStartH = zeitNachmittagStartH;
+	}
+
+	public int getZeitNachmittagEndH() {
+		return zeitNachmittagEndH;
+	}
+
+	public void setZeitNachmittagEndH(int zeitNachmittagEndH) {
+		this.zeitNachmittagEndH = zeitNachmittagEndH;
+	}
+
+	public double getZeitNachmittagStartMin() {
+		return zeitNachmittagStartMin;
+	}
+
+	public void setZeitNachmittagStartMin(double zeitNachmittagStartMin) {
+		this.zeitNachmittagStartMin = zeitNachmittagStartMin;
+	}
+
+	public double getZeitNachmittagEndMin() {
+		return zeitNachmittagEndMin;
+	}
+
+	public void setZeitNachmittagEndMin(double zeitNachmittagEndMin) {
+		this.zeitNachmittagEndMin = zeitNachmittagEndMin;
+	}
+
+	public double getZeitNachmittagSummeHAndMin() {
+		return zeitNachmittagSummeHAndMin;
+	}
+
+	public void setZeitNachmittagSummeHAndMin(double zeitNachmittagSummeHAndMin) {
+		this.zeitNachmittagSummeHAndMin = zeitNachmittagSummeHAndMin;
 	}
 
 	public void mehrOderWenigerÜberzeit(double plusOderMinusZeit) {

@@ -1,6 +1,5 @@
 package ch.zt.timerecorders.view;
 
-
 import java.util.logging.Logger;
 
 import org.springframework.stereotype.Controller;
@@ -17,10 +16,10 @@ import ch.zt.timerecorders.start.ServiceLocator;
  *
  */
 
-@Controller // Annotation für den Framework 
+@Controller // Annotation für den Framework
 public class ViewsController {
-	
-	//BR
+
+	// BR
 	Logger logger = ServiceLocator.getServiceLocator().getLogger();
 
 	/**
@@ -32,8 +31,6 @@ public class ViewsController {
 		logger.info("Das erste HTML LOGIN-DE wurde geladen.");
 		return "login_de.html";
 	}
-	
-	
 
 	@RequestMapping(method = RequestMethod.GET, value = "/loginen")
 	public String showLoginEng(Model model) {
@@ -50,27 +47,28 @@ public class ViewsController {
 	@RequestMapping(method = RequestMethod.GET, value = "/profile")
 	public String showProfile(Model model) {
 		logger.info("Das HTML PROFILE-EN wurde geladen.");
-		return "profile_en.html";
+		return "profile_en.html";	
 	}
-	
+
 	@RequestMapping(method = RequestMethod.GET, value = "/employeeList")
 	public String showEmployeeList(Model model) {
 		logger.info("Das HTML EmployeeList wurde geladen.");
 		return "employeeList_en.html";
-		
+
 	}
-	
+
 	@RequestMapping(method = RequestMethod.GET, value = "/addEmployee")
 	public String showAddEmployee(Model model) {
 		logger.info("Das HTML addEmployee wurde geladen.");
 		return "addEmployee_en.html";
-		
+
 	}
+
 	@RequestMapping(method = RequestMethod.GET, value = "/report")
 	public String showReport(Model model) {
 		logger.info("Das HTML Report wurde geladen.");
 		return "report_en.html";
-		
+
 	}
 
 }

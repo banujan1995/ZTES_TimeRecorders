@@ -3,12 +3,31 @@ package ch.zt.timerecorders.services;
 public class MessageTimeStamp {
 
 	private Long mitarbeiterID;
-	private String date;
+	private String date; //datum
 
-	private double vormittagZeitStart;
-	private double vormittagZeitEnd;
-	private double nachmittagZeitStart;
-	private double nachmittagZeitEnd;
+	//Stunden Vormittag
+	private int morningEndHours;
+	private int morningstartHours;
+
+		//Minuten Vormittag
+	private double morningEndMinDeci;
+	private double morningStartMinDeci;
+		
+		//Stunden Nachmittag
+	private int afternoonEndHours;
+	private int afternoonStartHours;
+
+		
+		//Minuten Nachmittag
+	private double afternoonEndMinDeci;
+	private double afternoonStartMinDeci;
+	
+	//Summe Stunden und Minuten (in Dezimal)
+	private double morningTotal; //in Dezimal
+	private double afternoonTotal; //in Dezimal
+	
+	//geleistete Arbeitszeit am einem Tag
+	private double totalDeci;
 	
 	private double minusOderPlusZeit;
 	
@@ -29,37 +48,94 @@ public class MessageTimeStamp {
 	public void setDate(String date) {
 		this.date = date;
 	}
-
-	public double getVormittagZeitStart() {
-		return vormittagZeitStart;
+	
+	
+	public int getMorningEndHours() {
+		return morningEndHours;
 	}
 
-	public void setVormittagZeitStart(double vormittagZeitStart) {
-		this.vormittagZeitStart = vormittagZeitStart;
+	public void setMorningEndHours(int morningEndHours) {
+		this.morningEndHours = morningEndHours;
 	}
 
-	public double getVormittagZeitEnd() {
-		return vormittagZeitEnd;
+	public int getMorningstartHours() {
+		return morningstartHours;
 	}
 
-	public void setVormittagZeitEnd(double vormittagZeitEnd) {
-		this.vormittagZeitEnd = vormittagZeitEnd;
+	public void setMorningstartHours(int morningstartHours) {
+		this.morningstartHours = morningstartHours;
 	}
 
-	public double getNachmittagZeitStart() {
-		return nachmittagZeitStart;
+	public double getMorningEndMinDeci() {
+		return morningEndMinDeci;
 	}
 
-	public void setNachmittagZeitStart(double nachmittagZeitStart) {
-		this.nachmittagZeitStart = nachmittagZeitStart;
+	public void setMorningEndMinDeci(double morningEndMinDeci) {
+		this.morningEndMinDeci = morningEndMinDeci;
 	}
 
-	public double getNachmittagZeitEnd() {
-		return nachmittagZeitEnd;
+	public double getMorningStartMinDeci() {
+		return morningStartMinDeci;
 	}
 
-	public void setNachmittagZeitEnd(double nachmittagZeitEnd) {
-		this.nachmittagZeitEnd = nachmittagZeitEnd;
+	public void setMorningStartMinDeci(double morningStartMinDeci) {
+		this.morningStartMinDeci = morningStartMinDeci;
+	}
+
+	public int getAfternoonEndHours() {
+		return afternoonEndHours;
+	}
+
+	public void setAfternoonEndHours(int afternoonEndHours) {
+		this.afternoonEndHours = afternoonEndHours;
+	}
+
+	public int getAfternoonStartHours() {
+		return afternoonStartHours;
+	}
+
+	public void setAfternoonStartHours(int afternoonStartHours) {
+		this.afternoonStartHours = afternoonStartHours;
+	}
+
+	public double getAfternoonEndMinDeci() {
+		return afternoonEndMinDeci;
+	}
+
+	public void setAfternoonEndMinDeci(double afternoonEndMinDeci) {
+		this.afternoonEndMinDeci = afternoonEndMinDeci;
+	}
+
+	public double getAfternoonStartMinDeci() {
+		return afternoonStartMinDeci;
+	}
+
+	public void setAfternoonStartMinDeci(double afternoonStartMinDeci) {
+		this.afternoonStartMinDeci = afternoonStartMinDeci;
+	}
+
+	public double getMorningTotal() {
+		return morningTotal;
+	}
+
+	public void setMorningTotal(double morningTotal) {
+		this.morningTotal = morningTotal;
+	}
+
+	public double getAfternoonTotal() {
+		return afternoonTotal;
+	}
+
+	public void setAfternoonTotal(double afternoonTotal) {
+		this.afternoonTotal = afternoonTotal;
+	}
+
+	public double getTotalDeci() {
+		return totalDeci;
+	}
+
+	public void setTotalDeci(double totalDeci) {
+		this.totalDeci = totalDeci;
 	}
 
 	public double getMinusOderPlusZeit() {

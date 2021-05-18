@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ch.zt.timerecorders.persistence.Administrator;
 import ch.zt.timerecorders.persistence.AdministratorenRepository;
+import ch.zt.timerecorders.persistence.ArbeitstagRepository;
 import ch.zt.timerecorders.persistence.Mitarbeiter;
-import ch.zt.timerecorders.persistence.Zeiterfassungsrepository;
 import ch.zt.timerecorders.start.ServiceLocator;
 
 /**
@@ -29,7 +29,7 @@ public class AdministratorenService {
 	private AdministratorenRepository administratorenRepository;
 	
 	@Autowired
-	private Zeiterfassungsrepository zeiterfassungsrepository; 
+	private ArbeitstagRepository arbeitstagRepository; 
 		
 	
 	/**
