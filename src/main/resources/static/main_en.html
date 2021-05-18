@@ -24,37 +24,32 @@
 	<br>
 	<br>
 	<br>
-	<!-- Navigationsbar-->
-	<ul class="navibar">
-		<li class="barItem"><a class="barItem">Home</a></li>
-		<li class="barItem"><a class="barItem"
-			href="http://localhost:8081/report">Report</a></li>
-		<li class="barItem"><a class="barItem" href="absence_en.html">
-				Absence</a></li>
-
-		<li style="float: right" class="barItem"><a href="login_en.html"
-			class="barItem">Logout</a></li>
-		<li style="float: right" class="barItem"><a
-			href="javascript:void(0)" class="barItemBtn">Languages</a>
-			<div class="barItem-content">
-				<a>English</a> <a>German</a>
-			</div>
-		<li style="float: right" class="barItem"><a
-			href="http://localhost:8081/profile" class="barItem">Profile</a></li>
-	</ul>
-	<br>
-	<div style="display: block; text-align: center; width: 100%;">
-		<h1>Your weektable</h1>
-		<p style="font-weight: bold;">Please choose the desired week!</p>
-	</div>
-	<br>
-	<!-- Kalender, um die entsprechende Woche anzuzeigen-->
-	<div style="display: block; text-align: center; width: 100%;">
-		<input type="text" id="week_ww_yyyy"></input>
-		<button class="buttonList" style="margin-left: 20px;"
-			onclick="getChoosenDay();">Validate</button>
-	</div>
-
+	 <!-- Navigationsbar-->
+    <ul class="navibar">
+        <li class="barItem"><a class="barItem">Home</a></li>
+        <li class="barItem"><a class="barItem" href="http://localhost:8081/report">Report</a></li>
+        <li class="barItem"><a class="barItem" href="absence_en.html"> Absence</a></li>
+        
+        <li style="float:right" class="barItem"> <a href="login_en.html" class="barItem">Logout</a></li>
+        <li style="float:right" class="barItem">
+            <a href="javascript:void(0)" class="barItemBtn">Languages</a>
+            <div class="barItem-content">
+              <a>English</a>
+              <a>German</a>
+          </div>
+          <li style="float:right" class="barItem"> <a href="http://localhost:8081/profile" class="barItem">Profile</a> </li>
+      </ul>
+      <br>
+    <div style="display: block; text-align: center;width: 100%;">
+        <h1 >Your weektable</h1>
+        <p style="font-weight: bold;"> Please choose the desired week!</p>
+    </div>
+    <br>
+    <!-- Kalender, um die entsprechende Woche anzuzeigen-->
+    <div style="display: block; text-align: center;width: 100%;">
+		<input type="text" id="week_ww_yyyy" ></input>
+        <button class="buttonList" style="margin-left: 20px;"  onclick="getChoosenDay();"> Validate</button>
+    </div>
 	<br>
 	<br>
 
@@ -392,6 +387,7 @@
 	
 	
 	
+
         //Funktion via jQuery, nimmt die im Kalender gewählte Woche entgegen und zeigt diese an
         // credits to: http://www.mihai-marica.ro
         (function ( $ ) {
@@ -405,23 +401,23 @@
         // berechnet Arbeitsstunden am Montag
         function calculateMondayTotal() {
         
-            var mondayMorningStartHours =  document.getElementById("mondayMorningStartHours").value;
-            var mondayMorningStartMin = document.getElementById("mondayMorningStartMin").value;
-            var mondayMorningEndHours = document.getElementById("mondayMorningEndHours").value;
-            var mondayMorningEndMin = document.getElementById("mondayMorningEndMin").value;
+            var morningstartHours =  document.getElementById("mondayMorningStartHours").value;
+            var morningStartMin = document.getElementById("mondayMorningStartMin").value;
+            var morningEndHours = document.getElementById("mondayMorningEndHours").value;
+            var morningEndMin = document.getElementById("mondayMorningEndMin").value;
             
-            var mondayAfternoonStartHours = document.getElementById("mondayAfternoonStartHours").value;
-            var mondayAfternoonStartMin = document.getElementById("mondayAfternoonStartMin").value;
-            var mondayAfternoonEndHours = document.getElementById("mondayAfternoonEndHours").value;
-            var mondayAfternoonEndMin = document.getElementById("mondayAfternoonEndMin").value;
+            var afternoonStartHours = document.getElementById("mondayAfternoonStartHours").value;
+            var afternoonStartMin = document.getElementById("mondayAfternoonStartMin").value;
+            var afternoonEndHours = document.getElementById("mondayAfternoonEndHours").value;
+            var afternoonEndMin = document.getElementById("mondayAfternoonEndMin").value;
 
-            var mondayMorningEndDeci = mondayMorningEndMin * (1/60);
-            var mondayMorningStartMinDeci = mondayMorningStartMin * (1/60);
-            var mondayAfternoonEndMinDeci = mondayAfternoonEndMin * (1/60);
-            var mondayAfternoonStartMinDeci = mondayAfternoonStartMin * (1/60);
+            var morningEndMinDeci = morningEndMin * (1/60);
+            var morningStartMinDeci = morningStartMin * (1/60);
+            var afternoonEndMinDeci = afternoonEndMin * (1/60);
+            var afternoonStartMinDeci = afternoonStartMin * (1/60);
 
-            var mondayMorningTotal = (mondayMorningEndHours - mondayMorningStartHours) + (mondayMorningEndDeci - mondayMorningStartMinDeci);
-            var mondayAfternoonTotal = (mondayAfternoonEndHours - mondayAfternoonStartHours) + (mondayAfternoonEndMinDeci - mondayAfternoonStartMinDeci);
+            var mondayMorningTotal = (morningEndHours - morningstartHours) + (morningEndMinDeci - morningStartMinDeci);
+            var mondayAfternoonTotal = (afternoonEndHours - afternoonStartHours) + (afternoonEndMinDeci - afternoonStartMinDeci);
 
             var mondayTotalDeci = parseFloat(mondayMorningTotal + mondayAfternoonTotal);
 
@@ -434,23 +430,23 @@
 
         // berechnet Arbeitsstunden am Dienstag
         function calculateTuesdayTotal() {
-            var tuesdayMorningStartHours =  document.getElementById("tuesdayMorningStartHours").value;
-            var tuesdayMorningStartMin = document.getElementById("tuesdayMorningStartMin").value;
-            var tuesdayMorningEndHours = document.getElementById("tuesdayMorningEndHours").value;
-            var tuesdayMorningEndMin = document.getElementById("tuesdayMorningEndMin").value;
+            var morningstartHours =  document.getElementById("tuesdayMorningStartHours").value;
+            var morningStartMin = document.getElementById("tuesdayMorningStartMin").value;
+            var morningEndHours = document.getElementById("tuesdayMorningEndHours").value;
+            var morningEndMin = document.getElementById("tuesdayMorningEndMin").value;
             
-            var tuesdayAfternoonStartHours = document.getElementById("tuesdayAfternoonStartHours").value;
-            var tuesdayAfternoonStartMin = document.getElementById("tuesdayAfternoonStartMin").value;
-            var tuesdayAfternoonEndHours = document.getElementById("tuesdayAfternoonEndHours").value;
-            var tuesdayAfternoonEndMin = document.getElementById("tuesdayAfternoonEndMin").value;
+            var afternoonStartHours = document.getElementById("tuesdayAfternoonStartHours").value;
+            var afternoonStartMin = document.getElementById("tuesdayAfternoonStartMin").value;
+            var afternoonEndHours = document.getElementById("tuesdayAfternoonEndHours").value;
+            var afternoonEndMin = document.getElementById("tuesdayAfternoonEndMin").value;
 
-            var tuesdayMorningEndMinDeci = tuesdayMorningEndMin * (1/60);
-            var tuesdayMorningStartMinDeci = tuesdayMorningStartMin * (1/60);
-            var tuesdayAfternoonEndMinDeci = tuesdayAfternoonEndMin * (1/60);
-            var tuesdayAfternoonStartMinDeci = tuesdayAfternoonStartMin * (1/60);
+            var morningEndMinDeci = morningEndMin * (1/60);
+            var morningStartMinDeci = morningStartMin * (1/60);
+            var afternoonEndMinDeci = afternoonEndMin * (1/60);
+            var afternoonStartMinDeci = afternoonStartMin * (1/60);
 
-            var morningTotal = (tuesdayMorningEndHours - tuesdayMorningStartHours) + (tuesdayMorningEndMinDeci - tuesdayMorningStartMinDeci);
-            var afternoonTotal = (tuesdayAfternoonEndHours - tuesdayAfternoonStartHours) + (tuesdayAfternoonStartMinDeci - tuesdayAfternoonEndMinDeci);
+            var morningTotal = (morningEndHours - morningstartHours) + (morningEndMinDeci - morningStartMinDeci);
+            var afternoonTotal = (afternoonEndHours - afternoonStartHours) + (afternoonEndMinDeci - afternoonStartMinDeci);
 
             var totalDeci = parseFloat(morningTotal + afternoonTotal);
 
@@ -541,8 +537,9 @@
             document.getElementById("fridayTotal").value =totalTimeFormat;
         }
 
+        // wird nicht genutzt, da Büroarbeitszeiten (MO-FR)
         // berechnet Arbeitsstunden am Samstag
-        function calculateSaturdayTotal() {
+        /*function calculateSaturdayTotal() {
             var morningstartHours =  document.getElementById("saturdayMorningStartHours").value;
             var morningStartMin = document.getElementById("saturdayMorningStartMin").value;
             var morningEndHours = document.getElementById("saturdayMorningEndHours").value;
@@ -568,6 +565,7 @@
             document.getElementById("saturdayTotal").value =totalTimeFormat;
         }
 
+        // wird nicht genutzt, da Büroarbeitszeiten (MO-FR)
         // berechnet Arbeitsstunden am Sonntag
         function calcutlateSundayTotal() {
             var morningstartHours =  document.getElementById("sundayMorningStartHours").value;
@@ -594,6 +592,7 @@
 
             document.getElementById("sundayTotal").value =totalTimeFormat;
         }
+        */
 
         // Restriktion für Eingabe der Uhrzeit
         // credit to: https://stackoverflow.com/questions/469357/html-text-input-allow-only-numeric-input
