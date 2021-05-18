@@ -39,8 +39,9 @@ public class MitarbeiterRegister {
 	public String familyname;
 	public String surname;
 
-	@Column(unique=true)
+	@Column(name ="username", unique=true, nullable=false)
 	public String username;
+	
 	public String passwort;
 	public String pensum;
 	
@@ -75,7 +76,7 @@ public class MitarbeiterRegister {
 	}
 
 	
-	public String getName() {
+	public String getUsername() {
 		return username;
 	}
 

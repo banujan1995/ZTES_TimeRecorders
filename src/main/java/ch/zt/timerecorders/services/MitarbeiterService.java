@@ -75,7 +75,7 @@ public class MitarbeiterService {
 		MitarbeiterRegister m1 = new MitarbeiterRegister();
 		m1.setSurname(m.getSurname());
 		m1.setFamilyname(m.getFamilyname());
-		m1.setName(m.getName());
+		m1.setName(m.getUsername());
 		m1.setPasswort(m.getPasswort());
 		m1.setPensum(m.getPensum());
 
@@ -138,45 +138,67 @@ public class MitarbeiterService {
 	 * Webapplikation (BR)
 	 */
 
+	@PostMapping(path = "/timerecorders/mitarbeiterlogin/", produces = "application/json")
+	public boolean isValidUser(@RequestBody MessageMaRegister login) {
+
+		
+	List<MitarbeiterRegister> ma = mitarbeiterRepositoryInterface.findAll();
+	
+	for (MitarbeiterRegister m : ma) {
+		if(m.getUsername().equals(login.getUserame())) {
+			System.out.println("Mitarbeiter wurde gefunden");
+			
+	return true;
+	
+		}else {
+			System.out.println("Mitarbeiter wurde nicht gefunden");
+	
+	}
+	
+	}
+	return false;
+	
+	}
+	
 	/*
 	 * Mitarbeiter Login (BR) Hilfestellung bei der Lösung:
 	 * https://stackoverflow.com/questions/11291933/requestbody-and-responsebody-
 	 * annotations-in-spring
 	 */
 
-	@PostMapping(path = "/timerecorders/mitarbeiterlogin/", produces = "application/json")
-	public boolean passwortCreaditalCheck(@RequestBody MessageLogin login) {
-
-		switch (adminORMaListFinder(login.getUser())) {
-
-		case "Mitarbeiter":
-
-			if (login.getPassword()
-					.equalsIgnoreCase(mitarbeiterRepository.getSingleMitarbeiterName(login.getUser()).getPasswort())) {
-				return true; 
-
-			} else {
-				return false;
-
-			}
-
-		case "Administrator":
-			if (login.getPassword().equalsIgnoreCase(
-					administratorenRepository.getSingleAdministratorName(login.getUser()).getPasswort())) {
-				return true;
-
-			} else {
-				return false;
-
-			}
-
-		default:
-			logger.warning("Es wurde ein Login eingegeben, welche nicht als Admin oder Mitarbeiter gibt "
-					+ "/ A login was entered which does not exist as an admin or employee.");
-			return false;
-		}
-
-	}
+//	@PostMapping(path = "/timerecorders/mitarbeiterlogin/", produces = "application/json")
+//	public boolean passwortCreaditalCheck(@RequestBody MessageLogin login) {
+//
+//		switch (adminORMaListFinder(login.getUser())) {
+//
+//		case "Mitarbeiter":
+//
+//			if (login.getPassword()
+//					.equalsIgnoreCase(mitarbeiterRepository.getSingleMitarbeiterName(login.getUser()).getPasswort())) {
+//				return true; 
+//
+//			} else {
+//				return false;
+//
+//			}
+//
+//		case "Administrator":
+//			if (login.getPassword().equalsIgnoreCase(
+//					administratorenRepository.getSingleAdministratorName(login.getUser()).getPasswort())) {
+//				return true;
+//
+//			} else {
+//				return false;
+//
+//			}
+//
+//		default:
+//			logger.warning("Es wurde ein Login eingegeben, welche nicht als Admin oder Mitarbeiter gibt "
+//					+ "/ A login was entered which does not exist as an admin or employee.");
+//			return false;
+//		}
+//
+//	}
 
 	/*
 	 * Mitarbeiter Zeiterfassung (BR), Die Methode soll den korrekten Tag anhand der
@@ -239,41 +261,41 @@ public class MitarbeiterService {
 	 * Administrator handelt anhand Name (BR)
 	 */
 
-	public String adminORMaListFinder(String name) {
-		boolean isMitarbeiter = true;
-		boolean isAdmin = false;
-		String isMaorAd = "";
-
-		if (isMitarbeiter) {
-			boolean isFound = true;
-
-			if (isFound == true) {
-				Mitarbeiter localMa = mitarbeiterRepository.getSingleMitarbeiterName(name);
-				if (localMa == null) {
-					isMitarbeiter = false;
-					isFound = false;
-				} else {
-					isMaorAd = "Mitarbeiter";
-				}
-
-			} else if (isFound == false) {
-
-				Administrator localAD = administratorenRepository.getSingleAdministratorName(name);
-				if (localAD == null) {
-					isAdmin = false;
-				} else {
-					isMaorAd = "Administrator";
-
-				}
-
-			} else if (isAdmin && isMitarbeiter == false) {
-				logger.warning("Mitarbeiter wurde in beiden Listen nicht gefunden!");
-			}
-
-		}
-
-		return isMaorAd;
-	}
+//	public String adminORMaListFinder(String name) {
+//		boolean isMitarbeiter = true;
+//		boolean isAdmin = false;
+//		String isMaorAd = "";
+//
+//		if (isMitarbeiter) {
+//			boolean isFound = true;
+//
+//			if (isFound == true) {
+//				Mitarbeiter localMa = mitarbeiterRepository.getSingleMitarbeiterName(name);
+//				if (localMa == null) {
+//					isMitarbeiter = false;
+//					isFound = false;
+//				} else {
+//					isMaorAd = "Mitarbeiter";
+//				}
+//
+//			} else if (isFound == false) {
+//
+//				Administrator localAD = administratorenRepository.getSingleAdministratorName(name);
+//				if (localAD == null) {
+//					isAdmin = false;
+//				} else {
+//					isMaorAd = "Administrator";
+//
+//				}
+//
+//			} else if (isAdmin && isMitarbeiter == false) {
+//				logger.warning("Mitarbeiter wurde in beiden Listen nicht gefunden!");
+//			}
+//
+//		}
+//
+//		return isMaorAd;
+//	}
 
 	// Hier wird das Passwort bereits gehasht bevor es abgespeichert wird!
 	public String enryptionOfPW(String passwort) {
