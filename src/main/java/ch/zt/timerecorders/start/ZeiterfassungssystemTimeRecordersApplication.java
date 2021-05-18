@@ -44,7 +44,6 @@ public class ZeiterfassungssystemTimeRecordersApplication{
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
-	
 
 	public static void main(String[] args) {
 		SpringApplication.run(ZeiterfassungssystemTimeRecordersApplication.class, args);
