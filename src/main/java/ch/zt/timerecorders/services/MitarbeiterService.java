@@ -32,6 +32,8 @@ import ch.zt.timerecorders.persistence.MitarbeiterRepository;
 import ch.zt.timerecorders.start.MitarbeiterRegister;
 import ch.zt.timerecorders.start.MitarbeiterRepositoryInterface;
 import ch.zt.timerecorders.start.ServiceLocator;
+import ch.zt.timerecorders.start.TimeStampRegisterChange;
+import ch.zt.timerecorders.start.TimeStampRegisterChangeInterface;
 
 /**
  * 
@@ -55,6 +57,16 @@ public class MitarbeiterService {
 
 	@Autowired
 	private MitarbeiterRepositoryInterface mitarbeiterRepositoryInterface;
+
+	@Autowired
+	private TimeStampRegisterChangeInterface timeStampRegisterChange;
+
+	/*
+	 * Instanzvariablen für die TagesIDCreator
+	 */
+	protected int tag;
+	protected int monat;
+	protected int jahr;
 
 	/*
 	 * Hier wird der Counter geführt, welcher für die Methode ins DB-Speichern
@@ -204,123 +216,139 @@ public class MitarbeiterService {
 	 * TagesID ins DB speichern.
 	 */
 
+	// Hier wird die Liste geholt aus dem Datenbank und wird als Json angezeigt.
+	@ResponseBody
+	@GetMapping(path = "/timerecorders/timestamps/", produces = "application/json")
+	public List allTimeStamps() {
+		List<TimeStampRegisterChange> time = timeStampRegisterChange.findAll();
+		System.out.println(time.toString());
+		logger.info("Liste der Zeiterfassung");
+		return time;
+
+	}
+
 	@PostMapping(path = "/timerecorders/zeiterfassung/", produces = "application/json")
 	public boolean zeitenInServer(@RequestBody MessageTimeStamp zeiterfassung) {
-		Arbeitstag workingday;
+
+		List<TimeStampRegisterChange> timeStamps = timeStampRegisterChange.findAll();
+
+		TimeStampRegisterChange timeStamp;
+
+		String localDate;
+
 		boolean zeiterfassungGefunden = false;
 
-		if (arbeitstagRepository.getZeiterfassungRepo().size() != 0) {
-			Arbeitstag localArbeitstag;
-			String localDate;
+		if (timeStamps.size() != 0) {
 
-			for (counterI = 0; counterI < arbeitstagRepository.getZeiterfassungRepo().size(); counterI++) {
+			for (counterY = 0; counterY < timeStamps.size(); counterY++) {
+				localDate = "" + timeStamps.get(counterY).getTAGESID();
 
-				for (counterY = 0; counterY < arbeitstagRepository.getZeiterfassungRepo().size(); counterY++) {
-					localArbeitstag = arbeitstagRepository.getZeiterfassungRepo().get(counterI);
-					localDate = arbeitstagRepository.getZeiterfassungRepo().get(counterI).getDate();
+				if (localDate.equalsIgnoreCase(tagesIDGenerator(zeiterfassung.getDate()) + "")) {
+					zeiterfassungGefunden = true;
+					break;
 
-					if (localDate.equalsIgnoreCase(zeiterfassung.getDate())) {
-						zeiterfassungGefunden = true;
-
-					} else {
-						zeiterfassungGefunden = false;
-
-					}
+				} else {
+					zeiterfassungGefunden = false;
 
 				}
+
 			}
 
 			if (zeiterfassungGefunden) {
+
 				// Vormittag Stunden
-				arbeitstagRepository.getZeiterfassungRepo().get(counterI - 1)
-						.setZeitVormittagEndH(zeiterfassung.getMorningEndHours());
-				arbeitstagRepository.getZeiterfassungRepo().get(counterI - 1)
-						.setZeitVormittagStartH(zeiterfassung.getMorningstartHours());
+				timeStamps.get(counterY).setMorningEndHours(zeiterfassung.getMorningEndHours());
+				timeStamps.get(counterY).setMorningstartHours(zeiterfassung.getMorningstartHours());
 
 				// Vormittag Minuten
-				arbeitstagRepository.getZeiterfassungRepo().get(counterI - 1)
-						.setZeitVormittagEndMin(zeiterfassung.getMorningEndMinDeci());
-				arbeitstagRepository.getZeiterfassungRepo().get(counterI - 1)
-						.setZeitVormittagStartMin(zeiterfassung.getMorningStartMinDeci());
+				timeStamps.get(counterY).setMorningEndMinDeci(zeiterfassung.getMorningEndMinDeci());
+				timeStamps.get(counterY).setMorningStartMinDeci(zeiterfassung.getMorningStartMinDeci());
 
 				// Summe Vormittag in Dezimal
-				arbeitstagRepository.getZeiterfassungRepo().get(counterI - 1)
-						.setZeitNachmittagSummeHAndMin(zeiterfassung.getMorningTotal());
+				timeStamps.get(counterY).setMorningTotal(zeiterfassung.getMorningTotal());
 
 				// Nachmittag Stunden
-				arbeitstagRepository.getZeiterfassungRepo().get(counterI - 1)
-						.setZeitNachmittagEndH(zeiterfassung.getAfternoonEndHours());
-				arbeitstagRepository.getZeiterfassungRepo().get(counterI - 1)
-						.setZeitNachmittagStartH(zeiterfassung.getAfternoonStartHours());
+				timeStamps.get(counterY).setAfternoonEndHours(zeiterfassung.getAfternoonEndHours());
+				timeStamps.get(counterY).setAfternoonStartHours(zeiterfassung.getAfternoonStartHours());
 
 				// Nachmittag Minuten
-				arbeitstagRepository.getZeiterfassungRepo().get(counterI - 1)
-						.setZeitNachmittagEndMin(zeiterfassung.getAfternoonEndMinDeci());
-				arbeitstagRepository.getZeiterfassungRepo().get(counterI - 1)
-						.setZeitNachmittagStartMin(zeiterfassung.getAfternoonStartMinDeci());
+				timeStamps.get(counterY).setAfternoonEndMinDeci(zeiterfassung.getAfternoonEndMinDeci());
+				timeStamps.get(counterY).setAfternoonStartMinDeci(zeiterfassung.getAfternoonStartMinDeci());
 
 				// Summe Nachmittag in Dezimal
-				arbeitstagRepository.getZeiterfassungRepo().get(counterI - 1)
-						.setZeitNachmittagSummeHAndMin(zeiterfassung.getAfternoonTotal());
+				timeStamps.get(counterY).setAfternoonTotal(zeiterfassung.getAfternoonTotal());
+
+				timeStamps = timeStampRegisterChange.saveAll(timeStamps);
 
 			} else if (!zeiterfassungGefunden) {
-				workingday = new Arbeitstag((long) 1, zeiterfassung.getDate());
+				// workingday = new Arbeitstag((long) 1, zeiterfassung.getDate());
+				timeStamp = new TimeStampRegisterChange();
+
+				timeStamp.setTAGESID(tagesIDGenerator(zeiterfassung.getDate()));
+				timeStamp.setMitarbeiterID(101);
 
 				// Vormittag Stunden
-				workingday.setZeitVormittagEndH(zeiterfassung.getMorningEndHours());
-				workingday.setZeitVormittagStartH(zeiterfassung.getMorningstartHours());
+				timeStamp.setMorningEndHours(zeiterfassung.getMorningEndHours());
+				timeStamp.setMorningstartHours(zeiterfassung.getMorningstartHours());
 
 				// Vormittag Minuten
-				workingday.setZeitVormittagEndMin(zeiterfassung.getMorningEndMinDeci());
-				workingday.setZeitVormittagStartMin(zeiterfassung.getMorningStartMinDeci());
+				timeStamp.setMorningEndMinDeci(zeiterfassung.getMorningEndMinDeci());
+				timeStamp.setMorningStartMinDeci(zeiterfassung.getMorningStartMinDeci());
 
 				// Summe Vormittag in Dezimal
-				workingday.setZeitNachmittagSummeHAndMin(zeiterfassung.getMorningTotal());
+				timeStamp.setMorningTotal(zeiterfassung.getMorningTotal());
 
 				// Nachmittag Stunden
-				workingday.setZeitNachmittagEndH(zeiterfassung.getAfternoonEndHours());
-				workingday.setZeitNachmittagStartH(zeiterfassung.getAfternoonStartHours());
+				timeStamp.setAfternoonEndHours(zeiterfassung.getAfternoonEndHours());
+				timeStamp.setAfternoonStartHours(zeiterfassung.getAfternoonStartHours());
 
 				// Nachmittag Minuten
-				workingday.setZeitNachmittagEndMin(zeiterfassung.getAfternoonEndMinDeci());
-				workingday.setZeitNachmittagStartMin(zeiterfassung.getAfternoonStartMinDeci());
+				timeStamp.setAfternoonEndMinDeci(zeiterfassung.getAfternoonEndMinDeci());
+				timeStamp.setAfternoonStartMinDeci(zeiterfassung.getAfternoonStartMinDeci());
 
 				// Summe Nachmittag in Dezimal
-				workingday.setZeitNachmittagSummeHAndMin(zeiterfassung.getAfternoonTotal());
+				timeStamp.setAfternoonTotal(zeiterfassung.getAfternoonTotal());
 
-				arbeitstagRepository.addZeiterfassung(workingday);
-				
+				// Summe Überzeit
+				timeStamp.setMinusOderPlusZeit(0.00);
+
+				timeStamp = timeStampRegisterChange.save(timeStamp); // Speichert den Datensatz in den Datenbank (BR)
+				logger.info("Daten in Datenbank gespeichert - Klasse Mitarbeiterservice");
 
 			}
 
 		} else {
+			timeStamp = new TimeStampRegisterChange();
 
-			workingday = new Arbeitstag((long) 1, zeiterfassung.getDate());
+			timeStamp.setTAGESID(tagesIDGenerator(zeiterfassung.getDate()));
 
 			// Vormittag Stunden
-			workingday.setZeitVormittagEndH(zeiterfassung.getMorningEndHours());
-			workingday.setZeitVormittagStartH(zeiterfassung.getMorningstartHours());
+			timeStamp.setMorningEndHours(zeiterfassung.getMorningEndHours());
+			timeStamp.setMorningstartHours(zeiterfassung.getMorningstartHours());
 
 			// Vormittag Minuten
-			workingday.setZeitVormittagEndMin(zeiterfassung.getMorningEndMinDeci());
-			workingday.setZeitVormittagStartMin(zeiterfassung.getMorningStartMinDeci());
+			timeStamp.setMorningEndMinDeci(zeiterfassung.getMorningEndMinDeci());
+			timeStamp.setMorningStartMinDeci(zeiterfassung.getMorningStartMinDeci());
 
 			// Summe Vormittag in Dezimal
-			workingday.setZeitNachmittagSummeHAndMin(zeiterfassung.getMorningTotal());
+			timeStamp.setMorningTotal(zeiterfassung.getMorningTotal());
 
 			// Nachmittag Stunden
-			workingday.setZeitNachmittagEndH(zeiterfassung.getAfternoonEndHours());
-			workingday.setZeitNachmittagStartH(zeiterfassung.getAfternoonStartHours());
+			timeStamp.setAfternoonEndHours(zeiterfassung.getAfternoonEndHours());
+			timeStamp.setAfternoonStartHours(zeiterfassung.getAfternoonStartHours());
 
 			// Nachmittag Minuten
-			workingday.setZeitNachmittagEndMin(zeiterfassung.getAfternoonEndMinDeci());
-			workingday.setZeitNachmittagStartMin(zeiterfassung.getAfternoonStartMinDeci());
+			timeStamp.setAfternoonEndMinDeci(zeiterfassung.getAfternoonEndMinDeci());
+			timeStamp.setAfternoonStartMinDeci(zeiterfassung.getAfternoonStartMinDeci());
 
 			// Summe Nachmittag in Dezimal
-			workingday.setZeitNachmittagSummeHAndMin(zeiterfassung.getAfternoonTotal());
+			timeStamp.setAfternoonTotal(zeiterfassung.getAfternoonTotal());
 
-			arbeitstagRepository.addZeiterfassung(workingday);
-			
+			// Summe Überzeit
+			timeStamp.setMinusOderPlusZeit(0.00);
+
+			timeStamp = timeStampRegisterChange.save(timeStamp); // Speichert den Datensatz in den Datenbank (BR)
+			logger.info("Daten in Datenbank gespeichert - Klasse Mitarbeiterservice");
 		}
 		return true;
 
@@ -401,6 +429,115 @@ public class MitarbeiterService {
 		System.out.println(hash.toString());
 		return hash.toString();
 
+	}
+
+	/*
+	 * Hier wird der Input von dem Webapplikation aufgeteilt und ein TagesID
+	 * kreiert.
+	 */
+
+	// Alle Tageserfassungen erhalten einen Unique TagesID und das kann auch
+	// aufgeteilt im Datenbank gespeichert werden.(BR)
+	public int tagesIDGenerator(String date) {
+		splittingDateAndTime(date);
+
+		String localTagesID = "" + this.jahr + this.monat + this.tag;
+		Integer localLongTagesID = Integer.parseInt(localTagesID);
+		return localLongTagesID;
+	}
+
+	// Format of the Data: Mon May 17 2021
+	public void splittingDateAndTime(String date) {
+
+		// Monat
+		String localmonat = date.substring(4, 7);
+
+		switch (localmonat) {
+
+		case "Jan":
+			this.monat = 1;
+			break;
+
+		case "Feb":
+			this.monat = 2;
+			break;
+
+		case "Mar":
+			this.monat = 3;
+			break;
+
+		case "Apr":
+			this.monat = 4;
+			break;
+
+		case "May":
+			this.monat = 5;
+			break;
+
+		case "Jun":
+			this.monat = 6;
+			break;
+
+		case "Jul":
+			this.monat = 7;
+			break;
+
+		case "Aug":
+			this.monat = 8;
+			break;
+
+		case "Sep":
+			this.monat = 9;
+			break;
+
+		case "Oct":
+			this.monat = 10;
+			break;
+
+		case "Nov":
+			this.monat = 11;
+			break;
+
+		case "Dec":
+			this.monat = 12;
+			break;
+
+		default:
+
+		}
+
+		// Tag
+		String localTag = date.substring(8, 10);
+		this.tag = Integer.parseInt(localTag);
+
+		// Jahr
+		String localJahr = date.substring(11, 15);
+		this.jahr = Integer.parseInt(localJahr);
+
+	}
+
+	public int getTag() {
+		return tag;
+	}
+
+	public void setTag(int tag) {
+		this.tag = tag;
+	}
+
+	public int getMonat() {
+		return monat;
+	}
+
+	public void setMonat(int monat) {
+		this.monat = monat;
+	}
+
+	public int getJahr() {
+		return jahr;
+	}
+
+	public void setJahr(int jahr) {
+		this.jahr = jahr;
 	}
 
 }

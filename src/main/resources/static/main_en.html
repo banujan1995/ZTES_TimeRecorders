@@ -1176,6 +1176,12 @@
         	//kann bei Bedarf ergänzt werden, wenn die Arbeit auf ein Wochenende fallen
         }
         
+			//Hier soll die Daten von Datenbank geholt und in den Inputfelder anzeigt werden. (BR)
+		function getSafedDataFromDB() {
+		
+        }
+        
+        
         
         //Hier werden die Innformationen von je nach Tag geholt und in den Server übermittelt (BR)
         function safeDataAndTimetoDB(morningEndHours, morningstartHours, morningEndMinDeci, morningStartMinDeci,
@@ -1213,22 +1219,18 @@
 			
         
         }
-        
-       
-        //Hier soll mitgeteilt werden, ob ein Wert bereits drinn ist dann wird die Methode von (bringUp...) automatisch den Wert überschreiben
-        function alreadyValueSafed(data){
-		
-        }
-        
-        
-        
+                 
         function bringUpDataAndTimefromDB(mitarbeiterID, date){
         
         }
         
-        function successSafeTimeServer(){
-     
-        
+        function successSafeTimeServer(response){
+
+        	if(response == true){
+			console.log("Daten wurde korrekt übermittelt an den Datenbank");
+        	} else {
+            console.log("Bei der Übermittlung der Daten gab es ein Fehler - bitte prüfen");
+        	}	
         }
         
         //hier soll er den Wert aus dem Datenbank holen und dann die Zeit anzeigen, wo ein Mitarbeiter oder Admin an einem Arbeitstag machen muss. 
