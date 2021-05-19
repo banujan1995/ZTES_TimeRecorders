@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+
 import ch.zt.timerecorders.persistence.Administrator;
 import ch.zt.timerecorders.persistence.AdministratorenRepository;
 import ch.zt.timerecorders.persistence.Arbeitstag;
@@ -37,7 +38,7 @@ import ch.zt.timerecorders.start.ServiceLocator;
 /**
  * 
  * @author Banujan Ragunathan
- * @author Kiren Gondal
+ * @author Kiren Gondal(KG)
  *
  */
 @RestController // Annotation für Restservice für Framework (BR)
@@ -85,7 +86,7 @@ public class MitarbeiterService {
 
 	}
 
-	// KG: MA Liste erstellen als JSON
+	// MA Liste erstellen als JSON (KG)
 	@ResponseBody
 	@GetMapping(path = "/mitarbeiterList/", produces = "application/json")
 	public List allMA() {
@@ -97,7 +98,25 @@ public class MitarbeiterService {
 
 	}
 
-	// Mitarbeiter mutieren von MA zu AD (BR)
+	// Mitarbeiter mutieren von MA zu AD (KG)
+
+	@PostMapping(path = "/updateEmployee/", produces = "application/json")
+	public void updateMA(@RequestBody MitarbeiterRegister m) {
+
+		List<MitarbeiterRegister> ma = mitarbeiterRepositoryInterface.findAll();
+		
+		MitarbeiterRegister removeOld = null;
+		for (MitarbeiterRegister mr : ma) {
+			if (mr.getMitarbeiterID() == m.getMitarbeiterID()) {
+				removeOld = mr;
+				break;
+			}
+		}
+		if (removeOld != null)
+			ma.remove(removeOld);
+
+		ma.add(m);
+	}
 
 	// Mitarbeiter löschen (BR)
 
@@ -128,8 +147,6 @@ public class MitarbeiterService {
 
 	// Mitarbeiter Zeitregister auslesen(BR)
 	
-	
-	
 
 	// Mitarbeiter einzelne Zeitelement auslesen
 
@@ -137,7 +154,7 @@ public class MitarbeiterService {
 	 * Funktionen für Mitarbeiter, welche von Mitarbeiter aufgeruft werden auf der
 	 * Webapplikation (BR)
 	 */
-
+	// User im DB überprüfen und einloggen (KG)
 	@PostMapping(path = "/timerecorders/mitarbeiterlogin/", produces = "application/json")
 	public boolean isValidUser(@RequestBody MessageMaRegister login) {
 
@@ -152,7 +169,6 @@ public class MitarbeiterService {
 	
 		}else {
 			System.out.println("Mitarbeiter wurde nicht gefunden");
-	
 	}
 	
 	}

@@ -226,12 +226,13 @@
 
     <table cellspacing="0" cellpadding="0" border="0" id="employeeTable" style="position: relative; margin: auto; width: 50px;">
        
-        <table id ="mitarbeiterList">
+    <table id ="mitarbeiterList">
 			 <tr>
 			    <th>MitarbeiterID</th>
 			     <th>Surname</th>
 			    <th>Username</th>
 			    <th>Workload</th>
+			     <th>Delete</th>
 			  </tr>
 			<tbody>
 			</tbody>
@@ -262,16 +263,24 @@
     		var mitarbeiter_data = '';
     		$.each(data, function(key, value){
     			mitarbeiter_data += '<tr>';
-    			mitarbeiter_data += '<td>'+value.mitarbeiterID+ '</td>';
+    			mitarbeiter_data += '<td>'+"10"+ +value.mitarbeiterID+ '</td>';
     			mitarbeiter_data += '<td>'+value.surname+ '</td>';
     			mitarbeiter_data += '<td>'+value.username+ '</td>';
     			mitarbeiter_data += '<td>'+value.pensum+ '</td>';
+    			mitarbeiter_data += '<td>' +"<input type='button' id='" + value.mitarbeiterID + "' onclick='CallMe(" + value.mitarbeiterID + ")' value='Delete'>"+ '</td>';
     			mitarbeiter_data += '</tr>';
     		});
     		$('#mitarbeiterList').append(mitarbeiter_data);	
     		
+    		
     	});
-    	    
     });
+    
+    function CallMe(data) {  
+    	var deleteMitarbeiter = document.getElementById("mitarbeiterList").deleteRow(0); 
+        alert("The ID 10"+data+ " is deleted");  
+    	
+    }
+    	
 
     </script>
