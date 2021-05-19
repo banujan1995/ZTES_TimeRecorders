@@ -33,7 +33,6 @@ import ch.zt.timerecorders.start.MitarbeiterRegister;
 import ch.zt.timerecorders.start.MitarbeiterRepositoryInterface;
 import ch.zt.timerecorders.start.ServiceLocator;
 
-
 /**
  * 
  * @author Banujan Ragunathan
@@ -51,12 +50,18 @@ public class MitarbeiterService {
 	@Autowired
 	private AdministratorenRepository administratorenRepository;
 
-	
 	@Autowired
 	private ArbeitstagRepository arbeitstagRepository;
 
 	@Autowired
 	private MitarbeiterRepositoryInterface mitarbeiterRepositoryInterface;
+
+	/*
+	 * Hier wird der Counter geführt, welcher für die Methode ins DB-Speichern
+	 * dient. (BR)
+	 */
+	private int counterI = 0;
+	private int counterY = 0;
 
 	/**
 	 * Methoden Annotation (BR) - MIT GET MIT PARAMETER - Rückgabewert JSON Methode
@@ -91,8 +96,7 @@ public class MitarbeiterService {
 	public List allMA() {
 
 		List<MitarbeiterRegister> ma = mitarbeiterRepositoryInterface.findAll();
-		System.out.println(ma.toString());
-		logger.info("Liste wurde erfolgreich erstellt");
+		logger.info(ma.toString() + "Liste wurde erfolgreich erstellt");
 		return ma;
 
 	}
@@ -127,9 +131,6 @@ public class MitarbeiterService {
 	}
 
 	// Mitarbeiter Zeitregister auslesen(BR)
-	
-	
-	
 
 	// Mitarbeiter einzelne Zeitelement auslesen
 
@@ -141,25 +142,23 @@ public class MitarbeiterService {
 	@PostMapping(path = "/timerecorders/mitarbeiterlogin/", produces = "application/json")
 	public boolean isValidUser(@RequestBody MessageMaRegister login) {
 
-		
-	List<MitarbeiterRegister> ma = mitarbeiterRepositoryInterface.findAll();
-	
-	for (MitarbeiterRegister m : ma) {
-		if(m.getUsername().equals(login.getUserame())) {
-			System.out.println("Mitarbeiter wurde gefunden");
-			
-	return true;
-	
-		}else {
-			System.out.println("Mitarbeiter wurde nicht gefunden");
-	
+		List<MitarbeiterRegister> ma = mitarbeiterRepositoryInterface.findAll();
+
+		for (MitarbeiterRegister m : ma) {
+			if (m.getUsername().equals(login.getUserame())) {
+				logger.info("Mitarbeiter wurde gefunden");
+				return true;
+
+			} else {
+				logger.info("Mitarbeiter wurde nicht gefunden");
+
+			}
+
+		}
+		return false;
+
 	}
-	
-	}
-	return false;
-	
-	}
-	
+
 	/*
 	 * Mitarbeiter Login (BR) Hilfestellung bei der Lösung:
 	 * https://stackoverflow.com/questions/11291933/requestbody-and-responsebody-
@@ -202,42 +201,129 @@ public class MitarbeiterService {
 
 	/*
 	 * Mitarbeiter Zeiterfassung (BR), Die Methode soll den korrekten Tag anhand der
-	 * TagesID ins DB speichern. 
+	 * TagesID ins DB speichern.
 	 */
 
 	@PostMapping(path = "/timerecorders/zeiterfassung/", produces = "application/json")
 	public boolean zeitenInServer(@RequestBody MessageTimeStamp zeiterfassung) {
+		Arbeitstag workingday;
+		boolean zeiterfassungGefunden = false;
 
-		Arbeitstag workingday = new Arbeitstag((long) 1, zeiterfassung.getDate()); 
+		if (arbeitstagRepository.getZeiterfassungRepo().size() != 0) {
+			Arbeitstag localArbeitstag;
+			String localDate;
+
+			for (counterI = 0; counterI < arbeitstagRepository.getZeiterfassungRepo().size(); counterI++) {
+
+				for (counterY = 0; counterY < arbeitstagRepository.getZeiterfassungRepo().size(); counterY++) {
+					localArbeitstag = arbeitstagRepository.getZeiterfassungRepo().get(counterI);
+					localDate = arbeitstagRepository.getZeiterfassungRepo().get(counterI).getDate();
+
+					if (localDate.equalsIgnoreCase(zeiterfassung.getDate())) {
+						zeiterfassungGefunden = true;
+
+					} else {
+						zeiterfassungGefunden = false;
+
+					}
+
+				}
+			}
+
+			if (zeiterfassungGefunden) {
+				// Vormittag Stunden
+				arbeitstagRepository.getZeiterfassungRepo().get(counterI - 1)
+						.setZeitVormittagEndH(zeiterfassung.getMorningEndHours());
+				arbeitstagRepository.getZeiterfassungRepo().get(counterI - 1)
+						.setZeitVormittagStartH(zeiterfassung.getMorningstartHours());
+
+				// Vormittag Minuten
+				arbeitstagRepository.getZeiterfassungRepo().get(counterI - 1)
+						.setZeitVormittagEndMin(zeiterfassung.getMorningEndMinDeci());
+				arbeitstagRepository.getZeiterfassungRepo().get(counterI - 1)
+						.setZeitVormittagStartMin(zeiterfassung.getMorningStartMinDeci());
+
+				// Summe Vormittag in Dezimal
+				arbeitstagRepository.getZeiterfassungRepo().get(counterI - 1)
+						.setZeitNachmittagSummeHAndMin(zeiterfassung.getMorningTotal());
+
+				// Nachmittag Stunden
+				arbeitstagRepository.getZeiterfassungRepo().get(counterI - 1)
+						.setZeitNachmittagEndH(zeiterfassung.getAfternoonEndHours());
+				arbeitstagRepository.getZeiterfassungRepo().get(counterI - 1)
+						.setZeitNachmittagStartH(zeiterfassung.getAfternoonStartHours());
+
+				// Nachmittag Minuten
+				arbeitstagRepository.getZeiterfassungRepo().get(counterI - 1)
+						.setZeitNachmittagEndMin(zeiterfassung.getAfternoonEndMinDeci());
+				arbeitstagRepository.getZeiterfassungRepo().get(counterI - 1)
+						.setZeitNachmittagStartMin(zeiterfassung.getAfternoonStartMinDeci());
+
+				// Summe Nachmittag in Dezimal
+				arbeitstagRepository.getZeiterfassungRepo().get(counterI - 1)
+						.setZeitNachmittagSummeHAndMin(zeiterfassung.getAfternoonTotal());
+
+			} else if (!zeiterfassungGefunden) {
+				workingday = new Arbeitstag((long) 1, zeiterfassung.getDate());
+
+				// Vormittag Stunden
+				workingday.setZeitVormittagEndH(zeiterfassung.getMorningEndHours());
+				workingday.setZeitVormittagStartH(zeiterfassung.getMorningstartHours());
+
+				// Vormittag Minuten
+				workingday.setZeitVormittagEndMin(zeiterfassung.getMorningEndMinDeci());
+				workingday.setZeitVormittagStartMin(zeiterfassung.getMorningStartMinDeci());
+
+				// Summe Vormittag in Dezimal
+				workingday.setZeitNachmittagSummeHAndMin(zeiterfassung.getMorningTotal());
+
+				// Nachmittag Stunden
+				workingday.setZeitNachmittagEndH(zeiterfassung.getAfternoonEndHours());
+				workingday.setZeitNachmittagStartH(zeiterfassung.getAfternoonStartHours());
+
+				// Nachmittag Minuten
+				workingday.setZeitNachmittagEndMin(zeiterfassung.getAfternoonEndMinDeci());
+				workingday.setZeitNachmittagStartMin(zeiterfassung.getAfternoonStartMinDeci());
+
+				// Summe Nachmittag in Dezimal
+				workingday.setZeitNachmittagSummeHAndMin(zeiterfassung.getAfternoonTotal());
+
+				arbeitstagRepository.addZeiterfassung(workingday);
 				
-		//Vormittag Stunden
-		workingday.setZeitVormittagEndH(zeiterfassung.getMorningEndHours());
-		workingday.setZeitVormittagStartH(zeiterfassung.getMorningstartHours());
-		
-		
-		//Vormittag Minuten
-		workingday.setZeitVormittagEndMin(zeiterfassung.getMorningEndMinDeci());
-		workingday.setZeitVormittagStartMin(zeiterfassung.getMorningStartMinDeci());
-		
-		//Summe Vormittag in Dezimal
-		workingday.setZeitNachmittagSummeHAndMin(zeiterfassung.getMorningTotal());
-		
-		
-		// Nachmittag Stunden
-		workingday.setZeitNachmittagEndH(zeiterfassung.getAfternoonEndHours());
-		workingday.setZeitNachmittagStartH(zeiterfassung.getAfternoonStartHours());
 
-		// Nachmittag Minuten
-		workingday.setZeitNachmittagEndMin(zeiterfassung.getAfternoonEndMinDeci());
-		workingday.setZeitNachmittagStartMin(zeiterfassung.getAfternoonStartMinDeci());
+			}
 
-		//Summe Nachmittag in Dezimal
-		workingday.setZeitNachmittagSummeHAndMin(zeiterfassung.getAfternoonTotal());
+		} else {
 
-		arbeitstagRepository.addZeiterfassung(workingday);
-		System.out.println(zeiterfassung);
-		
+			workingday = new Arbeitstag((long) 1, zeiterfassung.getDate());
+
+			// Vormittag Stunden
+			workingday.setZeitVormittagEndH(zeiterfassung.getMorningEndHours());
+			workingday.setZeitVormittagStartH(zeiterfassung.getMorningstartHours());
+
+			// Vormittag Minuten
+			workingday.setZeitVormittagEndMin(zeiterfassung.getMorningEndMinDeci());
+			workingday.setZeitVormittagStartMin(zeiterfassung.getMorningStartMinDeci());
+
+			// Summe Vormittag in Dezimal
+			workingday.setZeitNachmittagSummeHAndMin(zeiterfassung.getMorningTotal());
+
+			// Nachmittag Stunden
+			workingday.setZeitNachmittagEndH(zeiterfassung.getAfternoonEndHours());
+			workingday.setZeitNachmittagStartH(zeiterfassung.getAfternoonStartHours());
+
+			// Nachmittag Minuten
+			workingday.setZeitNachmittagEndMin(zeiterfassung.getAfternoonEndMinDeci());
+			workingday.setZeitNachmittagStartMin(zeiterfassung.getAfternoonStartMinDeci());
+
+			// Summe Nachmittag in Dezimal
+			workingday.setZeitNachmittagSummeHAndMin(zeiterfassung.getAfternoonTotal());
+
+			arbeitstagRepository.addZeiterfassung(workingday);
+			
+		}
 		return true;
+
 	}
 
 	// Mitarbeiter Zeiterfassung - Veränderung (BR)
@@ -245,8 +331,6 @@ public class MitarbeiterService {
 	@PutMapping(path = "/timerecorders/zeiterfassung/changes/", produces = "application/json")
 	public boolean zeitveränderung(@RequestBody MessageTimeStamp einstempeln) {
 
-		
-		
 		return true;
 	}
 

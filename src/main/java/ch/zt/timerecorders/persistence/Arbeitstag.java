@@ -61,14 +61,15 @@ public class Arbeitstag {
 	// Alle Tageserfassungen erhalten einen Unique TagesID und das kann auch
 	// aufgeteilt im Datenbank gespeichert werden.(BR)
 	public Long tagesIDGenerator() {
-		String localTagesID = this.jahr + this.monat + this.tag + "";
+		String localTagesID = "" + this.jahr + this.monat + this.tag;
 		Long localLongTagesID = Long.parseLong(localTagesID);
 		return localLongTagesID;
 	}
 
 	// Format of the Data: Mon May 17 2021
 	public void splittingDateAndTime(String date) {
-
+		logger.info("Die Daten von Datum " +date+ " wurden auf dem Datenbank gespeichert.");
+		
 		// Monat
 		String localmonat = date.substring(4, 7);
 
@@ -133,21 +134,10 @@ public class Arbeitstag {
 
 		// Jahr
 		String localJahr = date.substring(11, 15);
-		this.tag = Integer.parseInt(localJahr);
+		this.jahr = Integer.parseInt(localJahr);
 
 	}
 
-//	public double calculateVormittagZeit(double zeitVormittagStart, double zeitVormittagEnd) {
-//		double localSumme = zeitVormittagEnd - zeitVormittagStart;
-//		return localSumme;
-//
-//	}
-
-//	public double calculateNachmittagZeit(double zeitNachmittagStart, double zeitNachmittagEnd) {
-//		double localSumme = zeitNachmittagEnd - zeitNachmittagStart;
-//		return localSumme;
-//
-//	}
 
 	public int getTag() {
 		return tag;

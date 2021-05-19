@@ -24,32 +24,36 @@
 	<br>
 	<br>
 	<br>
-	 <!-- Navigationsbar-->
-    <ul class="navibar">
-        <li class="barItem"><a class="barItem">Home</a></li>
-        <li class="barItem"><a class="barItem" href="http://localhost:8081/report">Report</a></li>
-        <li class="barItem"><a class="barItem" href="absence_en.html"> Absence</a></li>
-        
-        <li style="float:right" class="barItem"> <a href="login_en.html" class="barItem">Logout</a></li>
-        <li style="float:right" class="barItem">
-            <a href="javascript:void(0)" class="barItemBtn">Languages</a>
-            <div class="barItem-content">
-              <a>English</a>
-              <a>German</a>
-          </div>
-          <li style="float:right" class="barItem"> <a href="http://localhost:8081/profile" class="barItem">Profile</a> </li>
-      </ul>
-      <br>
-    <div style="display: block; text-align: center;width: 100%;">
-        <h1 >Your weektable</h1>
-        <p style="font-weight: bold;"> Please choose the desired week!</p>
-    </div>
-    <br>
-    <!-- Kalender, um die entsprechende Woche anzuzeigen-->
-    <div style="display: block; text-align: center;width: 100%;">
-		<input type="text" id="week_ww_yyyy" ></input>
-        <button class="buttonList" style="margin-left: 20px;"  onclick="getChoosenDay();"> Validate</button>
-    </div>
+	<!-- Navigationsbar-->
+	<ul class="navibar">
+		<li class="barItem"><a class="barItem">Home</a></li>
+		<li class="barItem"><a class="barItem"
+			href="http://localhost:8081/report">Report</a></li>
+		<li class="barItem"><a class="barItem" href="absence_en.html">
+				Absence</a></li>
+
+		<li style="float: right" class="barItem"><a href="login_en.html"
+			class="barItem">Logout</a></li>
+		<li style="float: right" class="barItem"><a
+			href="javascript:void(0)" class="barItemBtn">Languages</a>
+			<div class="barItem-content">
+				<a>English</a> <a>German</a>
+			</div>
+		<li style="float: right" class="barItem"><a
+			href="http://localhost:8081/profile" class="barItem">Profile</a></li>
+	</ul>
+	<br>
+	<div style="display: block; text-align: center; width: 100%;">
+		<h1>Your weektable</h1>
+		<p style="font-weight: bold;">Please choose the desired week!</p>
+	</div>
+	<br>
+	<!-- Kalender, um die entsprechende Woche anzuzeigen-->
+	<div style="display: block; text-align: center; width: 100%;">
+		<input type="text" id="week_ww_yyyy"></input>
+		<button class="buttonList" style="margin-left: 20px;"
+			onclick="getChoosenDay();">Validate</button>
+	</div>
 	<br>
 	<br>
 
@@ -368,8 +372,8 @@
 
 		<div
 			style="display: block; text-align: center; width: 100%; margin-top: 30px;">
-			<button id="confirmSunday" disabled>Confirm
-				changes</button>
+			<button id="confirmEntry" class="button"
+				onclick=" calculateMondayTotal()">Confirm changes</button>
 		</div>
 
 	</div>
@@ -382,12 +386,9 @@
 		
 	//Button confirm change wird enabled wenn ein Wert eingegeben wird
 	function enableButton(){
-		 document.getElementById("confirmSunday").disabled = false;
+		 document.getElementById("confirmEntry").disabled = false;
 		}
 	
-	
-	
-
         //Funktion via jQuery, nimmt die im Kalender gewählte Woche entgegen und zeigt diese an
         // credits to: http://www.mihai-marica.ro
         (function ( $ ) {
@@ -397,9 +398,21 @@
 
 
 	<script>
+	//hier soll der aktuelle Tag gespeichert werden, welche gerade durchgeht zum Speichern (BR)
+	
+	var informationAboutDay = {
+	currentDay : "" ,
+	set day(day){
+	this.currentDay = day;
+	}
+	};
+	
+
 
         // berechnet Arbeitsstunden am Montag
         function calculateMondayTotal() {
+
+        	var firstDayOfWeek = document.getElementById("firstDayofWeek");
         
             var morningstartHours =  document.getElementById("mondayMorningStartHours").value;
             var morningStartMin = document.getElementById("mondayMorningStartMin").value;
@@ -416,15 +429,21 @@
             var afternoonEndMinDeci = afternoonEndMin * (1/60);
             var afternoonStartMinDeci = afternoonStartMin * (1/60);
 
-            var mondayMorningTotal = (morningEndHours - morningstartHours) + (morningEndMinDeci - morningStartMinDeci);
-            var mondayAfternoonTotal = (afternoonEndHours - afternoonStartHours) + (afternoonEndMinDeci - afternoonStartMinDeci);
+            var morningTotal = (morningEndHours - morningstartHours) + (morningEndMinDeci - morningStartMinDeci);
+            var afternoonTotal = (afternoonEndHours - afternoonStartHours) + (afternoonEndMinDeci - afternoonStartMinDeci);
 
-            var mondayTotalDeci = parseFloat(mondayMorningTotal + mondayAfternoonTotal);
+            var totalDeci = parseFloat(morningTotal + afternoonTotal);
 
-            var mondayTotalTimeFormat = h_mm(mondayTotalDeci);
+            var totalTimeFormat = h_mm(totalDeci);
 
-            document.getElementById("mondayTotal").value =mondayTotalTimeFormat;
+            document.getElementById("mondayTotal").value =totalTimeFormat;
             
+            //hier wird das Datum herausgenommen und in der Variable geschrieben und in der Methode später verwendet (BR)
+            informationAboutDay.day = document.getElementById("firstDayofWeek").innerHTML;
+            
+        	safeDataAndTimetoDB(morningEndHours, morningstartHours, morningEndMinDeci, morningStartMinDeci,
+            afternoonEndHours, afternoonStartHours, afternoonEndMinDeci, afternoonStartMinDeci,morningTotal,
+                		afternoonTotal,totalDeci)
         }
 
 
@@ -454,6 +473,13 @@
 
             document.getElementById("tuesdayTotal").value =totalTimeFormat;
             
+            //hier wird das Datum herausgenommen und in der Variable geschrieben und in der Methode später verwendet (BR)
+            informationAboutDay.day = document.getElementById("secondDayofWeek").innerHTML;
+            
+        	safeDataAndTimetoDB(morningEndHours, morningstartHours, morningEndMinDeci, morningStartMinDeci,
+            afternoonEndHours, afternoonStartHours, afternoonEndMinDeci, afternoonStartMinDeci,morningTotal,
+                		afternoonTotal,totalDeci)
+            
         }
 
         // berechnet Arbeitsstunden am Mittwoch
@@ -481,6 +507,13 @@
             var totalTimeFormat = h_mm(totalDeci);
 
             document.getElementById("wednesdayTotal").value =totalTimeFormat;
+            
+            //hier wird das Datum herausgenommen und in der Variable geschrieben und in der Methode später verwendet (BR)
+            informationAboutDay.day = document.getElementById("thirdDayofWeek").innerHTML;
+            
+        	safeDataAndTimetoDB(morningEndHours, morningstartHours, morningEndMinDeci, morningStartMinDeci,
+            afternoonEndHours, afternoonStartHours, afternoonEndMinDeci, afternoonStartMinDeci,morningTotal,
+                		afternoonTotal,totalDeci)
         }
 
         // berechnet Arbeitsstunden am Donnerstag
@@ -508,6 +541,13 @@
             var totalTimeFormat = h_mm(totalDeci);
 
             document.getElementById("thursdayTotal").value =totalTimeFormat;
+            
+            //hier wird das Datum herausgenommen und in der Variable geschrieben und in der Methode später verwendet (BR)
+            informationAboutDay.day = document.getElementById("fourthDayofWeek").innerHTML;
+            
+        	safeDataAndTimetoDB(morningEndHours, morningstartHours, morningEndMinDeci, morningStartMinDeci,
+            afternoonEndHours, afternoonStartHours, afternoonEndMinDeci, afternoonStartMinDeci,morningTotal,
+                		afternoonTotal,totalDeci)
         }
 
         // berechnet Arbeitsstunden am Freitag
@@ -535,6 +575,13 @@
             var totalTimeFormat = h_mm(totalDeci);
 
             document.getElementById("fridayTotal").value =totalTimeFormat;
+            
+            //hier wird das Datum herausgenommen und in der Variable geschrieben und in der Methode später verwendet (BR)
+            informationAboutDay.day = document.getElementById("fifthDayofWeek").innerHTML;
+            
+        	safeDataAndTimetoDB(morningEndHours, morningstartHours, morningEndMinDeci, morningStartMinDeci,
+            afternoonEndHours, afternoonStartHours, afternoonEndMinDeci, afternoonStartMinDeci,morningTotal,
+                		afternoonTotal,totalDeci)
         }
 
         // wird nicht genutzt, da Büroarbeitszeiten (MO-FR)
@@ -1077,7 +1124,7 @@
             return /^\d*$/.test(value) && (value === "" || parseInt(value) <= 59); });   
 
 
-        // Konvertiert Dezimal ins Zeitformat
+        // Konvertiert Dezimal ins Zeitformat (BR)
         //full credit: https://www.acronaut.de/viewtopic.php?f=25&t=16550
         function h_mm(Wert) {
         var Minuten = Math.round(60 * Math.abs(Wert)) ;
@@ -1088,11 +1135,56 @@
             setTargetTime();
         }
         
-        function safeDataAndTimetoDB(date, morningEndHours, morningstartHours, morningEndMinDeci, morningStartMinDeci,
+    	
+        
+        //Hier soll die Schleife gestartet werden und die Methode (safeDataAndTimetoDB) einzlen Tage speichern
+        //Der User muss nicht alle Felder ausfüllen! 
+        function daysSchleife(){
+		
+        	//Montag       	
+			informationAboutDay.day = document.getElementById("firstDayofWeek").value;
+        	safeDataAndTimetoDB(morningEndHours, morningstartHours, morningEndMinDeci, morningStartMinDeci,
+                		afternoonEndHours, afternoonStartHours, afternoonEndMinDeci, afternoonStartMinDeci,morningTotal,
+                		afternoonTotal,totalDeci)
+    	       	        	
+        	//Dienstag 
+			informationAboutDay.day = document.getElementById("secondDayofWeek").value;
+        	safeDataAndTimetoDB(morningEndHours, morningstartHours, morningEndMinDeci, morningStartMinDeci,
+                		afternoonEndHours, afternoonStartHours, afternoonEndMinDeci, afternoonStartMinDeci,morningTotal,
+                		afternoonTotal,totalDeci)
+        	
+        	//Mittwoch
+        	informationAboutDay.set(document.getElementById("thirdDayofWeek").value);
+        	safeDataAndTimetoDB(morningEndHours, morningstartHours, morningEndMinDeci, morningStartMinDeci,
+                		afternoonEndHours, afternoonStartHours, afternoonEndMinDeci, afternoonStartMinDeci,morningTotal,
+                		afternoonTotal,totalDeci)
+        	
+        	//Donnerstag
+			informationAboutDay.set(document.getElementById("fourthDayofWeek").value);
+        	safeDataAndTimetoDB(morningEndHours, morningstartHours, morningEndMinDeci, morningStartMinDeci,
+                		afternoonEndHours, afternoonStartHours, afternoonEndMinDeci, afternoonStartMinDeci,morningTotal,
+                		afternoonTotal,totalDeci)
+        		
+        	//Freitag
+			informationAboutDay.set(document.getElementById("fifthDayofWeek").value);
+        	safeDataAndTimetoDB(morningEndHours, morningstartHours, morningEndMinDeci, morningStartMinDeci,
+                		afternoonEndHours, afternoonStartHours, afternoonEndMinDeci, afternoonStartMinDeci,morningTotal,
+                		afternoonTotal,totalDeci)
+        	
+        	//Samstag & Sonntag
+        	//kann bei Bedarf ergänzt werden, wenn die Arbeit auf ein Wochenende fallen
+        }
+        
+        
+        //Hier werden die Innformationen von je nach Tag geholt und in den Server übermittelt (BR)
+        function safeDataAndTimetoDB(morningEndHours, morningstartHours, morningEndMinDeci, morningStartMinDeci,
         		afternoonEndHours, afternoonStartHours, afternoonEndMinDeci, afternoonStartMinDeci,morningTotal,
         		afternoonTotal,totalDeci){
+		
+        var date = informationAboutDay.currentDay;
+       
 	        
-		console.log("kommt in safeDataAndTimetoDB");
+		console.log("Die Zeit wurde in den DB gespeichert");
         	
         	$.ajax({
 				type : "POST",
@@ -1121,19 +1213,26 @@
         
         }
         
-        function alreadyValueSafed(){
+       
+        //Hier soll mitgeteilt werden, ob ein Wert bereits drinn ist dann wird die Methode von (bringUp...) automatisch den Wert überschreiben
+        function alreadyValueSafed(data){
 		
         }
         
         
-        function bringUpDataAndTimefromDB(){
-
+        
+        function bringUpDataAndTimefromDB(mitarbeiterID, date){
         
         }
         
         function successSafeTimeServer(){
-        	console.log("kommt in successSafeTimeServer");
+     
         
+        }
+        
+        //hier soll er den Wert aus dem Datenbank holen und dann die Zeit anzeigen, wo ein Mitarbeiter oder Admin an einem Arbeitstag machen muss. 
+        function setTargetTimefromDB (mitarbeiterID){
+
         }
 
             

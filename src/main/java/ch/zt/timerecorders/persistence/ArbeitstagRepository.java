@@ -27,6 +27,10 @@ public class ArbeitstagRepository {
 	public void addZeiterfassung(Arbeitstag zeiterfassung) {
 		zeiterfassungsRepo.add(zeiterfassung);	
 	}
+	
+	public int getSizeArrayList() {
+		return zeiterfassungsRepo.size();
+	}
 
 	
 
