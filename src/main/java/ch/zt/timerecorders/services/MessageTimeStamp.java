@@ -1,37 +1,51 @@
 package ch.zt.timerecorders.services;
 
 public class MessageTimeStamp {
+	
+	/**
+	 * @author Banujan Ragunathan
+	 * @author Kiren Gondal
+	 */
+	/*
+	 * Hier werden die Daten übernommen für den Datenbank - Input für den Interface (BR). 
+	 */
 
+	private long TAGESID;
 	private Long mitarbeiterID;
-	private String date; //datum
+	private String date; // datum
 
-	//Stunden Vormittag
+	// Stunden Vormittag
 	private int morningEndHours;
 	private int morningstartHours;
 
-		//Minuten Vormittag
+	// Minuten Vormittag
 	private double morningEndMinDeci;
 	private double morningStartMinDeci;
-		
-		//Stunden Nachmittag
+
+	// Stunden Nachmittag
 	private int afternoonEndHours;
 	private int afternoonStartHours;
 
-		
-		//Minuten Nachmittag
+	// Minuten Nachmittag
 	private double afternoonEndMinDeci;
 	private double afternoonStartMinDeci;
-	
-	//Summe Stunden und Minuten (in Dezimal)
-	private double morningTotal; //in Dezimal
-	private double afternoonTotal; //in Dezimal
-	
-	//geleistete Arbeitszeit am einem Tag
+
+	// Summe Stunden und Minuten (in Dezimal)
+	private double morningTotal; // in Dezimal
+	private double afternoonTotal; // in Dezimal
+
+	// geleistete Arbeitszeit am einem Tag
 	private double totalDeci;
-	
+
 	private double minusOderPlusZeit;
-	
-	
+
+	public long getTAGESID() {
+		return TAGESID;
+	}
+
+	public void setTAGESID(long tAGESID) {
+		TAGESID = tAGESID;
+	}
 
 	public Long getMitarbeiterID() {
 		return mitarbeiterID;
@@ -48,8 +62,7 @@ public class MessageTimeStamp {
 	public void setDate(String date) {
 		this.date = date;
 	}
-	
-	
+
 	public int getMorningEndHours() {
 		return morningEndHours;
 	}
@@ -146,6 +159,4 @@ public class MessageTimeStamp {
 		this.minusOderPlusZeit = minusOderPlusZeit;
 	}
 
-	
-	
 }

@@ -68,8 +68,8 @@ public class Arbeitstag {
 
 	// Format of the Data: Mon May 17 2021
 	public void splittingDateAndTime(String date) {
-		logger.info("Die Daten von Datum " +date+ " wurden auf dem Datenbank gespeichert.");
-		
+		logger.info("Die Daten von Datum " + date + " wurden auf dem Datenbank gespeichert.");
+
 		// Monat
 		String localmonat = date.substring(4, 7);
 
@@ -137,7 +137,6 @@ public class Arbeitstag {
 		this.jahr = Integer.parseInt(localJahr);
 
 	}
-
 
 	public int getTag() {
 		return tag;
