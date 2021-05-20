@@ -224,9 +224,7 @@
       
   -->
 
-    <table cellspacing="0" cellpadding="0" border="0" id="employeeTable" style="position: relative; margin: auto; width: 50px;">
-       
-    <table id ="mitarbeiterList">
+    <table id ="mitarbeiterList" class="employeeTableContent"cellspacing="0" cellpadding="0" border="0" id="employeeTable" style="position: relative; margin: auto; width: 955px;">
 			 <tr>
 			    <th>MitarbeiterID</th>
 			     <th>Surname</th>
@@ -256,8 +254,7 @@
 </html>
 
  <script>
- 
-    
+
     $(document).ready(function(){
     	$.getJSON("http://localhost:8081/mitarbeiterList/", function(data){
     		var mitarbeiter_data = '';
