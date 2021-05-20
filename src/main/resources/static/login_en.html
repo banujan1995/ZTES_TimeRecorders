@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="css/icons.css">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"> </script>
 <title>Login</title>
 </head>
 <body style="background-color: rgb(217, 240, 216)">
@@ -89,6 +90,25 @@
 
 
 	<script>
+		
+		var userIPAdress = {
+		ipAdress : "" ,
+		set ipAdress(x){
+		this.ipAdress =x;
+		}
+		};
+
+
+		// nimmt IP-Adresse des Users entgegen zur eindeutigen Identifikation
+		// full credit: https://www.geeksforgeeks.org/how-to-get-client-ip-address-using-javascript/
+		$.getJSON("https://api.ipify.org?format=json",
+			function(data) {
+
+			var IP = (data.ip);
+			userIPAdress.set(IP);
+		})
+
+
 
 		//Button wird nur enabled, falls Password und User einen Wert aufweisen
     	//TODO: muss beides überprüfen
@@ -146,6 +166,8 @@
 			var password = document.getElementById("loginPassword_EN").value;
 			var alert = document.getElementById("wrongInputs")
 
+			var ipAdress =userIPAdress.ipAdress;
+
 			// see: https://api.jquery.com/jquery.post/
 
 			$.ajax({
@@ -159,6 +181,18 @@
 				dataType : 'json',
 				contentType : 'application/json'
 			});
+
+			/*$.ajax({
+				type : "POST",
+				url : "/timerecorders/currentUsers/",
+				data : JSON.stringify({
+					user : user,
+					ipAdress : ipAdress,
+				}),
+				//success : ,
+				dataType : 'json',
+				contentType : 'application/json'
+			});*/
 
 		}
 
