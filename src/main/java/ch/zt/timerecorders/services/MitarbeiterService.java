@@ -216,13 +216,12 @@ public class MitarbeiterService {
 	 * TagesID ins DB speichern.
 	 */
 
-	// Hier wird die Liste geholt aus dem Datenbank und wird als Json angezeigt.
+	// Hier wird die Liste geholt aus dem Datenbank und wird als Json angezeigt. (BR)
 	@ResponseBody
 	@GetMapping(path = "/timerecorders/timestamps/", produces = "application/json")
 	public List allTimeStamps() {
 		List<TimeStampRegisterChange> time = timeStampRegisterChange.findAll();
-		System.out.println(time.toString());
-		logger.info("Liste der Zeiterfassung");
+		logger.info(time.toString() + "TimeStamps wurden übergeben");
 		return time;
 
 	}
@@ -255,8 +254,12 @@ public class MitarbeiterService {
 			}
 
 			if (zeiterfassungGefunden) {
-
+				
+				//Datum
+				timeStamps.get(counterY).setDate(zeiterfassung.getDate());
+				
 				// Vormittag Stunden
+								
 				timeStamps.get(counterY).setMorningEndHours(zeiterfassung.getMorningEndHours());
 				timeStamps.get(counterY).setMorningstartHours(zeiterfassung.getMorningstartHours());
 
@@ -285,7 +288,8 @@ public class MitarbeiterService {
 				timeStamp = new TimeStampRegisterChange();
 
 				timeStamp.setTAGESID(tagesIDGenerator(zeiterfassung.getDate()));
-				timeStamp.setMitarbeiterID(101);
+				timeStamp.setDate(zeiterfassung.getDate());
+//				timeStamp.setMitarbeiterID(101);
 
 				// Vormittag Stunden
 				timeStamp.setMorningEndHours(zeiterfassung.getMorningEndHours());
@@ -321,6 +325,7 @@ public class MitarbeiterService {
 			timeStamp = new TimeStampRegisterChange();
 
 			timeStamp.setTAGESID(tagesIDGenerator(zeiterfassung.getDate()));
+			timeStamp.setDate(zeiterfassung.getDate());
 
 			// Vormittag Stunden
 			timeStamp.setMorningEndHours(zeiterfassung.getMorningEndHours());
@@ -354,13 +359,7 @@ public class MitarbeiterService {
 
 	}
 
-	// Mitarbeiter Zeiterfassung - Veränderung (BR)
-
-	@PutMapping(path = "/timerecorders/zeiterfassung/changes/", produces = "application/json")
-	public boolean zeitveränderung(@RequestBody MessageTimeStamp einstempeln) {
-
-		return true;
-	}
+	
 
 	// Mitarbeiter - Ferien erfassen (BR)
 
