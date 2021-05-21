@@ -225,13 +225,17 @@
   -->
 
     <table cellspacing="0" cellpadding="0" border="0" id="employeeTable" style="position: relative; margin: auto; width: 50px;">
+    
+    <table class="employeeTable" cellspacing="0" cellpadding="0" border="0" id="employeeTable" style="position: relative; margin: auto; width: 955px;">
+  
        
-        <table id ="mitarbeiterList">
+      <table id ="mitarbeiterList" class="employeeTableContent"cellspacing="0" cellpadding="0" border="0" id="employeeTable" style="position: relative; margin: auto; width: 955px;">
 			 <tr>
 			    <th>MitarbeiterID</th>
 			     <th>Surname</th>
 			    <th>Username</th>
 			    <th>Workload</th>
+			     <th>Edit</th>
 			  </tr>
 			<tbody>
 			</tbody>
@@ -262,10 +266,11 @@
     		var mitarbeiter_data = '';
     		$.each(data, function(key, value){
     			mitarbeiter_data += '<tr>';
-    			mitarbeiter_data += '<td>'+value.mitarbeiterID+ '</td>';
-    			mitarbeiter_data += '<td>'+value.surname+ '</td>';
-    			mitarbeiter_data += '<td>'+value.username+ '</td>';
-    			mitarbeiter_data += '<td>'+value.pensum+ '</td>';
+    			var mitarbeiterID = mitarbeiter_data += '<td>'+"10" +value.mitarbeiterID+ '</td>';
+    			var surname = mitarbeiter_data += '<td>'+value.surname+ '</td>';
+    			var username = mitarbeiter_data += '<td>'+value.username+ '</td>';
+    			var pensum = mitarbeiter_data += '<td>'+value.pensum+ '</td>';
+    			mitarbeiter_data += '<td>' +"<input type='button' id='" + value.mitarbeiterID + "' onclick='CallMe(" + value.mitarbeiterID + ")' value='Delete'>"+ '</td>';
     			mitarbeiter_data += '</tr>';
     		});
     		$('#mitarbeiterList').append(mitarbeiter_data);	
@@ -273,5 +278,71 @@
     	});
     	    
     });
+    
+    function CallMe(data){
+    	
+    var i = data.parentNode.parentNode.rowIndex;
+    document.getElementById("mitarbeiterList").deleteRow(i);
+    alert("The ID 10"+data+ " is deleted");  
+    
+    $.ajax({
+		type : "POST",
+		url : "http://localhost:8081/deleteMitarbeiter/",
+		data : JSON.stringify({
+			mitarbeiterID : mitarbeiterID,
+			username : username
+
+		}),
+		success : successCredentials,
+		dataType : 'json',
+		contentType : 'application/json'
+	});
+
+    
+
+ 
+
+    	/* Hier ist die Antwort vom Server, welches vearbeitet wird (KG)*/
+
+    	function successCredentials(response) {
+    		if (response == true) {
+    			handleSuccessCreditals(response);
+
+    		} else {
+    			handleFailureCreditals(response);
+    		}
+    	}
+
+    	/* Hier ist die Weiterleitung bei einer erfolgreichen oder 
+    	nicht erfolgreichen Eingaben der Username (KG)*/
+    	
+    	function handleSuccessCreditals(response) {
+    		var alert = document.getElementById("wrongInputs")
+
+    		console.log("Authorisation successful");
+    		alert.style.display = "none";
+    		window.location.assign("http://localhost:8081/main")
+
+    	}
+
+    	function handleFailureCreditals(response) {
+    		var alert = document.getElementById("wrongInputs")
+
+    		console.log("Authorisation failure / Missing value");
+    		alert.style.display = "block";
+    	}
+    	}
+   
+  //Mitarbeiter löschen
+    function deleteEmployee(x){
+        //nimmt Username des ausgewählten MA entgegen und zeigt diesen im Alert an
+        var user = x.parentNode.parentNode.cells[1].innerHTML;
+        if (confirm("Dear Admin \n\nAre you sure to delete to"+ user+"? \n \nPlease use the appriopate button! \n\nThanks!")) {
+            var i = x.parentNode.parentNode.rowIndex;
+            document.getElementById("employeeTableContent").deleteRow(i);
+        } else {
+         }
+  }
+    
 
     </script>

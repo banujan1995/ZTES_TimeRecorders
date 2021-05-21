@@ -70,5 +70,12 @@ public class ViewsController {
 		return "report_en.html";
 
 	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/changePassword")
+	public String changePassword(Model model) {
+		logger.info("Das HTML Change wurde geladen.");
+		return "changePassword_MA_en.html";
+
+	}
 
 }

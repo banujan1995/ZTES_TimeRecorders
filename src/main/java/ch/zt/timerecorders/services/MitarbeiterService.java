@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -83,6 +84,27 @@ public class MitarbeiterService {
 	/**
 	 * CRUD Methoden, um Mitarbeiter zu erfassen, mutieren, verändern, löschen (BR)
 	 */
+	
+	// Einloggen nur möglich wenn Mitarbeiter in DB vorhanden ist (KG)
+	
+	@PostMapping(path = "/timerecorders/mitarbeiterlogin/", produces = "application/json")
+	public boolean isValidUser(@RequestBody MessageMaRegister login) {
+
+		List<MitarbeiterRegister> ma = mitarbeiterRepositoryInterface.findAll();
+
+		for (MitarbeiterRegister m : ma) {
+			if ((m.getUsername().equals(login.getUsername()) && (m.getPasswort().equals(login.getPasswort())))) {
+				logger.info("Mitarbeiter wurde gefunden");
+				return true;
+
+			} else {
+				logger.info("Mitarbeiter wurde nicht gefunden");
+
+			}
+
+		}
+		return false;
+	}
 
 	// Mitarbeiter erstellen KG
 
@@ -99,7 +121,27 @@ public class MitarbeiterService {
 		m1 = mitarbeiterRepositoryInterface.save(m1); // beim Speichern wird eine MAId automatisch vergeben
 		logger.info("MA erfolgreich hinzugefügt");
 		return m1.getMitarbeiterID();
+	}
+	
+	// KG: Change Password eines Benutzers ändern
+	@PostMapping(path = "/changePassword/", produces = "application/json")
+	public boolean changePasswort(@RequestBody MessageMaRegister m) {
+		
+		List<MitarbeiterRegister> ma = mitarbeiterRepositoryInterface.findAll();
+		
+		for (MitarbeiterRegister ml : ma) {
+			if (m.getUsername().equals(ml.getUsername())) {
+				ml.setPasswort(m.getPasswort());
+				ml = mitarbeiterRepositoryInterface.save(ml);
+				logger.info("Passwort wurde geändert!");
+				return true;
+			} else {
+				logger.info("Mitarbeiter nicht vorhanden");
 
+			}
+
+		}
+		return false;
 	}
 
 	// KG: MA Liste erstellen als JSON
@@ -110,12 +152,36 @@ public class MitarbeiterService {
 		List<MitarbeiterRegister> ma = mitarbeiterRepositoryInterface.findAll();
 		logger.info(ma.toString() + "Liste wurde erfolgreich erstellt");
 		return ma;
-
+	
 	}
+	
 
 	// Mitarbeiter mutieren von MA zu AD (BR)
 
-	// Mitarbeiter löschen (BR)
+	// Mitarbeiter aus der Employee Liste löschen (KG)
+	
+	@PostMapping(path = "/deleteMitarbeiter/", produces = "application/json")
+	public boolean deleteMA(@RequestBody MassageMaDelete m) {
+		boolean mitarbeiterfound = false;
+		
+		List<MitarbeiterRegister> ma = mitarbeiterRepositoryInterface.findAll();
+		
+		for (MitarbeiterRegister ml : ma) {
+			if (ml.getUsername().equalsIgnoreCase(m.getUsername())) {
+				
+				logger.info("Mitarbeiter wurde gelöscht");
+				mitarbeiterfound = true;
+			} else {
+				logger.info("Mitarbeiter zum Löschen nicht gefunden");
+				mitarbeiterfound =  false;
+
+			}
+
+		}
+		return mitarbeiterfound;
+	
+	}
+	
 
 	/**
 	 * Mitarbeiter verändern (BR) - je nach Daten eine anderen Code nötig
@@ -145,36 +211,9 @@ public class MitarbeiterService {
 	// Mitarbeiter Zeitregister auslesen(BR)
 
 	// Mitarbeiter einzelne Zeitelement auslesen
-
 	/**
 	 * Funktionen für Mitarbeiter, welche von Mitarbeiter aufgeruft werden auf der
 	 * Webapplikation (BR)
-	 */
-
-	@PostMapping(path = "/timerecorders/mitarbeiterlogin/", produces = "application/json")
-	public boolean isValidUser(@RequestBody MessageMaRegister login) {
-
-		List<MitarbeiterRegister> ma = mitarbeiterRepositoryInterface.findAll();
-
-		for (MitarbeiterRegister m : ma) {
-			if (m.getUsername().equals(login.getUserame())) {
-				logger.info("Mitarbeiter wurde gefunden");
-				return true;
-
-			} else {
-				logger.info("Mitarbeiter wurde nicht gefunden");
-
-			}
-
-		}
-		return false;
-
-	}
-
-	/*
-	 * Mitarbeiter Login (BR) Hilfestellung bei der Lösung:
-	 * https://stackoverflow.com/questions/11291933/requestbody-and-responsebody-
-	 * annotations-in-spring
 	 */
 
 //	@PostMapping(path = "/timerecorders/mitarbeiterlogin/", produces = "application/json")
@@ -216,7 +255,7 @@ public class MitarbeiterService {
 	 * TagesID ins DB speichern.
 	 */
 
-	// Hier wird die Liste geholt aus dem Datenbank und wird als Json angezeigt.
+	// KG: Hier wird die Liste geholt aus dem Datenbank und wird als Json angezeigt 
 	@ResponseBody
 	@GetMapping(path = "/timerecorders/timestamps/", produces = "application/json")
 	public List allTimeStamps() {
