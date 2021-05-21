@@ -280,6 +280,9 @@ public class MitarbeiterService {
 
 				// Summe Nachmittag in Dezimal
 				timeStamps.get(counterY).setAfternoonTotal(zeiterfassung.getAfternoonTotal());
+				
+				//Summe ganzer Tag 
+				timeStamps.get(counterY).setTotalDeci(zeiterfassung.getTotalDeci());
 
 				timeStamps = timeStampRegisterChange.saveAll(timeStamps);
 
@@ -312,6 +315,9 @@ public class MitarbeiterService {
 
 				// Summe Nachmittag in Dezimal
 				timeStamp.setAfternoonTotal(zeiterfassung.getAfternoonTotal());
+				
+				//Summe ganzer Tag 
+				timeStamp.setTotalDeci(zeiterfassung.getTotalDeci());
 
 				// Summe Überzeit
 				timeStamp.setMinusOderPlusZeit(0.00);
@@ -348,6 +354,9 @@ public class MitarbeiterService {
 
 			// Summe Nachmittag in Dezimal
 			timeStamp.setAfternoonTotal(zeiterfassung.getAfternoonTotal());
+			
+			//Summe ganzer Tag 
+			timeStamp.setTotalDeci(zeiterfassung.getTotalDeci());
 
 			// Summe Überzeit
 			timeStamp.setMinusOderPlusZeit(0.00);
