@@ -9,6 +9,8 @@
 <link rel="stylesheet" href="css/icons.css">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+
 <title>Anmeldung</title>
 </head>
 <body style="background-color: rgb(217, 240, 216)">
@@ -82,13 +84,25 @@
 		<a href="mailto:admin@jkbgmbh.ch" id="loginIssues" style="display: block; text-align: center; width: 100%;"> Login Problem?</a>
 	</footer>
 
+	
+
 
 	<script>
+	var userIPAdress = {
+			ipAdress : "" ,
+			set ip(ip){
+			this.ipAdress = ip;
+			}
+			};
+
+	
 
     //Button wird nur enabled, falls Password und User einen Wert aufweisen
     //TODO: muss beides überprüfen
     function enableButton(){
         document.getElementById("loginButton").disabled = false;
+        getAndSafeIP();
+        console.log("ich komme in enable Button");
     }
 
 
@@ -122,7 +136,7 @@
 
     //gibt eine Warnung an, falls Feststelltaste aktiviert ist
 		//credits to: https://www.w3schools.com/howto/howto_js_detect_capslock.asp
-		var input = document.getElementById("loginPassword_DE");
+		var input = document.getElementById("inPassword_DE");
 		var text = document.getElementById("capsON_en");
 		input.addEventListener("keyup", function(event) {
 
@@ -139,6 +153,7 @@
 		*/
 
 		function checkInputs() {
+			
 			console.log("kommt in Checkinputs");
 
 			var username= document.getElementById("loginUserName_DE").value;
@@ -164,10 +179,13 @@
 		/* Hier ist die Antwort vom Server, welches vearbeitet wird (BR)*/
 
 		function successCredentials(response) {
+	
+						
 			if (response == true) {
 				//$.getJSON("http://localhost:8081/timerecorders/mitarbeiterlogin/").done(
 				//handleSuccessCreditals);
 				handleSuccessCreditals(response);
+				
 
 			} else {
 				//$.getJSON("http://localhost:8081/timerecorders/mitarbeiterlogin/").fail(handleFailureCreditals);
@@ -180,10 +198,14 @@
 		
 		function handleSuccessCreditals(response) {
 			var alert = document.getElementById("wrongInputs")
-
+			
+			var username= document.getElementById("loginUserName_DE").value;
+			var ip = userIPAdress.ipAdress;
+			
+			registerUserDB(ip, username);
 			console.log("Authorisation successful");
 			alert.style.display = "none";
-			window.location.assign("http://localhost:8081/main")
+			window.location.assign("http://localhost:8081/main");
 
 		}
 
@@ -194,11 +216,63 @@
 			alert.style.display = "block";
 
 		}
+		
+		
+		//Hier wir der IP Adresse geholt und niedergeschrieben. 
+		function getAndSafeIP(){	
+			console.log("ich komme in getAndSafeIP");
+			
+			
+			// nimmt IP-Adresse des Users entgegen zur eindeutigen Identifikation
+			// full credit: https://www.geeksforgeeks.org/how-to-get-client-ip-address-using-javascript/
+			$.getJSON("http://api.ipify.org/?format=json", function(e) {
+				userIPAdress.ip = String(e.ip);
+			});
+		
+
+		}
+		
+		function registerUserDB(ip, username){
+			  console.log("ich komme in registerUserDB");
+			  
+			$.ajax({
+				type : "POST",
+				url : "http://localhost:8081/timerecorders/registeruser/",
+				data : JSON.stringify({
+
+					ip : ip,
+					username : username,
+					
+				}),
+				success : successSaveActiveUser,
+				dataType : 'json',
+				contentType : 'application/json'
+			});
+			
+		}
+		
+		function successSaveActiveUser(response){
+			
+			if (response){
+			console.log("Sucessful: register active user");
+			} else {
+			console.log("Unsucessful: register active user");
+			}
+			
+		}
+		
+
+		
 	</script>
 
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	
 	<script src="https://code.jquery.com/jquery-3.5.1.js"
 		integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 		crossorigin="anonymous"></script>
+		
+
+		
 
 </body>
 </html>

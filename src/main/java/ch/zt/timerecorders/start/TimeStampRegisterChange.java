@@ -15,7 +15,7 @@ import javax.persistence.Table;
  */
 
 /*
- * Tabelle im Datenbank (BR)
+ * Timetable im Datenbank abspeichern (BR)
  */
 
 @Entity
