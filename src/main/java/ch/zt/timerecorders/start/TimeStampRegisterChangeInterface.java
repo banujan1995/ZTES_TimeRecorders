@@ -12,7 +12,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 
 /*
- * Tabelle im Dokument erstellt und die Methoden für DB zur Verfügung gestellt (KG)
+ * Tabelle im Dokument erstellt und die Methoden für DB zur Verfügung gestellt
+ * (KG)
  */
 
 public interface TimeStampRegisterChangeInterface extends JpaRepository<TimeStampRegisterChange, Integer> {

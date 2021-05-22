@@ -103,7 +103,7 @@
 		// full credit: https://www.geeksforgeeks.org/how-to-get-client-ip-address-using-javascript/
 		$.getJSON("https://api.ipify.org?format=json",
 			function(data) {
-
+			console.log("oben" + data);
 			var IP = (data.ip);
 		})
 
