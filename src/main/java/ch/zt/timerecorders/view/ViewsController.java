@@ -77,5 +77,12 @@ public class ViewsController {
 		return "changePassword_MA_en.html";
 
 	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/absence")
+	public String showAbsence(Model model) {
+		logger.info("Das HTML Absencen wurde geladen.");
+		return "absence_en.html";
+
+	}
 
 }
