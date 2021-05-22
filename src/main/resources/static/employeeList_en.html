@@ -281,6 +281,9 @@
     
     function CallMe(data){
     	
+    $jsonString = file_get_contents('http://localhost:8081/mitarbeiterList/');
+    $data = json_decode($jsonString);
+    	
     var i = document.getElementById("mitarbeiterList").deleteRow(1);
     alert("The ID 10"+data+ " is deleted");  
     

@@ -49,19 +49,44 @@
     <span class="validity"></span>
     </div>
     </form>
-
-    <div id="startOfExport" style="visibility: hidden; position: relative; margin: auto; width: 50px;">
-        <h1>Example:</h1>
-        <p>Print to PDF</p>
-        <p>Print to PDF</p>
-        <p>Print to PDF</p>
-        <p>Print to PDF</p>
-    </div>
-
-
-<div style="display: block; text-align: center;width: 100%;">
+    
+    
+    <table id ="mitarbeiter" class="employeeTableContent"cellspacing="0" cellpadding="0" border="0" id="employeeTable" style="position: relative; margin: auto; width: 955px;">
+			 <tr>
+			    <th>MitarbeiterID</th>
+			     <th>TagesID</th>
+			    <th>Morning Start Hours</th>
+			    <th>Morning End Hours</th>
+			    <th>Afternoon Start Hours</th>
+			    <th>Afternoon End Hours</th>
+			     <th>Minus oder Plus Zeit</th>
+			  </tr>
+			<tbody>
+			</tbody>
+		</table>
+		
+		
+		
+		        <div style="display: block; text-align: center;width: 100%;">
     <button id="generatePDF" class="button" onclick="convertToPDF()"> Generate PDF</button>
 </div>
+
+    <div id="startOfExport" style="visibility: hidden; position: relative; margin: auto; width: 50px;">
+      <table id ="mitarbeiterList" class="employeeTableContent"cellspacing="0" cellpadding="0" border="0" id="employeeTable" style="position: relative; margin: auto; width: 955px;">
+			 <tr>
+			    <th>MitarbeiterID</th>
+			     <th>TagesID</th>
+			    <th>Morning Start Hours</th>
+			    <th>Morning End Hours</th>
+			    <th>Afternoon Start Hours</th>
+			    <th>Afternoon End Hours</th>
+			     <th>-/+ Zeit</th>
+			  </tr>
+			<tbody>
+			</tbody>
+		</table>
+  </div>
+
     
     
 
@@ -77,18 +102,46 @@
         // erstellt eine PDF-Datei für den Export des Reports
         // full credit to: https://qawithexperts.com/article/javascript/easy-way-to-convert-html-to-pdf-using-javascript/335
         function convertToPDF(){
-            var doc = new jsPDF();
-            doc.fromHTML(document.getElementById("startOfExport"), 20, 20, {
-                'width' : 500
-            },
-            function (x){
-                var month= document.getElementById("chosenMonth").value; 
-                doc.save('report_'+month+'.pdf');
-            });
-        }
+		var doc = new jsPDF({
+		orientation: 'landscape'
+		});
+		doc.fromHTML(document.getElementById("startOfExport"), 20, 20, {
+		'width' : 500
+		},
+		function (x){
+		var month= document.getElementById("chosenMonth").value; 
+		doc.save('report_'+month+'.pdf');
+		});
+		}
+        
   
 
     </script>
+    
+<script>
+
+$(document).ready(function(){
+	$.getJSON("http://localhost:8081/timerecorders/timestamps/", function(data){
+		var mitarbeiter_data = '';
+		$.each(data, function(key, value){
+			mitarbeiter_data += '<tr>';
+			var mitarbeiterID = mitarbeiter_data += '<td>'+"10" +value.mitarbeiterID+ '</td>';
+			var tagesid = mitarbeiter_data += '<td>'+value.tagesid+ '</td>';
+			var morningstartHours = mitarbeiter_data += '<td>'+value.morningstartHours+ '</td>';
+			var morningEndHours = mitarbeiter_data += '<td>'+value.morningEndHours+ '</td>';
+			var afternoonStartHours = mitarbeiter_data += '<td>'+value.afternoonStartHours+ '</td>';
+			var afternoonEndHours = mitarbeiter_data += '<td>'+value.afternoonEndHours+ '</td>';
+			var minusOderPlusZeit = mitarbeiter_data += '<td>'+value.minusOderPlusZeit+ '</td>';
+			mitarbeiter_data += '</tr>';
+		});
+		$('#mitarbeiterList').append(mitarbeiter_data);	
+		$('#mitarbeiter').append(mitarbeiter_data);	
+		
+	});
+	    
+});
+
+</script>
     
 </body>
 </html>
