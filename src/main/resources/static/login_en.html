@@ -9,7 +9,8 @@
 <link rel="stylesheet" href="css/icons.css">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"> </script>
+
+
 <title>Login</title>
 </head>
 <body style="background-color: rgb(217, 240, 216)">
@@ -19,12 +20,11 @@
 			<img src="css/images/Logo.png" alt="Logo" class="logo"
 				style="height: 100px; width: 350px;">
 		</div>
-
 		<br> <br> <br> <br> <br> <br>
 		<nav>
-			<label for="german" class="label_language"> Change language
-				to: </label> <a href="login_de.html"><img src="css/images/DE.jpeg"
-				alt="Deutsch" name="german" style="width: 20; height: 15;"></a>
+			<label for="german" class="label_language"> Change language:
+			</label> <a href="http://localhost:8081/login"><img src="css/images/UK.png"
+				alt="German" name="german" style="width: 20; height: 15;"></a>
 		</nav>
 
 		<p class="title">Time Recording System</p>
@@ -32,54 +32,49 @@
 
 
 	</header>
-<body style="background-color: azure">
-
 	<br>
 	<br>
 	<br>
 
 	<i class="fa fa-user icon" style="display: block; text-align: center; width: 100%;"</i>
-	<label for="loginUsername" class="text"><b>User name: </b></label>
-	<input type="text" style="min-width: 160px; text-align: center;" placeholder="Enter user name" name="loginUsername" onkeyup="enableButton()" class="textField" id="loginUserName_EN" required>
+	<label for="loginUsername" class="text"><b>Username: </b></label>
+	<input type="text" style="min-width: 160px; text-align: center;" placeholder="Enter username"	onkeyup="enableButton()" name="loginUsername" class="textField" id="loginUserName_EN" required>
 
 	<br>
 	<br>
 
-	<i class="fa fa-key icon" style="display: block; text-align: center; width: 100%;"</i>
+	<i class="fa fa-key icon"	style="display: block; text-align: center; width: 100%;"</i>
 	<label for="loginPassword" class="text"><b>Password: </b></label>
-	<input type="password" style="min-width: 160px; text-align: center;" placeholder="Enter password" name="loginPassword" onkeyup="enableButton()" class="textField" id="loginPassword_EN" required>
+	<input type="password" style="min-width: 160px; margin-left: 33px; text-align: center;" placeholder="Enter Password" onkeyup="enableButton()" name="loginPassword" class="textField" id="loginPassword_EN" required>
+	<br>
+	<br>
+	<br>
+	<p id="capsON_EN">WARNING! Caps lock is ON.</p>
+	<br>
+	<br>
 
-	<br>
-	<br>
-	<br>
-	<p id="capsON_en">WARNING! Caps lock is ON.</p>
-	<br>
-	<br>
-
-	<!-- Meldung, falls Benutzername oder Passwort falsch sind-->
+  <!-- Meldung, falls Benutzername oder Passwort falsch sind-->
 	<!-- credits to: https://www.w3schools.com/howto/howto_js_detect_capslock.asp-->
 	<div class="alert" id="wrongInputs" style="max-width: 380px; position: relative; margin: auto;">
-		<span class="closebtn"onclick="this.parentElement.style.display='none';">&times;</span> 
-			<strong> Incorrect password and/or user name!</strong> 
-			<br> Please enter the right credentials!
+		<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+    <strong> Wrong password and/or username!</strong> 
+    <br> Please try again!
 	</div>
 	<br>
 	<br>
 
-
-	<input type="checkbox" onclick="showPassword()" id="showPassword">
-	Show password
+	<input type="checkbox" onclick="showPassword()" id="showPassword"> Show password
 
 	<br>
 	<br>
 
-	<div class="w3-light-grey"style="max-width: 150px; position: relative; margin: auto;">
-		<div id="loginProgress" class="w3-container w3-blue  w3-center" style="width: 0%">0%</div>
+	<div class="w3-light-grey" style="max-width: 150px; margin-left: 45%; position: relative; margin: auto;">
+		<div id="loginProgress" class="w3-container w3-blue  w3-center"style="width: 0%">0%</div>
 	</div>
-	<br>
+ <br>
 
 
-	<button class="button" onclick="load(); checkInputs()" id="loginButton" disabled>Login</button>
+	<button class="button" id="loginButton" onclick="load(); checkInputs()" disabled> Login</button>
 
 	<br>
 	<br>
@@ -88,35 +83,30 @@
 		<a href="mailto:admin@jkbgmbh.ch" id="loginIssues" style="display: block; text-align: center; width: 100%;"> Login issues?</a>
 	</footer>
 
+	
+
 
 	<script>
-		
-		var userIPAdress = {
-		ipAdress : "" ,
-		set ipAdress(x){
-		this.ipAdress =x;
-		}
-		};
+	var userIPAdress = {
+			ipAdress : "" ,
+			set ip(ip){
+			this.ipAdress = ip;
+			}
+			};
+
+	
+
+    //Button wird nur enabled, falls Password und User einen Wert aufweisen
+    //TODO: muss beides überprüfen
+    function enableButton(){
+        document.getElementById("loginButton").disabled = false;
+        getAndSafeIP();
+        console.log("ich komme in enable Button");
+    }
 
 
-		// nimmt IP-Adresse des Users entgegen zur eindeutigen Identifikation
-		// full credit: https://www.geeksforgeeks.org/how-to-get-client-ip-address-using-javascript/
-		$.getJSON("https://api.ipify.org?format=json",
-			function(data) {
-			console.log("oben" + data);
-			var IP = (data.ip);
-		})
-
-
-
-		//Button wird nur enabled, falls Password und User einen Wert aufweisen
-    	//TODO: muss beides überprüfen
-    	function enableButton(){
-        	document.getElementById("loginButton").disabled = false;
-    	}
-
-		//Progessbar ladet
-		//credits to: https://www.w3schools.com/w3css/w3css_progressbar.asp
+    //Progessbar ladet
+		//credit to: www.w3schools.com/w3css/w3css_progressbar.asp
 		function load() {
 			var elem = document.getElementById("loginProgress");
 			var width = 0;
@@ -132,8 +122,8 @@
 			}
 		}
 
-		//Macht das Passwortfeld sichtbar
-		//credits to: https://www.w3schools.com/howto/howto_js_toggle_password.asp
+    //Macht das Passwortfeld sichtbar
+		//credit to: https://www.w3schools.com/howto/howto_js_toggle_password.asp
 		function showPassword() {
 			var x = document.getElementById("loginPassword_EN");
 			if (x.type === "password") {
@@ -143,10 +133,10 @@
 			}
 		}
 
-		//gibt eine Warnung an, falls Feststelltaste aktiviert ist
-		//credits to: https://www.w3schools.com/howto/howto_js_detect_capslock.asp'
+    //gibt eine Warnung an, falls Feststelltaste aktiviert ist
+		//credits to: https://www.w3schools.com/howto/howto_js_detect_capslock.asp
 		var input = document.getElementById("loginPassword_EN");
-		var text = document.getElementById("capsON_en");
+		var text = document.getElementById("capsON_EN");
 		input.addEventListener("keyup", function(event) {
 
 			if (event.getModifierState("CapsLock")) {
@@ -158,14 +148,16 @@
 
 		/* Hier wird die Credentials 
 		überprüft und bei Korrektur eingaben der 
-		Passwort wird auf andere Seite gewechselt (BR) - ENGLISCH
-		 */
-		function checkInputs() {
-			var user = document.getElementById("loginUserName_EN").value;
-			var password = document.getElementById("loginPassword_EN").value;
-			var alert = document.getElementById("wrongInputs")
+		Passwort wird auf andere Seite gewechselt (BR)
+		*/
 
-			var ipAdress =userIPAdress.ipAdress;
+		function checkInputs() {
+			
+			console.log("kommt in Checkinputs");
+
+			var username= document.getElementById("loginUserName_EN").value;
+			var passwort = document.getElementById("loginPassword_EN").value;
+			var alert = document.getElementById("wrongInputs")
 
 			// see: https://api.jquery.com/jquery.post/
 
@@ -173,35 +165,26 @@
 				type : "POST",
 				url : "/timerecorders/mitarbeiterlogin/",
 				data : JSON.stringify({
-					user : user,
-					password : password
+					username : username,
+					passwort : passwort
 				}),
 				success : successCredentials,
 				dataType : 'json',
 				contentType : 'application/json'
 			});
 
-			/*$.ajax({
-				type : "POST",
-				url : "/timerecorders/currentUsers/",
-				data : JSON.stringify({
-					user : user,
-					ipAdress : ipAdress,
-				}),
-				//success : ,
-				dataType : 'json',
-				contentType : 'application/json'
-			});*/
-
 		}
-
-		/* Hier ist die Antwort vom Server, welches vearbeitet wird (BR)- ENGLISCH*/
+		
+		/* Hier ist die Antwort vom Server, welches vearbeitet wird (BR)*/
 
 		function successCredentials(response) {
+	
+						
 			if (response == true) {
 				//$.getJSON("http://localhost:8081/timerecorders/mitarbeiterlogin/").done(
 				//handleSuccessCreditals);
 				handleSuccessCreditals(response);
+				
 
 			} else {
 				//$.getJSON("http://localhost:8081/timerecorders/mitarbeiterlogin/").fail(handleFailureCreditals);
@@ -210,14 +193,18 @@
 		}
 
 		/* Hier ist die Weiterleitung bei einer erfolgreichen oder 
-		nicht erfolgreichen Eingaben der Credentials (BR) - ENGLISCH*/
-
+		nicht erfolgreichen Eingaben der Credentials (BR)*/
+		
 		function handleSuccessCreditals(response) {
 			var alert = document.getElementById("wrongInputs")
-
+			
+			var username= document.getElementById("loginUserName_EN").value;
+			var ip = userIPAdress.ipAdress;
+			
+			registerUserDB(ip, username);
 			console.log("Authorisation successful");
 			alert.style.display = "none";
-			window.location.href = "main_en.html";
+			window.location.assign("http://localhost:8081/main");
 
 		}
 
@@ -228,11 +215,63 @@
 			alert.style.display = "block";
 
 		}
+		
+		
+		//Hier wir der IP Adresse geholt und niedergeschrieben. 
+		function getAndSafeIP(){	
+			console.log("ich komme in getAndSafeIP");
+			
+			
+			// nimmt IP-Adresse des Users entgegen zur eindeutigen Identifikation
+			// full credit: https://www.geeksforgeeks.org/how-to-get-client-ip-address-using-javascript/
+			$.getJSON("http://api.ipify.org/?format=json", function(e) {
+				userIPAdress.ip = String(e.ip);
+			});
+		
+
+		}
+		
+		function registerUserDB(ip, username){
+			  console.log("ich komme in registerUserDB");
+			  
+			$.ajax({
+				type : "POST",
+				url : "http://localhost:8081/timerecorders/registeruser/",
+				data : JSON.stringify({
+
+					ip : ip,
+					username : username,
+					
+				}),
+				success : successSaveActiveUser,
+				dataType : 'json',
+				contentType : 'application/json'
+			});
+			
+		}
+		
+		function successSaveActiveUser(response){
+			
+			if (response){
+			console.log("Sucessful: register active user");
+			} else {
+			console.log("Unsucessful: register active user");
+			}
+			
+		}
+		
+
+		
 	</script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	
 	<script src="https://code.jquery.com/jquery-3.5.1.js"
 		integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 		crossorigin="anonymous"></script>
+		
+
+		
 
 </body>
 </html>

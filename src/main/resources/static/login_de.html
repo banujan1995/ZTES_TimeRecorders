@@ -22,9 +22,9 @@
 		</div>
 		<br> <br> <br> <br> <br> <br>
 		<nav>
-			<label for="german" class="label_language"> Sprache wechseln:
-			</label> <a href="login_en.html"><img src="css/images/UK.png"
-				alt="Deutsch" name="german" style="width: 20; height: 15;"></a>
+			<label for="english" class="label_language"> Sprache wechseln:
+			</label> <a href="http://localhost:8081/loginen"><img src="css/images/UK.png"
+				alt="English" name="english" style="width: 20; height: 15;"></a>
 		</nav>
 
 		<p class="title">Zeiterfassungssystem</p>
@@ -45,11 +45,11 @@
 
 	<i class="fa fa-key icon"	style="display: block; text-align: center; width: 100%;"</i>
 	<label for="loginPassword" class="text"><b>Passwort: </b></label>
-	<input type="password" style="min-width: 160px; margin-left: 33px; text-align: center;" placeholder="Password eingeben" onkeyup="enableButton()" name="loginPassword" class="textField" id="loginPassword_DE" required>
+	<input type="password" style="min-width: 160px; margin-left: 33px; text-align: center;" placeholder="Passwort eingeben" onkeyup="enableButton()" name="loginPassword" class="textField" id="loginPassword_DE" required>
 	<br>
 	<br>
 	<br>
-	<p id="capsON_en">ACHTUNG! Festelltaste ist aktiviert!.</p>
+	<p id="capsON_DE">ACHTUNG! Festelltaste ist aktiviert!.</p>
 	<br>
 	<br>
 
@@ -136,8 +136,8 @@
 
     //gibt eine Warnung an, falls Feststelltaste aktiviert ist
 		//credits to: https://www.w3schools.com/howto/howto_js_detect_capslock.asp
-		var input = document.getElementById("inPassword_DE");
-		var text = document.getElementById("capsON_en");
+		var input = document.getElementById("loginPassword_DE");
+		var text = document.getElementById("capsON_DE");
 		input.addEventListener("keyup", function(event) {
 
 			if (event.getModifierState("CapsLock")) {
