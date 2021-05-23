@@ -266,33 +266,52 @@
     		var mitarbeiter_data = '';
     		$.each(data, function(key, value){
     			mitarbeiter_data += '<tr>';
-    			var mitarbeiterID = mitarbeiter_data += '<td>'+"10" +value.mitarbeiterID+ '</td>';
-    			var surname = mitarbeiter_data += '<td>'+value.surname+ '</td>';
-    			var username = mitarbeiter_data += '<td>'+value.username+ '</td>';
-    			var pensum = mitarbeiter_data += '<td>'+value.pensum+ '</td>';
-    			mitarbeiter_data += '<td>' +"<input type='button' id='" + value.mitarbeiterID + "' onclick='CallMe(" + value.mitarbeiterID + ")' value='Delete'>"+ '</td>';
+    			var mitarbeiterID = mitarbeiter_data += '<td id = "mitarbeiterID">'+"10" +value.mitarbeiterID+ '</td>';
+    			var surname = mitarbeiter_data += '<td id = "surname">'+value.surname+ '</td>';
+    			var username = mitarbeiter_data += '<td id = "username">'+value.username+ '</td>';
+    			var pensum = mitarbeiter_data += '<td id = "pensum">'+value.pensum+ '</td>';
+    			mitarbeiter_data += '<td>' +"<input type='button' id='DeleteButton' onclick='CallMe(this)' value='Delete'>"+ '</td>';
     			mitarbeiter_data += '</tr>';
     		});
     		$('#mitarbeiterList').append(mitarbeiter_data);	
+    		
+    		$('tr:has(td:empty)').hide();    	   
+    		
     		
     	});
     	    
     });
     
-    function CallMe(data){
+    function CallMe(row)
+    {
     	
-    $jsonString = file_get_contents('http://localhost:8081/mitarbeiterList/');
-    $data = json_decode($jsonString);
-    	
-    var i = document.getElementById("mitarbeiterList").deleteRow(1);
-    alert("The ID 10"+data+ " is deleted");  
+    	console.log("kommt rein");
+        var i=row.parentNode.parentNode.rowIndex;
+        document.getElementById('mitarbeiterList').deleteRow(i);
+        alert("The ID is deleted");
+        
+        var mitarbeiterID = row.parentNode.parentNode.rowIndex;
+        document.getElementById("mitarbeiterID").innerHTML;
+        var surname = row.parentNode.parentNode.rowIndex;
+        document.getElementById("surname").innerHTML;
+        var username = row.parentNode.parentNode.rowIndex;
+        document.getElementById("username").innerHTML;
+        var pensum = row.parentNode.parentNode.rowIndex;
+        document.getElementById("pensum").innerHTML;
+        
+        
+        console.log("ich komme hier rein");
+        
     
     $.ajax({
 		type : "POST",
-		url : "http://localhost:8081/deleteMitarbeiter/",
+		url : "/deleteMitarbeiter/",
 		data : JSON.stringify({
 			mitarbeiterID : mitarbeiterID,
-			username : username
+			surname : surname,
+			username : username,
+			pensum : pensum
+			
 
 		}),
 		success : successCredentials,
@@ -333,8 +352,8 @@
     		console.log("Authorisation failure / Missing value");
     		alert.style.display = "block";
     	}
-    	}
-   
+    }
+    	
   //Mitarbeiter löschen
     function deleteEmployee(x){
         //nimmt Username des ausgewählten MA entgegen und zeigt diesen im Alert an
@@ -346,5 +365,5 @@
          }
   }
     
-
+    
     </script>

@@ -44,6 +44,7 @@ public class MitarbeiterRegister {
 	
 	public String passwort;
 	public String pensum;
+
 	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<MitarbeiterRegister> mitarbeiter = new ArrayList<>();
@@ -57,6 +58,7 @@ public class MitarbeiterRegister {
 		this.username = username;
 		this.passwort = passwort;
 		this.pensum = pensum;
+		
 	}
 
 	public String getPensum() {
@@ -131,6 +133,11 @@ public class MitarbeiterRegister {
 	public List<MitarbeiterRegister> getMitarbeiter() {
 		return mitarbeiter;
 	}
+	
+
+
+	
+	
 	
 	
 	

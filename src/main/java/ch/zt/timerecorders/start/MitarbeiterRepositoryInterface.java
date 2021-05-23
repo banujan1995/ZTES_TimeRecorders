@@ -18,9 +18,6 @@ import org.springframework.transaction.annotation.Transactional;
 public interface MitarbeiterRepositoryInterface extends JpaRepository<MitarbeiterRegister, Long> {
 	
 	public List<MitarbeiterRegister> findByMitarbeiterID(long mitarbeiterID);
-	
-	
-
 	 
 
 }

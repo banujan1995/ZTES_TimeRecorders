@@ -161,26 +161,33 @@ public class MitarbeiterService {
 	// Mitarbeiter aus der Employee Liste löschen (KG)
 	
 	@PostMapping(path = "/deleteMitarbeiter/", produces = "application/json")
-	public boolean deleteMA(@RequestBody MassageMaDelete m) {
+	public boolean deleteMA(@RequestBody MessageMaRegister m) {
+		
 		boolean mitarbeiterfound = false;
 		
 		List<MitarbeiterRegister> ma = mitarbeiterRepositoryInterface.findAll();
 		
+		System.out.println("Kommt rein");
+		
 		for (MitarbeiterRegister ml : ma) {
-			if (ml.getUsername().equalsIgnoreCase(m.getUsername())) {
+			if (ml.getMitarbeiterID() == null) 
+				return mitarbeiterfound = false;
+
+				ml.setSurname("");
+				ml.setName("");
+				ml.setPensum("");
+								
+				ma.remove(ml);
+				
+				mitarbeiterRepositoryInterface.save(ml);
 				
 				logger.info("Mitarbeiter wurde gelöscht");
-				mitarbeiterfound = true;
-			} else {
-				logger.info("Mitarbeiter zum Löschen nicht gefunden");
-				mitarbeiterfound =  false;
-
-			}
-
+				return mitarbeiterfound = true;
 		}
+		
 		return mitarbeiterfound;
-	
 	}
+
 	
 
 	/**
