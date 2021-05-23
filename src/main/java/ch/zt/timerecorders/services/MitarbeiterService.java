@@ -157,7 +157,7 @@ public class MitarbeiterService {
 		List<MitarbeiterRegister> ma = mitarbeiterRepositoryInterface.findAll();
 
 		for (MitarbeiterRegister m : ma) {
-			if (m.getUsername().equals(login.getUserame())) {
+			if ((m.getUsername().equals(login.getUsername()) && (m.getPasswort().equals(login.getPasswort())))) {
 				logger.info("Mitarbeiter wurde gefunden");
 				return true;
 

@@ -2,6 +2,8 @@ package ch.zt.timerecorders.view;
 
 import java.util.logging.Logger;
 
+import javax.servlet.http.Cookie;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,19 +37,21 @@ public class ViewsController {
 	@RequestMapping(method = RequestMethod.GET, value = "/loginen")
 	public String showLoginEng(Model model) {
 		logger.info("Das HTML LOGIN-EN wurde geladen.");
+
 		return "login_en.html";
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/main")
 	public String showMain(Model model) {
 		logger.info("Das HTML MAIN-EN wurde geladen.");
+
 		return "main_en.html";
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/profile")
 	public String showProfile(Model model) {
 		logger.info("Das HTML PROFILE-EN wurde geladen.");
-		return "profile_en.html";	
+		return "profile_en.html";
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/employeeList")

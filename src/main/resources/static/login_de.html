@@ -9,7 +9,13 @@
 <link rel="stylesheet" href="css/icons.css">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+ <script src="/js/mycookies.js"></script> 
+ <script>
+	 createMyCookies();
+ </script> 
 
 <title>Anmeldung</title>
 </head>
@@ -88,6 +94,7 @@
 
 
 	<script>
+	
 	var userIPAdress = {
 			ipAdress : "" ,
 			set ip(ip){
@@ -179,17 +186,25 @@
 		/* Hier ist die Antwort vom Server, welches vearbeitet wird (BR)*/
 
 		function successCredentials(response) {
-	
+			var username= document.getElementById("loginUserName_DE").value;
 						
 			if (response == true) {
 				//$.getJSON("http://localhost:8081/timerecorders/mitarbeiterlogin/").done(
-				//handleSuccessCreditals);
+				
+				console.log(getMyCookie("auth"));
+				updateMyCookie("auth", "true");
+				console.log(getMyCookie("auth"));
+				console.log(getMyCookie("userlogin"));
+				updateMyCookie("userlogin", username.toString());
+				console.log(getMyCookie("userlogin"));
+				
 				handleSuccessCreditals(response);
 				
-
 			} else {
 				//$.getJSON("http://localhost:8081/timerecorders/mitarbeiterlogin/").fail(handleFailureCreditals);
+				deleteMyCookies();  
 				handleFailureCreditals(response);
+				
 			}
 		}
 
@@ -265,12 +280,7 @@
 		
 	</script>
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-	
-	<script src="https://code.jquery.com/jquery-3.5.1.js"
-		integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-		crossorigin="anonymous"></script>
-		
+
 
 		
 
