@@ -176,9 +176,21 @@
 
             var period = document.getElementById('daterange').value;
             var reason = document.getElementById('absenceReason').value;
-            var numberOfWorkingDays = document.getElementById("addAbsence_numberOfDays").innerHTML;
+            var anzahlTage = document.getElementById("addAbsence_numberOfDays").innerHTML;
+            
+            $.ajax({
+				type : "POST",
+				url : "/addAbsence/",
+				data : JSON.stringify({
+					period : period,
+					anzahlTage : anzahlTage
 
-            var message = ("Dear User\n\nFollowing absence has been added:\n\nReason: "+reason+"\nPeriod: "+period+"\nNumber of working days: "+numberOfWorkingDays)
+				}),
+				dataType : 'json',
+				contentType : 'application/json'
+			});
+
+            var message = ("Dear User\n\nFollowing absence has been added:\n\nReason: "+reason+"\nPeriod: "+period+"\nNumber of working days: "+anzahlTage)
             alert(message);
             reset();
         }
@@ -291,6 +303,6 @@
             getAndSafeIP();
         }
     </script>
-
+    
 </body>
 </html>

@@ -219,12 +219,13 @@
 
     <table cellspacing="0" cellpadding="0" border="0" id="employeeTable" style="position: relative; margin: auto; width: 50px;">
        
-        <table id ="mitarbeiterList">
+        <table id ="mitarbeiterList" class="employeeTableContent">
 			 <tr>
 			    <th>MitarbeiterID</th>
 			     <th>Surname</th>
 			    <th>Username</th>
 			    <th>Workload</th>
+			     <th>Edit</th>
 			  </tr>
 			<tbody>
 			</tbody>
@@ -259,6 +260,7 @@
     			mitarbeiter_data += '<td>'+value.surname+ '</td>';
     			mitarbeiter_data += '<td>'+value.username+ '</td>';
     			mitarbeiter_data += '<td>'+value.pensum+ '</td>';
+    			mitarbeiter_data += '<td>' +"<input type='button' id='DeleteButton' onclick='CallMe(this)' class='buttonList' value='Delete'>"+ '</td>';
     			mitarbeiter_data += '</tr>';
     		});
     		$('#mitarbeiterList').append(mitarbeiter_data);	

@@ -29,6 +29,8 @@ import ch.zt.timerecorders.persistence.Arbeitstag;
 import ch.zt.timerecorders.persistence.ArbeitstagRepository;
 import ch.zt.timerecorders.persistence.Mitarbeiter;
 import ch.zt.timerecorders.persistence.MitarbeiterRepository;
+import ch.zt.timerecorders.start.AddAbsence;
+import ch.zt.timerecorders.start.AddAbsenceRepositoryInterface;
 import ch.zt.timerecorders.start.MitarbeiterRegister;
 import ch.zt.timerecorders.start.MitarbeiterRepositoryInterface;
 import ch.zt.timerecorders.start.ServiceLocator;
@@ -60,6 +62,9 @@ public class MitarbeiterService {
 
 	@Autowired
 	private TimeStampRegisterChangeInterface timeStampRegisterChange;
+	
+	@Autowired
+	private AddAbsenceRepositoryInterface absenceRepo;
 
 	/*
 	 * Instanzvariablen für die TagesIDCreator
@@ -84,6 +89,26 @@ public class MitarbeiterService {
 	 * CRUD Methoden, um Mitarbeiter zu erfassen, mutieren, verändern, löschen (BR)
 	 */
 
+	//Login - Überprüfung in DB, ob username und password existieren (KG)
+	@PostMapping(path = "/timerecorders/mitarbeiterlogin/", produces = "application/json")
+	public boolean isValidUser(@RequestBody MessageMaRegister login) {
+
+		List<MitarbeiterRegister> ma = mitarbeiterRepositoryInterface.findAll();
+
+		for (MitarbeiterRegister m : ma) {
+			if ((m.getUsername().equals(login.getUsername()) && (m.getPasswort().equals(login.getPasswort())))) {
+				logger.info("Mitarbeiter wurde gefunden");
+				return true;
+
+			} else {
+				logger.info("Mitarbeiter wurde nicht gefunden");
+
+			}
+
+		}
+		return false;
+
+	}
 	// Mitarbeiter erstellen KG
 
 	@PostMapping(path = "/addEmployee/", produces = "application/json")
@@ -112,6 +137,30 @@ public class MitarbeiterService {
 		return ma;
 
 	}
+	//Liste der erfassten Ferien als JSON (KG) 
+	@ResponseBody
+	@GetMapping(path = "/erfassteFerien/", produces = "application/json")
+	public List addedAbsence() {
+		List<AddAbsence> absence = absenceRepo.findAll();
+		logger.info(absence.toString() + "Erfasste Ferien werden übergeben");
+		return absence;
+
+	}
+	
+	//Ferien erfassen (KG)
+	@PostMapping(path = "/addAbsence/", produces = "application/json")
+	public boolean addAbsence(@RequestBody MessageAddAbsence a) {
+
+		AddAbsence a1 = new AddAbsence();
+		a1.setPeriod(a.getPeriod());
+		a1.setAnzahlTage(a.getAnzahlTage());		
+
+		absenceRepo.save(a1); // beim Speichern wird eine ID automatisch vergeben
+		logger.info("Ferien erfolgreich erfasst");
+		return true;
+
+	}
+
 
 	// Mitarbeiter mutieren von MA zu AD (BR)
 
@@ -150,26 +199,6 @@ public class MitarbeiterService {
 	 * Funktionen für Mitarbeiter, welche von Mitarbeiter aufgeruft werden auf der
 	 * Webapplikation (BR)
 	 */
-
-	@PostMapping(path = "/timerecorders/mitarbeiterlogin/", produces = "application/json")
-	public boolean isValidUser(@RequestBody MessageMaRegister login) {
-
-		List<MitarbeiterRegister> ma = mitarbeiterRepositoryInterface.findAll();
-
-		for (MitarbeiterRegister m : ma) {
-			if ((m.getUsername().equals(login.getUsername()) && (m.getPasswort().equals(login.getPasswort())))) {
-				logger.info("Mitarbeiter wurde gefunden");
-				return true;
-
-			} else {
-				logger.info("Mitarbeiter wurde nicht gefunden");
-
-			}
-
-		}
-		return false;
-
-	}
 
 	/*
 	 * Mitarbeiter Login (BR) Hilfestellung bei der Lösung:
