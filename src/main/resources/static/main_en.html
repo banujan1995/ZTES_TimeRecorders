@@ -24,7 +24,7 @@
 	<!-- Hier wird der Cookie ausgelesen und bei auth=false wird der HTML=403 aufgerufen. (BR) -->
 	<script> 
 		if($.cookie("auth") == "false"){
-			window.location.assign("error_403.html");
+			window.location.assign("http://localhost:8081/accesserror");
 		}
 	</script>
     <script>
@@ -1535,7 +1535,7 @@
 				contentType : 'application/json'
 			});
 			console.log("Ich gehe raus");
-			window.location.href = "http://localhost:8081/loginen";
+			window.location.href = "http://localhost:8081/login";
 		
 		}
 		
