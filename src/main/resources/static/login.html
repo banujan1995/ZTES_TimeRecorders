@@ -15,7 +15,7 @@
 	 createMyCookies();
  </script> 
 
-<title>Anmeldung</title>
+<title>Login</title>
 </head>
 <body style="background-color: rgb(217, 240, 216)">
 	<header>
@@ -25,15 +25,27 @@
 				style="height: 100px; width: 350px;">
 		</div>
 		<br> <br> <br> <br> <br> <br>
-		<nav>
-			<label for="english" class="label_language"> Sprache wechseln:</label> 
-			<a href="http://localhost:8081/loginen">
-				<img src="css/images/UK.png" alt="English" name="english" style="width: 20px; height: 15px;">
-			</a>
-		</nav>
+		<div style="display: block; text-align: right; width: 90%;" >
+			<nav>
+				<label class="label_language"> 
+					<span id="changeLanguage_language">Change language:</span>
+				</label> 
+				<a href="javascript:void(0)">
+					<img src="css/images/UK.png" onclick="changeToEnglish();" alt="flag" id="flag" style="width: 20px; height: 15px; margin-left: 5px;" >
+					<img src="css/images/DE.jpeg" onclick="changeToGerman();" alt="flag" id="flag" style="width: 20px; height: 15px; margin-left: 5px;">
+				</a>
+			</nav>
+		</div>
 
-		<p class="title">Zeiterfassungssystem</p>
-		<p class="subtitle">Anmelden</p>
+		<p class="title"> 
+			<span id=firstTitle_language> Zeiterfassungssystem
+			</span>
+		</p>
+
+		<p class="subtitle">
+			<span id=secondTitle_language> Anmelden
+			</span>
+		</p>
 
 
 	</header>
@@ -43,19 +55,27 @@
 
 	<div style="display: block; text-align: center; width: 100%;">
 	<i class="fa fa-user icon" "></i>
-	<label for="loginUsername" class="text"><b>Benutzername: </b></label>
-	<input type="text" style="min-width: 200px; text-align: center;" placeholder="Benutzername eingeben" onkeyup="enableButton()" name="loginUsername" class="textField" id="loginUserName_DE" required>
+	<label for="loginUsername" class="text">
+		<b> <span id="username_language"> Benutzername: </span> 
+		</b>
+	</label>
+	<input type="text" style="min-width: 200px; text-align: center;" onkeyup="enableButton()" name="loginUsername" class="textField" id="loginUserName_DE" required>
 	<br>
 	<br>
 	<i class="fa fa-key icon"></i>
-	<label for="loginPassword" class="text"><b>Passwort: </b></label>
-	<input type="password" style="min-width: 200px; margin-left: 38px; text-align: center;" placeholder="Passwort eingeben" onkeyup="enableButton()" name="loginPassword" class="textField" id="loginPassword_DE" required>
+	<label for="loginUsername" class="text">
+		<b> <span id="password_language"> Passwort: </span> 
+		</b>
+	</label>
+	<input type="password" style="min-width: 200px; margin-left: 38px; text-align: center;" onkeyup="enableButton()" name="loginPassword" class="textField" id="loginPassword_DE" required>
 	</div>
 	<br>
 	<br>
 	<br>
 	<div style="display: block; text-align: center; width: 100%;">
-		<p id="capsON_DE">ACHTUNG! Festelltaste ist aktiviert!</p>
+		<p id="capsON_DE"> 
+			<span id="capsLock_language"> ACHTUNG! Festelltaste ist aktiviert! </span> 
+		</p>
 	</div>
 
 	<br>
@@ -66,13 +86,15 @@
 	<div class="alert" id="wrongInputs" style="max-width: 380px; position: relative; margin: auto;">
 		<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
     <strong> Falscher Passwort und/oder falscher Benutzername!</strong> 
-    <br> Bitte nochmals versuchen!
+    <br>
+	<strong> Wrong password and/or wrong username!</strong> 
 	</div>
 	<br>
 	<br>
 
 	<div style="display: block; text-align: center; width: 100%;">
-	<input type="checkbox" onclick="showPassword()" id="showPassword"> Passwort anzeigen
+	<input type="checkbox" onclick="showPassword()" id="showPassword"> 
+	<span id="showPassword_language"> Passwort anzeigen</span> 
 	<br>
 	<br>
 	<div class="w3-light-grey" style="max-width: 150px; margin-left: 45%; position: relative; margin: auto;">
@@ -81,13 +103,17 @@
  	<br>
 
 
-	<button class="button" id="loginButton" onclick="load(); checkInputs()" disabled> Anmelden</button>
+	<button class="button" id="loginButton" onclick="load(); checkInputs()" disabled> 
+		<span id="loginBtn_language"> Anmelden</span> 
+	</button>
 
 	<br>
 	<br>
 
 	<footer>
-		<a href="mailto:admin@jkbgmbh.ch" id="loginIssues" style="display: block; text-align: center; width: 100%;"> Login Problem?</a>
+		<a href="mailto:admin@jkbgmbh.ch" id="loginIssues" style="display: block; text-align: center; width: 100%;"> 
+			<span id="loginIssues_language"> Login Probleme? </span>
+		</a>
 	</footer>
 
 	
@@ -275,6 +301,30 @@
 			}
 			
 		}
+
+		function changeToEnglish() {
+            document.getElementById("changeLanguage_language").innerHTML = "Change language:";
+            document.getElementById("firstTitle_language").innerHTML = "Time Recording System";
+            document.getElementById("secondTitle_language").innerHTML = "Login";
+            document.getElementById("username_language").innerHTML = "Username:"+"\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0";
+			document.getElementById("password_language").innerHTML = "Password:";
+			document.getElementById("capsLock_language").innerHTML = "WARNING! Caps lock is ON!";
+			document.getElementById("showPassword_language").innerHTML = "Show password";
+			document.getElementById("loginBtn_language").innerHTML = "Login";
+			document.getElementById("loginIssues_language").innerHTML = "Login issues?";
+        }
+
+        function changeToGerman() {
+            document.getElementById("changeLanguage_language").innerHTML = "Sprache wechseln";
+            document.getElementById("firstTitle_language").innerHTML = "Zeiterfassungssystem";
+            document.getElementById("secondTitle_language").innerHTML = "Anmelden";
+            document.getElementById("username_language").innerHTML = "Benutzername:";
+			document.getElementById("password_language").innerHTML = "Passwort:";
+			document.getElementById("capsLock_language").innerHTML = "ACHTUNG! Feststelltaste ist aktiviert!";
+			document.getElementById("showPassword_language").innerHTML = "Passwort anzeigen";
+			document.getElementById("loginBtn_language").innerHTML = "Anmelden";
+			document.getElementById("loginIssues_language").innerHTML = "Login Probleme?";
+        }
 		
 
 		

@@ -38,7 +38,7 @@ public class ViewsController {
 	public String showLoginEng(Model model) {
 		logger.info("Das HTML LOGIN-EN wurde geladen.");
 
-		return "login_en.html";
+		return "login.html";
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/main")
