@@ -4,9 +4,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="css/icons.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -42,20 +40,23 @@
 	<br>
 	<br>
 
-	<i class="fa fa-user icon" style="display: block; text-align: center; width: 100%;"</i>
+	<div style="display: block; text-align: center; width: 100%;">
+	<i class="fa fa-user icon" "></i>
 	<label for="loginUsername" class="text"><b>Benutzername: </b></label>
-	<input type="text" style="min-width: 160px; text-align: center;" placeholder="Benutzername eingeben"	onkeyup="enableButton()" name="loginUsername" class="textField" id="loginUserName_DE" required>
-
+	<input type="text" style="min-width: 200px; text-align: center;" placeholder="Benutzername eingeben" onkeyup="enableButton()" name="loginUsername" class="textField" id="loginUserName_DE" required>
 	<br>
 	<br>
-
-	<i class="fa fa-key icon"	style="display: block; text-align: center; width: 100%;"</i>
+	<i class="fa fa-key icon"></i>
 	<label for="loginPassword" class="text"><b>Passwort: </b></label>
-	<input type="password" style="min-width: 160px; margin-left: 33px; text-align: center;" placeholder="Passwort eingeben" onkeyup="enableButton()" name="loginPassword" class="textField" id="loginPassword_DE" required>
+	<input type="password" style="min-width: 200px; margin-left: 38px; text-align: center;" placeholder="Passwort eingeben" onkeyup="enableButton()" name="loginPassword" class="textField" id="loginPassword_DE" required>
+	</div>
 	<br>
 	<br>
 	<br>
-	<p id="capsON_DE">ACHTUNG! Festelltaste ist aktiviert!.</p>
+	<div style="display: block; text-align: center; width: 100%;">
+		<p id="capsON_DE">ACHTUNG! Festelltaste ist aktiviert!</p>
+	</div>
+
 	<br>
 	<br>
 
@@ -69,16 +70,14 @@
 	<br>
 	<br>
 
-	<input type="checkbox" onclick="showPassword()" id="showPassword">
-	Passwort anzeigen
-
+	<div style="display: block; text-align: center; width: 100%;">
+	<input type="checkbox" onclick="showPassword()" id="showPassword"> Passwort anzeigen
 	<br>
 	<br>
-
 	<div class="w3-light-grey" style="max-width: 150px; margin-left: 45%; position: relative; margin: auto;">
 		<div id="loginProgress" class="w3-container w3-blue  w3-center"style="width: 0%">0%</div>
 	</div>
- <br>
+ 	<br>
 
 
 	<button class="button" id="loginButton" onclick="load(); checkInputs()" disabled> Anmelden</button>
