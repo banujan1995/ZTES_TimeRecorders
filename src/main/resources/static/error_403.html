@@ -1,15 +1,32 @@
+<!-- Erstellt durch: Jordi Schmidlin -->
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<link rel="stylesheet" href="css/icons.css">
+<link rel="stylesheet" href="css/style.css">
+<title>Forbidden access</title>
 </head>
-<body>
+<body style="background-color: rgb(217, 240, 216)">
+    <header>
+        <div style="max-width: 450px; position: relative; margin: auto;">
+			<img src="css/images/Logo.png" alt="Logo" class="logo"
+				style="height: 100px; width: 350px;">
+		</div>
+		<br> <br> <br> <br> <br> <br>
 
-403 
-Forbidden 
-You have to <a href="http://localhost:8081/login">Login</a>
+        <p style ="font-size: 36px;"class="title">403 - Forbidden</p>
+        <p style ="font-size: 30px;" class="subtitle">You are not properly logged in!</p>
 
+    </header>
+    
+
+    <div style="display: block; text-align: center; width: 100%;">
+        <h2> Please use the following button to access the login page:</h2>
+
+        <br> <br> <br>
+        <a class="buttonLinks" style="text-decoration: none; width: 120px;" href="http://localhost:8081/login">Go to Login</a>
+    </div>
 
 </body>
 </html>
