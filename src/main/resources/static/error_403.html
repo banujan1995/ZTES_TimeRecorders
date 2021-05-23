@@ -5,7 +5,7 @@
 <meta charset="ISO-8859-1">
 <link rel="stylesheet" href="css/icons.css">
 <link rel="stylesheet" href="css/style.css">
-<title>Forbidden access</title>
+<title> <span id="pageTitle"> 403 - Forbidden access</span></title>
 </head>
 <body style="background-color: rgb(217, 240, 216)">
     <header>
@@ -15,18 +15,51 @@
 		</div>
 		<br> <br> <br> <br> <br> <br>
 
-        <p style ="font-size: 36px;"class="title">403 - Forbidden</p>
-        <p style ="font-size: 30px;" class="subtitle">You are not properly logged in!</p>
+        <ul class="navibar">
+            <li class="barItem"> 
+            <li style="float:right" class="barItem">
+                <a href="javascript:void(0)" class="barItemBtn"> <span id="language"> Language</span></a>
+                <div class="barItem-content">
+                  <a href="javascript:void(0)" onclick="changeToEnglish()"> <span id="english"> English</span></a>
+                  <a href="javascript:void(0)" onclick="changeToGerman()"> <span id="german"> German</span></a>
+        </ul>
+
+       
+        <p style ="font-size: 35px;" class="subtitle"> <span id="subtitle"> 403 Forbidden - You are not properly logged in!</span> </p>
 
     </header>
+    <br>
     
-
     <div style="display: block; text-align: center; width: 100%;">
-        <h2> Please use the following button to access the login page:</h2>
+        <h3> 
+            <span id="text1"> Please use the following button to access the login page:</span>
+        </h3>
 
         <br> <br> <br>
-        <a class="buttonLinks" style="text-decoration: none; width: 120px;" href="http://localhost:8081/login">Go to Login</a>
+        <a class="buttonLinks" style="text-decoration: none; width: 120px;" href="http://localhost:8081/login"> <span id="button">Go to Login</span></a>
     </div>
+
+    <script>
+
+        function changeToEnglish() {
+            document.getElementById("language").innerHTML = "Language";
+            document.getElementById("english").innerHTML = "English";
+            document.getElementById("german").innerHTML = "German";
+            document.getElementById("subtitle").innerHTML = "403 Forbidden - You are not properly logged in!";
+            document.getElementById("text1").innerHTML = "Please use the following button to access the login page:";
+            document.getElementById("button").innerHTML = "Go to Login";
+        }
+
+        function changeToGerman() {
+            document.getElementById("language").innerHTML = "Sprachen";
+            document.getElementById("english").innerHTML = "Englisch";
+            document.getElementById("german").innerHTML = "Deutsch";
+            document.getElementById("subtitle").innerHTML = "403 Forbidden - Sie sind nicht korrekt eingeloggt!";
+            document.getElementById("text1").innerHTML = "Bitte nutzen Sie folgenden Button um zur Anmeldung zu gelangen:";
+            document.getElementById("button").innerHTML = "Zur Anmeldung";
+        }
+
+    </script>
 
 </body>
 </html>
