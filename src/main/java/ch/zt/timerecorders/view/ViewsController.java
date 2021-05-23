@@ -68,7 +68,7 @@ public class ViewsController {
 
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/addEmployee")
+	@RequestMapping(method = RequestMethod.GET, value = "/addemployee")
 	public String showAddEmployee(Model model) {
 		logger.info("Das HTML addEmployee wurde geladen.");
 		return "addEmployee_en.html";
@@ -82,7 +82,7 @@ public class ViewsController {
 
 	}
 	
-	@RequestMapping(method = RequestMethod.GET, value = "/changePassword")
+	@RequestMapping(method = RequestMethod.GET, value = "/changepassword")
 	public String changePassword(Model model) {
 		logger.info("Das HTML Change wurde geladen.");
 		return "changePassword_en.html";
@@ -102,7 +102,7 @@ public class ViewsController {
 		return "absence_en.html";
  	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/addAbsence")
+	@RequestMapping(method = RequestMethod.GET, value = "/addabsence")
 		public String showAddAbsence(Model model) {
 		logger.info("Das HTML Absencen wurde geladen.");
 		return "addAbsence_en.html";

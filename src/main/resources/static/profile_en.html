@@ -7,12 +7,33 @@
     <html lang="en">
     <link rel="stylesheet" href="css/style.css"">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/flick/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/flick/jquery-ui.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+	<script src="/js/mycookies.js"></script> 
+	<script>
+	 createMyCookies();
+	</script> 
+    
+    
     <title>Profile</title>
 </head>
 <body style="background-color: rgb(217, 240, 216)">
+
+	<!-- Hier wird der Cookie ausgelesen und bei auth=false wird der HTML=403 aufgerufen. (BR) -->
+	<script> 
+		if($.cookie("auth") == "false"){
+			window.location.assign("http://localhost:8081/accesserror");
+		}
+	</script>
+    <script>
+    console.log($.cookie("auth"));
+    console.log($.cookie("userlogin"));
+	
+    </script>
+	
     <div style="max-width: 350px; position: relative; margin: auto;" >
     <img src="css/images/Logo.png" alt="Logo" class= "logo" style="max-width: 350px;" > 
     </div>
@@ -28,7 +49,7 @@
         <li class="barItem"><a class="barItem" href="http://localhost:8081/report">Report</a></li>
         <li class="barItem"><a class="barItem" href="http://localhost:8081/absence">Absence</a></li>
         
-        <li style="float:right" class="barItem"> <a href="javascript:void(0)" onclick="deleteUserDB();" class="barItem">Logout</a></li>
+        <li style="float:right" class="barItem"> <a href="javascript:void(0)" onclick="deleteUserDB(); deleteMyCookies();" class="barItem">Logout</a></li>
         <li style="float:right" class="barItem"> <a class="barItem">Profile</a> </li>
     </ul>
     <div style="display: block; text-align: center;width: 100%;">
@@ -78,7 +99,7 @@
 
     <!-- Buttons, die der Administrator benötigt-->
     <div style="display: block; text-align: center; width: 100%;">
-        <a href="http://localhost:8081/changePassword" class="buttonLinks" style="margin-right: 20px; text-decoration: none;"> Change Password</a>
+        <a href="http://localhost:8081/changepassword" class="buttonLinks" style="margin-right: 20px; text-decoration: none;"> Change Password</a>
         <a href="http://localhost:8081/employeeList" class="buttonLinks" style="text-decoration: none;"> Edit employee list</a>
     </div>
     

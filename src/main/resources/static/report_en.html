@@ -5,13 +5,39 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css"">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.debug.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <html lang="en">
-    <link rel="stylesheet" href="css/style.css"">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script> 
+	<script src="/js/mycookies.js"></script> 
+
+	
+	<script>
+	 createMyCookies();
+	</script> 
+
+
+    
+    
     <title>Report</title>
-</head>
-<body style=" background-color: rgb(217, 240, 216)">
+	</head>
+	<body style=" background-color: rgb(217, 240, 216)">
+	
+	<!-- Hier wird der Cookie ausgelesen und bei auth=false wird der HTML=403 aufgerufen. (BR) -->
+	<script> 
+		if($.cookie("auth") == "false"){
+			window.location.assign("http://localhost:8081/accesserror");
+		}
+	</script>
+    <script>
+    console.log($.cookie("auth"));
+    console.log($.cookie("userlogin"));
+	
+    </script>
+
+
     <div style="max-width: 350px; position: relative; margin: auto;">
         <img src="css/images/Logo.png" alt="Logo" class="logo" style="max-width: 350px;">
     </div>
@@ -27,7 +53,7 @@
         <li class="barItem"><a class="barItem">Report</a></li>
         <li class="barItem"><a class="barItem" href="http://localhost:8081/absence">Absence</a></li>
 
-        <li style="float:right" class="barItem"> <a href="javascript:void(0)" onclick="deleteUserDB();" class="barItem">Logout</a></li>
+        <li style="float:right" class="barItem"> <a href="javascript:void(0)" onclick="deleteUserDB(); deleteMyCookies();" class="barItem">Logout</a></li>
         <li style="float:right" class="barItem"> <a href="http://localhost:8081/profile" class="barItem">Profile</a> </li>
     </ul>
 

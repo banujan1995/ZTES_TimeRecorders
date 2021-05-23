@@ -12,7 +12,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
  <script src="/js/mycookies.js"></script> 
  <script>
-	 createMyCookies();
+	 createMyCookies(); //hier wird der Cookie erstellt, wenn es vorhanden ist (BR).
  </script> 
 
 <title>Anmeldung</title>
@@ -182,7 +182,9 @@
 
 		}
 		
-		/* Hier ist die Antwort vom Server, welches vearbeitet wird (BR)*/
+		/* Hier ist die Antwort vom Server, welches vearbeitet wird.
+		* Hier wird auch die Cookie Creditals gesetzt - true welche über den HTMLs verwendet werden. (BR)
+		*/
 
 		function successCredentials(response) {
 			var username= document.getElementById("loginUserName_DE").value;
@@ -190,12 +192,8 @@
 			if (response == true) {
 				//$.getJSON("http://localhost:8081/timerecorders/mitarbeiterlogin/").done(
 				
-				console.log(getMyCookie("auth"));
 				updateMyCookie("auth", "true");
-				console.log(getMyCookie("auth"));
-				console.log(getMyCookie("userlogin"));
 				updateMyCookie("userlogin", username.toString());
-				console.log(getMyCookie("userlogin"));
 				
 				handleSuccessCreditals(response);
 				
@@ -234,8 +232,6 @@
 		
 		//Hier wir der IP Adresse geholt und niedergeschrieben. 
 		function getAndSafeIP(){	
-			console.log("ich komme in getAndSafeIP");
-			
 			
 			// nimmt IP-Adresse des Users entgegen zur eindeutigen Identifikation
 			// full credit: https://www.geeksforgeeks.org/how-to-get-client-ip-address-using-javascript/
