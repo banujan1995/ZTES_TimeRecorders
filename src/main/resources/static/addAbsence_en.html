@@ -135,21 +135,21 @@
                 const firstDate = picker.startDate;
                 const secondDate = picker.endDate;
 
+                var weekenddays= 0;
+
                 const diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay));
 
-                //TODO: Durch alle Tage im Range iterieren und Anzahl Wochenende zählen, um diese abzuziehen
-                /*for (var day = firstDate; day <= secondDate; day.setDate(day.getDate() + 1)) {
+                //Iteration um Wochenendtage zu erruieren und schlussendlich zu subtrahieren
+                for (var day = new Date (firstDate); day <= secondDate; day.setDate(day.getDate() + 1)) {
 
-                var currentDay = new Date (day);
-
-                var weekday = currentDay.getDay();
+                var weekday = day.getDay();
                 if (weekday === 0 || weekday ===6){
                     weekenddays++;
                 }
-                }*/
+                }
 
-
-                document.getElementById("addAbsence_numberOfDays").innerHTML = diffDays;
+                diffDaysWithoutWeekend = diffDays - weekenddays;
+                document.getElementById("addAbsence_numberOfDays").innerHTML = diffDaysWithoutWeekend;
             });    
 
 
