@@ -127,8 +127,6 @@
             $('#daterange').on('apply.daterangepicker', function(ev, picker) {
                  $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
                 
-                var startDate = picker.startDate;
-                var endDate = picker.endDate;
 
                 // Berechnung Anzahl Tage
                 // full credits to: https://stackoverflow.com/questions/2627473/how-to-calculate-the-number-of-days-between-two-dates
@@ -138,6 +136,19 @@
                 const secondDate = picker.endDate;
 
                 const diffDays = Math.round(Math.abs((firstDate - secondDate) / oneDay));
+
+                //TODO: Durch alle Tage im Range iterieren und Anzahl Wochenende zählen, um diese abzuziehen
+                /*for (var day = firstDate; day <= secondDate; day.setDate(day.getDate() + 1)) {
+
+                var currentDay = new Date (day);
+
+                var weekday = currentDay.getDay();
+                if (weekday === 0 || weekday ===6){
+                    weekenddays++;
+                }
+                }*/
+
+
                 document.getElementById("addAbsence_numberOfDays").innerHTML = diffDays;
             });    
 
