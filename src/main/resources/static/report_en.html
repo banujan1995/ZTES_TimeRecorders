@@ -1,5 +1,6 @@
 <!-- erstellt durch Jordi Schmidlin-->
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,9 +11,9 @@
     <link rel="stylesheet" href="css/style.css"">
     <title>Report</title>
 </head>
-<body style="background-color: rgb(217, 240, 216)">
-    <div style="max-width: 350px; position: relative; margin: auto;" >
-    <img src="css/images/Logo.png" alt="Logo" class= "logo" style="max-width: 350px;" > 
+<body style=" background-color: rgb(217, 240, 216)">
+    <div style="max-width: 350px; position: relative; margin: auto;">
+        <img src="css/images/Logo.png" alt="Logo" class="logo" style="max-width: 350px;">
     </div>
 
     <br>
@@ -22,12 +23,12 @@
     <br>
     <!-- Navigationsbar-->
     <ul class="navibar">
-        <li class="barItem"><a class="barItem" href="main_en.html">Home</a></li>
+        <li class="barItem"><a class="barItem" href="http://localhost:8081/main">Home</a></li>
         <li class="barItem"><a class="barItem">Report</a></li>
-        <li class="barItem"><a class="barItem" href="absence_en.html">Absence</a></li>
-        
-        <li style="float:right" class="barItem"> <a href="login_en.html" class="barItem">Logout</a></li>
-        <li style="float:right" class="barItem"> <a href="profile_en.html" class="barItem">Profile</a> </li>
+        <li class="barItem"><a class="barItem" href="http://localhost:8081/absence">Absence</a></li>
+
+        <li style="float:right" class="barItem"> <a href="javascript:void(0)" onclick="deleteUserDB();" class="barItem">Logout</a></li>
+        <li style="float:right" class="barItem"> <a href="http://localhost:8081/profile" class="barItem">Profile</a> </li>
     </ul>
 
 
@@ -37,11 +38,12 @@
     </div>
 
     <form>
-    <div style="display: block; text-align: center;width: 100%;">
-    <label style="margin-right: 10px; font-weight: bold;" for="month">Choose report month:</label>
-    <input id="chosenMonth" type="month" name="month" min="2021-01" max="2024-12" onchange="getChosenMonth()" required>
-    <span class="validity"></span>
-    </div>
+        <div style="display: block; text-align: center;width: 100%;">
+            <label style="margin-right: 10px; font-weight: bold;" for="month">Choose report month:</label>
+            <input id="chosenMonth" type="month" name="month" min="2021-01" max="2024-12" onchange="getChosenMonth()"
+                required>
+            <span class="validity"></span>
+        </div>
     </form>
 
     <div id="startOfExport" style="visibility: hidden; position: relative; margin: auto; width: 50px;">
@@ -53,36 +55,145 @@
     </div>
 
 
-<div style="display: block; text-align: center;width: 100%;">
-    <button id="generatePDF" class="button" onclick="convertToPDF()"> Generate PDF</button>
-</div>
-    
-    
+    <div style="display: block; text-align: center;width: 100%;">
+        <button id="generatePDF" class="button" onclick="convertToPDF()"> Generate PDF</button>
+    </div>
+
+
 
     <script>
 
         // nimmt angewählten Monat entgegen
-        function getChosenMonth(){
-            
-            var month= document.getElementById("chosenMonth").value;  
+        function getChosenMonth() {
+
+            var month = document.getElementById("chosenMonth").value;
             alert(month);
         }
 
         // erstellt eine PDF-Datei für den Export des Reports
         // full credit to: https://qawithexperts.com/article/javascript/easy-way-to-convert-html-to-pdf-using-javascript/335
-        function convertToPDF(){
+        function convertToPDF() {
             var doc = new jsPDF();
             doc.fromHTML(document.getElementById("startOfExport"), 20, 20, {
-                'width' : 500
+                'width': 500
             },
-            function (x){
-                var month= document.getElementById("chosenMonth").value; 
-                doc.save('report_'+month+'.pdf');
+                function (x) {
+                    var month = document.getElementById("chosenMonth").value;
+                    doc.save('report_' + month + '.pdf');
+                });
+        }
+
+        var userIPAdress = {
+            ipAdress: "",
+            set ip(ip) {
+                this.ipAdress = ip;
+            }
+        };
+
+        var username = {
+            name: "",
+            set setusername(externname) {
+                this.name = externname;
+            }
+        };
+
+        //Hier wir der IP Adresse geholt und niedergeschrieben. 
+        function getAndSafeIP() {
+
+            console.log("Bin in der Funktion get&SafeIP drin" + username.name);
+
+            // nimmt IP-Adresse des Users entgegen zur eindeutigen Identifikation
+            // full credit: https://www.geeksforgeeks.org/how-to-get-client-ip-address-using-javascript/
+            $.getJSON("http://api.ipify.org/?format=json", function (e) {
+                userIPAdress.ip = String(e.ip);
+            });
+
+            getUserNamebyIP();
+
+        }
+
+        //Hier wird anhand IP der User ausfindig gemacht (JS/BR)
+
+        function getUserNamebyIP() {
+
+            console.log("Bin in der Funktion getUserNamebyIP drin" + username.name);
+
+            $(document).ready(function () {
+                $.getJSON("http://localhost:8081/timerecorders/getUserOnlineList/", function (data) {
+                    var listusername = "";
+                    var listip = "";
+
+                    $.each(data, function (key, value) {
+                        listusername = value.username.toString();
+                        listip = value.ip.toString();
+
+                        if (userIPAdress.ipAdress == listip) {
+                            username.setusername = listusername;
+
+                            console.log(username.name);
+                            console.log(listusername);
+
+                            console.log(userIPAdress.ipAdress);
+                            console.log(listip);
+                        } else {
+                            console.log("Unter der aktiven User ist dieser User nicht vorhanden - bitte überprüfen")
+                            console.log(username.name);
+                            console.log(listusername);
+
+                            console.log(userIPAdress.ipAdress);
+                            console.log(listip);
+                        }
+
+                    });
+                });
+
             });
         }
-  
+
+        //Hier wird der User ausser der Loginaktivitätliste herausgelöscht. (JS/BR)
+
+        function deleteUserDB() {
+
+            var ip = userIPAdress.ipAdress;
+            var username = "kireng";
+
+            console.log("Bin in der Funktion deleteUserDB" + username.name);
+
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:8081/timerecorders/deleteuser/",
+                data: JSON.stringify({
+
+                    ip: ip,
+                    username: username,
+
+                }),
+                success: successDeleteUser,
+                dataType: 'json',
+                contentType: 'application/json'
+            });
+            console.log("Ich gehe raus");
+            window.location.href = "http://localhost:8081/loginen";
+
+        }
+
+        function successDeleteUser(response) {
+
+            if (response) {
+                console.log("Sucessful: delete active user");
+            } else {
+                console.log("Unsucessful: delete active user");
+            }
+
+        }
+
+        window.onload = function (){
+            getAndSafeIP();
+        }
+
 
     </script>
-    
-</body>
-</html>
+
+    </body>
+
+    </html>

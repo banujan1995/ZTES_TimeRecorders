@@ -43,11 +43,11 @@
     <br>
     <!-- Navigationsbar-->
     <ul class="navibar">
-        <li class="barItem"><a class="barItem" href="main_en.html">Home</a></li>
-        <li class="barItem"><a class="barItem" href="report_en.html">Report</a></li>
-        <li class="barItem"><a class="barItem" href="absence_en.html">Absence</a></li>
-        <li style="float:right" class="barItem"> <a href="login_en.html" class="barItem">Logout</a></li>
-        <li style="float:right" class="barItem"> <a href="profile_en.html" class="barItem">Profile</a> </li>
+        <li class="barItem"><a class="barItem" href="http://localhost:8081/main>Home</a></li>
+        <li class="barItem"><a class="barItem" href="http://localhost:8081/report">Report</a></li>
+        <li class="barItem"><a class="barItem" href="http://localhost:8081/absence">Absence</a></li>
+        <li style="float:right" class="barItem"> <a href="javascript:void(0)"  onclick="deleteUserDB();" class="barItem">Logout</a></li>
+        <li style="float:right" class="barItem"> <a href="http://localhost:8081/profile" class="barItem">Profile</a> </li>
     </ul>
 
     <div style="display: block; text-align: center;width: 100%;">
@@ -234,7 +234,7 @@
       <br><br>
       <div style="display: block; text-align: center; width: 100%;">
         <td id ="employeeList_workload1" style="text-align: center; min-width: 135px; height: 55px;" > </td>
-        <a href="profile_en.html" class="buttonLinks" style="margin-right: 20px; text-decoration: none;"> Return to Profile</a>
+        <a href="http://localhost:8081/profile" class="buttonLinks" style="margin-right: 20px; text-decoration: none;"> Return to Profile</a>
         <a href="http://localhost:8081/addEmployee" class="buttonLinks" style="text-decoration: none;"> Add Employee</a>
      </div>
      <br><br>
@@ -266,5 +266,113 @@
     	});
     	    
     });
+
+    var userIPAdress = {
+            ipAdress: "",
+            set ip(ip) {
+                this.ipAdress = ip;
+            }
+        };
+
+        var username = {
+            name: "",
+            set setusername(externname) {
+                this.name = externname;
+            }
+        };
+
+        //Hier wir der IP Adresse geholt und niedergeschrieben. 
+        function getAndSafeIP() {
+
+            console.log("Bin in der Funktion get&SafeIP drin" + username.name);
+
+            // nimmt IP-Adresse des Users entgegen zur eindeutigen Identifikation
+            // full credit: https://www.geeksforgeeks.org/how-to-get-client-ip-address-using-javascript/
+            $.getJSON("http://api.ipify.org/?format=json", function (e) {
+                userIPAdress.ip = String(e.ip);
+            });
+
+            getUserNamebyIP();
+
+        }
+
+        //Hier wird anhand IP der User ausfindig gemacht (JS/BR)
+
+        function getUserNamebyIP() {
+
+            console.log("Bin in der Funktion getUserNamebyIP drin" + username.name);
+
+            $(document).ready(function () {
+                $.getJSON("http://localhost:8081/timerecorders/getUserOnlineList/", function (data) {
+                    var listusername = "";
+                    var listip = "";
+
+                    $.each(data, function (key, value) {
+                        listusername = value.username.toString();
+                        listip = value.ip.toString();
+
+                        if (userIPAdress.ipAdress == listip) {
+                            username.setusername = listusername;
+
+                            console.log(username.name);
+                            console.log(listusername);
+
+                            console.log(userIPAdress.ipAdress);
+                            console.log(listip);
+                        } else {
+                            console.log("Unter der aktiven User ist dieser User nicht vorhanden - bitte überprüfen")
+                            console.log(username.name);
+                            console.log(listusername);
+
+                            console.log(userIPAdress.ipAdress);
+                            console.log(listip);
+                        }
+
+                    });
+                });
+
+            });
+        }
+
+        //Hier wird der User ausser der Loginaktivitätliste herausgelöscht. (JS/BR)
+
+        function deleteUserDB() {
+
+            var ip = userIPAdress.ipAdress;
+            var username = "kireng";
+
+            console.log("Bin in der Funktion deleteUserDB" + username.name);
+
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:8081/timerecorders/deleteuser/",
+                data: JSON.stringify({
+
+                    ip: ip,
+                    username: username,
+
+                }),
+                success: successDeleteUser,
+                dataType: 'json',
+                contentType: 'application/json'
+            });
+            console.log("Ich gehe raus");
+            window.location.href = "http://localhost:8081/loginen";
+
+        }
+
+        function successDeleteUser(response) {
+
+            if (response) {
+                console.log("Sucessful: delete active user");
+            } else {
+                console.log("Unsucessful: delete active user");
+            }
+
+        }
+
+        window.onload = function (){
+            getAndSafeIP();
+        }
 
     </script>

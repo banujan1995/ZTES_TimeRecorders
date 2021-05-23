@@ -47,7 +47,7 @@
 		<li class="barItem"><a class="barItem">Home</a></li>
 		<li class="barItem"><a class="barItem"
 			href="http://localhost:8081/report">Report</a></li>
-		<li class="barItem"><a class="barItem" href="absence_en.html">
+		<li class="barItem"><a class="barItem" href="http://localhost:8081/absence">
 				Absence</a></li>
 		<li style="float: right" class="barItem"><a onclick="deleteUserDB(); deleteMyCookies();" href="javascript:void(0)"
 			class="barItem">Logout</a></li>
@@ -1450,6 +1450,14 @@
 				this.name = externname;
 				}
 				};
+
+		/*var isAdmin = {
+			isUserAdmin :"",
+
+			set userAdmin (x){
+				this.isUserAdmin = x;
+			}
+		};*/
 		
 		//Hier wir der IP Adresse geholt und niedergeschrieben. 
 		function getAndSafeIP(){	
@@ -1527,7 +1535,7 @@
 				contentType : 'application/json'
 			});
 			console.log("Ich gehe raus");
-			window.location.href = "http://localhost:8081/login";
+			window.location.href = "http://localhost:8081/loginen";
 		
 		}
 		
@@ -1540,12 +1548,6 @@
 			}
 			
 		}
-		
-	
-            
-        
-
-
 
     </script>
 </body>

@@ -54,6 +54,13 @@ public class ViewsController {
 		return "profile_en.html";
 	}
 
+
+	/*@RequestMapping(method = RequestMethod.GET, value = "/profile_MA")
+	public String showProfile(Model model) {
+		logger.info("Das HTML PROFILE-EN wurde geladen.");
+		return "profile_MA_en.html";	
+	}*/
+
 	@RequestMapping(method = RequestMethod.GET, value = "/employeeList")
 	public String showEmployeeList(Model model) {
 		logger.info("Das HTML EmployeeList wurde geladen.");
@@ -74,5 +81,31 @@ public class ViewsController {
 		return "report_en.html";
 
 	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/changePassword")
+	public String changePassword(Model model) {
+		logger.info("Das HTML Change wurde geladen.");
+		return "changePassword_en.html";
 
+ 	}
+
+	/*@RequestMapping(method = RequestMethod.GET, value = "/changePassword_MA")
+	public String changePassword(Model model) {
+		logger.info("Das HTML Change wurde geladen.");
+		return "changePassword_MA_en.html";
+
+ 	}*/
+
+
+	@RequestMapping(method = RequestMethod.GET, value = "/absence")
+		public String showAbsence(Model model) {
+		logger.info("Das HTML Absencen wurde geladen.");
+		return "absence_en.html";
+ 	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/addAbsence")
+		public String showAbsence(Model model) {
+		logger.info("Das HTML Absencen wurde geladen.");
+		return "addAbsence_en.html";
+ 	}
 }
