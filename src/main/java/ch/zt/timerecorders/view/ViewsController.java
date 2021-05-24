@@ -28,30 +28,30 @@ public class ViewsController {
 	 * Methoden Annotation Kiren: html files anzeigen und richtig verlinken
 	 * 
 	 */
-	@RequestMapping(method = RequestMethod.GET, value = "/login")
+	/*@RequestMapping(method = RequestMethod.GET, value = "/login")
 	public String showLogin(Model model) {
 		logger.info("Das erste HTML LOGIN-DE wurde geladen.");
 		return "login_de.html";
-	}
+	}*/
 
-	@RequestMapping(method = RequestMethod.GET, value = "/loginen")
+	@RequestMapping(method = RequestMethod.GET, value = "/login")
 	public String showLoginEng(Model model) {
 		logger.info("Das HTML LOGIN-EN wurde geladen.");
 
-		return "login_en.html";
+		return "login.html";
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/main")
 	public String showMain(Model model) {
 		logger.info("Das HTML MAIN-EN wurde geladen.");
 
-		return "main_en.html";
+		return "main.html";
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/profile")
 	public String showProfile(Model model) {
 		logger.info("Das HTML PROFILE-EN wurde geladen.");
-		return "profile_en.html";
+		return "profile.html";
 	}
 
 
@@ -64,14 +64,14 @@ public class ViewsController {
 	@RequestMapping(method = RequestMethod.GET, value = "/employeeList")
 	public String showEmployeeList(Model model) {
 		logger.info("Das HTML EmployeeList wurde geladen.");
-		return "employeeList_en.html";
+		return "employeeList.html";
 
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/addemployee")
 	public String showAddEmployee(Model model) {
 		logger.info("Das HTML addEmployee wurde geladen.");
-		return "addEmployee_en.html";
+		return "addEmployee.html";
 
 	}
 
@@ -85,7 +85,7 @@ public class ViewsController {
 	@RequestMapping(method = RequestMethod.GET, value = "/changepassword")
 	public String changePassword(Model model) {
 		logger.info("Das HTML Change wurde geladen.");
-		return "changePassword_en.html";
+		return "changePassword.html";
 
  	}
 
@@ -99,13 +99,13 @@ public class ViewsController {
 	@RequestMapping(method = RequestMethod.GET, value = "/absence")
 		public String showAbsence(Model model) {
 		logger.info("Das HTML Absencen wurde geladen.");
-		return "absence_en.html";
+		return "absence.html";
  	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/addabsence")
 		public String showAddAbsence(Model model) {
 		logger.info("Das HTML Absencen wurde geladen.");
-		return "addAbsence_en.html";
+		return "addAbsence.html";
  	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/accesserror")
