@@ -160,7 +160,7 @@
 
 
             // Erfolgsmeldung
-            var message = ("Dear Admin \n\nThe employee "+ surname+" "+familyname+" has been added! \n\nThe assigned username is: "+username);
+            var message = ("Dear Admin \n\nThe user "+ surname+" "+familyname+" has been added! \n\nThe assigned username is: "+username);
             alert(message)
             reset();
             backToEmployeeList();
@@ -259,19 +259,19 @@
 
         // überprüft, ob alle Werte erfasst wurde, sonst erscheint eine Fehler meldung
         function validUserInput (){
-            var surname = document.getElementById("addEmployee_givenname").innerText;
-            var familyname = document.getElementById("addEmployee_familyname").innerText;
-            var username = document.getElementById("addEmployee_username").innerText;
-            var password = document.getElementById("addEmployee_password").innerText;
-            var passwordRepeat = document.getElementById("addEmployee_repeatPassword").innerText;
+            var surname = document.getElementById("addEmployee_givenname").value;
+            var familyname = document.getElementById("addEmployee_familyname").value;
+            var username = document.getElementById("addEmployee_username").value;
+            var password = document.getElementById("addEmployee_password").value;
+            var passwordRepeat = document.getElementById("addEmployee_repeatPassword").value;
             var checkBoxCounter = document.querySelectorAll('input[type="checkbox"]:checked').length;
             var role = document.getElementById('role').value;
 
             //alle Textfelder müssen einen Wert aufweise + mind. 1 Arbeitstag muss erfasst sein
             //TODO:
-            if (surname==="" || familyname==="" || username==="" || password==="" || passwordRepeat===""  || checkBoxCounter <= 1 || role ==="Please select:"){
+            if (surname==="" || familyname==="" || username==="" || password==="" || passwordRepeat===""  || checkBoxCounter < 1 || role ==="Please select:"){
 
-                var message = ("Dear Admin \n\nPlease fill out all the textfields and check all employees working days!!");
+                var message = ("Dear Admin \n\nPlease fill out all the textfields, select the working days and choose a role!!\n\nThank you");
                 alert(message);
                 return false;
             }
