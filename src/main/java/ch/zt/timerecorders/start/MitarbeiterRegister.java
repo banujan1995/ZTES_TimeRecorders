@@ -16,8 +16,6 @@ import javax.persistence.Table;
 
 import org.springframework.context.annotation.ComponentScan;
 
-
-
 /**
  * 
  * @author Banujan Ragunathan
@@ -28,30 +26,29 @@ import org.springframework.context.annotation.ComponentScan;
 @Table(name = "mitarbeiter")
 public class MitarbeiterRegister {
 
-	
 	@Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-	
+	@GeneratedValue(strategy = GenerationType.AUTO)
+
 //	@OneToOne(mappedBy = "mitarbeiter", fetch = FetchType.LAZY,
 //    cascade = CascadeType.ALL)
 	public Long mitarbeiterID;
-	
+
 	public String familyname;
 	public String surname;
 
-	@Column(name ="username", unique=true, nullable=false)
+	@Column(name = "username", unique = true, nullable = false)
 	public String username;
-	
+
 	public String passwort;
 	public String pensum;
-	
-	public String role; 
-	
+
+	public String role;
+
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<MitarbeiterRegister> mitarbeiter = new ArrayList<>();
 
-
-	public MitarbeiterRegister(Long mitarbeiterID, String surname, String familyname, String username, String passwort, String pensum, String role) {
+	public MitarbeiterRegister(Long mitarbeiterID, String surname, String familyname, String username, String passwort,
+			String pensum, String role) {
 		super();
 		this.mitarbeiterID = mitarbeiterID;
 		this.surname = surname;
@@ -59,18 +56,18 @@ public class MitarbeiterRegister {
 		this.username = username;
 		this.passwort = passwort;
 		this.pensum = pensum;
-		this.role = role; 
+		this.role = role;
 	}
 
 	public String getPensum() {
 		return pensum;
 	}
-	
+
 	public void setPensum(String string) {
 		this.pensum = string;
 	}
-	
-	//noch nicht löschen - Kiren
+
+	// noch nicht löschen - Kiren
 	public MitarbeiterRegister() {
 	}
 
@@ -78,12 +75,9 @@ public class MitarbeiterRegister {
 		return mitarbeiterID;
 	}
 
-	
 	public String getUsername() {
 		return username;
 	}
-
-
 
 	public void setIntMitarbeiterID(Long string) {
 		this.mitarbeiterID = string;
@@ -92,7 +86,6 @@ public class MitarbeiterRegister {
 	public void setMitarbeiterName(String name) {
 		this.username = name;
 	}
-
 
 	public void setMitarbeiterID(Long string) {
 		this.mitarbeiterID = string;
@@ -125,7 +118,7 @@ public class MitarbeiterRegister {
 	public void setFamilyname(String familyname) {
 		this.familyname = familyname;
 	}
-	
+
 	public List<MitarbeiterRegister> getMitarbeiter() {
 		return mitarbeiter;
 	}
@@ -137,10 +130,5 @@ public class MitarbeiterRegister {
 	public void setRole(String role) {
 		this.role = role;
 	}
-	
-	
-	
-	
-	
 
 }

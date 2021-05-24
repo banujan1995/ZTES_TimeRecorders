@@ -192,7 +192,7 @@
 				
 				updateMyCookie("auth", "true");
 				updateMyCookie("userlogin", username.toString());
-				
+								
 				handleSuccessCreditals(response);
 				
 			} else {
@@ -210,7 +210,7 @@
 			var alert = document.getElementById("wrongInputs")
 			
 			var username= document.getElementById("loginUserName").value;
-			//var ip = userIPAdress.ipAdress;
+
 			
 			registerUserDB(username);
 			console.log("Authorisation successful");
@@ -226,19 +226,7 @@
 			alert.style.display = "block";
 
 		}
-		
-		
-		//Hier wir der IP Adresse geholt und niedergeschrieben. 
-		//<function getAndSafeIP(){	
-			
-			// nimmt IP-Adresse des Users entgegen zur eindeutigen Identifikation
-			// full credit: https://www.geeksforgeeks.org/how-to-get-client-ip-address-using-javascript/
-			//$.getJSON("http://api.ipify.org/?format=json", function(e) {
-			//	userIPAdress.ip = String(e.ip);
-			//});
-		
-
-		//}
+	
 		
 		function registerUserDB(username){
 			  console.log("ich komme in registerUserDB");
@@ -267,9 +255,7 @@
 			}
 			
 		}
-		
-
-		
+			
 	</script>
 
 
