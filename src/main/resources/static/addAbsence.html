@@ -90,7 +90,7 @@
     <br><br><br>
     <div style="display: block; text-align: center; width: 100%;">
         <td style="text-align: center; min-width: 135px; height: 55px;" > </td>
-        <a href="absence_en.html" class="buttonLinks" style="text-decoration: none; margin-right: 20px; padding: 10px 37px;"> Return</a>
+        <a href="http://localhost:8081/absence" class="buttonLinks" style="text-decoration: none; margin-right: 20px; padding: 10px 37px;"> Return</a>
         <button id ="addEmployee_cancel" onclick="reset();" type="button" class="button"> Reset</button>
         <button id ="addEmployee_confirm" style="margin-left: 20px;" onclick="addAbsence();" type="submit" class="button" disabled> Add absence</button>
      </div>
@@ -199,16 +199,45 @@
 
         // fügt Absence hinzu & zeigt eine Erfolgsmeldung an
         function addAbsence(){
-            //TODO: send to server
-
-            var period = document.getElementById('daterange').value;
+      
+        	var period = document.getElementById('daterange').value;
             var reason = document.getElementById('absenceReason').value;
-            var numberOfWorkingDays = document.getElementById("addAbsence_numberOfDays").innerHTML;
+            var anzahlTage = document.getElementById("addAbsence_numberOfDays").innerHTML;
+            
+            $.ajax({
+				type : "POST",
+				url : "/addAbsence/",
+				data : JSON.stringify({
+					period : period,
+					reason : reason,
+					anzahlTage : anzahlTage
 
-            var message = ("Dear User\n\nFollowing absence has been added:\n\nReason: "+reason+"\nPeriod: "+period+"\nNumber of working days: "+numberOfWorkingDays)
-            alert(message);
-            reset();
-        }
+				}),
+				dataType : 'json',
+				contentType : 'application/json'
+			});
+
+    
+        if (validUserInput()){
+        	var message = ("Dear User\n\nFollowing absence has been added:\n\nReason: "+reason+"\nPeriod: "+period+"\nNumber of working days: "+anzahlTage)
+        	alert(message);
+        	reset();
+
+        	}
+        	
+
+        	//Überprüft, ob nötige Auswahl getroffen wurde
+        	function validUserInput(){
+
+        	var reason = document.getElementById('absenceReason').value;
+        	if (reason === "Please select:"){
+
+        	var message = ("Dear User\n\nPlease choose a reason!\n\nThank you!")
+        	alert(message);
+        	return false;
+        	}
+        	return true;
+        	}
 
         var userIPAdress = {
             ipAdress: "",
@@ -316,6 +345,7 @@
 
         window.onload = function (){
             getAndSafeIP();
+        }
         }
     </script>
 

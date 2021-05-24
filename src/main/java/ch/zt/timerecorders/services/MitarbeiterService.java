@@ -29,6 +29,8 @@ import ch.zt.timerecorders.persistence.Arbeitstag;
 import ch.zt.timerecorders.persistence.ArbeitstagRepository;
 import ch.zt.timerecorders.persistence.Mitarbeiter;
 import ch.zt.timerecorders.persistence.MitarbeiterRepository;
+import ch.zt.timerecorders.start.AddAbsence;
+import ch.zt.timerecorders.start.AddAbsenceRepositoryInterface;
 import ch.zt.timerecorders.start.MitarbeiterRegister;
 import ch.zt.timerecorders.start.MitarbeiterRepositoryInterface;
 import ch.zt.timerecorders.start.ServiceLocator;
@@ -61,6 +63,9 @@ public class MitarbeiterService {
 	@Autowired
 	private TimeStampRegisterChangeInterface timeStampRegisterChange;
 
+	
+	@Autowired
+	private AddAbsenceRepositoryInterface absenceRepo;
 	/*
 	 * Instanzvariablen für die TagesIDCreator
 	 */
@@ -132,6 +137,31 @@ public class MitarbeiterService {
 
 				}
 				return false;
+			}
+			
+			//Liste der erfassten Ferien als JSON (KG) 
+			@ResponseBody
+			@GetMapping(path = "/erfassteFerien/", produces = "application/json")
+			public List addedAbsence() {
+				List<AddAbsence> absence = absenceRepo.findAll();
+				logger.info(absence.toString() + "Erfasste Ferien werden übergeben");
+				return absence;
+
+			}
+			
+			//Ferien erfassen (KG)
+			@PostMapping(path = "/addAbsence/", produces = "application/json")
+			public boolean addAbsence(@RequestBody MessageAddAbsence a) {
+
+				AddAbsence a1 = new AddAbsence();
+				a1.setPeriod(a.getPeriod());
+				a1.setReason(a.getReason());
+				a1.setAnzahlTage(a.getAnzahlTage());		
+
+				absenceRepo.save(a1); // beim Speichern wird eine ID automatisch vergeben
+				logger.info("Ferien erfolgreich erfasst");
+				return true;
+
 			}
 
 	// Mitarbeiter mutieren von MA zu AD (BR)
