@@ -63,7 +63,6 @@ public class MitarbeiterService {
 	@Autowired
 	private TimeStampRegisterChangeInterface timeStampRegisterChange;
 
-	
 	@Autowired
 	private AddAbsenceRepositoryInterface absenceRepo;
 	/*
@@ -119,75 +118,72 @@ public class MitarbeiterService {
 
 	}
 
-
-    
 	// KG: Change Username
 	@PostMapping(path = "/changeUsername/", produces = "application/json")
-	public boolean changeUsername(@RequestBody MessageMaRegister m) {​​​​​
-	List<MitarbeiterRegister> ma = mitarbeiterRepositoryInterface.findAll();
+	public boolean changeUsername(@RequestBody MessageMaRegister m) {
+
+		List<MitarbeiterRegister> ma = mitarbeiterRepositoryInterface.findAll();
 
 		for (MitarbeiterRegister ml : ma) {
-		​​​​​
-			if (m.getUsername().equals(ml.getUsername())) {​​​​​
+			if (m.getUsername().equals(ml.getUsername())) {
 				ml.setName(m.getUsername());
 				ml = mitarbeiterRepositoryInterface.save(ml);
 				logger.info("Benutzername wurde geändert!");
 				return true;
-			}​​​​​ else {​​​​​
-			logger.info("Mitarbeiter nicht vorhanden");
+			} else {
+				logger.info("Mitarbeiter nicht vorhanden");
 
- 			}​​​​​
- 		}​​​​​
-			return false;
-	}​​​​​
+			}
 
+		}
+		return false;
+	}
 
-	
 	// KG: Change Password eines Benutzers ändern
-			@PostMapping(path = "/changePassword/", produces = "application/json")
-			public boolean changePasswort(@RequestBody MessageMaRegister m) {
-				
-				List<MitarbeiterRegister> ma = mitarbeiterRepositoryInterface.findAll();
-				
-				for (MitarbeiterRegister ml : ma) {
-					if (m.getUsername().equals(ml.getUsername())) {
-						ml.setPasswort(m.getPasswort());
-						ml = mitarbeiterRepositoryInterface.save(ml);
-						logger.info("Passwort wurde geändert!");
-						return true;
-					} else {
-						logger.info("Mitarbeiter nicht vorhanden");
+	@PostMapping(path = "/changePassword/", produces = "application/json")
+	public boolean changePasswort(@RequestBody MessageMaRegister m) {
 
-					}
+		List<MitarbeiterRegister> ma = mitarbeiterRepositoryInterface.findAll();
 
-				}
-				return false;
-			}
-			
-			//Liste der erfassten Ferien als JSON (KG) 
-			@ResponseBody
-			@GetMapping(path = "/erfassteFerien/", produces = "application/json")
-			public List addedAbsence() {
-				List<AddAbsence> absence = absenceRepo.findAll();
-				logger.info(absence.toString() + "Erfasste Ferien werden übergeben");
-				return absence;
-
-			}
-			
-			//Ferien erfassen (KG)
-			@PostMapping(path = "/addAbsence/", produces = "application/json")
-			public boolean addAbsence(@RequestBody MessageAddAbsence a) {
-
-				AddAbsence a1 = new AddAbsence();
-				a1.setPeriod(a.getPeriod());
-				a1.setReason(a.getReason());
-				a1.setAnzahlTage(a.getAnzahlTage());		
-
-				absenceRepo.save(a1); // beim Speichern wird eine ID automatisch vergeben
-				logger.info("Ferien erfolgreich erfasst");
+		for (MitarbeiterRegister ml : ma) {
+			if (m.getUsername().equals(ml.getUsername())) {
+				ml.setPasswort(m.getPasswort());
+				ml = mitarbeiterRepositoryInterface.save(ml);
+				logger.info("Passwort wurde geändert!");
 				return true;
+			} else {
+				logger.info("Mitarbeiter nicht vorhanden");
 
 			}
+
+		}
+		return false;
+	}
+
+	// Liste der erfassten Ferien als JSON (KG)
+	@ResponseBody
+	@GetMapping(path = "/erfassteFerien/", produces = "application/json")
+	public List addedAbsence() {
+		List<AddAbsence> absence = absenceRepo.findAll();
+		logger.info(absence.toString() + "Erfasste Ferien werden übergeben");
+		return absence;
+
+	}
+
+	// Ferien erfassen (KG)
+	@PostMapping(path = "/addAbsence/", produces = "application/json")
+	public boolean addAbsence(@RequestBody MessageAddAbsence a) {
+
+		AddAbsence a1 = new AddAbsence();
+		a1.setPeriod(a.getPeriod());
+		a1.setReason(a.getReason());
+		a1.setAnzahlTage(a.getAnzahlTage());
+
+		absenceRepo.save(a1); // beim Speichern wird eine ID automatisch vergeben
+		logger.info("Ferien erfolgreich erfasst");
+		return true;
+
+	}
 
 	// Mitarbeiter mutieren von MA zu AD (BR)
 
@@ -292,7 +288,8 @@ public class MitarbeiterService {
 	 * TagesID ins DB speichern.
 	 */
 
-	// Hier wird die Liste geholt aus dem Datenbank und wird als Json angezeigt. (BR)
+	// Hier wird die Liste geholt aus dem Datenbank und wird als Json angezeigt.
+	// (BR)
 	@ResponseBody
 	@GetMapping(path = "/timerecorders/timestamps/", produces = "application/json")
 	public List allTimeStamps() {
@@ -330,12 +327,12 @@ public class MitarbeiterService {
 			}
 
 			if (zeiterfassungGefunden) {
-				
-				//Datum
+
+				// Datum
 				timeStamps.get(counterY).setDate(zeiterfassung.getDate());
-				
+
 				// Vormittag Stunden
-								
+
 				timeStamps.get(counterY).setMorningEndHours(zeiterfassung.getMorningEndHours());
 				timeStamps.get(counterY).setMorningstartHours(zeiterfassung.getMorningstartHours());
 
@@ -356,8 +353,8 @@ public class MitarbeiterService {
 
 				// Summe Nachmittag in Dezimal
 				timeStamps.get(counterY).setAfternoonTotal(zeiterfassung.getAfternoonTotal());
-				
-				//Summe ganzer Tag 
+
+				// Summe ganzer Tag
 				timeStamps.get(counterY).setTotalDeci(zeiterfassung.getTotalDeci());
 
 				timeStamps = timeStampRegisterChange.saveAll(timeStamps);
@@ -391,8 +388,8 @@ public class MitarbeiterService {
 
 				// Summe Nachmittag in Dezimal
 				timeStamp.setAfternoonTotal(zeiterfassung.getAfternoonTotal());
-				
-				//Summe ganzer Tag 
+
+				// Summe ganzer Tag
 				timeStamp.setTotalDeci(zeiterfassung.getTotalDeci());
 
 				// Summe Überzeit
@@ -430,8 +427,8 @@ public class MitarbeiterService {
 
 			// Summe Nachmittag in Dezimal
 			timeStamp.setAfternoonTotal(zeiterfassung.getAfternoonTotal());
-			
-			//Summe ganzer Tag 
+
+			// Summe ganzer Tag
 			timeStamp.setTotalDeci(zeiterfassung.getTotalDeci());
 
 			// Summe Überzeit
@@ -443,8 +440,6 @@ public class MitarbeiterService {
 		return true;
 
 	}
-
-	
 
 	// Mitarbeiter - Ferien erfassen (BR)
 
