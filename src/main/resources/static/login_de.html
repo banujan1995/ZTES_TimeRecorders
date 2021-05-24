@@ -1,0 +1,283 @@
+<!-- Erstellt durch: Jordi Schmidlin -->
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+ <script src="/js/mycookies.js"></script> 
+ <script>
+	 createMyCookies(); //hier wird der Cookie erstellt, wenn es vorhanden ist (BR).
+ </script> 
+
+<title>Anmeldung</title>
+</head>
+<body style="background-color: rgb(217, 240, 216)">
+	<header>
+		<br>
+		<div style="max-width: 450px; position: relative; margin: auto;">
+			<img src="css/images/Logo.png" alt="Logo" class="logo"
+				style="height: 100px; width: 350px;">
+		</div>
+		<br> <br> <br> <br> <br> <br>
+		<nav>
+			<label for="english" class="label_language"> Sprache wechseln:
+			</label> <a href="http://localhost:8081/loginen"><img src="css/images/UK.png"
+				alt="English" name="english" style="width: 20; height: 15;"></a>
+		</nav>
+
+		<p class="title">Zeiterfassungssystem</p>
+		<p class="subtitle">Anmelden</p>
+
+
+	</header>
+	<br>
+	<br>
+	<br>
+
+	<div style="display: block; text-align: center; width: 100%;">
+	<i class="fa fa-user icon" "></i>
+	<label for="loginUsername" class="text"><b>Benutzername: </b></label>
+	<input type="text" style="min-width: 200px; text-align: center;" placeholder="Benutzername eingeben" onkeyup="enableButton()" name="loginUsername" class="textField" id="loginUserName_DE" required>
+	<br>
+	<br>
+	<i class="fa fa-key icon"></i>
+	<label for="loginPassword" class="text"><b>Passwort: </b></label>
+	<input type="password" style="min-width: 200px; margin-left: 38px; text-align: center;" placeholder="Passwort eingeben" onkeyup="enableButton()" name="loginPassword" class="textField" id="loginPassword_DE" required>
+	</div>
+	<br>
+	<br>
+	<br>
+	<div style="display: block; text-align: center; width: 100%;">
+		<p id="capsON_DE">ACHTUNG! Festelltaste ist aktiviert!</p>
+	</div>
+
+	<br>
+	<br>
+
+  <!-- Meldung, falls Benutzername oder Passwort falsch sind-->
+	<!-- credits to: https://www.w3schools.com/howto/howto_js_detect_capslock.asp-->
+	<div class="alert" id="wrongInputs" style="max-width: 380px; position: relative; margin: auto;">
+		<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
+    <strong> Falscher Passwort und/oder falscher Benutzername!</strong> 
+    <br> Bitte nochmals versuchen!
+	</div>
+	<br>
+	<br>
+
+	<div style="display: block; text-align: center; width: 100%;">
+	<input type="checkbox" onclick="showPassword()" id="showPassword"> Passwort anzeigen
+	<br>
+	<br>
+	<div class="w3-light-grey" style="max-width: 150px; margin-left: 45%; position: relative; margin: auto;">
+		<div id="loginProgress" class="w3-container w3-blue  w3-center"style="width: 0%">0%</div>
+	</div>
+ 	<br>
+
+
+	<button class="button" id="loginButton" onclick="load(); checkInputs()" disabled> Anmelden</button>
+
+	<br>
+	<br>
+
+	<footer>
+		<a href="mailto:admin@jkbgmbh.ch" id="loginIssues" style="display: block; text-align: center; width: 100%;"> Login Problem?</a>
+	</footer>
+
+	
+
+
+	<script>
+	
+	var userIPAdress = {
+			ipAdress : "" ,
+			set ip(ip){
+			this.ipAdress = ip;
+			}
+			};
+
+	
+
+    //Button wird nur enabled, falls Password und User einen Wert aufweisen
+    //TODO: muss beides überprüfen
+    function enableButton(){
+        document.getElementById("loginButton").disabled = false;
+        getAndSafeIP();
+        console.log("ich komme in enable Button");
+    }
+
+
+    //Progessbar ladet
+		//credit to: www.w3schools.com/w3css/w3css_progressbar.asp
+		function load() {
+			var elem = document.getElementById("loginProgress");
+			var width = 0;
+			var id = setInterval(frame, 10);
+			function frame() {
+				if (width >= 100) {
+					clearInterval(id);
+				} else {
+					width++;
+					elem.style.width = width + '%';
+					elem.innerHTML = width * 1 + '%';
+				}
+			}
+		}
+
+    //Macht das Passwortfeld sichtbar
+		//credit to: https://www.w3schools.com/howto/howto_js_toggle_password.asp
+		function showPassword() {
+			var x = document.getElementById("loginPassword_DE");
+			if (x.type === "password") {
+				x.type = "text";
+			} else {
+				x.type = "password";
+			}
+		}
+
+    //gibt eine Warnung an, falls Feststelltaste aktiviert ist
+		//credits to: https://www.w3schools.com/howto/howto_js_detect_capslock.asp
+		var input = document.getElementById("loginPassword_DE");
+		var text = document.getElementById("capsON_DE");
+		input.addEventListener("keyup", function(event) {
+
+			if (event.getModifierState("CapsLock")) {
+				text.style.display = "block";
+			} else {
+				text.style.display = "none"
+			}
+		});
+
+		/* Hier wird die Credentials 
+		überprüft und bei Korrektur eingaben der 
+		Passwort wird auf andere Seite gewechselt (BR)
+		*/
+
+		function checkInputs() {
+			
+			console.log("kommt in Checkinputs");
+
+			var username= document.getElementById("loginUserName_DE").value;
+			var passwort = document.getElementById("loginPassword_DE").value;
+			var alert = document.getElementById("wrongInputs")
+
+			// see: https://api.jquery.com/jquery.post/
+
+			$.ajax({
+				type : "POST",
+				url : "/timerecorders/mitarbeiterlogin/",
+				data : JSON.stringify({
+					username : username,
+					passwort : passwort
+				}),
+				success : successCredentials,
+				dataType : 'json',
+				contentType : 'application/json'
+			});
+
+		}
+		
+		/* Hier ist die Antwort vom Server, welches vearbeitet wird.
+		* Hier wird auch die Cookie Creditals gesetzt - true welche über den HTMLs verwendet werden. (BR)
+		*/
+
+		function successCredentials(response) {
+			var username= document.getElementById("loginUserName_DE").value;
+						
+			if (response == true) {
+				//$.getJSON("http://localhost:8081/timerecorders/mitarbeiterlogin/").done(
+				
+				updateMyCookie("auth", "true");
+				updateMyCookie("userlogin", username.toString());
+				
+				handleSuccessCreditals(response);
+				
+			} else {
+				//$.getJSON("http://localhost:8081/timerecorders/mitarbeiterlogin/").fail(handleFailureCreditals);
+				deleteMyCookies();  
+				handleFailureCreditals(response);
+				
+			}
+		}
+
+		/* Hier ist die Weiterleitung bei einer erfolgreichen oder 
+		nicht erfolgreichen Eingaben der Credentials (BR)*/
+		
+		function handleSuccessCreditals(response) {
+			var alert = document.getElementById("wrongInputs")
+			
+			var username= document.getElementById("loginUserName_DE").value;
+			var ip = userIPAdress.ipAdress;
+			
+			registerUserDB(ip, username);
+			console.log("Authorisation successful");
+			alert.style.display = "none";
+			window.location.assign("http://localhost:8081/main");
+
+		}
+
+		function handleFailureCreditals(response) {
+			var alert = document.getElementById("wrongInputs")
+
+			console.log("Authorisation failure / Missing value");
+			alert.style.display = "block";
+
+		}
+		
+		
+		//Hier wir der IP Adresse geholt und niedergeschrieben. 
+		function getAndSafeIP(){	
+			
+			// nimmt IP-Adresse des Users entgegen zur eindeutigen Identifikation
+			// full credit: https://www.geeksforgeeks.org/how-to-get-client-ip-address-using-javascript/
+			$.getJSON("http://api.ipify.org/?format=json", function(e) {
+				userIPAdress.ip = String(e.ip);
+			});
+		
+
+		}
+		
+		function registerUserDB(ip, username){
+			  console.log("ich komme in registerUserDB");
+			  
+			$.ajax({
+				type : "POST",
+				url : "http://localhost:8081/timerecorders/registeruser/",
+				data : JSON.stringify({
+
+					ip : ip,
+					username : username,
+					
+				}),
+				success : successSaveActiveUser,
+				dataType : 'json',
+				contentType : 'application/json'
+			});
+			
+		}
+		
+		function successSaveActiveUser(response){
+			
+			if (response){
+			console.log("Sucessful: register active user");
+			} else {
+			console.log("Unsucessful: register active user");
+			}
+			
+		}
+		
+
+		
+	</script>
+
+
+
+		
+
+</body>
+</html>

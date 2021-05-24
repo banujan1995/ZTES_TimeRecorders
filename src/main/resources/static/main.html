@@ -387,7 +387,7 @@
 	<br>
 	<script>
 		
-	//Button confirm change wird enabled wenn ein Wert eingegeben wird
+	//Button confirm change wird enabled wenn ein Wert eingegeben wird (JS/BR)
 	function enableButton(){
 		 document.getElementById("confirmEntry").disabled = false;
 		 getAndSafeIP();
@@ -404,7 +404,7 @@
 	
 	
 	
-	//hier soll der aktuelle Tag gespeichert werden, welche gerade durchgeht zum Speichern (BR)
+	//Hier soll der aktuelle Tag gespeichert werden, welche gerade durchgeht zum Speichern (BR).
 	
 	var informationAboutDay = {
 	currentDay : "" ,
@@ -1350,7 +1350,7 @@
         	}	
         }
         
-		//Null stellen von Werten bzw. reseten
+		//Null stellen von Werten bzw. reseten (BR)
 		function resetFullTable(){
 			
   	  		
@@ -1492,11 +1492,6 @@
  	    			if (userIPAdress.ipAdress == listip){
  	    			username.setusername = listusername;
  	    			
- 	    			console.log(username.name);
-					console.log(listusername);
-				
-					console.log(userIPAdress.ipAdress);
-					console.log(listip);
  	    			} else {
 					console.log("Unter der aktiven User ist dieser User nicht vorhanden - bitte überprüfen")
 					console.log(username.name);
@@ -1534,7 +1529,6 @@
 				dataType : 'json',
 				contentType : 'application/json'
 			});
-			console.log("Ich gehe raus");
 			window.location.href = "http://localhost:8081/login";
 		
 		}
