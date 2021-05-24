@@ -100,6 +100,7 @@ public class MitarbeiterService {
 		m1.setName(m.getUsername());
 		m1.setPasswort(m.getPasswort());
 		m1.setPensum(m.getPensum());
+		m1.setRole("momentanUnbekannt");
 
 		m1 = mitarbeiterRepositoryInterface.save(m1); // beim Speichern wird eine MAId automatisch vergeben
 		logger.info("MA erfolgreich hinzugefügt");

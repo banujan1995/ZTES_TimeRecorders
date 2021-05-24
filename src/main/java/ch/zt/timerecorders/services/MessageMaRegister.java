@@ -17,6 +17,7 @@ public class MessageMaRegister {
 	public String username;
 	public String passwort;
 	public String pensum;
+	public String role; 
 
 	
 	public Long getMitarbeiterId() {
@@ -70,10 +71,13 @@ public class MessageMaRegister {
 	public String getUsername() {
 		return username;
 	}
-	
-	
-	
-	
 
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
 
 }
