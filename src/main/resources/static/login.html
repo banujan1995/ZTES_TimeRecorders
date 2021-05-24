@@ -89,21 +89,11 @@
 
 
 	<script>
-	
-	var userIPAdress = {
-			ipAdress : "" ,
-			set ip(ip){
-			this.ipAdress = ip;
-			}
-			};
-
-	
 
     //Button wird nur enabled, falls Password und User einen Wert aufweisen
     //TODO: muss beides überprüfen
     function enableButton(){
         document.getElementById("loginButton").disabled = false;
-        getAndSafeIP();
         console.log("ich komme in enable Button");
     }
 
@@ -208,9 +198,9 @@
 			var alert = document.getElementById("wrongInputs")
 			
 			var username= document.getElementById("loginUserName").value;
-			var ip = userIPAdress.ipAdress;
+			//var ip = userIPAdress.ipAdress;
 			
-			registerUserDB(ip, username);
+			registerUserDB(username);
 			console.log("Authorisation successful");
 			alert.style.display = "none";
 			window.location.assign("http://localhost:8081/main");
@@ -227,18 +217,18 @@
 		
 		
 		//Hier wir der IP Adresse geholt und niedergeschrieben. 
-		function getAndSafeIP(){	
+		//<function getAndSafeIP(){	
 			
 			// nimmt IP-Adresse des Users entgegen zur eindeutigen Identifikation
 			// full credit: https://www.geeksforgeeks.org/how-to-get-client-ip-address-using-javascript/
-			$.getJSON("http://api.ipify.org/?format=json", function(e) {
-				userIPAdress.ip = String(e.ip);
-			});
+			//$.getJSON("http://api.ipify.org/?format=json", function(e) {
+			//	userIPAdress.ip = String(e.ip);
+			//});
 		
 
-		}
+		//}
 		
-		function registerUserDB(ip, username){
+		function registerUserDB(username){
 			  console.log("ich komme in registerUserDB");
 			  
 			$.ajax({
@@ -246,7 +236,6 @@
 				url : "http://localhost:8081/timerecorders/registeruser/",
 				data : JSON.stringify({
 
-					ip : ip,
 					username : username,
 					
 				}),

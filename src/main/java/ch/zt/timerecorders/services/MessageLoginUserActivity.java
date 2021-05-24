@@ -13,17 +13,9 @@ public class MessageLoginUserActivity {
 
 	private int erfassteOnlineUser; 
 
-	private String ip;
+
 	private String username;
 	
-	
-	public String getIP() {
-		return ip;
-	}
-	
-	public void setIP(String ip) {
-		this.ip = ip;
-	}
 	
 	public String getUsername() {
 		return username;

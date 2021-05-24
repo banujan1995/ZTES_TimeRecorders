@@ -56,77 +56,64 @@
     </div>
     <!-- Tabelle mit aktuell erfassten Abwesenheiten-->
     <!-- Header als eigene Tabelle zum Inhalt scrollbar machen zu können-->  
-    <table cellspacing="0" cellpadding="0" border="0" class="absenceTable" style="position: relative; margin: auto; width: 50px;">
+  <!-- Tabelle für "Inhalt"-->  
+       <table cellspacing="0" cellpadding="0" border="0" class="absenceTable" style="position: relative; margin: auto; width: 50px;">
         <tr>
           <td>
-             <table cellspacing="0" cellpadding="1" border="1" width="00" >
+             <table  class="absenceTableContent" cellspacing="0" cellpadding="1" border="1" width="300" id="absenceTableContent" width="300" >
                <tr>
-                <th> From: </th>
-                <th> To: </th>
-                <th> Reason: </th>
-                <th> Number of <br>working days: </th>
-                <th> Delete Absence: </th>
+                <th> Period </th>
+                <th> Reason </th>
+                <th> Number of <br>working days </th>
+                <th> Delete Absence </th>
                </tr>
              </table>
           </td>
         </tr>
         <tr>
           <td>
-              <!-- Tabelle für "Inhalt"-->  
              <div style="width:867px; height:420px; overflow:auto;">
-               <table cellspacing="0" cellpadding="1" border="1" width="300" id="absenceTableContent" >
-                <tr id="absence1" class="absenceTableContent">
-                    <td id ="absenceList_from">14/05/2021</td>
-                    <td id ="absenceList_to"> 20/05/2021</td>
-                    <td id ="absenceList_Reason" >Holidays</td>
-                    <td id ="absenceList_workingDays"> 5</td>
-                    <td> 
-                            <button onclick="deleteAbsence(this);" class="buttonList" type="button" > Delete </button></td>
-                </tr>
-                <tr id="absence2" class="absenceTableContent">
+               <table cellspacing="0" cellpadding="1" border="1" width="300" id="absenceTableContent" class="addAbsenceTable" >
+               
+            <!--     <tr id="absence2" class="absenceTableContent">
                     <td id ="absenceList_from">29/04/2021</td>
-                    <td id ="absenceList_to">  06/05/2021</td>
-                    <td id ="absenceList_Reason">Holidays</td>
                     <td id ="absenceList_workingDays"> 6</td>
                     <td> 
                             <button onclick="deleteAbsence(this);" class="buttonList" type="button" > Delete </button></td>
                 </tr>
                 <tr id="absence3" class="absenceTableContent">
                     <td id ="absenceList_from">16/04/2021</td>
-                    <td id ="absenceList_to" > 19/04/2021</td>
-                    <td id ="absenceList_Reason" >Sickness</td>
                     <td id ="absenceList_workingDays"> 2</td>
                     <td> 
                             <button onclick="deleteAbsence(this);" class="buttonList" type="button" > Delete </button></td>
                 </tr>
                 <tr id="absence4" class="absenceTableContent">
                     <td id ="absenceList_from">26/02/2021</td>
-                    <td id ="absenceList_to" > 01/03/2021</td>
-                    <td id ="absenceList_Reason">Relocation</td>
                     <td id ="absenceList_workingDays"> 2</td>
                     <td> 
                             <button onclick="deleteAbsence(this);" class="buttonList" type="button" > Delete </button></td>
                 </tr>
                 <tr id="absence5" class="absenceTableContent">
                     <td id ="absenceList_from">28/12/2020</td>
-                    <td id ="absenceList_to"> 01/01/2021</td>
-                    <td id ="absenceList_Reason">Holidays</td>
                     <td id ="absenceList_workingDays"> 4</td>
                     <td> 
                             <button onclick="deleteAbsence(this);" class="buttonList" type="button" > Delete </button></td>
-                </tr>                
+ <!--    </tr>                
                </table>  
              </div>
-          </td>
-        </tr>
-      </table>
+              </td>
+      		  </tr>
+      </table>-->
+      
+    <br>
+    <br>
 
     <!-- Button für Abwesenheitserfassung-->
     <div style="display: block; text-align: center; width: 100%;">
         <a href="http://localhost:8081/addabsence" class="buttonLinks" style="text-decoration: none;"> Add Absence</a>
     </div>
-   
-    <script>
+    
+     <script>
 
       //Absenz löschen
       function deleteAbsence(x){
@@ -141,116 +128,64 @@
              }
         }   
 
-        var userIPAdress = {
-            ipAdress: "",
-            set ip(ip) {
-                this.ipAdress = ip;
-            }
-        };
+    //Hier wird der User ausser der Loginaktivitätliste herausgelöscht. (JS/BR)
+		
+		function deleteUserDB(){
 
-        var username = {
-            name: "",
-            set setusername(externname) {
-                this.name = externname;
-            }
-        };
+			var username = $.cookie("userlogin").toString(); 
 
-        //Hier wir der IP Adresse geholt und niedergeschrieben. 
-        function getAndSafeIP() {
+			console.log("Bin in der Funktion deleteUserDB" + username);
+			
+			$.ajax({
+				type : "POST",
+				url : "http://localhost:8081/timerecorders/deleteuser/",
+				data : JSON.stringify({
 
-            console.log("Bin in der Funktion get&SafeIP drin" + username.name);
+					username : username,
+					
+				}),
+				success : successDeleteUser,
+				dataType : 'json',
+				contentType : 'application/json'
+			});
+			window.location.href = "http://localhost:8081/login";
+		
+		}
+		
+	function successDeleteUser(response){
+			
+			if (response){
+			console.log("Sucessful: delete active user");
+			} else {
+			console.log("Unsucessful: delete active user");
+			}
+			
+		}
 
-            // nimmt IP-Adresse des Users entgegen zur eindeutigen Identifikation
-            // full credit: https://www.geeksforgeeks.org/how-to-get-client-ip-address-using-javascript/
-            $.getJSON("http://api.ipify.org/?format=json", function (e) {
-                userIPAdress.ip = String(e.ip);
-            });
-
-            getUserNamebyIP();
-
-        }
-
-        //Hier wird anhand IP der User ausfindig gemacht (JS/BR)
-
-        function getUserNamebyIP() {
-
-            console.log("Bin in der Funktion getUserNamebyIP drin" + username.name);
-
-            $(document).ready(function () {
-                $.getJSON("http://localhost:8081/timerecorders/getUserOnlineList/", function (data) {
-                    var listusername = "";
-                    var listip = "";
-
-                    $.each(data, function (key, value) {
-                        listusername = value.username.toString();
-                        listip = value.ip.toString();
-
-                        if (userIPAdress.ipAdress == listip) {
-                            username.setusername = listusername;
-
-                            console.log(username.name);
-                            console.log(listusername);
-
-                            console.log(userIPAdress.ipAdress);
-                            console.log(listip);
-                        } else {
-                            console.log("Unter der aktiven User ist dieser User nicht vorhanden - bitte überprüfen")
-                            console.log(username.name);
-                            console.log(listusername);
-
-                            console.log(userIPAdress.ipAdress);
-                            console.log(listip);
-                        }
-
-                    });
-                });
-
-            });
-        }
-
-        //Hier wird der User ausser der Loginaktivitätliste herausgelöscht. (JS/BR)
-
-        function deleteUserDB() {
-
-            var ip = userIPAdress.ipAdress;
-            var username = "kireng";
-
-            console.log("Bin in der Funktion deleteUserDB" + username.name);
-
-            $.ajax({
-                type: "POST",
-                url: "http://localhost:8081/timerecorders/deleteuser/",
-                data: JSON.stringify({
-
-                    ip: ip,
-                    username: username,
-
-                }),
-                success: successDeleteUser,
-                dataType: 'json',
-                contentType: 'application/json'
-            });
-            console.log("Ich gehe raus");
-            window.location.href = "http://localhost:8081/login";
-
-        }
-
-        function successDeleteUser(response) {
-
-            if (response) {
-                console.log("Sucessful: delete active user");
-            } else {
-                console.log("Unsucessful: delete active user");
-            }
-
-        }
-
-        window.onload = function (){
-            getAndSafeIP();
-        }  
-    
 
     </script>
+    
+     <script>
+
+$(document).ready(function(){
+	$.getJSON("http://localhost:8081/erfassteFerien/", function(data){
+		var ferien_data = '';
+		$.each(data, function(key, value){
+			ferien_data += '<tr>';
+			ferien_data += '<td>'+value.period+ '</td>';
+			ferien_data += '<td>'+value.reason+ '</td>';
+			ferien_data += '<td>'+value.anzahlTage+ '</td>';
+			ferien_data += '<td>' +"<input type='button' id='DeleteButton' onclick='CallMe(this)' class='buttonList' value='Delete'>"+ '</td>';
+			ferien_data += '</tr>';
+		});
+		$('#absenceTableContent').append(ferien_data);	
+		
+	});
+	    
+});
+
+</script>
+    
     
 </body>
 </html>

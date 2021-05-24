@@ -73,62 +73,79 @@ public class UserLoginActivityService {
 	}
 
 	/*
-	 * Neue IP Adresse mit den dazugehörigen User registrieren. (BR)
+	 * Neue aktiven User registrieren. (BR)
 	 */
 
 	@PostMapping(path = "/timerecorders/registeruser/", produces = "application/json")
 	public boolean registerUser(@RequestBody MessageLoginUserActivity registeruser) {
 		logger.info("Mitarbeiter ist eingeloggt - wurde in der AktivitätsOnlineListe aufgenommen");
 
+		boolean notRegistered = false;
+
+		List<LoginUserActivityRegister> userOnlineList = loginUserActivityRegisterInterface.findAll();
 		LoginUserActivityRegister newUser = new LoginUserActivityRegister();
+		System.out.println("Die Grösse der Liste beträgt " + userOnlineList.size());
 
-		newUser.setIP(registeruser.getIP());
-		newUser.setUsername(registeruser.getUsername());
+		if (userOnlineList.size() != 0) {
+			for (int i = 0; i < userOnlineList.size(); i++) {
 
-		newUser = loginUserActivityRegisterInterface.save(newUser);
-		logger.info("Anmeldung von neuen User wurde erfasst");
-		return true;
+				if (userOnlineList.get(i).getUsername().equalsIgnoreCase(registeruser.getUsername())) {
+
+					logger.info("Anmeldung von neuen Aktivitätsuser wurde nicht erfasst!");
+					notRegistered = false;
+
+				} else {
+					logger.info("Anmeldung von neuen Aktivitätsuser wurde erfasst!");
+					newUser.setUsername(registeruser.getUsername());
+					newUser = loginUserActivityRegisterInterface.save(newUser);
+
+					notRegistered = true;
+					break;
+
+				}
+
+			}
+
+		} else {
+			logger.info("Anmeldung von neuen Aktivitätsuser wurde erfasst!");
+			newUser.setUsername(registeruser.getUsername());
+			newUser = loginUserActivityRegisterInterface.save(newUser);
+			notRegistered = true;
+
+		}
+
+		return notRegistered;
+
 	}
+
 
 	// User loggt sich aus und wird von der Liste entfernt(BR)
 
-	@PostMapping(path = "/timerecorders/deleteuser/", produces = "application/json")
-	public boolean deleteUser(@RequestBody MessageLoginUserActivity deleteuser) {
-		logger.info("Mitarbeiter wurde ausgeloggt - Mitarbeiter wurde aus der Liste gelöscht.");
-		
-		LoginUserActivityRegister localuser; 
-		boolean userDeleted; 
+		@PostMapping(path = "/timerecorders/deleteuser/", produces = "application/json")
+		public boolean deleteUser(@RequestBody MessageLoginUserActivity deleteuser) {
+			logger.info("Mitarbeiter wurde ausgeloggt - Mitarbeiter wurde aus der Liste gelöscht.");
 
-		List<LoginUserActivityRegister> userOnline = loginUserActivityRegisterInterface.findAll();
-		
-		
-		for(int i = 0; i < userOnline.size(); i++) {
-			localuser = userOnline.get(i); 
+			boolean userIsInActiveList = false; 
+
+
+			List<LoginUserActivityRegister> userOnline = loginUserActivityRegisterInterface.findAll();
 			
-			if(userOnline.get(i).getIP().equalsIgnoreCase(deleteuser.getIP()) && userOnline.get(i).getUsername().equalsIgnoreCase(deleteuser.getUsername())) {
-				userOnline.remove(i);
-				userDeleted = true;
-			} else {
-				userDeleted = false;
-			}
-			
-			userOnline = loginUserActivityRegisterInterface.saveAll(userOnline);
+			System.out.println("Kommt hier rein - deleteuser");
+
+			for (LoginUserActivityRegister activeUser : userOnline) {
+				if (activeUser.getUsername() == null)
+				return userIsInActiveList = false;
+
+				activeUser.setUsername("");
+				userOnline.remove(activeUser);
 				
-			
+				loginUserActivityRegisterInterface.save(activeUser);
+				
+				logger.info("Aktive User wurde gelöscht");
+				return userIsInActiveList = true;
+				}
+				return userIsInActiveList;
 		}
-		
-//		for (int x = 0; x < userOnline; x++ ) {
-//			localuser = user; 
-//			if(user.getIP().equalsIgnoreCase(deleteuser.getIP()) && user.getUsername().equalsIgnoreCase(deleteuser.getUsername())) {
-//				userOnline.remove(user);
-//			}
-//		
-//		}
-//		loginUserActivityRegisterInterface.deleteAllInBatch(localuser);
-		userOnline = loginUserActivityRegisterInterface.saveAll(userOnline);
-			
-		return true;
-	
 	
 	}
 
@@ -138,4 +155,4 @@ public class UserLoginActivityService {
 	
 	
 
-}
+

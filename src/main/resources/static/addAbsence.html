@@ -91,7 +91,7 @@
     <br><br><br>
     <div style="display: block; text-align: center; width: 100%;">
         <td style="text-align: center; min-width: 135px; height: 55px;" > </td>
-        <a href="absence_en.html" class="buttonLinks" style="text-decoration: none; margin-right: 20px; padding: 10px 37px;"> Return</a>
+        <a href="http://localhost:8081/absence" class="buttonLinks" style="text-decoration: none; margin-right: 20px; padding: 10px 37px;"> Return</a>
         <button id ="addEmployee_cancel" onclick="reset();" type="button" class="button"> Reset</button>
         <button id ="addEmployee_confirm" style="margin-left: 20px;" onclick="addAbsence();" type="submit" class="button" disabled> Add absence</button>
      </div>
@@ -200,11 +200,46 @@
 
         // fügt Absence hinzu & zeigt eine Erfolgsmeldung an
         function addAbsence(){
-            //TODO: send to server
-
-            var period = document.getElementById('daterange').value;
+      
+        	var period = document.getElementById('daterange').value;
             var reason = document.getElementById('absenceReason').value;
-            var numberOfWorkingDays = document.getElementById("addAbsence_numberOfDays").innerHTML;
+            var anzahlTage = document.getElementById("addAbsence_numberOfDays").innerHTML;
+            
+            $.ajax({
+				type : "POST",
+				url : "/addAbsence/",
+				data : JSON.stringify({
+					period : period,
+					reason : reason,
+					anzahlTage : anzahlTage
+
+				}),
+				dataType : 'json',
+				contentType : 'application/json'
+			});
+
+      // KG_employee_delete
+    
+        if (validUserInput()){
+        	var message = ("Dear User\n\nFollowing absence has been added:\n\nReason: "+reason+"\nPeriod: "+period+"\nNumber of working days: "+anzahlTage)
+        	alert(message);
+        	reset();
+
+        	}
+        	
+
+        	//Überprüft, ob nötige Auswahl getroffen wurde
+        	function validUserInput(){
+
+        	var reason = document.getElementById('absenceReason').value;
+        	if (reason === "Please select:"){
+
+        	var message = ("Dear User\n\nPlease choose a reason!\n\nThank you!")
+        	alert(message);
+        	return false;
+        	}
+        	return true;
+        	}
 
             if (validUserInput()){
             var message = ("Dear User\n\nFollowing absence has been added:\n\nReason: "+reason+"\nPeriod: "+period+"\nNumber of working days: "+numberOfWorkingDays)
@@ -228,114 +263,44 @@
             }
         return true;
         }
+	
+		
+    	//Hier wird der User ausser der Loginaktivitätliste herausgelöscht. (JS/BR)
+    		
+    		function deleteUserDB(){
 
-        var userIPAdress = {
-            ipAdress: "",
-            set ip(ip) {
-                this.ipAdress = ip;
-            }
-        };
+    			var username = $.cookie("userlogin").toString(); 
 
-        var username = {
-            name: "",
-            set setusername(externname) {
-                this.name = externname;
-            }
-        };
+    			console.log("Bin in der Funktion deleteUserDB" + username);
+    			
+    			$.ajax({
+    				type : "POST",
+    				url : "http://localhost:8081/timerecorders/deleteuser/",
+    				data : JSON.stringify({
 
-        //Hier wir der IP Adresse geholt und niedergeschrieben. 
-        function getAndSafeIP() {
+    					username : username,
+    					
+    				}),
+    				success : successDeleteUser,
+    				dataType : 'json',
+    				contentType : 'application/json'
+    			});
+    			window.location.href = "http://localhost:8081/login";
+    		
+    		}
+    		
+    	function successDeleteUser(response){
+    			
+    			if (response){
+    			console.log("Sucessful: delete active user");
+    			} else {
+    			console.log("Unsucessful: delete active user");
+    			}
+    			
+    		}
 
-            console.log("Bin in der Funktion get&SafeIP drin" + username.name);
-
-            // nimmt IP-Adresse des Users entgegen zur eindeutigen Identifikation
-            // full credit: https://www.geeksforgeeks.org/how-to-get-client-ip-address-using-javascript/
-            $.getJSON("http://api.ipify.org/?format=json", function (e) {
-                userIPAdress.ip = String(e.ip);
-            });
-
-            getUserNamebyIP();
-
-        }
-
-        //Hier wird anhand IP der User ausfindig gemacht (JS/BR)
-
-        function getUserNamebyIP() {
-
-            console.log("Bin in der Funktion getUserNamebyIP drin" + username.name);
-
-            $(document).ready(function () {
-                $.getJSON("http://localhost:8081/timerecorders/getUserOnlineList/", function (data) {
-                    var listusername = "";
-                    var listip = "";
-
-                    $.each(data, function (key, value) {
-                        listusername = value.username.toString();
-                        listip = value.ip.toString();
-
-                        if (userIPAdress.ipAdress == listip) {
-                            username.setusername = listusername;
-
-                            console.log(username.name);
-                            console.log(listusername);
-
-                            console.log(userIPAdress.ipAdress);
-                            console.log(listip);
-                        } else {
-                            console.log("Unter der aktiven User ist dieser User nicht vorhanden - bitte überprüfen")
-                            console.log(username.name);
-                            console.log(listusername);
-
-                            console.log(userIPAdress.ipAdress);
-                            console.log(listip);
-                        }
-
-                    });
-                });
-
-            });
-        }
-
-        //Hier wird der User ausser der Loginaktivitätliste herausgelöscht. (JS/BR)
-
-        function deleteUserDB() {
-
-            var ip = userIPAdress.ipAdress;
-            var username = "kireng";
-
-            console.log("Bin in der Funktion deleteUserDB" + username.name);
-
-            $.ajax({
-                type: "POST",
-                url: "http://localhost:8081/timerecorders/deleteuser/",
-                data: JSON.stringify({
-
-                    ip: ip,
-                    username: username,
-
-                }),
-                success: successDeleteUser,
-                dataType: 'json',
-                contentType: 'application/json'
-            });
-            console.log("Ich gehe raus");
-            window.location.href = "http://localhost:8081/login";
-
-        }
-
-        function successDeleteUser(response) {
-
-            if (response) {
-                console.log("Sucessful: delete active user");
-            } else {
-                console.log("Unsucessful: delete active user");
-            }
-
-        }
-
-        window.onload = function (){
-            getAndSafeIP();
-        }
+        
+        
     </script>
 
 </body>

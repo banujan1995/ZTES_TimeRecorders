@@ -26,15 +26,14 @@ public class LoginUserActivityRegister {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int erfassteOnlineUser;
 
-	private String ip;
+	
 
 	private String username;
 
-	public LoginUserActivityRegister(int erfassteOnlineUser, String ip, String username) {
+	public LoginUserActivityRegister(int erfassteOnlineUser, String username) {
 
 		super();
 		this.erfassteOnlineUser = erfassteOnlineUser;
-		this.ip = ip;
 		this.username = username;
 
 	}
@@ -48,14 +47,6 @@ public class LoginUserActivityRegister {
 
 	public void setErfassteOnlineUser(int erfassteOnlineUser) {
 		this.erfassteOnlineUser = erfassteOnlineUser;
-	}
-
-	public String getIP() {
-		return ip;
-	}
-
-	public void setIP(String ip) {
-		this.ip = ip;
 	}
 
 	public String getUsername() {

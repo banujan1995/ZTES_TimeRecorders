@@ -1140,7 +1140,6 @@
         }
 
         window.onload = function () {
-        	getAndSafeIP();
             setTargetTime();
         }
         
@@ -1437,91 +1436,20 @@
   		   
 		}
 		
-		var userIPAdress = {
-				ipAdress : "" ,
-				set ip(ip){
-				this.ipAdress = ip;
-				}
-				};
-		
-		var username = {
-				name : "" ,
-				set setusername(externname){
-				this.name = externname;
-				}
-				};
-
-		/*var isAdmin = {
-			isUserAdmin :"",
-
-			set userAdmin (x){
-				this.isUserAdmin = x;
-			}
-		};*/
-		
-		//Hier wir der IP Adresse geholt und niedergeschrieben. 
-		function getAndSafeIP(){	
-
-			console.log("Bin in der Funktion get&SafeIP drin" + username.name);
-
-			// nimmt IP-Adresse des Users entgegen zur eindeutigen Identifikation
-			// full credit: https://www.geeksforgeeks.org/how-to-get-client-ip-address-using-javascript/
-			$.getJSON("http://api.ipify.org/?format=json", function(e) {
-				userIPAdress.ip = String(e.ip);
-			});
-		
-			getUserNamebyIP();
-
-		}
-		
-		//Hier wird anhand IP der User ausfindig gemacht (JS/BR)
-		
-		function getUserNamebyIP() {
-			
-			console.log("Bin in der Funktion getUserNamebyIP drin" + username.name);
-			
-			 $(document).ready(function(){
-     	    	$.getJSON("http://localhost:8081/timerecorders/getUserOnlineList/", function(data){
-     	    	var listusername = ""; 
-     	    	var listip = ""; 
-     	    	
- 	    		$.each(data, function(key, value){
- 	    			listusername = value.username.toString();
- 	    			listip = value.ip.toString(); 
- 	    			
- 	    			if (userIPAdress.ipAdress == listip){
- 	    			username.setusername = listusername;
- 	    			
- 	    			} else {
-					console.log("Unter der aktiven User ist dieser User nicht vorhanden - bitte überprüfen")
-					console.log(username.name);
-					console.log(listusername);
 				
-					console.log(userIPAdress.ipAdress);
-					console.log(listip);
- 	    			}
- 	    		
- 	   		});        	    		    	   	    		
-    	    	});
-    	    	    
-    	    });       	 
-    }
-		
-		//Hier wird der User ausser der Loginaktivitätliste herausgelöscht. (JS/BR)
+	//Hier wird der User ausser der Loginaktivitätliste herausgelöscht. (JS/BR)
 		
 		function deleteUserDB(){
 
-			var ip = userIPAdress.ipAdress;
-			var username = "kireng"; 
+			var username = $.cookie("userlogin").toString(); 
 
-			console.log("Bin in der Funktion deleteUserDB" + username.name);
+			console.log("Bin in der Funktion deleteUserDB" + username);
 			
 			$.ajax({
 				type : "POST",
 				url : "http://localhost:8081/timerecorders/deleteuser/",
 				data : JSON.stringify({
 
-					ip : ip,
 					username : username,
 					
 				}),
