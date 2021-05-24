@@ -113,4 +113,11 @@ public class ViewsController {
 	logger.info("Das HTML Absencen wurde geladen.");
 	return "error_403.html";
 	}
+
+	@RequestMapping(method = RequestMethod.GET, value = "/changeUsername")
+	public String showChangeUsername(Model model) {
+	logger.info("Das HTML ChangeUsername wurde geladen.");
+	return "changeUsername.html";
+	}
+
 }

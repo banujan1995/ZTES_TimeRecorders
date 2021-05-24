@@ -117,6 +117,30 @@ public class MitarbeiterService {
 		return ma;
 
 	}
+
+
+    
+	// KG: Change Username
+	@PostMapping(path = "/changeUsername/", produces = "application/json")
+	public boolean changeUsername(@RequestBody MessageMaRegister m) {​​​​​
+	List<MitarbeiterRegister> ma = mitarbeiterRepositoryInterface.findAll();
+
+		for (MitarbeiterRegister ml : ma) {
+		​​​​​
+			if (m.getUsername().equals(ml.getUsername())) {​​​​​
+				ml.setName(m.getUsername());
+				ml = mitarbeiterRepositoryInterface.save(ml);
+				logger.info("Benutzername wurde geändert!");
+				return true;
+			}​​​​​ else {​​​​​
+			logger.info("Mitarbeiter nicht vorhanden");
+
+ 			}​​​​​
+ 		}​​​​​
+			return false;
+	}​​​​​
+
+
 	
 	// KG: Change Password eines Benutzers ändern
 			@PostMapping(path = "/changePassword/", produces = "application/json")
