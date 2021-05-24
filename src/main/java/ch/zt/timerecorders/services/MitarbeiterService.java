@@ -125,13 +125,13 @@ public class MitarbeiterService {
 		List<MitarbeiterRegister> ma = mitarbeiterRepositoryInterface.findAll();
 
 		for (MitarbeiterRegister ml : ma) {
-			if (m.getUsername().equals(ml.getUsername())) {
-				ml.setName(m.getUsername());
+			if (ml.getUsername().equals(m.getUserame())) {
+				ml.setSurname(m.getSurname());
 				ml = mitarbeiterRepositoryInterface.save(ml);
 				logger.info("Benutzername wurde geändert!");
 				return true;
 			} else {
-				logger.info("Mitarbeiter nicht vorhanden");
+				logger.info("Benutzername nicht vorhanden");
 
 			}
 

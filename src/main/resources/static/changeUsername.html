@@ -72,7 +72,7 @@
     <div style="display: block; text-align: center; width: 100%;">
         <td style="text-align: center; min-width: 135px; height: 55px;" > </td>
         <a href="http://localhost:8081/profile" class="buttonLinks" style="text-decoration: none; margin-right: 20px; padding: 10px 37px;"> Return</a>
-        <button id ="changePassword_confirm" style="margin-right: 20px;" onclick="changeUsername();" type="button" class="button">Confirm</button>
+        <button id ="changePassword_confirm" style="margin-right: 20px;" onclick="validUserInput ();" type="button" class="button">Confirm</button>
         <button id ="changePassword_reset" onclick="reset();" type="button" class="button"> Reset</button>
      </div>
 
@@ -90,26 +90,17 @@
     	//Change password ajax(KG)
         function validUserInput (){ 
                var username = document.getElementById("current_username").value;
-               var username = document.getElementById("new_username").value;
-
-            //Textfelder dürfen nicht leer sein
-            if (username==="" || username===""){
-
-            var message = ("Dear Admin \n\nPlease fill all the textfields out!!\n\nThanks!");
-            alert(message);
-            return false;
-            } else {
-
-            return true;
-            }           
+               var surname = document.getElementById("new_username").value;
                
+               
+        		console.log("ich komme hier rein");
                
                $.ajax({
    				type : "POST",
    				url : "/changeUsername/",
    				data : JSON.stringify({
-                    username : username,
-                    username : username
+   					username : username,
+   					surname : surname
 
    				}),
    				success : successCredentials,
