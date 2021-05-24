@@ -83,9 +83,7 @@ public class MitarbeiterRegister {
 		return username;
 	}
 
-	public String getVorname() {
-		return passwort;
-	}
+
 
 	public void setIntMitarbeiterID(Long string) {
 		this.mitarbeiterID = string;
@@ -95,9 +93,6 @@ public class MitarbeiterRegister {
 		this.username = name;
 	}
 
-	public void setMitarbeiterVorname(String passwort) {
-		this.passwort = passwort;
-	}
 
 	public void setMitarbeiterID(Long string) {
 		this.mitarbeiterID = string;

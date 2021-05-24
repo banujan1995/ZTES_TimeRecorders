@@ -27,7 +27,7 @@ import ch.zt.timerecorders.persistence.Administrator;
 import ch.zt.timerecorders.persistence.AdministratorenRepository;
 import ch.zt.timerecorders.persistence.Arbeitstag;
 import ch.zt.timerecorders.persistence.ArbeitstagRepository;
-import ch.zt.timerecorders.persistence.Mitarbeiter;
+
 import ch.zt.timerecorders.persistence.MitarbeiterRepository;
 import ch.zt.timerecorders.start.AddAbsence;
 import ch.zt.timerecorders.start.AddAbsenceRepositoryInterface;
@@ -99,7 +99,7 @@ public class MitarbeiterService {
 		m1.setName(m.getUsername());
 		m1.setPasswort(m.getPasswort());
 		m1.setPensum(m.getPensum());
-		m1.setRole("momentanUnbekannt");
+		m1.setRole(m.getRole());
 
 		m1 = mitarbeiterRepositoryInterface.save(m1); // beim Speichern wird eine MAId automatisch vergeben
 		logger.info("MA erfolgreich hinzugefügt");
@@ -203,16 +203,16 @@ public class MitarbeiterService {
 	 * Allgemeine internen Funktionen
 	 */
 
-	// Mitarbeiter auslesen (BR)
 
-	// Mitarbeiter Liste auslesen (BR)
 
-	@GetMapping(path = "/timerecorders/erfasstemitarbeiter", produces = "application/json")
-	public List<Mitarbeiter> getlistMitarbeiter() { // Filter Framework
-		logger.info("Liste erfasste Mitarbeiter geladen");
-		return mitarbeiterRepository.getMitarbeiterList();
+	// Mitarbeiter Liste auslesen (KG)
 
-	}
+//	@GetMapping(path = "/timerecorders/erfasstemitarbeiter", produces = "application/json")
+//	public List<Mitarbeiter> getlistMitarbeiter() { // Filter Framework
+//		logger.info("Liste erfasste Mitarbeiter geladen");
+//		return mitarbeiterRepository.getMitarbeiterList();
+//
+//	}
 
 	// Mitarbeiter Zeitregister auslesen(BR)
 
