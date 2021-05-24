@@ -78,7 +78,7 @@ public class ViewsController {
 	@RequestMapping(method = RequestMethod.GET, value = "/report")
 	public String showReport(Model model) {
 		logger.info("Das HTML Report wurde geladen.");
-		return "report_en.html";
+		return "report.html";
 
 	}
 	
