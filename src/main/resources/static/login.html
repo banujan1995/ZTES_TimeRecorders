@@ -12,7 +12,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
  <script src="/js/mycookies.js"></script> 
  <script>
-	 createMyCookies();
+	 createMyCookies(); //hier wird der Cookie erstellt, wenn es vorhanden ist (BR).
  </script> 
 
 <title>Login</title>
@@ -25,27 +25,10 @@
 				style="height: 100px; width: 350px;">
 		</div>
 		<br> <br> <br> <br> <br> <br>
-		<div style="display: block; text-align: right; width: 90%;" >
-			<nav>
-				<label class="label_language"> 
-					<span id="changeLanguage_language">Change language:</span>
-				</label> 
-				<a href="javascript:void(0)">
-					<img src="css/images/UK.png" onclick="changeToEnglish();" alt="flag" id="flag" style="width: 20px; height: 15px; margin-left: 5px;" >
-					<img src="css/images/DE.jpeg" onclick="changeToGerman();" alt="flag" id="flag" style="width: 20px; height: 15px; margin-left: 5px;">
-				</a>
-			</nav>
-		</div>
 
-		<p class="title"> 
-			<span id=firstTitle_language> Zeiterfassungssystem
-			</span>
-		</p>
 
-		<p class="subtitle">
-			<span id=secondTitle_language> Anmelden
-			</span>
-		</p>
+		<p class="title">Time Recording System</p>
+		<p class="subtitle">Login</p>
 
 
 	</header>
@@ -55,27 +38,19 @@
 
 	<div style="display: block; text-align: center; width: 100%;">
 	<i class="fa fa-user icon" "></i>
-	<label for="loginUsername" class="text">
-		<b> <span id="username_language"> Benutzername: </span> 
-		</b>
-	</label>
-	<input type="text" style="min-width: 200px; text-align: center;" onkeyup="enableButton()" name="loginUsername" class="textField" id="loginUserName_DE" required>
+	<label for="loginUsername" class="text"><b>Username: </b></label>
+	<input type="text" style="min-width: 200px; text-align: center;" placeholder="Enter username" onkeyup="enableButton()" name="loginUsername" class="textField" id="loginUserName" required>
 	<br>
 	<br>
 	<i class="fa fa-key icon"></i>
-	<label for="loginUsername" class="text">
-		<b> <span id="password_language"> Passwort: </span> 
-		</b>
-	</label>
-	<input type="password" style="min-width: 200px; margin-left: 38px; text-align: center;" onkeyup="enableButton()" name="loginPassword" class="textField" id="loginPassword_DE" required>
+	<label for="loginPassword" class="text"><b>Password: </b></label>
+	<input type="password" style="min-width: 200px; text-align: center;" placeholder="Enter password" onkeyup="enableButton()" name="loginPassword" class="textField" id="loginPassword" required>
 	</div>
 	<br>
 	<br>
 	<br>
 	<div style="display: block; text-align: center; width: 100%;">
-		<p id="capsON_DE"> 
-			<span id="capsLock_language"> ACHTUNG! Festelltaste ist aktiviert! </span> 
-		</p>
+		<p id="capsON">WARNING! Caps lock is ON.</p>
 	</div>
 
 	<br>
@@ -85,16 +60,14 @@
 	<!-- credits to: https://www.w3schools.com/howto/howto_js_detect_capslock.asp-->
 	<div class="alert" id="wrongInputs" style="max-width: 380px; position: relative; margin: auto;">
 		<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
-    <strong> Falscher Passwort und/oder falscher Benutzername!</strong> 
-    <br>
-	<strong> Wrong password and/or wrong username!</strong> 
+    <strong> Wrong password and/or wrong username!</strong> 
+    <br> Please try again!
 	</div>
 	<br>
 	<br>
 
 	<div style="display: block; text-align: center; width: 100%;">
-	<input type="checkbox" onclick="showPassword()" id="showPassword"> 
-	<span id="showPassword_language"> Passwort anzeigen</span> 
+	<input type="checkbox" onclick="showPassword()" id="showPassword"> Show password
 	<br>
 	<br>
 	<div class="w3-light-grey" style="max-width: 150px; margin-left: 45%; position: relative; margin: auto;">
@@ -103,17 +76,13 @@
  	<br>
 
 
-	<button class="button" id="loginButton" onclick="load(); checkInputs()" disabled> 
-		<span id="loginBtn_language"> Anmelden</span> 
-	</button>
+	<button class="button" id="loginButton" onclick="load(); checkInputs()" disabled> Login</button>
 
 	<br>
 	<br>
 
 	<footer>
-		<a href="mailto:admin@jkbgmbh.ch" id="loginIssues" style="display: block; text-align: center; width: 100%;"> 
-			<span id="loginIssues_language"> Login Probleme? </span>
-		</a>
+		<a href="mailto:admin@jkbgmbh.ch" id="loginIssues" style="display: block; text-align: center; width: 100%;"> Login issues?</a>
 	</footer>
 
 	
@@ -159,7 +128,7 @@
     //Macht das Passwortfeld sichtbar
 		//credit to: https://www.w3schools.com/howto/howto_js_toggle_password.asp
 		function showPassword() {
-			var x = document.getElementById("loginPassword_DE");
+			var x = document.getElementById("loginPassword");
 			if (x.type === "password") {
 				x.type = "text";
 			} else {
@@ -169,8 +138,8 @@
 
     //gibt eine Warnung an, falls Feststelltaste aktiviert ist
 		//credits to: https://www.w3schools.com/howto/howto_js_detect_capslock.asp
-		var input = document.getElementById("loginPassword_DE");
-		var text = document.getElementById("capsON_DE");
+		var input = document.getElementById("loginPassword");
+		var text = document.getElementById("capsON");
 		input.addEventListener("keyup", function(event) {
 
 			if (event.getModifierState("CapsLock")) {
@@ -189,8 +158,8 @@
 			
 			console.log("kommt in Checkinputs");
 
-			var username= document.getElementById("loginUserName_DE").value;
-			var passwort = document.getElementById("loginPassword_DE").value;
+			var username= document.getElementById("loginUserName").value;
+			var passwort = document.getElementById("loginPassword").value;
 			var alert = document.getElementById("wrongInputs")
 
 			// see: https://api.jquery.com/jquery.post/
@@ -209,20 +178,18 @@
 
 		}
 		
-		/* Hier ist die Antwort vom Server, welches vearbeitet wird (BR)*/
+		/* Hier ist die Antwort vom Server, welches vearbeitet wird.
+		* Hier wird auch die Cookie Creditals gesetzt - true welche über den HTMLs verwendet werden. (BR)
+		*/
 
 		function successCredentials(response) {
-			var username= document.getElementById("loginUserName_DE").value;
+			var username= document.getElementById("loginUserName").value;
 						
 			if (response == true) {
 				//$.getJSON("http://localhost:8081/timerecorders/mitarbeiterlogin/").done(
 				
-				console.log(getMyCookie("auth"));
 				updateMyCookie("auth", "true");
-				console.log(getMyCookie("auth"));
-				console.log(getMyCookie("userlogin"));
 				updateMyCookie("userlogin", username.toString());
-				console.log(getMyCookie("userlogin"));
 				
 				handleSuccessCreditals(response);
 				
@@ -240,7 +207,7 @@
 		function handleSuccessCreditals(response) {
 			var alert = document.getElementById("wrongInputs")
 			
-			var username= document.getElementById("loginUserName_DE").value;
+			var username= document.getElementById("loginUserName").value;
 			var ip = userIPAdress.ipAdress;
 			
 			registerUserDB(ip, username);
@@ -261,8 +228,6 @@
 		
 		//Hier wir der IP Adresse geholt und niedergeschrieben. 
 		function getAndSafeIP(){	
-			console.log("ich komme in getAndSafeIP");
-			
 			
 			// nimmt IP-Adresse des Users entgegen zur eindeutigen Identifikation
 			// full credit: https://www.geeksforgeeks.org/how-to-get-client-ip-address-using-javascript/
@@ -301,30 +266,6 @@
 			}
 			
 		}
-
-		function changeToEnglish() {
-            document.getElementById("changeLanguage_language").innerHTML = "Change language:";
-            document.getElementById("firstTitle_language").innerHTML = "Time Recording System";
-            document.getElementById("secondTitle_language").innerHTML = "Login";
-            document.getElementById("username_language").innerHTML = "Username:"+"\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0\xa0";
-			document.getElementById("password_language").innerHTML = "Password:";
-			document.getElementById("capsLock_language").innerHTML = "WARNING! Caps lock is ON!";
-			document.getElementById("showPassword_language").innerHTML = "Show password";
-			document.getElementById("loginBtn_language").innerHTML = "Login";
-			document.getElementById("loginIssues_language").innerHTML = "Login issues?";
-        }
-
-        function changeToGerman() {
-            document.getElementById("changeLanguage_language").innerHTML = "Sprache wechseln";
-            document.getElementById("firstTitle_language").innerHTML = "Zeiterfassungssystem";
-            document.getElementById("secondTitle_language").innerHTML = "Anmelden";
-            document.getElementById("username_language").innerHTML = "Benutzername:";
-			document.getElementById("password_language").innerHTML = "Passwort:";
-			document.getElementById("capsLock_language").innerHTML = "ACHTUNG! Feststelltaste ist aktiviert!";
-			document.getElementById("showPassword_language").innerHTML = "Passwort anzeigen";
-			document.getElementById("loginBtn_language").innerHTML = "Anmelden";
-			document.getElementById("loginIssues_language").innerHTML = "Login Probleme?";
-        }
 		
 
 		

@@ -15,17 +15,8 @@
 		</div>
 		<br> <br> <br> <br> <br> <br><br><br>
 
-    <div style="display: block; text-align: right; width: 90%;" >
-		<nav>
-			<label for="english" class="label_language"> <span id="changeLanguage">Change language:</span></label> 
-			<a href="javascript:void(0)">
-				<img src="css/images/UK.png" onclick="changeToEnglish()" alt="flag" id="flag" style="width: 20px; height: 15px; margin-left: 5px;" >
-                <img src="css/images/DE.jpeg" onclick="changeToGerman()" alt="flag" id="flag" style="width: 20px; height: 15px; margin-left: 5px;">
-			</a>
-		</nav>
-    </div>
-
-        <p style ="font-size: 35px;" class="subtitle"> <span id="subtitle"> 403 Forbidden - You are not properly logged in!</span> </p>
+        <p style ="font-size: 35px;" class="subtitle"> <span id="subtitle"> 403 Forbidden</span> </p>
+        <p style ="font-size: 35px;" class="subtitle"> <span id="subtitle"> You are not properly logged in!</span> </p>
 
     </header>
     <br>
@@ -38,23 +29,6 @@
         <a class="buttonLinks" style="text-decoration: none; width: 120px;" href="http://localhost:8081/login"> <span id="button">Go to Login</span></a>
     </div>
 
-    <script>
-
-        function changeToEnglish() {
-            document.getElementById("changeLanguage").innerHTML = "Change language:";
-            document.getElementById("subtitle").innerHTML = "403 Forbidden - You are not properly logged in!";
-            document.getElementById("text1").innerHTML = "Please use the following button to access the login page:";
-            document.getElementById("button").innerHTML = "Go to Login";
-        }
-
-        function changeToGerman() {
-            document.getElementById("changeLanguage").innerHTML = "Sprache wechseln:";
-            document.getElementById("subtitle").innerHTML = "403 Forbidden - Sie sind nicht korrekt eingeloggt!";
-            document.getElementById("text1").innerHTML = "Bitte nutzen Sie folgenden Button um zur Anmeldung zu gelangen:";
-            document.getElementById("button").innerHTML = "Zur Anmeldung";
-        }
-
-    </script>
-
+ 
 </body>
 </html>
