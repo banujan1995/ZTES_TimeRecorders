@@ -31,6 +31,7 @@
     <script>
     console.log($.cookie("auth"));
     console.log($.cookie("userlogin"));
+    console.log($.cookie("role"));
 	
     </script>
 	
@@ -71,25 +72,7 @@
             <th style="text-align: center; min-width: 135px; height: 65px;"> Workload: </th>
             <td id ="profile_workload"style="text-align: center; min-width: 235px; height: 55px;"> 100%</td>
         </tr>
-        <tr style="background-color: whitesmoke">
-            <th style="text-align: center; min-width: 135px; height: 65px;"> Working Days: </th>
-            <td id ="profile_workingDays" style="text-align: center; min-width: 155px; height: 65px;">
-                <label for="monday">Monday: </label> 
-                <input class="checkbox" type="checkbox" name="monday" id="addEmployee_monday" style="margin-left: 33px;" checked="true" disabled> 
-                <br>
-                <label for="tuesday">Tuesday: </label> 
-                <input class="checkbox" type="checkbox" name="tuesday" id="addEmployee_tuesday" style="margin-left: 29px;" checked="true" disabled>
-                <br>
-                <label for="wednesday">Wednesday: </label> 
-                <input class="checkbox" type="checkbox" name="wednesday" id="addEmployee_wednesday" style="margin-left: 5px;" checked="true" disabled>
-                <br>
-                <label for="thursday">Thursday: </label> 
-                <input class="checkbox" type="checkbox" name="thursday" id="addEmployee_thursday" style="margin-left: 23px;" checked="true" disabled>
-                <br>
-                <label for="friday">Friday: </label> 
-                <input class="checkbox" type="checkbox" name="friday" id="addEmployee_friday" style="margin-left: 45px;" checked="true" disabled>
-            </td>
-        </tr>
+        
         <tr style="background-color: whitesmoke">
             <th style="text-align: center; min-width: 135px; height: 65px;"> Target Hours (weekly): </th>
             <td id ="profile_targetHours" style="text-align: center; min-width: 235px; height: 65px;"> 42</td>
@@ -106,7 +89,7 @@
     <div style="display: block; text-align: center; width: 100%;">
         <a href="http://localhost:8081/changepassword" class="buttonLinks" style="margin-right: 20px; text-decoration: none;"> Change Password</a>
         <a href="http://localhost:8081/changeUsername" class="buttonLinks" style="margin-right: 20px; text-decoration: none;"> Change Username</a>
-        <a href="http://localhost:8081/employeeList" class="buttonLinks" style="text-decoration: none;"> Edit employee list</a>
+        <a href="http://localhost:8081/employeeList" class="buttonLinks" id="buttonNurFürAdmin" style="text-decoration: none;"> Edit employee list</a>
     </div>
     
     <br>
@@ -153,6 +136,26 @@ function successDeleteUser(response){
 		
 	
 	
+	}
+	
+	window.onload = function(){
+		hideButtonEmployeeList();	
+	}
+	
+	function hideButtonEmployeeList(){
+
+		var role = $.cookie("role"); 
+
+		if(role == "Employee") {
+			document.getElementById("buttonNurFürAdmin").style.visibility = "hidden";	
+			console.log(role);
+	
+		} else if (role == "Admin") {
+			document.getElementById("buttonNurFürAdmin").style.visibility = "visible";	
+			console.log(role);
+
+		}
+
 	}
 
     
