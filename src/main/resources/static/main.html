@@ -30,6 +30,7 @@
     <script>
     console.log($.cookie("auth"));
     console.log($.cookie("userlogin"));
+
 	
     </script>
 	
@@ -1447,6 +1448,43 @@
 
 		
 		}
+		
+		/*
+		*Hier wird die Rolle des akutellen User geholt und in die Cookies geschrieben (BR)
+		*/
+		function getRoleofWorker(){
+			console.log("ich komme ins getRoleofWorker");
+			
+			var username = getMyCookie("userlogin");
+			console.log("getRole  " + username);
+			
+			// see: https://api.jquery.com/jquery.post/
+			
+		$.ajax({
+			type : "GET",
+			url : "http://localhost:8081/timerecorders/roleofworker/" + username + "/",
+			success : successGetRole,
+			dataType : 'json',
+			contentType : 'application/json'
+		});
+		
+	
+	}
+		
+		
+	function successGetRole(response) {
+	var role = Object.values(response);
+	var roleString = role[0];
+	
+		console.log(roleString);
+		updateMyCookie("role", roleString);
+		console.log(getMyCookie("role")+"+++++++++++++++++++++++++++++++");
+	
+	}
+	
+	window.onload = function(){
+		getRoleofWorker();	
+	}
 		
 		
 		
