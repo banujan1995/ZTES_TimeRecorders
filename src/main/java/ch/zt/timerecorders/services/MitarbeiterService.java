@@ -112,6 +112,27 @@ public class MitarbeiterService {
 		return ma;
 
 	}
+	
+	// KG: Change Password eines Benutzers ändern
+		@PostMapping(path = "/changePassword/", produces = "application/json")
+		public boolean changePasswort(@RequestBody MessageMaRegister m) {
+			
+			List<MitarbeiterRegister> ma = mitarbeiterRepositoryInterface.findAll();
+			
+			for (MitarbeiterRegister ml : ma) {
+				if (m.getUsername().equals(ml.getUsername())) {
+					ml.setPasswort(m.getPasswort());
+					ml = mitarbeiterRepositoryInterface.save(ml);
+					logger.info("Passwort wurde geändert!");
+					return true;
+				} else {
+					logger.info("Mitarbeiter nicht vorhanden");
+
+				}
+
+			}
+			return false;
+		}
 
 	// Mitarbeiter mutieren von MA zu AD (BR)
 
