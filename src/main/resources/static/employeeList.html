@@ -238,12 +238,13 @@
 
     <table cellspacing="0" cellpadding="0" border="0" id="employeeTable" style="position: relative; margin: auto; width: 50px;">
        
-        <table id ="mitarbeiterList">
+        <table id ="mitarbeiterList" class=absenceTableContent>
 			 <tr>
 			    <th>MitarbeiterID</th>
 			     <th>Surname</th>
 			    <th>Username</th>
 			    <th>Workload</th>
+			     <th>Edit</th>
 			  </tr>
 			<tbody>
 			</tbody>
@@ -269,22 +270,65 @@
  <script>
  
     
-    $(document).ready(function(){
-    	$.getJSON("http://localhost:8081/mitarbeiterList/", function(data){
-    		var mitarbeiter_data = '';
-    		$.each(data, function(key, value){
-    			mitarbeiter_data += '<tr>';
-    			mitarbeiter_data += '<td>'+value.mitarbeiterID+ '</td>';
-    			mitarbeiter_data += '<td>'+value.surname+ '</td>';
-    			mitarbeiter_data += '<td>'+value.username+ '</td>';
-    			mitarbeiter_data += '<td>'+value.pensum+ '</td>';
-    			mitarbeiter_data += '</tr>';
-    		});
-    		$('#mitarbeiterList').append(mitarbeiter_data);	
-    		
-    	});
-    	    
-    });
+ $(document).ready(function(){
+ 	$.getJSON("http://localhost:8081/mitarbeiterList/", function(data){
+ 		var mitarbeiter_data = '';
+ 		$.each(data, function(key, value){
+ 			mitarbeiter_data += '<tr>';
+ 			var mitarbeiterID = mitarbeiter_data += '<td id = "mitarbeiterID">'+"10" +value.mitarbeiterID+ '</td>';
+ 			var surname = mitarbeiter_data += '<td id = "surname">'+value.surname+ '</td>';
+ 			var username = mitarbeiter_data += '<td id = "username">'+value.username+ '</td>';
+ 			var pensum = mitarbeiter_data += '<td id = "pensum">'+value.pensum+ '</td>';
+ 			mitarbeiter_data += '<td>' +"<input type='button' id='DeleteButton' onclick='CallMe(this)' value='Delete'>"+ '</td>';
+ 			mitarbeiter_data += '</tr>';
+ 		});
+ 		$('#mitarbeiterList').append(mitarbeiter_data);	
+ 		
+ 		$('tr:has(td:empty)').hide();    	   
+ 		
+ 		
+ 	});
+ 	    
+ });
+ 
+ function CallMe(row)
+ {
+ 	
+ 	console.log("kommt rein");
+     var i=row.parentNode.parentNode.rowIndex;
+     document.getElementById('mitarbeiterList').deleteRow(i);
+     alert("The ID is deleted");
+     
+     var mitarbeiterID = row.parentNode.parentNode.rowIndex;
+     document.getElementById("mitarbeiterID").innerHTML;
+     var surname = row.parentNode.parentNode.rowIndex;
+     document.getElementById("surname").innerHTML;
+     var username = row.parentNode.parentNode.rowIndex;
+     document.getElementById("username").innerHTML;
+     var pensum = row.parentNode.parentNode.rowIndex;
+     document.getElementById("pensum").innerHTML;
+     
+     
+     console.log("ich komme hier rein");
+     
+ 
+	 $.ajax({
+			type : "POST",
+			url : "/deleteMitarbeiter/",
+			data : JSON.stringify({
+				mitarbeiterID : mitarbeiterID,
+				surname : surname,
+				username : username,
+				pensum : pensum
+				
+	
+			}),
+			dataType : 'json',
+			contentType : 'application/json'
+		});
+	
+	 
+	 }
 
     var userIPAdress = {
             ipAdress: "",

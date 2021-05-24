@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -139,6 +140,7 @@ public class MitarbeiterService {
 				return false;
 			}
 			
+			
 			//Liste der erfassten Ferien als JSON (KG) 
 			@ResponseBody
 			@GetMapping(path = "/erfassteFerien/", produces = "application/json")
@@ -167,6 +169,36 @@ public class MitarbeiterService {
 	// Mitarbeiter mutieren von MA zu AD (BR)
 
 	// Mitarbeiter löschen (BR)
+			
+			// Mitarbeiter aus der Employee Liste löschen (KG)
+			
+			@PostMapping(path = "/deleteMitarbeiter/", produces = "application/json")
+			public boolean deleteMA(@RequestBody MessageMaRegister m) {
+				
+				boolean mitarbeiterfound = false;
+				
+				List<MitarbeiterRegister> ma = mitarbeiterRepositoryInterface.findAll();
+				
+				System.out.println("Kommt rein");
+				
+				for (MitarbeiterRegister ml : ma) {
+					if (ml.getMitarbeiterID() == null) 
+						return mitarbeiterfound = false;
+
+						ml.setSurname("");
+						ml.setName("");
+						ml.setPensum("");
+										
+						ma.remove(ml);
+						
+						mitarbeiterRepositoryInterface.save(ml);
+						
+						logger.info("Mitarbeiter wurde gelöscht");
+						return mitarbeiterfound = true;
+				}
+				
+				return mitarbeiterfound;
+			}
 
 	/**
 	 * Mitarbeiter verändern (BR) - je nach Daten eine anderen Code nötig
