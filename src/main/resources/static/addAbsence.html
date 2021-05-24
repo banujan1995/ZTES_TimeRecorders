@@ -75,6 +75,7 @@
             <th style="text-align: center; min-width: 175px; height: 65px;"> Reason: </th>
             <td style="text-align: center; min-width: 235px; height: 65px;"> 
                 <select id="absenceReason" style="min-width: 200px; align-content: center;"> 
+                    <option class = "options">Please select:</option>
                     <option class = "options">Holidays</option>
                     <option class = "options">Relocation</option>
                     <option class = "options">Sickness</option>
@@ -205,9 +206,27 @@
             var reason = document.getElementById('absenceReason').value;
             var numberOfWorkingDays = document.getElementById("addAbsence_numberOfDays").innerHTML;
 
+            if (validUserInput()){
             var message = ("Dear User\n\nFollowing absence has been added:\n\nReason: "+reason+"\nPeriod: "+period+"\nNumber of working days: "+numberOfWorkingDays)
             alert(message);
             reset();
+
+            }
+        }
+
+
+        //Überprüft, ob nötige Auswahl getroffen wurde
+        function validUserInput(){
+
+
+            var reason = document.getElementById('absenceReason').value;
+            if (reason === "Please select:"){
+
+            var message = ("Dear User\n\nPlease choose a reason!\n\nThank you!")
+            alert(message);
+            return false;
+            }
+        return true;
         }
 
         var userIPAdress = {

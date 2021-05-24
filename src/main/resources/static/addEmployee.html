@@ -109,8 +109,9 @@
             <th style="text-align: center; min-width: 175px; height: 65px;"> Role:</th>
             <td style="text-align: center; min-width: 235px; height: 65px;"> 
                 <select id="role" style="min-width: 200px; align-content: center;"> 
+                    <option class = "options">Please select:</option>
+                    <option class = "options">Employee</option>
                     <option class = "options">Admin</option>
-                    <option class = "options">MA</option>
                 </select>
             </td>
         </tr>
@@ -206,6 +207,8 @@
             document.getElementById("addEmployee_repeatPassword").value ="";
             document.getElementById("addEmployee_workload").innerHTML ="";
             document.getElementById("addEmployee_targetHours").innerHTML ="";
+            var dropDown = document.getElementById("role");
+            dropDown.selectedIndex = 0;
 
             var uncheck=document.getElementsByTagName('input');
                 for(var i=0;i<uncheck.length;i++)   {
@@ -262,10 +265,11 @@
             var password = document.getElementById("addEmployee_password").innerText;
             var passwordRepeat = document.getElementById("addEmployee_repeatPassword").innerText;
             var checkBoxCounter = document.querySelectorAll('input[type="checkbox"]:checked').length;
+            var role = document.getElementById('role').value;
 
             //alle Textfelder müssen einen Wert aufweise + mind. 1 Arbeitstag muss erfasst sein
             //TODO:
-            if (surname==="" && familyname==="" && username==="" && password==="" && passwordRepeat===""  && checkBoxCounter == 0){
+            if (surname==="" || familyname==="" || username==="" || password==="" || passwordRepeat===""  || checkBoxCounter <= 1 || role ==="Please select:"){
 
                 var message = ("Dear Admin \n\nPlease fill out all the textfields and check all employees working days!!");
                 alert(message);
