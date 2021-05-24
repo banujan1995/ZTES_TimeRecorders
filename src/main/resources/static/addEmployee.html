@@ -26,9 +26,9 @@
 	
 	<!-- Hier wird der Cookie ausgelesen und bei auth=false wird der HTML=403 aufgerufen. (BR) -->
 	<script> 
-		if($.cookie("auth") == "false"){
-			window.location.assign("http://localhost:8081/accesserror");
-		}
+		//if($.cookie("auth") == "false"){
+			//window.location.assign("http://localhost:8081/accesserror");
+		//}
 	</script>
     <script>
     console.log($.cookie("auth"));
@@ -140,7 +140,8 @@
             var passwort = document.getElementById("addEmployee_password").value;
             document.getElementById("addEmployee_repeatPassword").value;
             var pensum = document.getElementById("addEmployee_workload").innerHTML;
-            document.getElementById("addEmployee_targetHours").innerHTML;
+            //document.getElementById("addEmployee_targetHours").innerHTML;
+            var role = document.getElementById("role").value; 
             
             $.ajax({
 				type : "POST",
@@ -150,7 +151,8 @@
 					familyname : familyname,
 					username : username,
 					passwort : passwort,
-					pensum : pensum
+					pensum : pensum,
+					role : role
 
 				}),
 				success : successCredentials,
@@ -283,6 +285,9 @@
             window.location.href = "http://localhost:8081/employeeList";
         }
 	
+        
+        
+        
 //Hier wird der User ausser der Loginaktivitätliste herausgelöscht. (JS/BR)
 		
 		function deleteUserDB(){

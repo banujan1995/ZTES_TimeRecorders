@@ -45,11 +45,13 @@ public class MitarbeiterRegister {
 	public String passwort;
 	public String pensum;
 	
+	public String role; 
+	
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<MitarbeiterRegister> mitarbeiter = new ArrayList<>();
 
 
-	public MitarbeiterRegister(Long mitarbeiterID, String surname, String familyname, String username, String passwort, String pensum) {
+	public MitarbeiterRegister(Long mitarbeiterID, String surname, String familyname, String username, String passwort, String pensum, String role) {
 		super();
 		this.mitarbeiterID = mitarbeiterID;
 		this.surname = surname;
@@ -57,6 +59,7 @@ public class MitarbeiterRegister {
 		this.username = username;
 		this.passwort = passwort;
 		this.pensum = pensum;
+		this.role = role; 
 	}
 
 	public String getPensum() {
@@ -80,9 +83,7 @@ public class MitarbeiterRegister {
 		return username;
 	}
 
-	public String getVorname() {
-		return passwort;
-	}
+
 
 	public void setIntMitarbeiterID(Long string) {
 		this.mitarbeiterID = string;
@@ -92,9 +93,6 @@ public class MitarbeiterRegister {
 		this.username = name;
 	}
 
-	public void setMitarbeiterVorname(String passwort) {
-		this.passwort = passwort;
-	}
 
 	public void setMitarbeiterID(Long string) {
 		this.mitarbeiterID = string;
@@ -131,6 +129,16 @@ public class MitarbeiterRegister {
 	public List<MitarbeiterRegister> getMitarbeiter() {
 		return mitarbeiter;
 	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+	
+	
 	
 	
 	

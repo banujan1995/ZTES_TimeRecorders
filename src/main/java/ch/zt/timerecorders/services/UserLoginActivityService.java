@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import ch.zt.timerecorders.persistence.AdministratorenRepository;
 import ch.zt.timerecorders.persistence.ArbeitstagRepository;
-import ch.zt.timerecorders.persistence.Mitarbeiter;
 import ch.zt.timerecorders.persistence.MitarbeiterRepository;
 import ch.zt.timerecorders.start.LoginUserActivityRegister;
 import ch.zt.timerecorders.start.LoginUserActivityRegisterInterface;

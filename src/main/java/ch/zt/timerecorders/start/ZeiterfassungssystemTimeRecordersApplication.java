@@ -15,7 +15,6 @@ import ch.zt.timerecorders.businesslogic.Pensum;
 import ch.zt.timerecorders.persistence.Administrator;
 import ch.zt.timerecorders.persistence.AdministratorenRepository;
 import ch.zt.timerecorders.persistence.ArbeitstagRepository;
-import ch.zt.timerecorders.persistence.Mitarbeiter;
 import ch.zt.timerecorders.persistence.MitarbeiterRepository;
 
 import ch.zt.timerecorders.view.ViewsController;
@@ -58,23 +57,23 @@ public class ZeiterfassungssystemTimeRecordersApplication {
 	 * Klasse
 	 */
 
-	@PostConstruct
-	public void createTestData() {
-		Mitarbeiter mariaAndreas = new Mitarbeiter("Andreas", "Maria", "amaria", "1234", Pensum.HundertProzent);
-		Mitarbeiter kirenGondal = new Mitarbeiter("Gondal", "Kiren", "gkiren", "1234", Pensum.HundertProzent);
-		Mitarbeiter jordiSchmidlin = new Mitarbeiter("Schmidlin", "Jordi", "sjordi", "1234", Pensum.HundertProzent);
-		Mitarbeiter banujanRagunathan = new Mitarbeiter("Ragunathan", "Banujan", "rbanujan", "1234",
-				Pensum.HundertProzent);
-		mitarbeiterRepository.addMitarbeiter(mariaAndreas);
-		mitarbeiterRepository.addMitarbeiter(kirenGondal);
-		mitarbeiterRepository.addMitarbeiter(jordiSchmidlin);
-		mitarbeiterRepository.addMitarbeiter(banujanRagunathan);
-
-		Administrator lukasFrey = new Administrator("Frey", "Lukas", "flukas", "1234", Pensum.HundertProzent);
-		Administrator richardBradley = new Administrator("Bradley", "Richard", "brichard", "1234",
-				Pensum.HundertProzent);
-		administratorRepository.addAdministrator(lukasFrey);
-		administratorRepository.addAdministrator(richardBradley);
-	}
+//	@PostConstruct
+//	public void createTestData() {
+//		Mitarbeiter mariaAndreas = new Mitarbeiter("Andreas", "Maria", "amaria", "1234", Pensum.HundertProzent);
+//		Mitarbeiter kirenGondal = new Mitarbeiter("Gondal", "Kiren", "gkiren", "1234", Pensum.HundertProzent);
+//		Mitarbeiter jordiSchmidlin = new Mitarbeiter("Schmidlin", "Jordi", "sjordi", "1234", Pensum.HundertProzent);
+//		Mitarbeiter banujanRagunathan = new Mitarbeiter("Ragunathan", "Banujan", "rbanujan", "1234",
+//				Pensum.HundertProzent);
+//		mitarbeiterRepository.addMitarbeiter(mariaAndreas);
+//		mitarbeiterRepository.addMitarbeiter(kirenGondal);
+//		mitarbeiterRepository.addMitarbeiter(jordiSchmidlin);
+//		mitarbeiterRepository.addMitarbeiter(banujanRagunathan);
+//
+//		Administrator lukasFrey = new Administrator("Frey", "Lukas", "flukas", "1234", Pensum.HundertProzent);
+//		Administrator richardBradley = new Administrator("Bradley", "Richard", "brichard", "1234",
+//				Pensum.HundertProzent);
+//		administratorRepository.addAdministrator(lukasFrey);
+//		administratorRepository.addAdministrator(richardBradley);
+//	}
 
 }
