@@ -44,7 +44,7 @@
 	<br>
 	<i class="fa fa-key icon"></i>
 	<label for="loginPassword" class="text"><b>Password: </b></label>
-	<input type="password" style="min-width: 200px; text-align: center;" placeholder="Enter password" onkeyup="enableButton()" name="loginPassword" class="textField" id="loginPassword" required>
+	<input type="password" style="min-width: 200px; text-align: center;" placeholder="Enter password" onkeyup="enableButton()" name="loginPassword" onkeypress="handle(event)" class="textField" id="loginPassword" required>
 	</div>
 	<br>
 	<br>
@@ -89,6 +89,18 @@
 
 
 	<script>
+
+
+	function handle(event) {
+    	if (event.keyCode == 13) {
+        	event.preventDefault();
+			load();
+			checkInputs();
+         	return true;
+      	} else {
+         return false;
+      }
+  	}
 
     //Button wird nur enabled, falls Password und User einen Wert aufweisen
     //TODO: muss beides überprüfen
