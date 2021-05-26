@@ -9,8 +9,8 @@ import javax.persistence.Table;
 
 /**
  * 
- * @author Banujan Ragunathan
- * @author Kiren Gondal
+ * @author Banujan Ragunathan (Zeiterfassung)
+ * @author Kiren Gondal (DB System)
  *
  */
 
@@ -25,10 +25,17 @@ public class TimeStampRegisterChange {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int mitarbeiterID;
-
 	private int TAGESID;
-
 	protected String date;
+	
+	//Hier wird der Username übernommen. 
+	private String username; 
+	
+	//Grund der Erfassung
+	protected String grund = ""; 
+	
+	//Hier wird der Pensum 
+	private int pensum; 
 
 	// Stunden Vormittag
 	protected int morningstartHours;
@@ -53,14 +60,16 @@ public class TimeStampRegisterChange {
 	protected double afternoonTotal;
 
 	// geleistete Arbeitszeit am einem Tag
-	private double totalDeci;
+	protected double totalDeci;
 
+	//Überzeit vom Vortrag wird reingespeichert. 
 	protected double minusOderPlusZeit = 0.0;
+	
 
 	public TimeStampRegisterChange(int mitarbeiterID, int tAGESID, String date, int morningstartHours,
 			int morningEndHours, double morningStartMinDeci, double morningEndMinDeci, double morningTotal,
 			int afternoonStartHours, int afternoonEndHours, double afternoonStartMinDeci, double afternoonEndMinDeci,
-			double afternoonTotal, double totalDeci, double minusOderPlusZeit) {
+			double afternoonTotal, double totalDeci, double minusOderPlusZeit, String grund, int pensum, String username) {
 		super();
 		this.mitarbeiterID = mitarbeiterID;
 		TAGESID = tAGESID;
@@ -77,6 +86,9 @@ public class TimeStampRegisterChange {
 		this.afternoonTotal = afternoonTotal;
 		this.totalDeci = totalDeci;
 		this.minusOderPlusZeit = minusOderPlusZeit;
+		this.grund = grund;
+		this.pensum = pensum;
+		this.username = username; 
 	}
 
 	public TimeStampRegisterChange() {
@@ -202,5 +214,35 @@ public class TimeStampRegisterChange {
 	public void setMinusOderPlusZeit(double minusOderPlusZeit) {
 		this.minusOderPlusZeit = minusOderPlusZeit;
 	}
+
+	public String getGrund() {
+		return grund;
+	}
+
+	public void setGrund(String grund) {
+		this.grund = grund;
+	}
+
+	public int getPensum() {
+		return pensum;
+	}
+
+	public void setPensum(int pensum) {
+		this.pensum = pensum;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	
+	
+	
+	
+	
+	
 
 }

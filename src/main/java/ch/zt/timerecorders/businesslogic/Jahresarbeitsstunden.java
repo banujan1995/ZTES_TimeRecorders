@@ -35,7 +35,7 @@ public enum Jahresarbeitsstunden {
 	 * code-correctness
 	 * https://wiki.byte-welt.net/wiki/Flie%C3%9Fkommazahlen_mit_Java_runden
 	 */
-	public double monatsstundenRechner(Monat monat, Pensum pensum) {
+	public double monatsstundenRechner(Monat monat, int pensum) {
 		double monatsstunden = 0.0;
 
 		switch (monat) {
@@ -108,8 +108,8 @@ public enum Jahresarbeitsstunden {
 		return monatsstunden;
 	}
 
-	public double getJahresarbeitsstundenfürBerechnung(Pensum pensum) {
-		Jahresarbeitsstunden localPensum = Jahresarbeitsstunden.valueOf(pensum.getPensum()+"");
+	public double getJahresarbeitsstundenfürBerechnung(int pensum) {
+		Jahresarbeitsstunden localPensum = Jahresarbeitsstunden.valueOf(pensum + "");
 		double localJahresarbeitsstunden = localPensum.getJahresarbeitsstunden();
 		return localJahresarbeitsstunden;
 	}

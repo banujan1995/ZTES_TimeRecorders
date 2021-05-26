@@ -1306,6 +1306,7 @@
         		afternoonTotal,totalDeci){
 		
         var date = informationAboutDay.currentDay;
+        var username = getMyCookie("userlogin");
        
 	        
 		console.log("Die Zeit wurde in den DB gespeichert");
@@ -1315,6 +1316,7 @@
 				url : "http://localhost:8081/timerecorders/zeiterfassung/",
 				data : JSON.stringify({
 
+					username : username,
 					date : date,
 					morningEndHours : morningEndHours,
 					morningstartHours : morningstartHours,

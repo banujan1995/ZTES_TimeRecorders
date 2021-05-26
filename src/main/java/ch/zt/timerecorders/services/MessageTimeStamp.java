@@ -3,8 +3,8 @@ package ch.zt.timerecorders.services;
 public class MessageTimeStamp {
 	
 	/**
-	 * @author Banujan Ragunathan
-	 * @author Kiren Gondal
+	 * @author Banujan Ragunathan (Zeiterfassung)
+	 * @author Kiren Gondal (DB System)
 	 */
 	/*
 	 * Hier werden die Daten übernommen für den Datenbank - Input für den Interface (BR). 
@@ -13,6 +13,15 @@ public class MessageTimeStamp {
 	private long TAGESID;
 	private Long mitarbeiterID;
 	private String date; // datum
+	
+	//Hier wird der Username übernommen. 
+	private String username; 
+		
+	//Hier wird der Grund der Erfassung übernommen. 
+	private String grund = ""; 
+	
+	//Hier wird der Pensum 
+	private int pensum; 
 
 	// Stunden Vormittag
 	private int morningEndHours;
@@ -33,11 +42,14 @@ public class MessageTimeStamp {
 	// Summe Stunden und Minuten (in Dezimal)
 	private double morningTotal; // in Dezimal
 	private double afternoonTotal; // in Dezimal
-
+	
 	// geleistete Arbeitszeit am einem Tag
 	private double totalDeci;
-
+	
+	//Hier wird die Überzeit mitgenommen vom vorherigen Tag. 
 	private double minusOderPlusZeit;
+
+	
 
 	public long getTAGESID() {
 		return TAGESID;
@@ -158,5 +170,35 @@ public class MessageTimeStamp {
 	public void setMinusOderPlusZeit(double minusOderPlusZeit) {
 		this.minusOderPlusZeit = minusOderPlusZeit;
 	}
+
+	public String getGrund() {
+		return grund;
+	}
+
+	public void setGrund(String grund) {
+		this.grund = grund;
+	}
+
+	public int getPensum() {
+		return pensum;
+	}
+
+	public void setPensum(int pensum) {
+		this.pensum = pensum;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	
+	
+	
+	
+	
+	
 
 }

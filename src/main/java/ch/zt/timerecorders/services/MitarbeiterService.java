@@ -98,7 +98,7 @@ public class MitarbeiterService {
 		m1.setFamilyname(m.getFamilyname());
 		m1.setName(m.getUsername());
 		m1.setPasswort(m.getPasswort());
-		m1.setPensum(m.getPensum());
+		m1.setPensum(m.getPensum().substring(0, 2));
 		m1.setRole(m.getRole());
 
 		m1 = mitarbeiterRepositoryInterface.save(m1); // beim Speichern wird eine MAId automatisch vergeben
@@ -202,8 +202,6 @@ public class MitarbeiterService {
 	/**
 	 * Allgemeine internen Funktionen
 	 */
-
-
 
 	// Mitarbeiter Liste auslesen (KG)
 
@@ -328,8 +326,17 @@ public class MitarbeiterService {
 
 			if (zeiterfassungGefunden) {
 
+				// Username
+				timeStamps.get(counterY).setUsername(zeiterfassung.getUsername());
+				
+				//Pensum
+				timeStamps.get(counterY).setPensum(getMitarbeiterPensum(zeiterfassung.getUsername()));
+
 				// Datum
 				timeStamps.get(counterY).setDate(zeiterfassung.getDate());
+
+				// Hier wird der Grund direkt gesetzt.
+				timeStamps.get(counterY).setGrund("Zeiterfassung");
 
 				// Vormittag Stunden
 
@@ -363,9 +370,15 @@ public class MitarbeiterService {
 				// workingday = new Arbeitstag((long) 1, zeiterfassung.getDate());
 				timeStamp = new TimeStampRegisterChange();
 
+				// Username
+				timeStamp.setUsername(zeiterfassung.getUsername());
+				
+				//Pensum
+				timeStamp.setPensum(getMitarbeiterPensum(zeiterfassung.getUsername()));
+
 				timeStamp.setTAGESID(tagesIDGenerator(zeiterfassung.getDate()));
 				timeStamp.setDate(zeiterfassung.getDate());
-//				timeStamp.setMitarbeiterID(101);
+				timeStamp.setGrund("Zeiterfassung"); // Hier wird der Grund direkt gesetzt.
 
 				// Vormittag Stunden
 				timeStamp.setMorningEndHours(zeiterfassung.getMorningEndHours());
@@ -403,8 +416,15 @@ public class MitarbeiterService {
 		} else {
 			timeStamp = new TimeStampRegisterChange();
 
+			// Username
+			timeStamp.setUsername(zeiterfassung.getUsername());
+			
+			//Pensum
+			timeStamp.setPensum(getMitarbeiterPensum(zeiterfassung.getUsername()));
+
 			timeStamp.setTAGESID(tagesIDGenerator(zeiterfassung.getDate()));
 			timeStamp.setDate(zeiterfassung.getDate());
+			timeStamp.setGrund("Zeiterfassung"); // Hier wird der Grund direkt gesetzt.
 
 			// Vormittag Stunden
 			timeStamp.setMorningEndHours(zeiterfassung.getMorningEndHours());
@@ -593,6 +613,28 @@ public class MitarbeiterService {
 		String localJahr = date.substring(11, 15);
 		this.jahr = Integer.parseInt(localJahr);
 
+	}
+
+	public int getMitarbeiterPensum(String username) {
+		logger.info("Suchfunktion nach Pensum");
+
+		int pensum = 0;
+		List<MitarbeiterRegister> ma = mitarbeiterRepositoryInterface.findAll();
+
+		for (MitarbeiterRegister ml : ma) {
+			if (ml.getUsername().equalsIgnoreCase(username)) {
+
+				pensum = Integer.parseInt(ml.getPensum());
+				logger.info("Rolle des Mitarbeiters und dazugehörigen Pensum " + username + " " + pensum);
+				break;
+
+			} else {
+
+				logger.info("Pensum des Mitarbeiters nicht gefunden.");
+			}
+
+		}
+		return pensum; 
 	}
 
 	public int getTag() {

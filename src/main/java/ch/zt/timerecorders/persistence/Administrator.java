@@ -6,7 +6,7 @@ import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import ch.zt.timerecorders.businesslogic.Pensum;
+
 import ch.zt.timerecorders.start.ServiceLocator;
 
 /**
@@ -23,9 +23,9 @@ public class Administrator {
 	protected String vorname;
 	protected String benutzername; 
 	protected String passwort;
-	protected Pensum pensum;
+	protected int pensum;
 
-	public Administrator(String name, String vorname,String benutzername, String passwort, Pensum pensum) {
+	public Administrator(String name, String vorname,String benutzername, String passwort, int pensum) {
 		this.name = name;
 		this.vorname = vorname;
 		this.benutzername = benutzername; 
@@ -76,11 +76,11 @@ public class Administrator {
 		this.passwort = passwort;
 	}
 
-	public Pensum getPensum() {
+	public int getPensum() {
 		return pensum;
 	}
 
-	public void setPensum(Pensum pensum) {
+	public void setPensum(int pensum) {
 		this.pensum = pensum;
 	}
 
