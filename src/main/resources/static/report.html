@@ -67,12 +67,12 @@
    
 
 <div id="startOfExport" style="display: block; text-align: center;width: 100%;">
- <table id ="januar" class="reporttable"cellspacing="0" cellpadding="0" border="1" style="position: relative; margin: auto; text-align: center;">
+ <table id ="mitarbeiter" class="reporttable"cellspacing="0" cellpadding="0" border="1" style="position: relative; margin: auto; text-align: center;">
  
   <br>
     <br>
  
- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search by year/month/day." title="Type in e.g. Mar" maxlength="4">
+ <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search by year/month/day..." title="Type in e.g. Mar" maxlength="4">
  
   <br>
     <br>
@@ -82,7 +82,7 @@
 			    <th>Morning <br>End Hours</th>
 			    <th>Afternoon <br>Start Hours</th>
 			    <th>Afternoon <br>End Hours</th>
-			     <th>+/- Zeit</th>
+			     <th>Overhours</th>
 			  </tr>
 			<tbody>
 			</tbody>
@@ -105,7 +105,8 @@
     
 
     <script>
-    // Filter Report: nach Monat (Jan, Feb, Mar, Apr, May, Jun, Juli, Aug, Sept, Oct, Nov, Dez)
+    // (KG)
+    //Filter Report: nach Monat (Jan, Feb, Mar, Apr, May, Jun, Juli, Aug, Sept, Oct, Nov, Dez)
     //full credits: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_filter_table
    
     function myFunction() {
@@ -138,7 +139,7 @@
         		
         	    
    
-     // erstellt eine PDF-Datei für den Export des Reports
+     // erstellt eine PDF-Datei für den Export des Reports (JS)
         // full credit to: https://qawithexperts.com/article/javascript/easy-way-to-convert-html-to-pdf-using-javascript/335
         function convertToPDF(){
 		var doc = new jsPDF({
@@ -210,45 +211,25 @@
     
     <script>
 
-
+	//KG: Report Darstellung und Inhalte aus DB
     $(document).ready(function(){
     	$.getJSON("http://localhost:8081/timerecorders/timestamps/", function(data){
     		
     		 console.log("Ich komme rein in JSON");
-    		
+    	
     		var mitarbeiter_data = '';
     		$.each(data, function(key, value){
     			mitarbeiter_data += '<tr>';
     			var date = mitarbeiter_data += '<td>'+value.date+ '</td>';
-    			var morningstartHours = mitarbeiter_data += '<td>'+value.morningstartHours+ '</td>';
-    			var morningEndHours = mitarbeiter_data += '<td>'+value.morningEndHours+ '</td>';
-    			var afternoonStartHours = mitarbeiter_data += '<td>'+value.afternoonStartHours+ '</td>';
-    			var afternoonEndHours = mitarbeiter_data += '<td>'+value.afternoonEndHours+ '</td>';
-    			var minusOderPlusZeit = mitarbeiter_data += '<td>'+value.minusOderPlusZeit+ '</td>';
+    			var morningstartHours = mitarbeiter_data += '<td>'+value.morningstartHours+ ":" +value.morningStartMinDeci*60+ '</td>';
+    			var morningEndHours = mitarbeiter_data += '<td>'+value.morningEndHours+ ":" +value.morningEndMinDeci*60+'</td>';
+    			var afternoonStartHours = mitarbeiter_data += '<td>'+value.afternoonStartHours+":" +value.afternoonStartMinDeci*60+ '</td>';
+    			var afternoonEndHours = mitarbeiter_data += '<td>'+value.afternoonEndHours+":" +value.afternoonEndMinDeci*60+'</td>';
+    			var minusOderPlusZeit = mitarbeiter_data += '<td>'+h_mm(value.minusOderPlusZeit)+ '</td>';
     			mitarbeiter_data += '</tr>';
     		});
     		
-    		$('#mitarbeiter').append(mitarbeiter_data);	
-    		
-    		
-    		const may = data.filter(d => d.date == 'Mon May 03 2021');
-    		console.log('may', may);
-    		
-
-    		
-    		var jan_data = '';
-    		$.each(data, function(key, value){
-    			jan_data += '<tr>';
-    			var date = jan_data += '<td>'+value.date+ '</td>';
-    			var morningstartHours = jan_data += '<td>'+value.morningstartHours+ ":" +value.morningStartMinDeci*60+ '</td>';
-    			var morningEndHours = jan_data += '<td>'+value.morningEndHours+ ":" +value.morningEndMinDeci*60+'</td>';
-    			var afternoonStartHours = jan_data += '<td>'+value.afternoonStartHours+":" +value.afternoonStartMinDeci*60+ '</td>';
-    			var afternoonEndHours = jan_data += '<td>'+value.afternoonEndHours+":" +value.afternoonEndMinDeci*60+'</td>';
-    			var minusOderPlusZeit = jan_data += '<td>'+h_mm(value.minusOderPlusZeit)+ '</td>';
-    			jan_data += '</tr>';
-    		});
-    		
-    		$('#januar').append(jan_data);
+    		$('#mitarbeiter').append(mitarbeiter_data);
     		
     		
 
@@ -262,18 +243,16 @@
     var Minuten = Math.round(60 * Math.abs(Wert)) ;
     return (Wert < 0 ? "-" : "") + parseInt(Minuten / 60) + (100 + (Minuten % 60)).toString().replace(/^1/,":") ;
     }
+    
+    function twoDecimals(Wert) {
+    	var num = " ";
+    	var n = num.toFixed(2);
+    }
 
     
     
             
     </script>
-
-        
-
-    
-    
-
-    
 
     </body>
 
