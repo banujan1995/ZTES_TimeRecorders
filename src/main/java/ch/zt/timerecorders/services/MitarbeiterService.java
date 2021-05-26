@@ -184,6 +184,36 @@ public class MitarbeiterService {
 		return true;
 
 	}
+	
+	//Delete Absence (KG)
+	
+		@PostMapping(path = "/deleteAbsenzen/", produces = "application/json")
+		public boolean deleteMA(@RequestBody MessageAddAbsence a) {
+			
+			boolean absenceFound = false;
+			
+			List<AddAbsence> ab = absenceRepo.findAll();
+			
+			System.out.println("Kommt rein");
+			
+			for (AddAbsence a1 : ab) {
+				if (a1.getMitarbeiterID() == null) 
+					return absenceFound = false;
+
+					a1.setPeriod("");
+					a1.setReason("");
+					a1.setAnzahlTage("");
+									
+					ab.remove(a1);
+					
+					absenceRepo.save(a1);
+					
+					logger.info("Absence wurde gelöscht");
+					return absenceFound = true;
+			}
+			
+			return absenceFound;
+		}
 
 	// Mitarbeiter mutieren von MA zu AD (BR)
 
