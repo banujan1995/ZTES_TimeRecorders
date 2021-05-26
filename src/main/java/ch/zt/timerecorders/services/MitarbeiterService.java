@@ -200,9 +200,9 @@ public class MitarbeiterService {
 					if (a1.getMitarbeiterID() == null) 
 						return absenceFound = false;
 
-						a1.setPeriod("02/05/2021 - 25/05/2021");
-						a1.setReason("Sickness");
-						a1.setAnzahlTage("17");
+						a1.setPeriod("");
+						a1.setReason("");
+						a1.setAnzahlTage("");
 										
 						ab.remove(a1);
 						
