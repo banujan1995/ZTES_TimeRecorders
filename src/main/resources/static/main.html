@@ -378,7 +378,7 @@
 		<div
 			style="display: block; text-align: center; width: 100%; margin-top: 30px;">
 			<button id="confirmEntry" class="button"
-				onclick="calculateMondayTotal(); calculateTuesdayTotal(); calculateWednesdayTotal(); calculateThursdayTotal(); calculateFridayTotal()">Confirm
+				onclick="updateCalculateDays();">Confirm
 				changes</button>
 		</div>
 	</div>
@@ -1316,11 +1316,19 @@
      	    });       	 
      }
         
+        function updateCalculateDays(){
+
+        	calculateMondayTotal(); 
+        	calculateTuesdayTotal(); 
+        	calculateWednesdayTotal(); 
+        	calculateThursdayTotal(); 
+        	calculateFridayTotal();	
+        }
+        
         
         
         //Hier wird der Total Overhours und Targettime Felder automatisch updated, wenn sich ein Feld ändert. (BR)
         function updateOverhoursAndTargetTime(){
-		console.log("+++++++++++++++++++++++++++++++++++++ kommme ich hier rein ++++++++++++++++")
 
         	 $(document).ready(function(){
         	        	    	$.getJSON("http://localhost:8081/timerecorders/timestamps/", function(data){
@@ -1534,12 +1542,37 @@
   		   
 		}
 		
-		//Hier werden die erwartete Stunde pro Tag reingeschrieben (BR)
-		function targetTime(){
+		/*
+		*Hier wird die Targetzeit eines bestimmten User(User kommt von Cookies) geholt (BR).
+		*/
+		function getTargetTimeofWorkerDay(){
+		console.log("ich komme ins getRoleofWorker");
+			
+			var username = getMyCookie("userlogin");
+			console.log("getRole  " + username);
+			
+			// see: https://api.jquery.com/jquery.post/
+			
+		$.ajax({
+			type : "GET",
+			url : "http://localhost:8081/timerecorders/targettimeofworkerday/" + username + "/",
+			success : successGetTargetTimeDay,
+			dataType : 'json',
+			contentType : 'application/json'
+		});
 		
+	
+	}
 		
-		
-		}
+		function successGetTargetTimeDay(response) {
+			var targetTimeDay = Object.values(response);
+			var targetTimeDayString = targetTimeDay[0];
+			
+				console.log(targetTimeDayString);
+				
+				console.log(getMyCookie("role")+"+++++++++++++++++++++++++++++++");
+			
+			}
 		
 	
 		

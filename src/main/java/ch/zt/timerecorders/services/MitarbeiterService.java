@@ -468,69 +468,41 @@ public class MitarbeiterService {
 	}
 
 	/*
-	 * Hier wird die Summe der Überzeit vom vorherigen Tag genommen und dazuaddiert.
-	 * (BR)
+	 * Hier wird die Summe der Differenz zwischen Sollzeit und Istzeit gerechnet und
+	 * ausgewiesen.
 	 */
 
 	public double überzeitSummierer(int tagesID) {
 		System.out.println(tagesID);
 		double überzeitSummiert = 0.0;
-		double überzeitGleichenTag = 0.0;
-		double überzeitVorher = 0.0;
-
-		TimeStampRegisterChange tag = null;
-		TimeStampRegisterChange tagVorher = null;
+		double istzeit = 0.0;
+		double sollzeit = 8.4;
 
 		List<TimeStampRegisterChange> timeStamps = timeStampRegisterChange.findAll();
 
 		// Hier wird der Tag vom gewünschten ID geholt.
 		for (TimeStampRegisterChange timeStamp : timeStamps) {
 
-			if (timeStamps.size() == 0) {
-				überzeitSummiert = 0.0;
+			if (timeStamps.size() != 0) {
 
-			} else if (timeStamp.getTAGESID() == tagesID) {
-				logger.info("Tag gemöss TagesID wurde geholt");
-				tag = timeStamp;
-				überzeitGleichenTag = tag.getTotalDeci();
-				break;
+				if (timeStamp.getTAGESID() == tagesID) {
+					istzeit = timeStamp.getTotalDeci();
+					überzeitSummiert = istzeit - sollzeit;
+					break;
+
+				} else {
+					istzeit = 0.0;
+					überzeitSummiert = istzeit - sollzeit;
+
+				}
+
 			} else {
-				überzeitGleichenTag = 0.0;
+				istzeit = 0.0;
+				überzeitSummiert = istzeit - sollzeit;
 
 			}
 
 		}
-
-		List<TimeStampRegisterChange> timeStamps1 = timeStampRegisterChange.findAll();
-		boolean tagVorherFound = false;
-
-		// Hier wird der vorherige Tag geholt.
-		for (TimeStampRegisterChange timeStamp : timeStamps1) {
-
-			if (timeStamps1.size() == 0) {
-				überzeitVorher = 0.0;
-
-			} else if (timeStamp.getTAGESID() == (tagesID - 1)) {
-				logger.info("Tag gemöss TagesID wurde geholt");
-				tagVorher = timeStamp;
-				tagVorherFound = true;
-				überzeitVorher = tagVorher.getMinusOderPlusZeit();
-				break;
-			} else if (!tagVorherFound) {
-				überzeitVorher = 0.0;
-
-			}
-		}
-
-		/*
-		 * hier wird die Berechnung gemacht - der Tagesstunden in Dezimal minus den
-		 * gemachten Tagesstunden (BR) ++++++++muss geändert werden+++++++++++++++
-		 */
-
-		double localTagesÜberzeit = überzeitGleichenTag - 8.4;
-		überzeitSummiert = überzeitVorher + localTagesÜberzeit;
-		System.out.println("localTagesÜberzeit " + localTagesÜberzeit);
-		System.out.println("überzeitSummiert " + überzeitSummiert);
 
 		return überzeitSummiert;
 	}
@@ -661,7 +633,7 @@ public class MitarbeiterService {
 			}
 
 		}
-		return pensum; 
+		return pensum;
 	}
 
 	public int getTag() {

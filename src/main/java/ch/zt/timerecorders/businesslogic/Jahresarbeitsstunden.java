@@ -35,68 +35,68 @@ public enum Jahresarbeitsstunden {
 	 * code-correctness
 	 * https://wiki.byte-welt.net/wiki/Flie%C3%9Fkommazahlen_mit_Java_runden
 	 */
-	public double monatsstundenRechner(Monat monat, int pensum) {
+	public double monatsstundenRechner(int monat, int pensum) {
 		double monatsstunden = 0.0;
 
 		switch (monat) {
 
-		case Januar:
-			double monatsverhältnisJan = 1 / 2140 * 168.00;
+		case 1:
+			double monatsverhältnisJan = (1 / 2140) * 168.00;
 			monatsstunden = monatsverhältnisJan * getJahresarbeitsstundenfürBerechnung(pensum);
 			break;
 
-		case Feburar:
-			double monatsverhältnisFeb = 1 / 2140 * 168.00;
+		case 2:
+			double monatsverhältnisFeb = (1 / 2140) * 168.00;
 			monatsstunden = monatsverhältnisFeb * getJahresarbeitsstundenfürBerechnung(pensum);
 			break;
 
-		case März:
-			double monatsverhältnisMär = 1 / 2140 * 193.20;
+		case 3:
+			double monatsverhältnisMär = (1 / 2140) * 193.20;
 			monatsstunden = monatsverhältnisMär * getJahresarbeitsstundenfürBerechnung(pensum);
 			break;
 
-		case April:
-			double monatsverhältnisApr = 1 / 2140 * 167.00;
+		case 4:
+			double monatsverhältnisApr = (1 / 2140) * 167.00;
 			monatsstunden = monatsverhältnisApr * getJahresarbeitsstundenfürBerechnung(pensum);
 			break;
 
-		case Mai:
-			double monatsverhältnisMai = 1 / 2140 * 158.60;
+		case 05:
+			double monatsverhältnisMai = (1 / 2140) * 158.60;
 			monatsstunden = monatsverhältnisMai * getJahresarbeitsstundenfürBerechnung(pensum);
 			break;
 
-		case Juni:
-			double monatsverhältnisJun = 1 / 2140 * 184.80;
+		case 6:
+			double monatsverhältnisJun = (1 / 2140) * 184.80;
 			monatsstunden = monatsverhältnisJun * getJahresarbeitsstundenfürBerechnung(pensum);
 			break;
 
-		case Juli:
-			double monatsverhältnisJul = 1 / 2140 * 184.80;
+		case 7:
+			double monatsverhältnisJul = (1 / 2140) * 184.80;
 			monatsstunden = monatsverhältnisJul * getJahresarbeitsstundenfürBerechnung(pensum);
 			break;
 
-		case August:
+		case 8:
 			double monatsverhältnisAug = 1 / 2140 * 184.80;
 			monatsstunden = monatsverhältnisAug * getJahresarbeitsstundenfürBerechnung(pensum);
 			break;
 
-		case September:
-			double monatsverhältnisSep = 1 / 2140 * 184.80;
+		case 9:
+			double monatsverhältnisSep = (1 / 2140) * 184.80;
 			monatsstunden = monatsverhältnisSep * getJahresarbeitsstundenfürBerechnung(pensum);
 			break;
 
-		case Oktober:
-			double monatsverhältnisOkt = 1 / 2140 * 176.40;
+		case 10:
+			double monatsverhältnisOkt = (1 / 2140) * 176.40;
 			monatsstunden = monatsverhältnisOkt * getJahresarbeitsstundenfürBerechnung(pensum);
 			break;
 
-		case November:
-			double monatsverhältnisNov = 1 / 2140 * 184.80;
+		case 11:
+			double monatsverhältnisNov = (1 / 2140) * 184.80;
 			monatsstunden = monatsverhältnisNov * getJahresarbeitsstundenfürBerechnung(pensum);
 			break;
 
-		case Dezember:
-			double monatsverhältnisDez = 1 / 2140 * 184.80;
+		case 12:
+			double monatsverhältnisDez = (1 / 2140) * 184.80;
 			monatsstunden = monatsverhältnisDez * getJahresarbeitsstundenfürBerechnung(pensum);
 			break;
 
@@ -109,9 +109,37 @@ public enum Jahresarbeitsstunden {
 	}
 
 	public double getJahresarbeitsstundenfürBerechnung(int pensum) {
-		Jahresarbeitsstunden localPensum = Jahresarbeitsstunden.valueOf(pensum + "");
-		double localJahresarbeitsstunden = localPensum.getJahresarbeitsstunden();
-		return localJahresarbeitsstunden;
+		double jahresstunden = 0.0;
+		
+		switch (pensum) {
+		
+		case 20: 
+			jahresstunden = ZwanzigProzent.getJahresarbeitsstunden();
+			break;
+		
+		case 40: 
+			jahresstunden = VierzigProzent.getJahresarbeitsstunden();
+			break;
+			
+		case 60:
+			jahresstunden = SechszigProzent.getJahresarbeitsstunden();
+			break;
+			
+		case 80:
+			jahresstunden = AchtzigProzent.getJahresarbeitsstunden();
+			break;
+		
+		case 100: 
+			jahresstunden = HundertProzent.getJahresarbeitsstunden();
+			break;
+		
+		default: 
+			
+		
+		}
+		return jahresstunden;
+
+		
 	}
 
 	public double getJahresarbeitsstunden() {
