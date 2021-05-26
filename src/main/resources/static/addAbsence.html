@@ -197,16 +197,13 @@
             dropDown.selectedIndex = 0;
             document.getElementById("addAbsence_numberOfDays").innerHTML ="";
         }
-
-        // fügt Absence hinzu & zeigt eine Erfolgsmeldung an
+     // fügt Absence hinzu & zeigt eine Erfolgsmeldung an
         function addAbsence(){
       
         	var period = document.getElementById('daterange').value;
             var reason = document.getElementById('absenceReason').value;
             var anzahlTage = document.getElementById("addAbsence_numberOfDays").innerHTML;
-
-            if (validUserInput()){
-
+            
             $.ajax({
 				type : "POST",
 				url : "/addAbsence/",
@@ -219,26 +216,53 @@
 				dataType : 'json',
 				contentType : 'application/json'
 			});
+
+      // KG_employee_delete
     
+        if (validUserInput()){
+        	var message = ("Dear User\n\nFollowing absence has been added:\n\nReason: "+reason+"\nPeriod: "+period+"\nNumber of working days: "+anzahlTage)
+        	alert(message);
+        	reset();
+
+        	}
+        	
+
+        	//Überprüft, ob nötige Auswahl getroffen wurde
+        	function validUserInput(){
+
+        	var reason = document.getElementById('absenceReason').value;
+        	if (reason === "Please select:"){
+
+        	var message = ("Dear User\n\nPlease choose a reason!\n\nThank you!")
+        	alert(message);
+        	return false;
+        	}
+        	return true;
+        	}
+
+            if (validUserInput()){
+            var message = ("Dear User\n\nFollowing absence has been added:\n\nReason: "+reason+"\nPeriod: "+period+"\nNumber of working days: "+anzahlTage)
+            alert(message);
+            reset();
+
+            }
         }
-    }
- 
+
 
         //Überprüft, ob nötige Auswahl getroffen wurde
         function validUserInput(){
 
+
             var reason = document.getElementById('absenceReason').value;
             if (reason === "Please select:"){
 
-                var message = ("Dear User\n\nPlease choose a reason!\n\nThank you!")
-                alert(message);
-                return false;
+            var message = ("Dear User\n\nPlease choose a reason!\n\nThank you!")
+            alert(message);
+            return false;
             }
-            return true;
-            }
-
-
-		
+        return true;
+        }
+	
     	//Hier wird der User ausser der Loginaktivitätliste herausgelöscht. (JS/BR)
     		
     		function deleteUserDB(){
