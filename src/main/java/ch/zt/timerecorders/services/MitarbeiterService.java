@@ -328,8 +328,8 @@ public class MitarbeiterService {
 
 				// Username
 				timeStamps.get(counterY).setUsername(zeiterfassung.getUsername());
-				
-				//Pensum
+
+				// Pensum
 				timeStamps.get(counterY).setPensum(getMitarbeiterPensum(zeiterfassung.getUsername()));
 
 				// Datum
@@ -364,6 +364,10 @@ public class MitarbeiterService {
 				// Summe ganzer Tag
 				timeStamps.get(counterY).setTotalDeci(zeiterfassung.getTotalDeci());
 
+				// Summe Überzeit
+				timeStamps.get(counterY).setMinusOderPlusZeit(
+						überzeitSummierer(Integer.parseInt(tagesIDGenerator(zeiterfassung.getDate()) + "")));
+
 				timeStamps = timeStampRegisterChange.saveAll(timeStamps);
 
 			} else if (!zeiterfassungGefunden) {
@@ -372,8 +376,8 @@ public class MitarbeiterService {
 
 				// Username
 				timeStamp.setUsername(zeiterfassung.getUsername());
-				
-				//Pensum
+
+				// Pensum
 				timeStamp.setPensum(getMitarbeiterPensum(zeiterfassung.getUsername()));
 
 				timeStamp.setTAGESID(tagesIDGenerator(zeiterfassung.getDate()));
@@ -406,7 +410,8 @@ public class MitarbeiterService {
 				timeStamp.setTotalDeci(zeiterfassung.getTotalDeci());
 
 				// Summe Überzeit
-				timeStamp.setMinusOderPlusZeit(0.00);
+				timeStamp.setMinusOderPlusZeit(
+						überzeitSummierer(Integer.parseInt(tagesIDGenerator(zeiterfassung.getDate()) + "")));
 
 				timeStamp = timeStampRegisterChange.save(timeStamp); // Speichert den Datensatz in den Datenbank (BR)
 				logger.info("Daten in Datenbank gespeichert - Klasse Mitarbeiterservice");
@@ -418,8 +423,8 @@ public class MitarbeiterService {
 
 			// Username
 			timeStamp.setUsername(zeiterfassung.getUsername());
-			
-			//Pensum
+
+			// Pensum
 			timeStamp.setPensum(getMitarbeiterPensum(zeiterfassung.getUsername()));
 
 			timeStamp.setTAGESID(tagesIDGenerator(zeiterfassung.getDate()));
@@ -452,7 +457,8 @@ public class MitarbeiterService {
 			timeStamp.setTotalDeci(zeiterfassung.getTotalDeci());
 
 			// Summe Überzeit
-			timeStamp.setMinusOderPlusZeit(0.00);
+			timeStamp.setMinusOderPlusZeit(
+					überzeitSummierer(Integer.parseInt(tagesIDGenerator(zeiterfassung.getDate()) + "")));
 
 			timeStamp = timeStampRegisterChange.save(timeStamp); // Speichert den Datensatz in den Datenbank (BR)
 			logger.info("Daten in Datenbank gespeichert - Klasse Mitarbeiterservice");
@@ -461,52 +467,73 @@ public class MitarbeiterService {
 
 	}
 
-	// Mitarbeiter - Ferien erfassen (BR)
-
-	// Mitarbeiter - Zeitplan aufrufen (BR)
-
-	// Mitarbeiter - Monatsrapport aufrufen (BR)
-
 	/*
-	 * Mit dieser Methode wird herausgefunden, ob es sich um ein Mitarbeiter oder
-	 * Administrator handelt anhand Name (BR)
+	 * Hier wird die Summe der Überzeit vom vorherigen Tag genommen und dazuaddiert.
+	 * (BR)
 	 */
 
-//	public String adminORMaListFinder(String name) {
-//		boolean isMitarbeiter = true;
-//		boolean isAdmin = false;
-//		String isMaorAd = "";
-//
-//		if (isMitarbeiter) {
-//			boolean isFound = true;
-//
-//			if (isFound == true) {
-//				Mitarbeiter localMa = mitarbeiterRepository.getSingleMitarbeiterName(name);
-//				if (localMa == null) {
-//					isMitarbeiter = false;
-//					isFound = false;
-//				} else {
-//					isMaorAd = "Mitarbeiter";
-//				}
-//
-//			} else if (isFound == false) {
-//
-//				Administrator localAD = administratorenRepository.getSingleAdministratorName(name);
-//				if (localAD == null) {
-//					isAdmin = false;
-//				} else {
-//					isMaorAd = "Administrator";
-//
-//				}
-//
-//			} else if (isAdmin && isMitarbeiter == false) {
-//				logger.warning("Mitarbeiter wurde in beiden Listen nicht gefunden!");
-//			}
-//
-//		}
-//
-//		return isMaorAd;
-//	}
+	public double überzeitSummierer(int tagesID) {
+		System.out.println(tagesID);
+		double überzeitSummiert = 0.0;
+		double überzeitGleichenTag = 0.0;
+		double überzeitVorher = 0.0;
+
+		TimeStampRegisterChange tag = null;
+		TimeStampRegisterChange tagVorher = null;
+
+		List<TimeStampRegisterChange> timeStamps = timeStampRegisterChange.findAll();
+
+		// Hier wird der Tag vom gewünschten ID geholt.
+		for (TimeStampRegisterChange timeStamp : timeStamps) {
+
+			if (timeStamps.size() == 0) {
+				überzeitSummiert = 0.0;
+
+			} else if (timeStamp.getTAGESID() == tagesID) {
+				logger.info("Tag gemöss TagesID wurde geholt");
+				tag = timeStamp;
+				überzeitGleichenTag = tag.getTotalDeci();
+				break;
+			} else {
+				überzeitGleichenTag = 0.0;
+
+			}
+
+		}
+
+		List<TimeStampRegisterChange> timeStamps1 = timeStampRegisterChange.findAll();
+		boolean tagVorherFound = false;
+
+		// Hier wird der vorherige Tag geholt.
+		for (TimeStampRegisterChange timeStamp : timeStamps1) {
+
+			if (timeStamps1.size() == 0) {
+				überzeitVorher = 0.0;
+
+			} else if (timeStamp.getTAGESID() == (tagesID - 1)) {
+				logger.info("Tag gemöss TagesID wurde geholt");
+				tagVorher = timeStamp;
+				tagVorherFound = true;
+				überzeitVorher = tagVorher.getMinusOderPlusZeit();
+				break;
+			} else if (!tagVorherFound) {
+				überzeitVorher = 0.0;
+
+			}
+		}
+
+		/*
+		 * hier wird die Berechnung gemacht - der Tagesstunden in Dezimal minus den
+		 * gemachten Tagesstunden (BR) ++++++++muss geändert werden+++++++++++++++
+		 */
+
+		double localTagesÜberzeit = überzeitGleichenTag - 8.4;
+		überzeitSummiert = überzeitVorher + localTagesÜberzeit;
+		System.out.println("localTagesÜberzeit " + localTagesÜberzeit);
+		System.out.println("überzeitSummiert " + überzeitSummiert);
+
+		return überzeitSummiert;
+	}
 
 	// Hier wird das Passwort bereits gehasht bevor es abgespeichert wird!
 	public String enryptionOfPW(String passwort) {

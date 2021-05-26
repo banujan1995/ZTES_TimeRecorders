@@ -88,82 +88,82 @@
 				<td><label for="mondayMorningStartHours"
 					style="font-size: 14px;"> Start:</label> <input class="timeInput"
 					tabindex="1" type="text" maxlength="2" id="mondayMorningStartHours"
-					oninput="calculateMondayTotal();" placeholder="hh"
+					oninput="calculateMondayTotal();updateOverhoursAndTargetTime();" placeholder="hh"
 					onkeyup="enableButton()"> <input class="timeInput"
 					tabindex="1" type="text" maxlength="2" id="mondayMorningStartMin"
-					oninput="calculateMondayTotal();" placeholder="mm"
+					oninput="calculateMondayTotal();updateOverhoursAndTargetTime();" placeholder="mm"
 					onkeyup="enableButton()"> <br> <label
 					for="mondayMorningStartHours"
 					style="font-size: 14px; margin-right: 5px;"> End:</label> <input
 					class="timeInput" tabindex="1" type="text" maxlength="2"
-					id="mondayMorningEndHours" oninput="calculateMondayTotal();"
+					id="mondayMorningEndHours" oninput="calculateMondayTotal();updateOverhoursAndTargetTime();"
 					placeholder="hh" onkeyup="enableButton()"> <input
 					class="timeInput" tabindex="1" type="text" maxlength="2"
-					id="mondayMorningEndMin" oninput="calculateMondayTotal();"
+					id="mondayMorningEndMin" oninput="calculateMondayTotal();updateOverhoursAndTargetTime();"
 					placeholder="mm" onkeyup="enableButton()"></td>
 				<td><label for="tuesdayMorningStart" style="font-size: 14px;">
 						Start:</label> <input class="timeInput" tabindex="2" type="text"
 					maxlength="2" id="tuesdayMorningStartHours"
-					oninput="calculateTuesdayTotal();" placeholder="hh"
+					oninput="calculateTuesdayTotal();updateOverhoursAndTargetTime();" placeholder="hh"
 					onkeyup="enableButton()"> <input class="timeInput"
 					tabindex="2" type="text" maxlength="2" id="tuesdayMorningStartMin"
-					oninput="calculateTuesdayTotal();" placeholder="mm"
+					oninput="calculateTuesdayTotal();updateOverhoursAndTargetTime();" placeholder="mm"
 					onkeyup="enableButton()"> <br> <label
 					for="tuesdayMorningEndHours"
 					style="font-size: 14px; margin-right: 5px;"> End:</label> <input
 					class="timeInput" tabindex="2" type="text" maxlength="2"
-					id="tuesdayMorningEndHours" oninput="calculateTuesdayTotal();"
+					id="tuesdayMorningEndHours" oninput="calculateTuesdayTotal();updateOverhoursAndTargetTime();"
 					placeholder="hh" onkeyup="enableButton()"> <input
 					class="timeInput" tabindex="2" type="text" maxlength="2"
-					id="tuesdayMorningEndMin" oninput="calculateTuesdayTotal();"
+					id="tuesdayMorningEndMin" oninput="calculateTuesdayTotal();updateOverhoursAndTargetTime();"
 					placeholder="mm" onkeyup="enableButton()"></td>
 				<td><label for="wednesdayMorningStart" style="font-size: 14px;">
 						Start:</label> <input class="timeInput" tabindex="3" type="text"
 					maxlength="2" id="wednesdayMorningStartHours"
-					oninput="calculateWednesdayTotal();" placeholder="hh"
+					oninput="calculateWednesdayTotal();updateOverhoursAndTargetTime();" placeholder="hh"
 					onkeyup="enableButton()"> <input class="timeInput"
 					tabindex="3" type="text" maxlength="2"
-					id="wednesdayMorningStartMin" oninput="calculateWednesdayTotal();"
+					id="wednesdayMorningStartMin" oninput="calculateWednesdayTotal();updateOverhoursAndTargetTime();"
 					placeholder="mm" onkeyup="enableButton()"> <br> <label
 					for="wednesdayMorningEndHours"
 					style="font-size: 14px; margin-right: 5px;"> End:</label> <input
 					class="timeInput" tabindex="3" type="text" maxlength="2"
-					id="wednesdayMorningEndHours" oninput="calculateWednesdayTotal();"
+					id="wednesdayMorningEndHours" oninput="calculateWednesdayTotal();updateOverhoursAndTargetTime();"
 					placeholder="hh" onkeyup="enableButton()"> <input
 					class="timeInput" tabindex="3" type="text" maxlength="2"
-					id="wednesdayMorningEndMin" oninput="calculateWednesdayTotal();"
+					id="wednesdayMorningEndMin" oninput="calculateWednesdayTotal();updateOverhoursAndTargetTime();"
 					placeholder="mm" onkeyup="enableButton()"></td>
 				<td><label for="thursdayMorningStartHours"
 					style="font-size: 14px;"> Start:</label> <input class="timeInput"
 					tabindex="4" type="text" maxlength="2"
-					id="thursdayMorningStartHours" oninput="calculateThursdayTotal();"
+					id="thursdayMorningStartHours" oninput="calculateThursdayTotal();updateOverhoursAndTargetTime();"
 					placeholder="hh" onkeyup="enableButton()"> <input
 					class="timeInput" tabindex="4" type="text" maxlength="2"
-					id="thursdayMorningStartMin" oninput="calculateThursdayTotal();"
+					id="thursdayMorningStartMin" oninput="calculateThursdayTotal();updateOverhoursAndTargetTime();"
 					placeholder="mm" onkeyup="enableButton()"> <br> <label
 					for="thursdayMorningEndHours"
 					style="font-size: 14px; margin-right: 5px;"> End:</label> <input
 					class="timeInput" tabindex="4" type="text" maxlength="2"
-					id="thursdayMorningEndHours" oninput="calculateThursdayTotal();"
+					id="thursdayMorningEndHours" oninput="calculateThursdayTotal();updateOverhoursAndTargetTime();"
 					placeholder="hh" onkeyup="enableButton()"> <input
 					class="timeInput" tabindex="4" type="text" maxlength="2"
-					id="thursdayMorningEndMin" oninput="calculateThursdayTotal();"
+					id="thursdayMorningEndMin" oninput="calculateThursdayTotal();updateOverhoursAndTargetTime();"
 					placeholder="mm" onkeyup="enableButton()"></td>
 				<td><label for="fridayMorningStartHours"
 					style="font-size: 14px;"> Start:</label> <input class="timeInput"
 					tabindex="5" type="text" maxlength="2" id="fridayMorningStartHours"
-					oninput="calculateFridayTotal();" placeholder="mm"
+					oninput="calculateFridayTotal();updateOverhoursAndTargetTime();" placeholder="mm"
 					onkeyup="enableButton()"> <input class="timeInput"
 					tabindex="5" type="text" maxlength="2" id="fridayMorningStartMin"
-					oninput="calculateFridayTotal();" placeholder="hh"
+					oninput="calculateFridayTotal();updateOverhoursAndTargetTime();" placeholder="hh"
 					onkeyup="enableButton()"> <br> <label
 					for="fridayMorningEndHours"
 					style="font-size: 14px; margin-right: 5px;"> End:</label> <input
 					class="timeInput" tabindex="5" type="text" maxlength="2"
-					id="fridayMorningEndHours" oninput="calculateFridayTotal();"
+					id="fridayMorningEndHours" oninput="calculateFridayTotal();updateOverhoursAndTargetTime();"
 					placeholder="mm" onkeyup="enableButton()"> <input
 					class="timeInput" tabindex="5" type="text" maxlength="2"
-					id="fridayMorningEndMin" oninput="calculateFridayTotal();"
+					id="fridayMorningEndMin" oninput="calculateFridayTotal();updateOverhoursAndTargetTime();"
 					placeholder="hh" onkeyup="enableButton()"></td>
 				<td><label for="saturdayMorningStartHours"
 					style="font-size: 14px;"> Start:</label> <input class="timeInput"
@@ -204,84 +204,84 @@
 				<td><label for="mondayMorningStartHours"
 					style="font-size: 14px;"> Start:</label> <input class="timeInput"
 					tabindex="1" type="text" maxlength="2"
-					id="mondayAfternoonStartHours" oninput="calculateMondayTotal();"
+					id="mondayAfternoonStartHours" oninput="calculateMondayTotal();updateOverhoursAndTargetTime();"
 					placeholder="hh" onkeyup="enableButton()"> <input
 					class="timeInput" tabindex="1" type="text" maxlength="2"
-					id="mondayAfternoonStartMin" oninput="calculateMondayTotal();"
+					id="mondayAfternoonStartMin" oninput="calculateMondayTotal();updateOverhoursAndTargetTime();"
 					placeholder="mm" onkeyup="enableButton()"> <br> <label
 					for="mondayMorningStartHours"
 					style="font-size: 14px; margin-right: 5px;"> End:</label> <input
 					class="timeInput" tabindex="1" type="text" maxlength="2"
-					id="mondayAfternoonEndHours" oninput="calculateMondayTotal();"
+					id="mondayAfternoonEndHours" oninput="calculateMondayTotal();updateOverhoursAndTargetTime();"
 					placeholder="hh" onkeyup="enableButton()"> <input
 					class="timeInput" tabindex="1" type="text" maxlength="2"
-					id="mondayAfternoonEndMin" oninput="calculateMondayTotal();"
+					id="mondayAfternoonEndMin" oninput="calculateMondayTotal();updateOverhoursAndTargetTime();"
 					placeholder="mm" onkeyup="enableButton()"></td>
 				<td><label for="tuesdayMorningStart" style="font-size: 14px;">
 						Start:</label> <input class="timeInput" tabindex="2" type="text"
 					maxlength="2" id="tuesdayAfternoonStartHours"
-					oninput="calculateTuesdayTotal();" placeholder="hh"
+					oninput="calculateTuesdayTotal();updateOverhoursAndTargetTime();" placeholder="hh"
 					onkeyup="enableButton()"> <input class="timeInput"
 					tabindex="2" type="text" maxlength="2"
-					id="tuesdayAfternoonStartMin" oninput="calculateTuesdayTotal();"
+					id="tuesdayAfternoonStartMin" oninput="calculateTuesdayTotal();updateOverhoursAndTargetTime();"
 					placeholder="mm" onkeyup="enableButton()"> <br> <label
 					for="tuesdayMorningEndHours"
 					style="font-size: 14px; margin-right: 5px;"> End:</label> <input
 					class="timeInput" tabindex="2" type="text" maxlength="2"
-					id="tuesdayAfternoonEndHours" oninput="calculateTuesdayTotal();"
+					id="tuesdayAfternoonEndHours" oninput="calculateTuesdayTotal();updateOverhoursAndTargetTime();"
 					placeholder="hh" onkeyup="enableButton()"> <input
 					class="timeInput" tabindex="2" type="text" maxlength="2"
-					id="tuesdayAfternoonEndMin" oninput="calculateTuesdayTotal();"
+					id="tuesdayAfternoonEndMin" oninput="calculateTuesdayTotal();updateOverhoursAndTargetTime();"
 					placeholder="mm" onkeyup="enableButton()"></td>
 				<td><label for="wednesdayMorningStart" style="font-size: 14px;">
 						Start:</label> <input class="timeInput" tabindex="3" type="text"
 					maxlength="2" id="wednesdayAfternoonStartHours"
-					oninput="calculateWednesdayTotal();" placeholder="hh"
+					oninput="calculateWednesdayTotal();updateOverhoursAndTargetTime();" placeholder="hh"
 					onkeyup="enableButton()"> <input class="timeInput"
 					tabindex="3" type="text" maxlength="2"
 					id="wednesdayAfternoonStartMin"
-					oninput="calculateWednesdayTotal();" placeholder="mm"
+					oninput="calculateWednesdayTotal();updateOverhoursAndTargetTime();" placeholder="mm"
 					onkeyup="enableButton()"> <br> <label
 					for="wednesdayMorningEndHours"
 					style="font-size: 14px; margin-right: 5px;"> End:</label> <input
 					class="timeInput" tabindex="3" type="text" maxlength="2"
 					id="wednesdayAfternoonEndHours"
-					oninput="calculateWednesdayTotal();" placeholder="hh"
+					oninput="calculateWednesdayTotal();updateOverhoursAndTargetTime();" placeholder="hh"
 					onkeyup="enableButton()"> <input class="timeInput"
 					tabindex="3" type="text" maxlength="2"
-					id="wednesdayAfternoonEndMin" oninput="calculateWednesdayTotal();"
+					id="wednesdayAfternoonEndMin" oninput="calculateWednesdayTotal();updateOverhoursAndTargetTime();"
 					placeholder="mm" onkeyup="enableButton()"></td>
 				<td><label for="thursdayMorningStartHours"
 					style="font-size: 14px;"> Start:</label> <input class="timeInput"
 					tabindex="4" type="text" maxlength="2"
 					id="thursdayAfternoonStartHours"
-					oninput="calculateThursdayTotal();" placeholder="hh"> <input
+					oninput="calculateThursdayTotal();updateOverhoursAndTargetTime();" placeholder="hh"> <input
 					class="timeInput" tabindex="4" type="text" maxlength="2"
-					id="thursdayAfternoonStartMin" oninput="calculateThursdayTotal();"
+					id="thursdayAfternoonStartMin" oninput="calculateThursdayTotal();updateOverhoursAndTargetTime();"
 					placeholder="mm" onkeyup="enableButton()"> <br> <label
 					for="thursdayMorningEndHours"
 					style="font-size: 14px; margin-right: 5px;"> End:</label> <input
 					class="timeInput" tabindex="4" type="text" maxlength="2"
-					id="thursdayAfternoonEndHours" oninput="calculateThursdayTotal();"
+					id="thursdayAfternoonEndHours" oninput="calculateThursdayTotal();updateOverhoursAndTargetTime();"
 					placeholder="hh" onkeyup="enableButton()"> <input
 					class="timeInput" tabindex="4" type="text" maxlength="2"
-					id="thursdayAfternoonEndMin" oninput="calculateThursdayTotal();"
+					id="thursdayAfternoonEndMin" oninput="calculateThursdayTotal();updateOverhoursAndTargetTime();"
 					placeholder="mm" onkeyup="enableButton()"></td>
 				<td><label for="fridayMorningStartHours"
 					style="font-size: 14px;"> Start:</label> <input class="timeInput"
 					tabindex="5" type="text" maxlength="2"
-					id="fridayAfternoonStartHours" oninput="calculateFridayTotal();"
+					id="fridayAfternoonStartHours" oninput="calculateFridayTotal();updateOverhoursAndTargetTime();"
 					placeholder="mm" onkeyup="enableButton()"> <input
 					class="timeInput" tabindex="5" type="text" maxlength="2"
-					id="fridayAfternoonStartMin" oninput="calculateFridayTotal();"
+					id="fridayAfternoonStartMin" oninput="calculateFridayTotal();updateOverhoursAndTargetTime();"
 					placeholder="hh" onkeyup="enableButton()"> <br> <label
 					for="fridayMorningEndHours"
 					style="font-size: 14px; margin-right: 5px;"> End:</label> <input
 					class="timeInput" tabindex="5" type="text" maxlength="2"
-					id="fridayAfternoonEndHours" oninput="calculateFridayTotal();"
+					id="fridayAfternoonEndHours" oninput="calculateFridayTotal();updateOverhoursAndTargetTime();"
 					placeholder="mm" onkeyup="enableButton()"> <input
 					class="timeInput" tabindex="5" type="text" maxlength="2"
-					id="fridayAfternoonEndMin" oninput="calculateFridayTotal();"
+					id="fridayAfternoonEndMin" oninput="calculateFridayTotal();updateOverhoursAndTargetTime();"
 					placeholder="hh" onkeyup="enableButton()"></td>
 				<td><label for="saturdayMorningStartHours"
 					style="font-size: 14px;"> Start:</label> <input class="timeInput"
@@ -1190,115 +1190,197 @@
                  
         function bringUpDataAndTimefromDB(){
 
-        	 $(document).ready(function(){
-        	    	$.getJSON("http://localhost:8081/timerecorders/timestamps/", function(data){
-        	    	var working_day = '';
-        	    	
-    	    		$.each(data, function(key, value){
-    	    			working_day = value.date.toString();	
-    	    			
-    	    			
-    	    			//reseten von Table
-    	    			//resetFullTable()
-    	    			//Hier sollen die Tage gesplittet werden und in den Inputfelder reingeschrieben werden. 
-    	      	  		
-        	    		//Montag 
-        	    		if (document.getElementById("firstDayofWeek").innerHTML == working_day) {
-    					
-        	    		//Morgen
-        	    		   document.getElementById("mondayMorningStartHours").value = value.morningstartHours;
-        	    		   document.getElementById("mondayMorningStartMin").value = value.morningStartMinDeci*60;
-        	    		   document.getElementById("mondayMorningEndHours").value = value.morningEndHours;
-        	    		   document.getElementById("mondayMorningEndMin").value = value.morningEndMinDeci*60;
-        	    
-        	    		 //Nachmittag
-        	    		   document.getElementById("mondayAfternoonStartHours").value = value.afternoonStartHours;
-        	    		   document.getElementById("mondayAfternoonStartMin").value = value.afternoonStartMinDeci*60;
-        	    		   document.getElementById("mondayAfternoonEndHours").value = value.afternoonEndHours;
-        	    		   document.getElementById("mondayAfternoonEndMin").value = value.afternoonEndMinDeci*60;
-        	    		   
-        	    		 //Total vom Tag
-        	    		   document.getElementById("mondayTotal").value = h_mm(value.totalDeci);
-        	    			
-        	    		//Dienstag
-        	    		} else if (document.getElementById("secondDayofWeek").innerHTML == working_day) {      	    			
-        	    			
-        	    			//Morgen
-         	    		   document.getElementById("tuesdayMorningStartHours").value = value.morningstartHours;
-         	    		   document.getElementById("tuesdayMorningStartMin").value = value.morningStartMinDeci*60;
-         	    		   document.getElementById("tuesdayMorningEndHours").value  = value.morningEndHours;
-         	    		   document.getElementById("tuesdayMorningEndMin").value = value.morningEndMinDeci*60;
-         	    
-         	    		 //Nachmittag
-         	    		   document.getElementById("tuesdayAfternoonStartHours").value = value.afternoonStartHours;
-         	    		   document.getElementById("tuesdayAfternoonStartMin").value = value.afternoonStartMinDeci*60;
-         	    		   document.getElementById("tuesdayAfternoonEndHours").value  = value.afternoonEndHours;
-         	    		   document.getElementById("tuesdayAfternoonEndMin").value = value.afternoonEndMinDeci*60;     	    		   
-        	    			
-         	    		//Total vom Tag
-        	    		   document.getElementById("tuesdayTotal").value = h_mm(value.totalDeci); 
-         	    		   
-        	    		//Mittwoch
-        	    		} else if (document.getElementById("thirdDayofWeek").innerHTML == working_day) {      	    			
-        	    			
-        	    			//Morgen
-         	    		   document.getElementById("wednesdayMorningStartHours").value = value.morningstartHours;
-         	    		   document.getElementById("wednesdayMorningStartMin").value = value.morningStartMinDeci*60;
-         	    		   document.getElementById("wednesdayMorningEndHours").value = value.morningEndHours;
-         	    		   document.getElementById("wednesdayMorningEndMin").value = value.morningEndMinDeci*60;
-         	    
-         	    		 //Nachmittag
-         	    		   document.getElementById("wednesdayAfternoonStartHours").value = value.afternoonStartHours;
-         	    		   document.getElementById("wednesdayAfternoonStartMin").value = value.afternoonStartMinDeci*60;
-         	    		   document.getElementById("wednesdayAfternoonEndHours").value  = value.afternoonEndHours;
-         	    		   document.getElementById("wednesdayAfternoonEndMin").value = value.afternoonEndMinDeci*60;      	    		 
-        	    		
-         	    		//Total vom Tag
-        	    		   document.getElementById("wednesdayTotal").value = h_mm(value.totalDeci);
-         	    		   
-        	    		//Donnerstag
-        	    		} else if (document.getElementById("fourthDayofWeek").innerHTML == working_day) {
+          	 $(document).ready(function(){
+     	    	$.getJSON("http://localhost:8081/timerecorders/timestamps/", function(data){
+     	    	var working_day = '';
+     	    	
+ 	    		$.each(data, function(key, value){
+ 	    			working_day = value.date.toString();	
+ 	    			
+ 	    			
+ 	    			//reseten von Table
+ 	    			//resetFullTable()
+ 	    			//Hier sollen die Tage gesplittet werden und in den Inputfelder reingeschrieben werden. 
+ 	      	  		
+     	    		//Montag 
+     	    		if (document.getElementById("firstDayofWeek").innerHTML == working_day) {
+ 					
+     	    		//Morgen
+     	    		   document.getElementById("mondayMorningStartHours").value = value.morningstartHours;
+     	    		   document.getElementById("mondayMorningStartMin").value = value.morningStartMinDeci*60;
+     	    		   document.getElementById("mondayMorningEndHours").value = value.morningEndHours;
+     	    		   document.getElementById("mondayMorningEndMin").value = value.morningEndMinDeci*60;
+     	    
+     	    		 //Nachmittag
+     	    		   document.getElementById("mondayAfternoonStartHours").value = value.afternoonStartHours;
+     	    		   document.getElementById("mondayAfternoonStartMin").value = value.afternoonStartMinDeci*60;
+     	    		   document.getElementById("mondayAfternoonEndHours").value = value.afternoonEndHours;
+     	    		   document.getElementById("mondayAfternoonEndMin").value = value.afternoonEndMinDeci*60;
+     	    		   
+     	    		 //Total vom Tag
+     	    		   document.getElementById("mondayTotal").value = h_mm(value.totalDeci);
+     	    		 
+     	    		 //Überzeit vom Tag
+   	    		       document.getElementById("mondayOverhours").value = h_mm(value.minusOderPlusZeit);
+     	    		 
+     	    			
+     	    		//Dienstag
+     	    		} else if (document.getElementById("secondDayofWeek").innerHTML == working_day) {      	    			
+     	    			
+     	    			//Morgen
+      	    		   document.getElementById("tuesdayMorningStartHours").value = value.morningstartHours;
+      	    		   document.getElementById("tuesdayMorningStartMin").value = value.morningStartMinDeci*60;
+      	    		   document.getElementById("tuesdayMorningEndHours").value  = value.morningEndHours;
+      	    		   document.getElementById("tuesdayMorningEndMin").value = value.morningEndMinDeci*60;
+      	    
+      	    		 //Nachmittag
+      	    		   document.getElementById("tuesdayAfternoonStartHours").value = value.afternoonStartHours;
+      	    		   document.getElementById("tuesdayAfternoonStartMin").value = value.afternoonStartMinDeci*60;
+      	    		   document.getElementById("tuesdayAfternoonEndHours").value  = value.afternoonEndHours;
+      	    		   document.getElementById("tuesdayAfternoonEndMin").value = value.afternoonEndMinDeci*60;     	    		   
+     	    			
+      	    		//Total vom Tag
+     	    		   document.getElementById("tuesdayTotal").value = h_mm(value.totalDeci); 
+      	    		
+     	    		   //Überzeit vom Tag
+     	    		   document.getElementById("tuesdayOverhours").value = h_mm(value.minusOderPlusZeit);
+      	    		   
+     	    		//Mittwoch
+     	    		} else if (document.getElementById("thirdDayofWeek").innerHTML == working_day) {      	    			
+     	    			
+     	    			//Morgen
+      	    		   document.getElementById("wednesdayMorningStartHours").value = value.morningstartHours;
+      	    		   document.getElementById("wednesdayMorningStartMin").value = value.morningStartMinDeci*60;
+      	    		   document.getElementById("wednesdayMorningEndHours").value = value.morningEndHours;
+      	    		   document.getElementById("wednesdayMorningEndMin").value = value.morningEndMinDeci*60;
+      	    
+      	    		 //Nachmittag
+      	    		   document.getElementById("wednesdayAfternoonStartHours").value = value.afternoonStartHours;
+      	    		   document.getElementById("wednesdayAfternoonStartMin").value = value.afternoonStartMinDeci*60;
+      	    		   document.getElementById("wednesdayAfternoonEndHours").value  = value.afternoonEndHours;
+      	    		   document.getElementById("wednesdayAfternoonEndMin").value = value.afternoonEndMinDeci*60;      	    		 
+     	    		
+      	    		//Total vom Tag
+     	    		   document.getElementById("wednesdayTotal").value = h_mm(value.totalDeci);
+      	    		
+     	    		   //Überzeit vom Tag
+     	    		   document.getElementById("wednesdayOverhours").value = h_mm(value.minusOderPlusZeit);
+      	    		   
+     	    		//Donnerstag
+     	    		} else if (document.getElementById("fourthDayofWeek").innerHTML == working_day) {
 
-        	    			
-        	    			//Morgen
-         	    		   document.getElementById("thursdayMorningStartHours").value = value.morningstartHours;
-         	    		   document.getElementById("thursdayMorningStartMin").value = value.morningStartMinDeci*60;
-         	    		   document.getElementById("thursdayMorningEndHours").value  = value.morningEndHours;
-         	    		   document.getElementById("thursdayMorningEndMin").value = value.morningEndMinDeci*60;
-         	    
-         	    		 //Nachmittag
-         	    		   document.getElementById("thursdayAfternoonStartHours").value = value.afternoonStartHours;
-         	    		   document.getElementById("thursdayAfternoonStartMin").value = value.afternoonStartMinDeci*60;
-         	    		   document.getElementById("thursdayAfternoonEndHours").value  = value.afternoonEndHours;
-         	    		   document.getElementById("thursdayAfternoonEndMin").value = value.afternoonEndMinDeci*60;     	    			
-        	    			
-         	    		//Total vom Tag
-        	    		   document.getElementById("thursdayTotal").value = h_mm(value.totalDeci);
-         	    		
-        	    		//Freitag
-        	    		} else if (document.getElementById("fifthDayofWeek").innerHTML == working_day) {
-        	    			
-        	    			//Morgen
-         	    		   document.getElementById("fridayMorningStartHours").value = value.morningstartHours;
-         	    		   document.getElementById("fridayMorningStartMin").value = value.morningStartMinDeci*60;
-         	    		   document.getElementById("fridayMorningEndHours").value  = value.morningEndHours;
-         	    		   document.getElementById("fridayMorningEndMin").value = value.morningEndMinDeci*60;
-         	    
-         	    		 //Nachmittag
-         	    		   document.getElementById("fridayAfternoonStartHours").value = value.afternoonStartHours;
-         	    		   document.getElementById("fridayAfternoonStartMin").value = value.afternoonStartMinDeci*60;
-         	    		   document.getElementById("fridayAfternoonEndHours").value  = value.afternoonEndHours;
-         	    		   document.getElementById("fridayAfternoonEndMin").value = value.afternoonEndMinDeci*60;
-         	    		   
-         	    		//Total vom Tag
-        	    		   document.getElementById("fridayTotal").value = h_mm(value.totalDeci);
-        	    		         	    		} 	
-    	    		});        	    		    	   	    		
-        	    	});
-        	    	    
-        	    });       	 
-        }
+     	    			
+     	    			//Morgen
+      	    		   document.getElementById("thursdayMorningStartHours").value = value.morningstartHours;
+      	    		   document.getElementById("thursdayMorningStartMin").value = value.morningStartMinDeci*60;
+      	    		   document.getElementById("thursdayMorningEndHours").value  = value.morningEndHours;
+      	    		   document.getElementById("thursdayMorningEndMin").value = value.morningEndMinDeci*60;
+      	    
+      	    		 //Nachmittag
+      	    		   document.getElementById("thursdayAfternoonStartHours").value = value.afternoonStartHours;
+      	    		   document.getElementById("thursdayAfternoonStartMin").value = value.afternoonStartMinDeci*60;
+      	    		   document.getElementById("thursdayAfternoonEndHours").value  = value.afternoonEndHours;
+      	    		   document.getElementById("thursdayAfternoonEndMin").value = value.afternoonEndMinDeci*60;     	    			
+     	    			
+      	    		//Total vom Tag
+     	    		   document.getElementById("thursdayTotal").value = h_mm(value.totalDeci);
+      	    		
+     	    		 //Überzeit vom Tag
+     	    		   document.getElementById("thursdayOverhours").value = h_mm(value.minusOderPlusZeit);
+      	    		
+     	    		//Freitag
+     	    		} else if (document.getElementById("fifthDayofWeek").innerHTML == working_day) {
+     	    			
+     	    			//Morgen
+      	    		   document.getElementById("fridayMorningStartHours").value = value.morningstartHours;
+      	    		   document.getElementById("fridayMorningStartMin").value = value.morningStartMinDeci*60;
+      	    		   document.getElementById("fridayMorningEndHours").value  = value.morningEndHours;
+      	    		   document.getElementById("fridayMorningEndMin").value = value.morningEndMinDeci*60;
+      	    
+      	    		 //Nachmittag
+      	    		   document.getElementById("fridayAfternoonStartHours").value = value.afternoonStartHours;
+      	    		   document.getElementById("fridayAfternoonStartMin").value = value.afternoonStartMinDeci*60;
+      	    		   document.getElementById("fridayAfternoonEndHours").value  = value.afternoonEndHours;
+      	    		   document.getElementById("fridayAfternoonEndMin").value = value.afternoonEndMinDeci*60;
+      	    		   
+      	    		//Total vom Tag
+     	    		   document.getElementById("fridayTotal").value = h_mm(value.totalDeci);
+      	    		
+      	    		//Überzeit vom Tag
+     	    		   document.getElementById("fridayOverhours").value = h_mm(value.minusOderPlusZeit);
+      	    		
+     	    		         	    		} 	
+ 	    		});        	    		    	   	    		
+     	    	});
+     	    	    
+     	    });       	 
+     }
         
+        
+        
+        //Hier wird der Total Overhours und Targettime Felder automatisch updated, wenn sich ein Feld ändert. (BR)
+        function updateOverhoursAndTargetTime(){
+		console.log("+++++++++++++++++++++++++++++++++++++ kommme ich hier rein ++++++++++++++++")
+
+        	 $(document).ready(function(){
+        	        	    	$.getJSON("http://localhost:8081/timerecorders/timestamps/", function(data){
+        	        	    	var working_day = '';
+        	        	    	
+        	    	    		$.each(data, function(key, value){
+        	    	    			working_day = value.date.toString();	
+        	    	    			
+        	    	    			
+        	    	    		
+        	    	      	  	
+        	        	   //Montag 
+        	        	    if (document.getElementById("firstDayofWeek").innerHTML == working_day) {
+        	    					
+        	        	    document.getElementById("mondayOverhours").value = h_mm(value.minusOderPlusZeit);
+        	 				document.getElementById("mondayTargetTime").value = "";
+
+
+        	        	    		
+        	        	    		 
+        	        	    			
+        	        	    //Dienstag
+        	        	    } else if (document.getElementById("secondDayofWeek").innerHTML == working_day) {      	    			
+        	        	    			
+        	        	    document.getElementById("tuesdayOverhours").value = h_mm(value.minusOderPlusZeit);
+        	 				 document.getElementById("tuesdayTargetTime").value = "";
+
+
+        	         	    		   
+        	        	    		//Mittwoch
+        	        	    } else if (document.getElementById("thirdDayofWeek").innerHTML == working_day) {      	    			
+        	        	    			
+        	        	    document.getElementById("wednesdayOverhours").value = h_mm(value.minusOderPlusZeit);
+        	 				 document.getElementById("wednesdayTargetTime").value = "";
+
+
+        	         	    		   
+        	        	    //Donnerstag
+        	        	    } else if (document.getElementById("fourthDayofWeek").innerHTML == working_day) {
+
+        	        	    document.getElementById("thursdayOverhours").value = h_mm(value.minusOderPlusZeit);
+        	 				 document.getElementById("thursdayTargetTime").value = "";
+
+
+        	         	    		
+        	        	    //Freitag
+        	        	    } else if (document.getElementById("fifthDayofWeek").innerHTML == working_day) {
+        	        	    			
+        	        	    document.getElementById("fridayOverhours").value = h_mm(value.minusOderPlusZeit);
+        	 				 document.getElementById("fridayTargetTime").value = "";
+
+        	         	    		
+        	        	    		         	    		} 	
+        	    	    		});        	    		    	   	    		
+        	        	    	});
+        	        	    	    
+        	        	    });   
+        	
+
+        }
         
         //Hier werden die Innformationen von je nach Tag geholt und in den Server übermittelt (BR)
         function safeDataAndTimetoDB(morningEndHours, morningstartHours, morningEndMinDeci, morningStartMinDeci,
@@ -1351,7 +1433,7 @@
         	}	
         }
         
-		//Null stellen von Werten bzw. reseten (BR)
+      //Null stellen von Werten bzw. reseten (BR)
 		function resetFullTable(){
 			
   	  		
@@ -1368,6 +1450,9 @@
     		   document.getElementById("mondayAfternoonStartMin").value = "";
     		   document.getElementById("mondayAfternoonEndHours").value = "";
     		   document.getElementById("mondayAfternoonEndMin").value = "";
+    		   
+    		//Überstunden
+    		   document.getElementById("mondayOverhours").value = "";
     			
     		//Dienstag      	    			
     			
@@ -1381,7 +1466,10 @@
 	    		   document.getElementById("tuesdayAfternoonStartHours").value = "";
 	    		   document.getElementById("tuesdayAfternoonStartMin").value = "";
 	    		   document.getElementById("tuesdayAfternoonEndHours").value  = "";
-	    		   document.getElementById("tuesdayAfternoonEndMin").value = "";     	    		   
+	    		   document.getElementById("tuesdayAfternoonEndMin").value = "";   
+	    		   
+	    		 //Überstunden
+	    		   document.getElementById("tuesdayOverhours").value = "";
     			        	    		
     		//Mittwoch
     	    	    			
@@ -1397,7 +1485,9 @@
 	    		   document.getElementById("wednesdayAfternoonStartMin").value = "";
 	    		   document.getElementById("wednesdayAfternoonEndHours").value  = "";
 	    		   document.getElementById("wednesdayAfternoonEndMin").value = ""; 
-			
+	    		   
+	    		   //Überstunden
+	    		   document.getElementById("wednesdayOverhours").value = "";
 		
         
         //Donnerstag
@@ -1412,6 +1502,9 @@
          document.getElementById("thursdayAfternoonStartMin").value = "";
          document.getElementById("thursdayAfternoonEndHours").value  = "";
          document.getElementById("thursdayAfternoonEndMin").value = "";
+         
+       //Überstunden
+		   document.getElementById("thursdayOverhours").value = "";
 			
 			
 		//Freitag
@@ -1427,6 +1520,9 @@
   		   document.getElementById("fridayAfternoonStartMin").value = "";
   		   document.getElementById("fridayAfternoonEndHours").value = "";
   		   document.getElementById("fridayAfternoonEndMin").value = "";
+  		   
+  		    //Überstunden
+		   document.getElementById("fridayOverhours").value = "";
   		  
   		  //Total
   		   document.getElementById("mondayTotal").value = "";
@@ -1445,11 +1541,7 @@
 		
 		}
 		
-		//Hier werden die Überstunden geholt und anzeigt (BR)
-		function overTime(){
-
-		
-		}
+	
 		
 		/*
 		*Hier wird die Rolle des akutellen User geholt und in die Cookies geschrieben (BR)
