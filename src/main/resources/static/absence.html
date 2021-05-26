@@ -1,4 +1,4 @@
-<!-- erstellt durch Jordi Schmidlin-->
+<!-- View generell durch Jordi Schmidlin erstellt, andere Authoren (Abkürz.) sind entsprechend gekennzeichnet-->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -55,7 +55,7 @@
     <div style="display: block; text-align: center;width: 100%;">
         <h1>Absence</h1>
     </div>
-    <!-- Tabelle mit aktuell erfassten Abwesenheiten-->
+    <!-- Tabelle mit aktuell erfassten Abwesenheiten (JS)-->
     <!-- Header als eigene Tabelle zum Inhalt scrollbar machen zu können-->  
   <!-- Tabelle für "Inhalt"-->  
        <table cellspacing="0" cellpadding="0" border="0" class="absenceTable" style="position: relative; margin: auto; width: 50px;">
@@ -109,14 +109,14 @@
     <br>
     <br>
 
-    <!-- Button für Abwesenheitserfassung-->
+    <!-- Button für Abwesenheitserfassung(JS) -->
     <div style="display: block; text-align: center; width: 100%;">
         <a href="http://localhost:8081/addabsence" class="buttonLinks" style="text-decoration: none;"> Add Absence</a>
     </div>
     
      <script>
 
-      //Absenz löschen
+      //Absenz löschen (JS)
       function deleteAbsence(x){
             //nimmt Daten der Abwesenheit entgegen und gibt diese in einem Alert an
             var from = x.parentNode.parentNode.cells[0].innerHTML;
@@ -168,6 +168,8 @@
     
      <script>
 
+
+//Hier werden die Daten für die Tabelle entsprechend eingelesen (KG)
 $(document).ready(function(){
 	$.getJSON("http://localhost:8081/erfassteFerien/", function(data){
 		var ferien_data = '';
