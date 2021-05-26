@@ -238,12 +238,13 @@
 
     <table cellspacing="0" cellpadding="0" border="0" id="employeeTable" style="position: relative; margin: auto; width: 50px;">
        
-        <table id ="mitarbeiterList">
+        <table id ="mitarbeiterList" class=employeeTableContent>
 			 <tr>
 			    <th>MitarbeiterID</th>
 			     <th>Surname</th>
 			    <th>Username</th>
 			    <th>Workload</th>
+			     <th>Edit</th>
 			  </tr>
 			<tbody>
 			</tbody>
@@ -269,56 +270,172 @@
  <script>
  
     
-    $(document).ready(function(){
-    	$.getJSON("http://localhost:8081/mitarbeiterList/", function(data){
-    		var mitarbeiter_data = '';
-    		$.each(data, function(key, value){
-    			mitarbeiter_data += '<tr>';
-    			mitarbeiter_data += '<td>'+value.mitarbeiterID+ '</td>';
-    			mitarbeiter_data += '<td>'+value.surname+ '</td>';
-    			mitarbeiter_data += '<td>'+value.username+ '</td>';
-    			mitarbeiter_data += '<td>'+value.pensum+ '</td>';
-    			mitarbeiter_data += '</tr>';
-    		});
-    		$('#mitarbeiterList').append(mitarbeiter_data);	
-    		
-    	});
-    	    
-    });
-
-	//Hier wird der User ausser der Loginaktivitätliste herausgelöscht. (JS/BR)
-	
-	function deleteUserDB(){
-
-		var username = $.cookie("userlogin").toString(); 
-
-		console.log("Bin in der Funktion deleteUserDB" + username);
-		
-		$.ajax({
+ $(document).ready(function(){
+ 	$.getJSON("http://localhost:8081/mitarbeiterList/", function(data){
+ 		var mitarbeiter_data = '';
+ 		$.each(data, function(key, value){
+ 			mitarbeiter_data += '<tr>';
+ 			var mitarbeiterID = mitarbeiter_data += '<td id = "mitarbeiterID">'+"10" +value.mitarbeiterID+ '</td>';
+ 			var surname = mitarbeiter_data += '<td id = "surname">'+value.surname+ '</td>';
+ 			var username = mitarbeiter_data += '<td id = "username">'+value.username+ '</td>';
+ 			var pensum = mitarbeiter_data += '<td id = "pensum">'+value.pensum+ '</td>';
+ 			mitarbeiter_data += '<td>' +"<input type='button' class= 'buttonList' id='DeleteButton' onclick='CallMe(this)' value='Delete'>"+ '</td>';
+ 			mitarbeiter_data += '</tr>';
+ 		});
+ 		$('#mitarbeiterList').append(mitarbeiter_data);	
+ 		
+ 		$('tr:has(td:empty)').hide();    	   
+ 		
+ 		
+ 	});
+ 	    
+ });
+ 
+ function CallMe(row)
+ {
+ 	
+ 	console.log("kommt rein");
+     var i=row.parentNode.parentNode.rowIndex;
+     document.getElementById('mitarbeiterList').deleteRow(i);
+     alert("The ID is deleted");
+     
+     var mitarbeiterID = row.parentNode.parentNode.rowIndex;
+     document.getElementById("mitarbeiterID").innerHTML;
+     var surname = row.parentNode.parentNode.rowIndex;
+     document.getElementById("surname").innerHTML;
+     var username = row.parentNode.parentNode.rowIndex;
+     document.getElementById("username").innerHTML;
+     var pensum = row.parentNode.parentNode.rowIndex;
+     document.getElementById("pensum").innerHTML;
+     
+     
+     console.log("ich komme hier rein");
+     
+ 
+	 $.ajax({
 			type : "POST",
-			url : "http://localhost:8081/timerecorders/deleteuser/",
+			url : "/deleteMitarbeiter/",
 			data : JSON.stringify({
-
+				mitarbeiterID : mitarbeiterID,
+				surname : surname,
 				username : username,
+				pensum : pensum
 				
+	
 			}),
-			success : successDeleteUser,
 			dataType : 'json',
 			contentType : 'application/json'
 		});
-		window.location.href = "http://localhost:8081/login";
 	
-	}
-	
-function successDeleteUser(response){
-		
-		if (response){
-		console.log("Sucessful: delete active user");
-		} else {
-		console.log("Unsucessful: delete active user");
-		}
-		
-	}
+	 
+	 }
 
+    var userIPAdress = {
+            ipAdress: "",
+            set ip(ip) {
+                this.ipAdress = ip;
+            }
+        };
+
+        var username = {
+            name: "",
+            set setusername(externname) {
+                this.name = externname;
+            }
+        };
+
+        //Hier wir der IP Adresse geholt und niedergeschrieben. 
+        function getAndSafeIP() {
+
+            console.log("Bin in der Funktion get&SafeIP drin" + username.name);
+
+            // nimmt IP-Adresse des Users entgegen zur eindeutigen Identifikation
+            // full credit: https://www.geeksforgeeks.org/how-to-get-client-ip-address-using-javascript/
+            $.getJSON("http://api.ipify.org/?format=json", function (e) {
+                userIPAdress.ip = String(e.ip);
+            });
+
+            getUserNamebyIP();
+
+        }
+
+        //Hier wird anhand IP der User ausfindig gemacht (JS/BR)
+
+        function getUserNamebyIP() {
+
+            console.log("Bin in der Funktion getUserNamebyIP drin" + username.name);
+
+            $(document).ready(function () {
+                $.getJSON("http://localhost:8081/timerecorders/getUserOnlineList/", function (data) {
+                    var listusername = "";
+                    var listip = "";
+
+                    $.each(data, function (key, value) {
+                        listusername = value.username.toString();
+                        listip = value.ip.toString();
+
+                        if (userIPAdress.ipAdress == listip) {
+                            username.setusername = listusername;
+
+                            console.log(username.name);
+                            console.log(listusername);
+
+                            console.log(userIPAdress.ipAdress);
+                            console.log(listip);
+                        } else {
+                            console.log("Unter der aktiven User ist dieser User nicht vorhanden - bitte überprüfen")
+                            console.log(username.name);
+                            console.log(listusername);
+
+                            console.log(userIPAdress.ipAdress);
+                            console.log(listip);
+                        }
+
+                    });
+                });
+
+            });
+        }
+
+        //Hier wird der User ausser der Loginaktivitätliste herausgelöscht. (JS/BR)
+
+        function deleteUserDB() {
+
+            var ip = userIPAdress.ipAdress;
+            var username = "kireng";
+
+            console.log("Bin in der Funktion deleteUserDB" + username.name);
+
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:8081/timerecorders/deleteuser/",
+                data: JSON.stringify({
+
+                    ip: ip,
+                    username: username,
+
+                }),
+                success: successDeleteUser,
+                dataType: 'json',
+                contentType: 'application/json'
+            });
+            console.log("Ich gehe raus");
+            window.location.href = "http://localhost:8081/login";
+
+        }
+
+        function successDeleteUser(response) {
+
+            if (response) {
+                console.log("Sucessful: delete active user");
+            } else {
+                console.log("Unsucessful: delete active user");
+            }
+
+        }
+
+        window.onload = function (){
+            getAndSafeIP();
+        }
 
     </script>
