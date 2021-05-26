@@ -147,6 +147,7 @@
 		doc.fromHTML(document.getElementById("startOfExport"), 20, 20, {
 		'width' : 1200
 		},
+		
 		function (x){
 			var month= document.getElementById("chosenMonth").value; 
 			doc.save('report_'+month+'.pdf');
@@ -154,12 +155,7 @@
 			}
         
 
-        var userIPAdress = {
-            ipAdress: "",
-            set ip(ip) {
-                this.ipAdress = ip;
-            }
-        };
+       
 
         var username = {
             name: "",
@@ -168,59 +164,7 @@
             }
         };
 
-        //Hier wir der IP Adresse geholt und niedergeschrieben. 
-        function getAndSafeIP() {
-
-            console.log("Bin in der Funktion get&SafeIP drin" + username.name);
-
-            // nimmt IP-Adresse des Users entgegen zur eindeutigen Identifikation
-            // full credit: https://www.geeksforgeeks.org/how-to-get-client-ip-address-using-javascript/
-            $.getJSON("http://api.ipify.org/?format=json", function (e) {
-                userIPAdress.ip = String(e.ip);
-            });
-
-            getUserNamebyIP();
-
-        }
         
-        
-        //Hier wird anhand IP der User ausfindig gemacht (JS/BR)
-
-        function getUserNamebyIP() {
-
-            console.log("Bin in der Funktion getUserNamebyIP drin" + username.name);
-
-            $(document).ready(function () {
-                $.getJSON("http://localhost:8081/timerecorders/getUserOnlineList/", function (data) {
-                    var listusername = "";
-                    var listip = "";
-
-                    $.each(data, function (key, value) {
-                        listusername = value.username.toString();
-                        listip = value.ip.toString();
-
-                        if (userIPAdress.ipAdress == listip) {
-                            username.setusername = listusername;
-
-                            console.log(username.name);
-                            console.log(listusername);
-
-                            console.log(userIPAdress.ipAdress);
-                            console.log(listip);
-                        } else {
-                            console.log("Unter der aktiven User ist dieser User nicht vorhanden - bitte überprüfen")
-                            console.log(username.name);
-                            console.log(listusername);
-
-                            console.log(userIPAdress.ipAdress);
-                            console.log(listip);
-                        }
-
-                    });
-                });
-
-            });
-        }
 
         //Hier wird der User ausser der Loginaktivitätliste herausgelöscht. (JS/BR)
 
@@ -313,6 +257,12 @@
     	    
     });
     
+    // Konvertiert Dezimal ins Zeitformat (BR)
+    //full credit: https://www.acronaut.de/viewtopic.php?f=25&t=16550
+    function h_mm(Wert) {
+    var Minuten = Math.round(60 * Math.abs(Wert)) ;
+    return (Wert < 0 ? "-" : "") + parseInt(Minuten / 60) + (100 + (Minuten % 60)).toString().replace(/^1/,":") ;
+    }
 
     
     
