@@ -11,7 +11,7 @@ public class MessageTimeStamp {
 	 */
 
 	private long TAGESID;
-	private Long mitarbeiterID;
+	private Long erfassungID;
 	private String date; // datum
 	
 	//Hier wird der Username übernommen. 
@@ -60,11 +60,11 @@ public class MessageTimeStamp {
 	}
 
 	public Long getMitarbeiterID() {
-		return mitarbeiterID;
+		return erfassungID;
 	}
 
-	public void setMitarbeiterID(Long mitarbeiterID) {
-		this.mitarbeiterID = mitarbeiterID;
+	public void setMitarbeiterID(Long erfassungID) {
+		this.erfassungID = erfassungID;
 	}
 
 	public String getDate() {

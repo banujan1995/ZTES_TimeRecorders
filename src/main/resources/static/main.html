@@ -373,7 +373,7 @@
 				<td><input type="text" id="sundayOverhours"
 					class="resultsTimeInput" disabled></td>
 				<th style="text-align: center;"><input type="text"
-					class="resultsTimeInput" class="total" id="totalOverhours" disabled></th>
+					class="resultsTimeInput" class="total" id="totalOverhours"></th>
 		</table>
 		<div
 			style="display: block; text-align: center; width: 100%; margin-top: 30px;">
@@ -553,6 +553,8 @@
         	safeDataAndTimetoDB(morningEndHours, morningstartHours, morningEndMinDeci, morningStartMinDeci,
             afternoonEndHours, afternoonStartHours, afternoonEndMinDeci, afternoonStartMinDeci,morningTotal,
                 		afternoonTotal,totalDeci)
+                		
+           
         }
 
         // berechnet Arbeitsstunden am Freitag
@@ -587,6 +589,8 @@
         	safeDataAndTimetoDB(morningEndHours, morningstartHours, morningEndMinDeci, morningStartMinDeci,
             afternoonEndHours, afternoonStartHours, afternoonEndMinDeci, afternoonStartMinDeci,morningTotal,
                 		afternoonTotal,totalDeci)
+                		
+            
         }
 
         // wird nicht genutzt, da Büroarbeitszeiten (MO-FR)
@@ -1143,50 +1147,9 @@
             setTargetTime();
         }
         
-    	
-        
-        //Hier soll die Schleife gestartet werden und die Methode (safeDataAndTimetoDB) einzlen Tage speichern
-        //Der User muss nicht alle Felder ausfüllen! 
-        function daysSchleife(){
-		
-        	//Montag       	
-			informationAboutDay.day = document.getElementById("firstDayofWeek").value;
-        	safeDataAndTimetoDB(morningEndHours, morningstartHours, morningEndMinDeci, morningStartMinDeci,
-                		afternoonEndHours, afternoonStartHours, afternoonEndMinDeci, afternoonStartMinDeci,morningTotal,
-                		afternoonTotal,totalDeci)
-    	       	        	
-        	//Dienstag 
-			informationAboutDay.day = document.getElementById("secondDayofWeek").value;
-        	safeDataAndTimetoDB(morningEndHours, morningstartHours, morningEndMinDeci, morningStartMinDeci,
-                		afternoonEndHours, afternoonStartHours, afternoonEndMinDeci, afternoonStartMinDeci,morningTotal,
-                		afternoonTotal,totalDeci)
-        	
-        	//Mittwoch
-        	informationAboutDay.set(document.getElementById("thirdDayofWeek").value);
-        	safeDataAndTimetoDB(morningEndHours, morningstartHours, morningEndMinDeci, morningStartMinDeci,
-                		afternoonEndHours, afternoonStartHours, afternoonEndMinDeci, afternoonStartMinDeci,morningTotal,
-                		afternoonTotal,totalDeci)
-        	
-        	//Donnerstag
-			informationAboutDay.set(document.getElementById("fourthDayofWeek").value);
-        	safeDataAndTimetoDB(morningEndHours, morningstartHours, morningEndMinDeci, morningStartMinDeci,
-                		afternoonEndHours, afternoonStartHours, afternoonEndMinDeci, afternoonStartMinDeci,morningTotal,
-                		afternoonTotal,totalDeci)
-        		
-        	//Freitag
-			informationAboutDay.set(document.getElementById("fifthDayofWeek").value);
-        	safeDataAndTimetoDB(morningEndHours, morningstartHours, morningEndMinDeci, morningStartMinDeci,
-                		afternoonEndHours, afternoonStartHours, afternoonEndMinDeci, afternoonStartMinDeci,morningTotal,
-                		afternoonTotal,totalDeci)
-        	
-        	//Samstag & Sonntag
-        	//kann bei Bedarf ergänzt werden, wenn die Arbeit auf ein Wochenende fallen
-        }
         
         //Hier werde die Daten vom DB geholt, sobal der User auf Validate drückt - es wird in den
-        //Input-Felder reingeschrieben. So kann der User dies bei Änderungsbedarf ändern. (BR)
-        
-        
+        //Input-Felder reingeschrieben. So kann der User dies bei Änderungsbedarf ändern. (BR)  
                  
         function bringUpDataAndTimefromDB(){
 
@@ -1310,86 +1273,139 @@
      	    		   document.getElementById("fridayOverhours").value = h_mm(value.minusOderPlusZeit);
       	    		
      	    		         	    		} 	
- 	    		});        	    		    	   	    		
+ 	    		});   
+ 	    		resetSumTimes();
+ 	          	updateOverhoursAndTargetTime();
+ 	          	sumOfOverhours();
      	    	});
      	    	    
-     	    });       	 
+     	    });
+          	 
+          	
      }
         
+        
+        //Beim Confirm Changes geht er durch und speichert einzeln ab (BR).
         function updateCalculateDays(){
 
-        	calculateMondayTotal(); 
+        	calculateMondayTotal();
         	calculateTuesdayTotal(); 
         	calculateWednesdayTotal(); 
         	calculateThursdayTotal(); 
         	calculateFridayTotal();	
-        }
-        
+        	
+        }   
         
         
         //Hier wird der Total Overhours und Targettime Felder automatisch updated, wenn sich ein Feld ändert. (BR)
+        //Die Summe der Überzeit wird zusammengerechnet und am Ende der Tabelle gezeigt (BR).
         function updateOverhoursAndTargetTime(){
+       	 $(document).ready(function(){
+ 	    	$.getJSON("http://localhost:8081/timerecorders/timestamps/", function(data){
+ 	    	var working_day = '';
+ 	    	
+	    		$.each(data, function(key, value){
+	    			working_day = value.date.toString();	
+	    			      	    	    			
+	    		        	    	      	  	
+ 	   //Montag 
+ 	    if (document.getElementById("firstDayofWeek").innerHTML == working_day) {
+ 	    document.getElementById("mondayOverhours").value = h_mm(value.minusOderPlusZeit);
+			document.getElementById("mondayTargetTime").value = "";
+	    	     	        	    		 
+ 	    			
+ 	    //Dienstag
+ 	    } else if (document.getElementById("secondDayofWeek").innerHTML == working_day) {      	    			 		
+ 	    document.getElementById("tuesdayOverhours").value = h_mm(value.minusOderPlusZeit);
+			 document.getElementById("tuesdayTargetTime").value = "";
 
-        	 $(document).ready(function(){
-        	        	    	$.getJSON("http://localhost:8081/timerecorders/timestamps/", function(data){
-        	        	    	var working_day = '';
-        	        	    	
-        	    	    		$.each(data, function(key, value){
-        	    	    			working_day = value.date.toString();	
-        	    	    			
-        	    	    			
-        	    	    		
-        	    	      	  	
-        	        	   //Montag 
-        	        	    if (document.getElementById("firstDayofWeek").innerHTML == working_day) {
-        	    					
-        	        	    document.getElementById("mondayOverhours").value = h_mm(value.minusOderPlusZeit);
-        	 				document.getElementById("mondayTargetTime").value = "";
+  	    		   
+ 	    		//Mittwoch
+ 	    } else if (document.getElementById("thirdDayofWeek").innerHTML == working_day) {      	    			
+ 	    document.getElementById("wednesdayOverhours").value = h_mm(value.minusOderPlusZeit);
+			 document.getElementById("wednesdayTargetTime").value = "";
 
+  	    		   
+ 	    //Donnerstag
+ 	    } else if (document.getElementById("fourthDayofWeek").innerHTML == working_day) {
+ 	    document.getElementById("thursdayOverhours").value = h_mm(value.minusOderPlusZeit);
+			 document.getElementById("thursdayTargetTime").value = "";
+  	    		
+ 	    //Freitag
+ 	    } else if (document.getElementById("fifthDayofWeek").innerHTML == working_day) {
+ 	    document.getElementById("fridayOverhours").value = h_mm(value.minusOderPlusZeit);
+			 document.getElementById("fridayTargetTime").value = "";
+  	    		
+ 	    		         	    		}
+ 	    
+	    		});
+	    		sumOfOverhours(); 
+ 	    	});
+ 	    	    
+ 	    }); 
+        					 
+       	 	 
+        	 
+        }      
+        
+        function sumOfOverhours() {
 
-        	        	    		
-        	        	    		 
-        	        	    			
-        	        	    //Dienstag
-        	        	    } else if (document.getElementById("secondDayofWeek").innerHTML == working_day) {      	    			
-        	        	    			
-        	        	    document.getElementById("tuesdayOverhours").value = h_mm(value.minusOderPlusZeit);
-        	 				 document.getElementById("tuesdayTargetTime").value = "";
+        	var mondayOverhours = zeitInDezimal(document.getElementById("mondayOverhours").value);
+        		console.log(mondayOverhours);
+        	var tuedayOverhours =  zeitInDezimal(document.getElementById("tuesdayOverhours").value);
+        		console.log(tuedayOverhours);
+        	var wednesdayOverhours = zeitInDezimal(document.getElementById("wednesdayOverhours").value);
+        		console.log(wednesdayOverhours);
+        	var thursdayOverhours = zeitInDezimal(document.getElementById("thursdayOverhours").value); 
+        		console.log(thursdayOverhours);
+        	var fridayOverhours = zeitInDezimal(document.getElementById("fridayOverhours").value); 
+        		console.log(fridayOverhours);
+        		       	
+            //SUM OF OVERHOURS
+            var overtimeSum = 0.0;          
+            
+            if (mondayOverhours == NaN){
+            	mondayOverhours = 0.0;
+            
+            } else if (tuedayOverhours == NaN) {
+            	tuedayOverhours = 0.0;
 
+            } else if (wednesdayOverhours == NaN){
+            	wednesdayOverhours = 0.0;
 
-        	         	    		   
-        	        	    		//Mittwoch
-        	        	    } else if (document.getElementById("thirdDayofWeek").innerHTML == working_day) {      	    			
-        	        	    			
-        	        	    document.getElementById("wednesdayOverhours").value = h_mm(value.minusOderPlusZeit);
-        	 				 document.getElementById("wednesdayTargetTime").value = "";
+            } else if (thursdayOverhours = NaN) {
+            	thursdayOverhours = 0.0;
 
+            } else if (fridayOverhours == NaN){
+            	fridayOverhours = 0.0;
 
-        	         	    		   
-        	        	    //Donnerstag
-        	        	    } else if (document.getElementById("fourthDayofWeek").innerHTML == working_day) {
-
-        	        	    document.getElementById("thursdayOverhours").value = h_mm(value.minusOderPlusZeit);
-        	 				 document.getElementById("thursdayTargetTime").value = "";
-
-
-        	         	    		
-        	        	    //Freitag
-        	        	    } else if (document.getElementById("fifthDayofWeek").innerHTML == working_day) {
-        	        	    			
-        	        	    document.getElementById("fridayOverhours").value = h_mm(value.minusOderPlusZeit);
-        	 				 document.getElementById("fridayTargetTime").value = "";
-
-        	         	    		
-        	        	    		         	    		} 	
-        	    	    		});        	    		    	   	    		
-        	        	    	});
-        	        	    	    
-        	        	    });   
-        	
-
+            }
+            
+            overtimeSum += mondayOverhours;
+            overtimeSum += tuedayOverhours;
+            overtimeSum += wednesdayOverhours;
+            overtimeSum += thursdayOverhours;
+            overtimeSum += fridayOverhours;
+     
+     		
+      	    
+      	  document.getElementById("totalOverhours").value = overtimeSum.toString(); 
+      	    
         }
         
+        //Hier die Zeitelement in Dezimal geändert (BR) - Vereinfachungsfunktion
+        function zeitInDezimal(time){
+			var time = time.toString();
+			var trennung = time.split(":");
+		
+			var stunden = parseInt(trennung[0]);
+			var minuten = parseInt(trennung[1]);
+			var dezimalzahl = stunden + ((1/60)*minuten);
+        	
+			return dezimalzahl;
+
+        }
+               
         //Hier werden die Innformationen von je nach Tag geholt und in den Server übermittelt (BR)
         function safeDataAndTimetoDB(morningEndHours, morningstartHours, morningEndMinDeci, morningStartMinDeci,
         		afternoonEndHours, afternoonStartHours, afternoonEndMinDeci, afternoonStartMinDeci,morningTotal,
@@ -1540,6 +1556,18 @@
     	   document.getElementById("fridayTotal").value = "";
   		   
   		   
+		}
+      
+      //Hier soll die Summenzeiten resetet werden (BR).
+
+		function resetSumTimes(){
+
+		    	   document.getElementById("mondayOverhours").value = "";
+				   document.getElementById("tuesdayOverhours").value = "";
+		 		   document.getElementById("wednesdayOverhours").value = "";
+				   document.getElementById("thursdayOverhours").value = "";
+				   document.getElementById("fridayOverhours").value = "";
+
 		}
 		
 		/*
