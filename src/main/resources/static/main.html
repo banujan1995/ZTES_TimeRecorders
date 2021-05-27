@@ -65,7 +65,7 @@
 	<div style="display: block; text-align: center; width: 100%;">
 		<input type="text" id="week_ww_yyyy"></input>
 		<button class="buttonList" style="margin-left: 20px;"
-			onclick="getChoosenDay(); resetFullTable(); bringUpDataAndTimefromDB();">Validate</button>
+			onclick="getChoosenDay(); resetFullTable(); bringUpDataAndTimefromDB(); updateOverhoursAndTargetTime();">Validate</button>
 	</div>
 	<br>
 	<br>
@@ -1367,23 +1367,72 @@
          	    
          	    	
         	    $.each(data, function(key, value){
+        	    	
+        	    	
+        	    	if(value.username == username){
+        	    	
         			var workingDaysSet = value.workingDays;
         			var selectedWorkingDays;
         			
-        			if(workingDaysSet.consist(",")) {
-        		   	selectedWorkingDays = workingDaysSet.split(",");		
+        			
+        			
+
+        			if(workingDaysSet.includes(",")) {
+        		   	selectedWorkingDays = workingDaysSet.split(",");	
+        		   	
+        			selectedWorkingDays.forEach(function(item, index, array) {
+              			console.log(item)	
+              			
+              			switch(item) {
+              			  case "Monday":
+              			    monday = true; 
+              			    break;
+              			  case "Tuesday":
+              			    tuesday = true; 
+              			    break;
+              			 case "Wednesday":
+              				wednesday = true; 
+               			    break;
+              			 case "Thursday":
+              				thursday = true; 
+               			    break;
+              			 case "Friday":
+              				friday = true; 
+               			    break;          			    
+              			  default:
+              			    
+              			    console.log("Methode: updateOverhoursAndTargetTime - switch in default");
+              			} 
+        			})
+        		   	
         			} else {
+
         			selectedWorkingDays = workingDaysSet;
+        			
+        			switch(selectedWorkingDays) {
+            			  case "Monday":
+            			    monday = true; 
+            			    break;
+            			  case "Tuesday":
+            			    tuesday = true; 
+            			    break;
+            			 case "Wednesday":
+            				wednesday = true; 
+             			    break;
+            			 case "Thursday":
+            				thursday = true; 
+             			    break;
+            			 case "Friday":
+            				friday = true; 
+             			    break;          			    
+            			  default:
+            			    
+            			    console.log("Methode: updateOverhoursAndTargetTime - switch in default");
+            			} 
+        			
+        			
         			}
         		
-        			
-        	    	if(value.username == username){
-        		  	
-
-        			selectedWorkingDays.forEach(function(item, index, array) {
-          			console.log(item, index)	
-        			})
-
 
         		}
 
@@ -1405,30 +1454,42 @@
  	   //Montag 
  	    if (document.getElementById("firstDayofWeek").innerHTML == working_day) {
  	    document.getElementById("mondayOverhours").value = h_mm(value.minusOderPlusZeit);
-			document.getElementById("mondayTargetTime").value = "";
-	    	     	        	    		 
+ 	    
+ 	    	if(monday == true) {
+			document.getElementById("mondayTargetTime").value = "8:24";
+ 	    	}    	        	    		 
  	    			
  	    //Dienstag
  	    } else if (document.getElementById("secondDayofWeek").innerHTML == working_day) {      	    			 		
  	    document.getElementById("tuesdayOverhours").value = h_mm(value.minusOderPlusZeit);
-			 document.getElementById("tuesdayTargetTime").value = "";
-
+			 
+ 	  	 if(tuesday == true) {
+ 	    	document.getElementById("tuesdayTargetTime").value = "8:24";
+ 	   	 }
   	    		   
  	    		//Mittwoch
  	    } else if (document.getElementById("thirdDayofWeek").innerHTML == working_day) {      	    			
  	    document.getElementById("wednesdayOverhours").value = h_mm(value.minusOderPlusZeit);
-			 document.getElementById("wednesdayTargetTime").value = "";
-
+			 
+ 	    	if(wednesday == true){
+ 	    	document.getElementById("wednesdayTargetTime").value = "8:24";
+ 	    	}
   	    		   
  	    //Donnerstag
  	    } else if (document.getElementById("fourthDayofWeek").innerHTML == working_day) {
  	    document.getElementById("thursdayOverhours").value = h_mm(value.minusOderPlusZeit);
-			 document.getElementById("thursdayTargetTime").value = "";
+			
+ 	    if(thursday == true){
+ 	    document.getElementById("thursdayTargetTime").value = "8:24";
+ 	    }
   	    		
  	    //Freitag
  	    } else if (document.getElementById("fifthDayofWeek").innerHTML == working_day) {
  	    document.getElementById("fridayOverhours").value = h_mm(value.minusOderPlusZeit);
-			 document.getElementById("fridayTargetTime").value = "";
+			 
+ 	    if(friday == true){
+ 	    document.getElementById("fridayTargetTime").value = "8:24";
+ 	    }
   	    		
  	    		         	    		}
  	    
@@ -1488,6 +1549,65 @@
     	    			 overtime = monday + tuesday + wednesday + thursday + friday; 
  						console.log(overtime);
  						 document.getElementById("totalOverhours").value = h_mm(overtime); 
+ 						
+    	    		});
+    	    		
+    	    		
+     	 	    }); 
+     	    	
+    	    }); 
+			
+        
+     
+        }
+      
+      
+      //Hier soll der aktuelle Tag gespeichert werden, welche gerade durchgeht zum Speichern (BR).
+    	//Soll die Überzeit übernehmen von gegebenen Datum (BR)
+         
+        function sumOfTargetTime() {
+
+        	var sumTargettime = 0.0; 
+        	
+        	$(document).ready(function(){
+     	    	$.getJSON("http://localhost:8081/timerecorders/timestamps/", function(data){
+     	    	var working_day = '';
+     	    	var monday = "";
+     	    	var tuesday = "";
+     	    	var wednesday = "";
+     	    	var thursday = "";
+     	    	var friday = "";
+     	    	
+     	    	
+    	    		$.each(data, function(key, value){
+    	    			working_day = value.date.toString();	
+    	    			console.log("0");
+    	    			    	    			
+    	    			if(working_day == document.getElementById("firstDayofWeek").innerHTML) {
+    	    				monday = value.minusOderPlusZeit; 
+    	    				console.log("1");
+						
+    	    			} else if (working_day == document.getElementById("secondDayofWeek").innerHTML) {
+    	    				tuesday = value.minusOderPlusZeit; 
+    	    				console.log("2");
+    						
+        	    			} else if  (working_day == document.getElementById("thirdDayofWeek").innerHTML) {
+        	    				wednesday = value.minusOderPlusZeit; 
+        	    				console.log("3");
+        						 
+            	    			} else if  (working_day == document.getElementById("fourthDayofWeek").innerHTML) {
+            	    				thursday = value.minusOderPlusZeit; 
+            	    				console.log("4");
+            						
+                	    			} else if  (working_day == document.getElementById("fifthDayofWeek").innerHTML) {
+                	    				friday = value.minusOderPlusZeit; 
+                	    				console.log("0");
+                    	    			}
+    	    			                
+    	    			               
+    	    			sumTargettime = monday + tuesday + wednesday + thursday + friday; 
+ 						console.log(sumTargettime);
+ 						 document.getElementById("totalOverhours").value = h_mm(sumTargettime); 
  						
     	    		});
     	    		
