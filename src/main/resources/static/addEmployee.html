@@ -122,7 +122,7 @@
         <td style="text-align: center; min-width: 135px; height: 55px;" > </td>
         <a href="http://localhost:8081/employeeList" class="buttonLinks" style="text-decoration: none; margin-right: 20px; padding: 10px 37px;"> Return</a>
         
-        <button id ="addEmployee_confirm" style="margin-right: 20px;" onclick="addEmployee();" type="button" class="button">  Add Employee</button>
+        <button id ="addEmployee_confirm" style="margin-right: 20px;" onclick="getWorkingDays(); addEmployee(); " type="button" class="button">  Add Employee</button>
         <button id ="addEmployee_cancel" onclick="reset();" type="button" class="button"> Reset</button>
      </div>
      <br><br>
@@ -160,24 +160,46 @@
 				contentType : 'application/json'
 			});
 
-
+             
             // Erfolgsmeldung
             var message = ("Dear Admin \n\nThe user "+ surname+" "+familyname+" has been added! \n\nThe assigned username is: "+username);
             alert(message)
             reset();
             backToEmployeeList();
+            
             }
         }
         
         function successCredentials(response) {
 			if (response == true) {
-				
 				handleSuccessCreditals(response);
 
 			} else {
 				handleFailureCreditals(response);
 			}
 		}
+        
+        /*
+        * Hier sollen die angewählte Arbeitstage übernommen werden. (BR)
+        *https://stackoverflow.com/questions/30885108/get-and-display-checked-checkbox-index
+        */
+        
+       // function getWorkingDays(){
+        	//var concatWorkingdays = "";
+
+        	//$('.checkbox').on('change', function() {
+        	//    $(this).each(function() {
+        	  //      if (this.checked) {
+        	    //    	alert($(this).index());
+        	      //  } else {
+        	      //  alert("unchecked");
+                //}
+        	       
+        	    //});
+        	//});
+        	//return concatWorkingdays;
+
+       // }
 
 		/* Hier ist die Weiterleitung bei einer erfolgreichen oder 
 		nicht erfolgreichen Eingaben der Credentials (BR)*/
@@ -282,7 +304,7 @@
         }
 
         function backToEmployeeList(){
-            window.location.href = "http://localhost:8081/employeeList";
+            //window.location.href = "http://localhost:8081/employeeList";
         }
 	
         
