@@ -44,7 +44,7 @@ public class MitarbeiterRegister {
 
 	public String role;
 
-	public Strig workingDays;
+	public String workingDays;
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<MitarbeiterRegister> mitarbeiter = new ArrayList<>();

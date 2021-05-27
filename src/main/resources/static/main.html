@@ -1353,7 +1353,48 @@
         //Hier wird der Total Overhours und Targettime Felder automatisch updated, wenn sich ein Feld ändert. (BR)
         //Die Summe der Überzeit wird zusammengerechnet und am Ende der Tabelle gezeigt (BR).
         function updateOverhoursAndTargetTime(){
-       	 $(document).ready(function(){
+        	var monday = new Boolean(false); 
+        	var tuesday = new Boolean(false);  
+        	var wednesday = new Boolean(false);  
+        	var thursday = new Boolean(false);  
+        	var friday= new Boolean(false);   
+
+        	var username = $.cookie("userlogin");
+
+        	
+        	$(document).ready(function(){
+         	  $.getJSON("http://localhost:8081/mitarbeiterList/", function(data){
+         	    
+         	    	
+        	    $.each(data, function(key, value){
+        			var workingDaysSet = value.workingDays;
+        			var selectedWorkingDays;
+        			
+        			if(workingDaysSet.consist(",")) {
+        		   	selectedWorkingDays = workingDaysSet.split(",");		
+        			} else {
+        			selectedWorkingDays = workingDaysSet;
+        			}
+        		
+        			
+        	    	if(value.username == username){
+        		  	
+
+        			selectedWorkingDays.forEach(function(item, index, array) {
+          			console.log(item, index)	
+        			})
+
+
+        		}
+
+        		  });
+         	    	});
+         	    	    
+         	    }); 
+
+        	
+        	
+        $(document).ready(function(){
  	    	$.getJSON("http://localhost:8081/timerecorders/timestamps/", function(data){
  	    	var working_day = '';
  	    	
@@ -1459,18 +1500,8 @@
      
         }
      
-        //Hier die Zeitelement in Dezimal geändert (BR) - Vereinfachungsfunktion
-        function zeitInDezimal(time){
-			var time = time.toString();
-			var trennung = time.split(":");
-		
-			var stunden = parseInt(trennung[0]);
-			var minuten = parseInt(trennung[1]);
-			var dezimalzahl = stunden + ((1/60)*minuten);
-        	
-			return dezimalzahl;
-
-        }
+    
+      
         
       //Null stellen von Werten bzw. reseten (BR)
 		function resetFullTable(){
@@ -1584,6 +1615,12 @@
 				   document.getElementById("fridayOverhours").value = "";
 
 		}
+      	
+      
+      
+      
+      
+      	//+++++++++++++++++++++++++ZUMACHEN+++++++++++++++++++++++++++++++++++
 		
 		/*
 		*Hier wird die Targetzeit eines bestimmten User(User kommt von Cookies) geholt (BR).
