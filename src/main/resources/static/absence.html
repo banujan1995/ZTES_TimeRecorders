@@ -175,17 +175,56 @@ $(document).ready(function(){
 		var ferien_data = '';
 		$.each(data, function(key, value){
 			ferien_data += '<tr>';
-			ferien_data += '<td>'+value.period+ '</td>';
-			ferien_data += '<td>'+value.reason+ '</td>';
-			ferien_data += '<td>'+value.anzahlTage+ '</td>';
+			var period = ferien_data += '<td id = "period">'+value.period+ '</td>';
+			var reason = ferien_data += '<td id = "reason">'+value.reason+ '</td>';
+			var anzahlTage = ferien_data += '<td id = "anzahlTage">'+value.anzahlTage+ '</td>';
 			ferien_data += '<td>' +"<input type='button' id='DeleteButton' onclick='CallMe(this)' class='buttonList' value='Delete'>"+ '</td>';
 			ferien_data += '</tr>';
+			
 		});
+	
 		$('#absenceTableContent').append(ferien_data);	
 		
+		 
+				
 	});
+});    
+
+	function CallMe(row){	
+		
+   	 console.log("kommt rein");
+        var i=row.parentNode.parentNode.rowIndex;
+        document.getElementById('absenceTableContent').deleteRow(i);
+        alert("The ID is deleted");
+        
+        
+        var period = row.parentNode.parentNode.rowIndex;
+        document.getElementById("period").innerHTML;
+        var reason = row.parentNode.parentNode.rowIndex;
+        document.getElementById("reason").innerHTML;
+        var anzahlTage = row.parentNode.parentNode.rowIndex;
+        document.getElementById("anzahlTage").innerHTML;
 	    
-});
+	    console.log("ich komme hier rein");
+	}
+	
+		$.ajax({
+			type : "POST",
+			url : "/deleteAbsenzen/",
+			data : JSON.stringify({
+				period : period,
+				reason : reason,
+				anzahlTage : anzahlTage
+				
+		
+			}),
+			
+			dataType : 'json',
+			contentType : 'application/json'
+			
+		  
+		});
+	
 
 </script>
     

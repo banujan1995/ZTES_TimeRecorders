@@ -475,3 +475,32 @@
     padding: 8px;
     background-color: whitesmoke
 }
+.reporttable{
+	font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    overflow:hidden;
+    overflow-y: scroll;
+    border: 2px black;
+}
+.reporttable td {
+    padding: 8px;
+    text-align: center; 
+    min-width: 115px; 
+    height: 65px;
+}
+  
+.reporttable th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color:rgb(126, 172, 168);
+    color: white;
+    text-align: center; 
+    min-width: 115px; 
+    height: 65px;
+}
+
+.reporttable tr {
+    padding: 8px;
+    background-color: whitesmoke
+}

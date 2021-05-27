@@ -76,7 +76,7 @@ public class MitarbeiterService {
 	 * Hier wird der Counter geführt, welcher für die Methode ins DB-Speichern
 	 * dient. (BR)
 	 */
-	private int counterI = 0;
+
 	private int counterY = 0;
 
 	/**
@@ -185,6 +185,36 @@ public class MitarbeiterService {
 
 	}
 
+	// Delete Absence (KG)
+
+	@PostMapping(path = "/deleteAbsenzen/", produces = "application/json")
+	public boolean deleteMA(@RequestBody MessageAddAbsence a) {
+
+		boolean absenceFound = false;
+
+		List<AddAbsence> ab = absenceRepo.findAll();
+
+		System.out.println("Kommt rein");
+
+		for (AddAbsence a1 : ab) {
+			if (a1.getMitarbeiterID() == null)
+				return absenceFound = false;
+
+			a1.setPeriod("");
+			a1.setReason("");
+			a1.setAnzahlTage("");
+
+			ab.remove(a1);
+
+			absenceRepo.save(a1);
+
+			logger.info("Absence wurde gelöscht");
+			return absenceFound = true;
+		}
+
+		return absenceFound;
+	}
+
 	// Mitarbeiter mutieren von MA zu AD (BR)
 
 	// Mitarbeiter löschen (BR)
@@ -242,52 +272,14 @@ public class MitarbeiterService {
 	}
 
 	/*
-	 * Mitarbeiter Login (BR) Hilfestellung bei der Lösung:
-	 * https://stackoverflow.com/questions/11291933/requestbody-and-responsebody-
-	 * annotations-in-spring
-	 */
-
-//	@PostMapping(path = "/timerecorders/mitarbeiterlogin/", produces = "application/json")
-//	public boolean passwortCreaditalCheck(@RequestBody MessageLogin login) {
-//
-//		switch (adminORMaListFinder(login.getUser())) {
-//
-//		case "Mitarbeiter":
-//
-//			if (login.getPassword()
-//					.equalsIgnoreCase(mitarbeiterRepository.getSingleMitarbeiterName(login.getUser()).getPasswort())) {
-//				return true; 
-//
-//			} else {
-//				return false;
-//
-//			}
-//
-//		case "Administrator":
-//			if (login.getPassword().equalsIgnoreCase(
-//					administratorenRepository.getSingleAdministratorName(login.getUser()).getPasswort())) {
-//				return true;
-//
-//			} else {
-//				return false;
-//
-//			}
-//
-//		default:
-//			logger.warning("Es wurde ein Login eingegeben, welche nicht als Admin oder Mitarbeiter gibt "
-//					+ "/ A login was entered which does not exist as an admin or employee.");
-//			return false;
-//		}
-//
-//	}
-
-	/*
 	 * Mitarbeiter Zeiterfassung (BR), Die Methode soll den korrekten Tag anhand der
 	 * TagesID ins DB speichern.
 	 */
 
-	// Hier wird die Liste geholt aus dem Datenbank und wird als Json angezeigt.
-	// (BR)
+	/*
+	 * Hier wird die Liste geholt aus dem Datenbank und wird als Json angezeigt.
+	 * (BR)
+	 */
 	@ResponseBody
 	@GetMapping(path = "/timerecorders/timestamps/", produces = "application/json")
 	public List allTimeStamps() {
@@ -307,14 +299,17 @@ public class MitarbeiterService {
 		String localDate;
 
 		boolean zeiterfassungGefunden = false;
+		int foundPlace = 0;
 
-		if (timeStamps.size() != 0) {
+		
 
 			for (counterY = 0; counterY < timeStamps.size(); counterY++) {
 				localDate = "" + timeStamps.get(counterY).getTAGESID();
 
 				if (localDate.equalsIgnoreCase(tagesIDGenerator(zeiterfassung.getDate()) + "")) {
 					zeiterfassungGefunden = true;
+					foundPlace = counterY;
+					System.out.println(foundPlace + "");
 					break;
 
 				} else {
@@ -327,50 +322,52 @@ public class MitarbeiterService {
 			if (zeiterfassungGefunden) {
 
 				// Username
-				timeStamps.get(counterY).setUsername(zeiterfassung.getUsername());
+				timeStamps.get(foundPlace).setUsername(zeiterfassung.getUsername());
 
 				// Pensum
-				timeStamps.get(counterY).setPensum(getMitarbeiterPensum(zeiterfassung.getUsername()));
+				timeStamps.get(foundPlace).setPensum(getMitarbeiterPensum(zeiterfassung.getUsername()));
 
 				// Datum
-				timeStamps.get(counterY).setDate(zeiterfassung.getDate());
+				timeStamps.get(foundPlace).setDate(zeiterfassung.getDate());
 
 				// Hier wird der Grund direkt gesetzt.
-				timeStamps.get(counterY).setGrund("Zeiterfassung");
+				timeStamps.get(foundPlace).setGrund("Zeiterfassung");
 
 				// Vormittag Stunden
 
-				timeStamps.get(counterY).setMorningEndHours(zeiterfassung.getMorningEndHours());
-				timeStamps.get(counterY).setMorningstartHours(zeiterfassung.getMorningstartHours());
+				timeStamps.get(foundPlace).setMorningEndHours(zeiterfassung.getMorningEndHours());
+				timeStamps.get(foundPlace).setMorningstartHours(zeiterfassung.getMorningstartHours());
 
 				// Vormittag Minuten
-				timeStamps.get(counterY).setMorningEndMinDeci(zeiterfassung.getMorningEndMinDeci());
-				timeStamps.get(counterY).setMorningStartMinDeci(zeiterfassung.getMorningStartMinDeci());
+				timeStamps.get(foundPlace).setMorningEndMinDeci(zeiterfassung.getMorningEndMinDeci());
+				timeStamps.get(foundPlace).setMorningStartMinDeci(zeiterfassung.getMorningStartMinDeci());
 
 				// Summe Vormittag in Dezimal
-				timeStamps.get(counterY).setMorningTotal(zeiterfassung.getMorningTotal());
+				timeStamps.get(foundPlace).setMorningTotal(zeiterfassung.getMorningTotal());
 
 				// Nachmittag Stunden
-				timeStamps.get(counterY).setAfternoonEndHours(zeiterfassung.getAfternoonEndHours());
-				timeStamps.get(counterY).setAfternoonStartHours(zeiterfassung.getAfternoonStartHours());
+				timeStamps.get(foundPlace).setAfternoonEndHours(zeiterfassung.getAfternoonEndHours());
+				timeStamps.get(foundPlace).setAfternoonStartHours(zeiterfassung.getAfternoonStartHours());
 
 				// Nachmittag Minuten
-				timeStamps.get(counterY).setAfternoonEndMinDeci(zeiterfassung.getAfternoonEndMinDeci());
-				timeStamps.get(counterY).setAfternoonStartMinDeci(zeiterfassung.getAfternoonStartMinDeci());
+				timeStamps.get(foundPlace).setAfternoonEndMinDeci(zeiterfassung.getAfternoonEndMinDeci());
+				timeStamps.get(foundPlace).setAfternoonStartMinDeci(zeiterfassung.getAfternoonStartMinDeci());
 
 				// Summe Nachmittag in Dezimal
-				timeStamps.get(counterY).setAfternoonTotal(zeiterfassung.getAfternoonTotal());
+				timeStamps.get(foundPlace).setAfternoonTotal(zeiterfassung.getAfternoonTotal());
 
 				// Summe ganzer Tag
-				timeStamps.get(counterY).setTotalDeci(zeiterfassung.getTotalDeci());
+				timeStamps.get(foundPlace).setTotalDeci(zeiterfassung.getTotalDeci());
 
 				// Summe Überzeit
-				timeStamps.get(counterY).setMinusOderPlusZeit(
-						überzeitSummierer(Integer.parseInt(tagesIDGenerator(zeiterfassung.getDate()) + "")));
+				timeStamps.get(foundPlace).setMinusOderPlusZeit(überzeitRechner(zeiterfassung.getTotalDeci()));
 
 				timeStamps = timeStampRegisterChange.saveAll(timeStamps);
+				timeStampRegisterChange.flush();
+					
+				
 
-			} else if (!zeiterfassungGefunden) {
+			} else if (!zeiterfassungGefunden || timeStamps.size() == 0) {
 				// workingday = new Arbeitstag((long) 1, zeiterfassung.getDate());
 				timeStamp = new TimeStampRegisterChange();
 
@@ -410,129 +407,38 @@ public class MitarbeiterService {
 				timeStamp.setTotalDeci(zeiterfassung.getTotalDeci());
 
 				// Summe Überzeit
-				timeStamp.setMinusOderPlusZeit(
-						überzeitSummierer(Integer.parseInt(tagesIDGenerator(zeiterfassung.getDate()) + "")));
+				timeStamp.setMinusOderPlusZeit(überzeitRechner(zeiterfassung.getTotalDeci()));
 
 				timeStamp = timeStampRegisterChange.save(timeStamp); // Speichert den Datensatz in den Datenbank (BR)
+				timeStampRegisterChange.flush();
 				logger.info("Daten in Datenbank gespeichert - Klasse Mitarbeiterservice");
 
 			}
 
-		} else {
-			timeStamp = new TimeStampRegisterChange();
-
-			// Username
-			timeStamp.setUsername(zeiterfassung.getUsername());
-
-			// Pensum
-			timeStamp.setPensum(getMitarbeiterPensum(zeiterfassung.getUsername()));
-
-			timeStamp.setTAGESID(tagesIDGenerator(zeiterfassung.getDate()));
-			timeStamp.setDate(zeiterfassung.getDate());
-			timeStamp.setGrund("Zeiterfassung"); // Hier wird der Grund direkt gesetzt.
-
-			// Vormittag Stunden
-			timeStamp.setMorningEndHours(zeiterfassung.getMorningEndHours());
-			timeStamp.setMorningstartHours(zeiterfassung.getMorningstartHours());
-
-			// Vormittag Minuten
-			timeStamp.setMorningEndMinDeci(zeiterfassung.getMorningEndMinDeci());
-			timeStamp.setMorningStartMinDeci(zeiterfassung.getMorningStartMinDeci());
-
-			// Summe Vormittag in Dezimal
-			timeStamp.setMorningTotal(zeiterfassung.getMorningTotal());
-
-			// Nachmittag Stunden
-			timeStamp.setAfternoonEndHours(zeiterfassung.getAfternoonEndHours());
-			timeStamp.setAfternoonStartHours(zeiterfassung.getAfternoonStartHours());
-
-			// Nachmittag Minuten
-			timeStamp.setAfternoonEndMinDeci(zeiterfassung.getAfternoonEndMinDeci());
-			timeStamp.setAfternoonStartMinDeci(zeiterfassung.getAfternoonStartMinDeci());
-
-			// Summe Nachmittag in Dezimal
-			timeStamp.setAfternoonTotal(zeiterfassung.getAfternoonTotal());
-
-			// Summe ganzer Tag
-			timeStamp.setTotalDeci(zeiterfassung.getTotalDeci());
-
-			// Summe Überzeit
-			timeStamp.setMinusOderPlusZeit(
-					überzeitSummierer(Integer.parseInt(tagesIDGenerator(zeiterfassung.getDate()) + "")));
-
-			timeStamp = timeStampRegisterChange.save(timeStamp); // Speichert den Datensatz in den Datenbank (BR)
-			logger.info("Daten in Datenbank gespeichert - Klasse Mitarbeiterservice");
-		}
+		
 		return true;
 
 	}
 
 	/*
-	 * Hier wird die Summe der Überzeit vom vorherigen Tag genommen und dazuaddiert.
-	 * (BR)
+	 * Hier wird die Summe der Differenz zwischen Sollzeit und Istzeit gerechnet und
+	 * ausgewiesen.
 	 */
 
-	public double überzeitSummierer(int tagesID) {
-		System.out.println(tagesID);
-		double überzeitSummiert = 0.0;
-		double überzeitGleichenTag = 0.0;
-		double überzeitVorher = 0.0;
+	public double überzeitRechner(double totalDeci) {
+		double überzeit = 0.0;
+		double tagessatz = 8.4;
 
-		TimeStampRegisterChange tag = null;
-		TimeStampRegisterChange tagVorher = null;
+		if (totalDeci >= 0) {
+			überzeit = totalDeci - tagessatz;
 
-		List<TimeStampRegisterChange> timeStamps = timeStampRegisterChange.findAll();
-
-		// Hier wird der Tag vom gewünschten ID geholt.
-		for (TimeStampRegisterChange timeStamp : timeStamps) {
-
-			if (timeStamps.size() == 0) {
-				überzeitSummiert = 0.0;
-
-			} else if (timeStamp.getTAGESID() == tagesID) {
-				logger.info("Tag gemöss TagesID wurde geholt");
-				tag = timeStamp;
-				überzeitGleichenTag = tag.getTotalDeci();
-				break;
-			} else {
-				überzeitGleichenTag = 0.0;
-
-			}
+		} else if (totalDeci < 0) {
+			überzeit = tagessatz - totalDeci;
 
 		}
 
-		List<TimeStampRegisterChange> timeStamps1 = timeStampRegisterChange.findAll();
-		boolean tagVorherFound = false;
+		return überzeit;
 
-		// Hier wird der vorherige Tag geholt.
-		for (TimeStampRegisterChange timeStamp : timeStamps1) {
-
-			if (timeStamps1.size() == 0) {
-				überzeitVorher = 0.0;
-
-			} else if (timeStamp.getTAGESID() == (tagesID - 1)) {
-				logger.info("Tag gemöss TagesID wurde geholt");
-				tagVorher = timeStamp;
-				tagVorherFound = true;
-				überzeitVorher = tagVorher.getMinusOderPlusZeit();
-				break;
-			} else if (!tagVorherFound) {
-				überzeitVorher = 0.0;
-
-			}
-		}
-
-		/*
-		 * hier wird die Berechnung gemacht - der Tagesstunden in Dezimal minus den
-		 * gemachten Tagesstunden (BR) ++++++++muss geändert werden+++++++++++++++
-		 */
-
-		double localTagesÜberzeit = überzeitGleichenTag - 8.4;
-		überzeitSummiert = überzeitVorher + localTagesÜberzeit;
-		System.out.println("localTagesÜberzeit " + localTagesÜberzeit);
-		System.out.println("überzeitSummiert " + überzeitSummiert);
-
-		return überzeitSummiert;
 	}
 
 	// Hier wird das Passwort bereits gehasht bevor es abgespeichert wird!
@@ -642,6 +548,8 @@ public class MitarbeiterService {
 
 	}
 
+	// Hier wird die Mitarbeiterliste durchgegangen und der Pensum rausgeholt, um es
+	// mit den Zeiterfassung zu speichern.
 	public int getMitarbeiterPensum(String username) {
 		logger.info("Suchfunktion nach Pensum");
 
@@ -661,7 +569,7 @@ public class MitarbeiterService {
 			}
 
 		}
-		return pensum; 
+		return pensum;
 	}
 
 	public int getTag() {

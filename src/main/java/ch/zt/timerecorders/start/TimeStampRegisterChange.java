@@ -24,7 +24,7 @@ public class TimeStampRegisterChange {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int mitarbeiterID;
+	private int erfassungID;
 	private int TAGESID;
 	protected String date;
 	
@@ -66,12 +66,12 @@ public class TimeStampRegisterChange {
 	protected double minusOderPlusZeit = 0.0;
 	
 
-	public TimeStampRegisterChange(int mitarbeiterID, int tAGESID, String date, int morningstartHours,
+	public TimeStampRegisterChange(int erfassungID, int tAGESID, String date, int morningstartHours,
 			int morningEndHours, double morningStartMinDeci, double morningEndMinDeci, double morningTotal,
 			int afternoonStartHours, int afternoonEndHours, double afternoonStartMinDeci, double afternoonEndMinDeci,
 			double afternoonTotal, double totalDeci, double minusOderPlusZeit, String grund, int pensum, String username) {
 		super();
-		this.mitarbeiterID = mitarbeiterID;
+		this.erfassungID = erfassungID;
 		TAGESID = tAGESID;
 		this.date = date;
 		this.morningstartHours = morningstartHours;
@@ -104,11 +104,11 @@ public class TimeStampRegisterChange {
 	}
 
 	public int getMitarbeiterID() {
-		return mitarbeiterID;
+		return erfassungID;
 	}
 
-	public void setMitarbeiterID(int mitarbeiterID) {
-		this.mitarbeiterID = mitarbeiterID;
+	public void setMitarbeiterID(int erfassungID) {
+		this.erfassungID = erfassungID;
 	}
 
 	public String getDate() {
