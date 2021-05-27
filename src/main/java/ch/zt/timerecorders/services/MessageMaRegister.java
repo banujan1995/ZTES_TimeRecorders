@@ -82,7 +82,7 @@ public class MessageMaRegister {
 	}
 
 	public String getWorkingDays() {
-		return workingdays;
+		return workingDays;
 	}
 
 	public void setWorkingDays(String workingDays) {
