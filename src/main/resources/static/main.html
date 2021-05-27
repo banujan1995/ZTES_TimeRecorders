@@ -1295,6 +1295,59 @@
         	calculateFridayTotal();	
         	
         }   
+
+               
+        //Hier werden die Innformationen von je nach Tag geholt und in den Server übermittelt (BR)
+        function safeDataAndTimetoDB(morningEndHours, morningstartHours, morningEndMinDeci, morningStartMinDeci,
+        		afternoonEndHours, afternoonStartHours, afternoonEndMinDeci, afternoonStartMinDeci,morningTotal,
+        		afternoonTotal,totalDeci){
+		
+        var date = informationAboutDay.currentDay;
+        var username = getMyCookie("userlogin");
+       
+	        
+		console.log("Die Zeit wurde in den DB gespeichert");
+        	
+        	$.ajax({
+				type : "POST",
+				url : "http://localhost:8081/timerecorders/zeiterfassung/",
+				data : JSON.stringify({
+
+					username : username,
+					date : date,
+					morningEndHours : morningEndHours,
+					morningstartHours : morningstartHours,
+					morningEndMinDeci : morningEndMinDeci,
+					morningStartMinDeci : morningStartMinDeci,
+					afternoonEndHours : afternoonEndHours,
+					afternoonStartHours : afternoonStartHours,
+					afternoonEndMinDeci : afternoonStartMinDeci,
+					afternoonStartMinDeci : afternoonStartMinDeci,
+					morningTotal : morningTotal,
+					afternoonTotal : afternoonTotal,
+					totalDeci : totalDeci,
+				}),
+				success : successSafeTimeServer,
+				dataType : 'json',
+				contentType : 'application/json'
+			});
+        	
+			
+        
+        }
+        
+        
+        
+        //sobald an den DB übermittelt wurde, wird ein Antwort generiert - dient für den Techniker (BR)
+        function successSafeTimeServer(response){
+
+        	if(response == true){
+			console.log("Daten wurde korrekt übermittelt an den Datenbank");
+        	} else {
+            console.log("Bei der Übermittlung der Daten gab es ein Fehler - bitte prüfen");
+        	}	
+        }
+        
         
         
         //Hier wird der Total Overhours und Targettime Felder automatisch updated, wenn sich ein Feld ändert. (BR)
@@ -1348,51 +1401,64 @@
         	 
         }      
         
+      //Hier soll der aktuelle Tag gespeichert werden, welche gerade durchgeht zum Speichern (BR).
+    	//Soll die Überzeit übernehmen von gegebenen Datum (BR)
+         
         function sumOfOverhours() {
 
-        	var mondayOverhours = zeitInDezimal(document.getElementById("mondayOverhours").value);
-        		console.log(mondayOverhours);
-        	var tuedayOverhours =  zeitInDezimal(document.getElementById("tuesdayOverhours").value);
-        		console.log(tuedayOverhours);
-        	var wednesdayOverhours = zeitInDezimal(document.getElementById("wednesdayOverhours").value);
-        		console.log(wednesdayOverhours);
-        	var thursdayOverhours = zeitInDezimal(document.getElementById("thursdayOverhours").value); 
-        		console.log(thursdayOverhours);
-        	var fridayOverhours = zeitInDezimal(document.getElementById("fridayOverhours").value); 
-        		console.log(fridayOverhours);
-        		       	
-            //SUM OF OVERHOURS
-            var overtimeSum = 0.0;          
-            
-            if (mondayOverhours == NaN){
-            	mondayOverhours = 0.0;
-            
-            } else if (tuedayOverhours == NaN) {
-            	tuedayOverhours = 0.0;
-
-            } else if (wednesdayOverhours == NaN){
-            	wednesdayOverhours = 0.0;
-
-            } else if (thursdayOverhours = NaN) {
-            	thursdayOverhours = 0.0;
-
-            } else if (fridayOverhours == NaN){
-            	fridayOverhours = 0.0;
-
-            }
-            
-            overtimeSum += mondayOverhours;
-            overtimeSum += tuedayOverhours;
-            overtimeSum += wednesdayOverhours;
-            overtimeSum += thursdayOverhours;
-            overtimeSum += fridayOverhours;
-     
-     		
-      	    
-      	  document.getElementById("totalOverhours").value = overtimeSum.toString(); 
-      	    
-        }
+        	var overtime = 0.0; 
+        	
+        	$(document).ready(function(){
+     	    	$.getJSON("http://localhost:8081/timerecorders/timestamps/", function(data){
+     	    	var working_day = '';
+     	    	var monday = "";
+     	    	var tuesday = "";
+     	    	var wednesday = "";
+     	    	var thursday = "";
+     	    	var friday = "";
+     	    	
+     	    	
+    	    		$.each(data, function(key, value){
+    	    			working_day = value.date.toString();	
+    	    			console.log("0");
+    	    			    	    			
+    	    			if(working_day == document.getElementById("firstDayofWeek").innerHTML) {
+    	    				monday = value.minusOderPlusZeit; 
+    	    				console.log("1");
+						
+    	    			} else if (working_day == document.getElementById("secondDayofWeek").innerHTML) {
+    	    				tuesday = value.minusOderPlusZeit; 
+    	    				console.log("2");
+    						
+        	    			} else if  (working_day == document.getElementById("thirdDayofWeek").innerHTML) {
+        	    				wednesday = value.minusOderPlusZeit; 
+        	    				console.log("3");
+        						 
+            	    			} else if  (working_day == document.getElementById("fourthDayofWeek").innerHTML) {
+            	    				thursday = value.minusOderPlusZeit; 
+            	    				console.log("4");
+            						
+                	    			} else if  (working_day == document.getElementById("fifthDayofWeek").innerHTML) {
+                	    				friday = value.minusOderPlusZeit; 
+                	    				console.log("0");
+                    	    			}
+    	    			                
+    	    			               
+    	    			 overtime = monday + tuesday + wednesday + thursday + friday; 
+ 						console.log(overtime);
+ 						 document.getElementById("totalOverhours").value = h_mm(overtime); 
+ 						
+    	    		});
+    	    		
+    	    		
+     	 	    }); 
+     	    	
+    	    }); 
+			
         
+     
+        }
+     
         //Hier die Zeitelement in Dezimal geändert (BR) - Vereinfachungsfunktion
         function zeitInDezimal(time){
 			var time = time.toString();
@@ -1404,57 +1470,6 @@
         	
 			return dezimalzahl;
 
-        }
-               
-        //Hier werden die Innformationen von je nach Tag geholt und in den Server übermittelt (BR)
-        function safeDataAndTimetoDB(morningEndHours, morningstartHours, morningEndMinDeci, morningStartMinDeci,
-        		afternoonEndHours, afternoonStartHours, afternoonEndMinDeci, afternoonStartMinDeci,morningTotal,
-        		afternoonTotal,totalDeci){
-		
-        var date = informationAboutDay.currentDay;
-        var username = getMyCookie("userlogin");
-       
-	        
-		console.log("Die Zeit wurde in den DB gespeichert");
-        	
-        	$.ajax({
-				type : "POST",
-				url : "http://localhost:8081/timerecorders/zeiterfassung/",
-				data : JSON.stringify({
-
-					username : username,
-					date : date,
-					morningEndHours : morningEndHours,
-					morningstartHours : morningstartHours,
-					morningEndMinDeci : morningEndMinDeci,
-					morningStartMinDeci : morningStartMinDeci,
-					afternoonEndHours : afternoonEndHours,
-					afternoonStartHours : afternoonStartHours,
-					afternoonEndMinDeci : afternoonStartMinDeci,
-					afternoonStartMinDeci : afternoonStartMinDeci,
-					morningTotal : morningTotal,
-					afternoonTotal : afternoonTotal,
-					totalDeci : totalDeci,
-				}),
-				success : successSafeTimeServer,
-				dataType : 'json',
-				contentType : 'application/json'
-			});
-        	
-			
-        
-        }
-        
-        
-        
-        //sobald an den DB übermittelt wurde, wird ein Antwort generiert - dient für den Techniker (BR)
-        function successSafeTimeServer(response){
-
-        	if(response == true){
-			console.log("Daten wurde korrekt übermittelt an den Datenbank");
-        	} else {
-            console.log("Bei der Übermittlung der Daten gab es ein Fehler - bitte prüfen");
-        	}	
         }
         
       //Null stellen von Werten bzw. reseten (BR)
