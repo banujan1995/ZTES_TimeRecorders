@@ -1,4 +1,4 @@
-<!-- erstellt durch Jordi Schmidlin-->
+<!-- View generell durch Jordi Schmidlin erstellt, andere Authoren (Abkürz.) sind entsprechend gekennzeichnet-->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -98,7 +98,7 @@
 
 
     <script type="text/javascript">
-        // Jquery für Abwesenheitserfassung
+        // Jquery für Abwesenheitserfassung (JS)
         // full credits to: https://daterangepicker.com/
         $(function() {
 
@@ -156,7 +156,7 @@
                  $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
                 
 
-                // Berechnung Anzahl Tage
+                // Berechnung Anzahl Tage (JS)
                 // full credits to: https://stackoverflow.com/questions/2627473/how-to-calculate-the-number-of-days-between-two-dates
                 //TODO: Mit Berücksichtigen, ob Samstag, Sonntag & gesetzloche Feiertage dabei sind Feiertage --> evtl. alles serverseitig und Anzahl Tage kommt vom Server
                 const oneDay = 24 * 60 * 60 * 1000; 
@@ -181,7 +181,7 @@
             });    
 
 
-            // Button AddAbsence wird aktiviert, sobald eine Auswahl einer Periode gemacht wurde
+            // Button AddAbsence wird aktiviert, sobald eine Auswahl einer Periode gemacht wurde (JS)
             $(document).ready(function () {
                 $('#daterange').on('apply.daterangepicker', function(ev, picker) {
                       $('#addEmployee_confirm').prop('disabled', false);
@@ -190,19 +190,24 @@
             });
         });
 
-        // Leert alle mögliche Eingabemöglichkeiten
+        // Leert alle mögliche Eingabemöglichkeiten JS)
         function reset(){
             document.getElementById("daterange").value ="";
             var dropDown = document.getElementById("absenceReason");
             dropDown.selectedIndex = 0;
             document.getElementById("addAbsence_numberOfDays").innerHTML ="";
         }
-     // fügt Absence hinzu & zeigt eine Erfolgsmeldung an
+        
+        // fügt Absence hinzu & zeigt eine Erfolgsmeldung an JS/BR)
         function addAbsence(){
       
         	var period = document.getElementById('daterange').value;
             var reason = document.getElementById('absenceReason').value;
             var anzahlTage = document.getElementById("addAbsence_numberOfDays").innerHTML;
+
+            if (validUserInput) {
+
+            
             
             $.ajax({
 				type : "POST",
@@ -217,51 +222,22 @@
 				contentType : 'application/json'
 			});
 
-      // KG_employee_delete
-    
-        if (validUserInput()){
-        	var message = ("Dear User\n\nFollowing absence has been added:\n\nReason: "+reason+"\nPeriod: "+period+"\nNumber of working days: "+anzahlTage)
-        	alert(message);
-        	reset();
-
-        	}
-        	
-
-        	//Überprüft, ob nötige Auswahl getroffen wurde
-        	function validUserInput(){
-
-        	var reason = document.getElementById('absenceReason').value;
-        	if (reason === "Please select:"){
-
-        	var message = ("Dear User\n\nPlease choose a reason!\n\nThank you!")
-        	alert(message);
-        	return false;
-        	}
-        	return true;
-        	}
-
-            if (validUserInput()){
-            var message = ("Dear User\n\nFollowing absence has been added:\n\nReason: "+reason+"\nPeriod: "+period+"\nNumber of working days: "+anzahlTage)
-            alert(message);
-            reset();
-
-            }
+        
         }
-
+    }
 
         //Überprüft, ob nötige Auswahl getroffen wurde
         function validUserInput(){
-
-
+            var sel = document.getElementById('absenceReason');
             var reason = document.getElementById('absenceReason').value;
-            if (reason === "Please select:"){
+            if (sel.selectedIndex ===0){
 
-            var message = ("Dear User\n\nPlease choose a reason!\n\nThank you!")
-            alert(message);
-            return false;
+                var message = ("Dear User\n\nPlease choose a reason!\n\nThank you!")
+                alert(message);
+                return false;
             }
-        return true;
-        }
+                return true;
+            }
 	
     	//Hier wird der User ausser der Loginaktivitätliste herausgelöscht. (JS/BR)
     		
