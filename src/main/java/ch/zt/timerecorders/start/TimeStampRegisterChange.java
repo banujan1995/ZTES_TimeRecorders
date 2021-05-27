@@ -27,15 +27,15 @@ public class TimeStampRegisterChange {
 	private int erfassungID;
 	private int TAGESID;
 	protected String date;
-	
-	//Hier wird der Username übernommen. 
-	private String username; 
-	
-	//Grund der Erfassung
-	protected String grund = ""; 
-	
-	//Hier wird der Pensum 
-	private int pensum; 
+
+	// Hier wird der Username übernommen.
+	private String username;
+
+	// Grund der Erfassung
+	protected String grund = "";
+
+	// Hier wird der Pensum
+	private int pensum;
 
 	// Stunden Vormittag
 	protected int morningstartHours;
@@ -62,14 +62,17 @@ public class TimeStampRegisterChange {
 	// geleistete Arbeitszeit am einem Tag
 	protected double totalDeci;
 
-	//Überzeit vom Vortrag wird reingespeichert. 
+	// Überzeit vom Vortrag wird reingespeichert.
 	protected double minusOderPlusZeit = 0.0;
-	
+
+	// Zeit, welches zu arbeiten ist
+	protected double targettime;
 
 	public TimeStampRegisterChange(int erfassungID, int tAGESID, String date, int morningstartHours,
 			int morningEndHours, double morningStartMinDeci, double morningEndMinDeci, double morningTotal,
 			int afternoonStartHours, int afternoonEndHours, double afternoonStartMinDeci, double afternoonEndMinDeci,
-			double afternoonTotal, double totalDeci, double minusOderPlusZeit, String grund, int pensum, String username) {
+			double afternoonTotal, double totalDeci, double minusOderPlusZeit, String grund, int pensum,
+			String username, double targettime) {
 		super();
 		this.erfassungID = erfassungID;
 		TAGESID = tAGESID;
@@ -88,7 +91,8 @@ public class TimeStampRegisterChange {
 		this.minusOderPlusZeit = minusOderPlusZeit;
 		this.grund = grund;
 		this.pensum = pensum;
-		this.username = username; 
+		this.username = username;
+		this.targettime = targettime;
 	}
 
 	public TimeStampRegisterChange() {
@@ -238,11 +242,13 @@ public class TimeStampRegisterChange {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	
-	
-	
-	
-	
-	
+
+	public double getTargettime() {
+		return targettime;
+	}
+
+	public void setTargettime(double targettime) {
+		this.targettime = targettime;
+	}
 
 }

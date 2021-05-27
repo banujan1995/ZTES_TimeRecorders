@@ -3,7 +3,9 @@ package ch.zt.timerecorders.services;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -302,121 +304,123 @@ public class MitarbeiterService {
 		boolean zeiterfassungGefunden = false;
 		int foundPlace = 0;
 
-		
+		for (counterY = 0; counterY < timeStamps.size(); counterY++) {
+			localDate = "" + timeStamps.get(counterY).getTAGESID();
 
-			for (counterY = 0; counterY < timeStamps.size(); counterY++) {
-				localDate = "" + timeStamps.get(counterY).getTAGESID();
+			if (localDate.equalsIgnoreCase(tagesIDGenerator(zeiterfassung.getDate()) + "")) {
+				zeiterfassungGefunden = true;
+				foundPlace = counterY;
+				System.out.println(foundPlace + "");
+				break;
 
-				if (localDate.equalsIgnoreCase(tagesIDGenerator(zeiterfassung.getDate()) + "")) {
-					zeiterfassungGefunden = true;
-					foundPlace = counterY;
-					System.out.println(foundPlace + "");
-					break;
-
-				} else {
-					zeiterfassungGefunden = false;
-
-				}
+			} else {
+				zeiterfassungGefunden = false;
 
 			}
 
-			if (zeiterfassungGefunden) {
+		}
 
-				// Username
-				timeStamps.get(foundPlace).setUsername(zeiterfassung.getUsername());
+		if (zeiterfassungGefunden) {
 
-				// Pensum
-				timeStamps.get(foundPlace).setPensum(getMitarbeiterPensum(zeiterfassung.getUsername()));
+			// Username
+			timeStamps.get(foundPlace).setUsername(zeiterfassung.getUsername());
 
-				// Datum
-				timeStamps.get(foundPlace).setDate(zeiterfassung.getDate());
+			// Pensum
+			timeStamps.get(foundPlace).setPensum(getMitarbeiterPensum(zeiterfassung.getUsername()));
 
-				// Hier wird der Grund direkt gesetzt.
-				timeStamps.get(foundPlace).setGrund("Zeiterfassung");
+			// Targettime
+			timeStamps.get(foundPlace)
+					.setTargettime(getTargetTimeDay(zeiterfassung.getUsername(), zeiterfassung.getDate()));
 
-				// Vormittag Stunden
+			// Datum
+			timeStamps.get(foundPlace).setDate(zeiterfassung.getDate());
 
-				timeStamps.get(foundPlace).setMorningEndHours(zeiterfassung.getMorningEndHours());
-				timeStamps.get(foundPlace).setMorningstartHours(zeiterfassung.getMorningstartHours());
+			// Hier wird der Grund direkt gesetzt.
+			timeStamps.get(foundPlace).setGrund("Zeiterfassung");
 
-				// Vormittag Minuten
-				timeStamps.get(foundPlace).setMorningEndMinDeci(zeiterfassung.getMorningEndMinDeci());
-				timeStamps.get(foundPlace).setMorningStartMinDeci(zeiterfassung.getMorningStartMinDeci());
+			// Vormittag Stunden
 
-				// Summe Vormittag in Dezimal
-				timeStamps.get(foundPlace).setMorningTotal(zeiterfassung.getMorningTotal());
+			timeStamps.get(foundPlace).setMorningEndHours(zeiterfassung.getMorningEndHours());
+			timeStamps.get(foundPlace).setMorningstartHours(zeiterfassung.getMorningstartHours());
 
-				// Nachmittag Stunden
-				timeStamps.get(foundPlace).setAfternoonEndHours(zeiterfassung.getAfternoonEndHours());
-				timeStamps.get(foundPlace).setAfternoonStartHours(zeiterfassung.getAfternoonStartHours());
+			// Vormittag Minuten
+			timeStamps.get(foundPlace).setMorningEndMinDeci(zeiterfassung.getMorningEndMinDeci());
+			timeStamps.get(foundPlace).setMorningStartMinDeci(zeiterfassung.getMorningStartMinDeci());
 
-				// Nachmittag Minuten
-				timeStamps.get(foundPlace).setAfternoonEndMinDeci(zeiterfassung.getAfternoonEndMinDeci());
-				timeStamps.get(foundPlace).setAfternoonStartMinDeci(zeiterfassung.getAfternoonStartMinDeci());
+			// Summe Vormittag in Dezimal
+			timeStamps.get(foundPlace).setMorningTotal(zeiterfassung.getMorningTotal());
 
-				// Summe Nachmittag in Dezimal
-				timeStamps.get(foundPlace).setAfternoonTotal(zeiterfassung.getAfternoonTotal());
+			// Nachmittag Stunden
+			timeStamps.get(foundPlace).setAfternoonEndHours(zeiterfassung.getAfternoonEndHours());
+			timeStamps.get(foundPlace).setAfternoonStartHours(zeiterfassung.getAfternoonStartHours());
 
-				// Summe ganzer Tag
-				timeStamps.get(foundPlace).setTotalDeci(zeiterfassung.getTotalDeci());
+			// Nachmittag Minuten
+			timeStamps.get(foundPlace).setAfternoonEndMinDeci(zeiterfassung.getAfternoonEndMinDeci());
+			timeStamps.get(foundPlace).setAfternoonStartMinDeci(zeiterfassung.getAfternoonStartMinDeci());
 
-				// Summe Überzeit
-				timeStamps.get(foundPlace).setMinusOderPlusZeit(überzeitRechner(zeiterfassung.getTotalDeci()));
+			// Summe Nachmittag in Dezimal
+			timeStamps.get(foundPlace).setAfternoonTotal(zeiterfassung.getAfternoonTotal());
 
-				timeStamps = timeStampRegisterChange.saveAll(timeStamps);
-				timeStampRegisterChange.flush();
-					
-				
+			// Summe ganzer Tag
+			timeStamps.get(foundPlace).setTotalDeci(zeiterfassung.getTotalDeci());
 
-			} else if (!zeiterfassungGefunden || timeStamps.size() == 0) {
-				// workingday = new Arbeitstag((long) 1, zeiterfassung.getDate());
-				timeStamp = new TimeStampRegisterChange();
+			// Summe Überzeit
+			timeStamps.get(foundPlace).setMinusOderPlusZeit(überzeitRechner(zeiterfassung.getTotalDeci()));
 
-				// Username
-				timeStamp.setUsername(zeiterfassung.getUsername());
+			timeStamps = timeStampRegisterChange.saveAll(timeStamps);
+			timeStampRegisterChange.flush();
 
-				// Pensum
-				timeStamp.setPensum(getMitarbeiterPensum(zeiterfassung.getUsername()));
+		} else if (!zeiterfassungGefunden || timeStamps.size() == 0) {
+			// workingday = new Arbeitstag((long) 1, zeiterfassung.getDate());
+			timeStamp = new TimeStampRegisterChange();
 
-				timeStamp.setTAGESID(tagesIDGenerator(zeiterfassung.getDate()));
-				timeStamp.setDate(zeiterfassung.getDate());
-				timeStamp.setGrund("Zeiterfassung"); // Hier wird der Grund direkt gesetzt.
+			// Username
+			timeStamp.setUsername(zeiterfassung.getUsername());
 
-				// Vormittag Stunden
-				timeStamp.setMorningEndHours(zeiterfassung.getMorningEndHours());
-				timeStamp.setMorningstartHours(zeiterfassung.getMorningstartHours());
+			// Pensum
+			timeStamp.setPensum(getMitarbeiterPensum(zeiterfassung.getUsername()));
 
-				// Vormittag Minuten
-				timeStamp.setMorningEndMinDeci(zeiterfassung.getMorningEndMinDeci());
-				timeStamp.setMorningStartMinDeci(zeiterfassung.getMorningStartMinDeci());
+			// Targettime
+			timeStamp.setTargettime(getTargetTimeDay(zeiterfassung.getUsername(), zeiterfassung.getDate()));
 
-				// Summe Vormittag in Dezimal
-				timeStamp.setMorningTotal(zeiterfassung.getMorningTotal());
+			timeStamp.setTAGESID(tagesIDGenerator(zeiterfassung.getDate()));
+			timeStamp.setDate(zeiterfassung.getDate());
+			timeStamp.setGrund("Zeiterfassung"); // Hier wird der Grund direkt gesetzt.
 
-				// Nachmittag Stunden
-				timeStamp.setAfternoonEndHours(zeiterfassung.getAfternoonEndHours());
-				timeStamp.setAfternoonStartHours(zeiterfassung.getAfternoonStartHours());
+			// Vormittag Stunden
+			timeStamp.setMorningEndHours(zeiterfassung.getMorningEndHours());
+			timeStamp.setMorningstartHours(zeiterfassung.getMorningstartHours());
 
-				// Nachmittag Minuten
-				timeStamp.setAfternoonEndMinDeci(zeiterfassung.getAfternoonEndMinDeci());
-				timeStamp.setAfternoonStartMinDeci(zeiterfassung.getAfternoonStartMinDeci());
+			// Vormittag Minuten
+			timeStamp.setMorningEndMinDeci(zeiterfassung.getMorningEndMinDeci());
+			timeStamp.setMorningStartMinDeci(zeiterfassung.getMorningStartMinDeci());
 
-				// Summe Nachmittag in Dezimal
-				timeStamp.setAfternoonTotal(zeiterfassung.getAfternoonTotal());
+			// Summe Vormittag in Dezimal
+			timeStamp.setMorningTotal(zeiterfassung.getMorningTotal());
 
-				// Summe ganzer Tag
-				timeStamp.setTotalDeci(zeiterfassung.getTotalDeci());
+			// Nachmittag Stunden
+			timeStamp.setAfternoonEndHours(zeiterfassung.getAfternoonEndHours());
+			timeStamp.setAfternoonStartHours(zeiterfassung.getAfternoonStartHours());
 
-				// Summe Überzeit
-				timeStamp.setMinusOderPlusZeit(überzeitRechner(zeiterfassung.getTotalDeci()));
+			// Nachmittag Minuten
+			timeStamp.setAfternoonEndMinDeci(zeiterfassung.getAfternoonEndMinDeci());
+			timeStamp.setAfternoonStartMinDeci(zeiterfassung.getAfternoonStartMinDeci());
 
-				timeStamp = timeStampRegisterChange.save(timeStamp); // Speichert den Datensatz in den Datenbank (BR)
-				timeStampRegisterChange.flush();
-				logger.info("Daten in Datenbank gespeichert - Klasse Mitarbeiterservice");
+			// Summe Nachmittag in Dezimal
+			timeStamp.setAfternoonTotal(zeiterfassung.getAfternoonTotal());
 
-			}
+			// Summe ganzer Tag
+			timeStamp.setTotalDeci(zeiterfassung.getTotalDeci());
 
-		
+			// Summe Überzeit
+			timeStamp.setMinusOderPlusZeit(überzeitRechner(zeiterfassung.getTotalDeci()));
+
+			timeStamp = timeStampRegisterChange.save(timeStamp); // Speichert den Datensatz in den Datenbank (BR)
+			timeStampRegisterChange.flush();
+			logger.info("Daten in Datenbank gespeichert - Klasse Mitarbeiterservice");
+
+		}
+
 		return true;
 
 	}
@@ -439,6 +443,82 @@ public class MitarbeiterService {
 		}
 
 		return überzeit;
+
+	}
+
+	/*
+	 * Dies ist eine Allgemeinservice, welche die erwartete Arbeitszeit am Tag holt.
+	 * Es wird doppelt gemacht, um Sicherheit der Rechnung stellen.
+	 */
+
+	public double getTargetTimeDay(String username, String date) {
+		String monday = "";
+		String tuesday = "";
+		String wednesday = "";
+		String thursday = "";
+		String friday = "";
+
+		logger.info("komme in die TargettimeGeber");
+
+		double targettimeDay = 8.4;
+		String workingDays;
+
+		List<MitarbeiterRegister> ma = mitarbeiterRepositoryInterface.findAll();
+
+		for (MitarbeiterRegister ml : ma) {
+			if (ml.getUsername().equalsIgnoreCase(username)) {
+
+				workingDays = ml.getWorkingDays();
+
+				// https://www.geeksforgeeks.org/split-string-java-examples/
+				String[] arrOfStr = workingDays.split(",");
+
+				for (String a : arrOfStr) {
+
+					switch (a) {
+					case "Monday":
+						monday = "Mon";
+						break;
+					case "Tuesday":
+						tuesday = "Tue";
+						break;
+					case "Wednesday":
+						wednesday = "Wed";
+						break;
+					case "Thursday":
+						thursday = "Thu";
+						break;
+					case "Friday":
+						friday = "Fri";
+						break;
+					default:
+
+						logger.info("Methode: updateOverhoursAndTargetTime - switch in default");
+					}
+
+				}
+
+				logger.info("workingDays des Mitarbeiters gefunden.");
+				logger.info("Tagesarbeitszeit" + targettimeDay);
+
+			} else {
+				logger.info("workingDays des Mitarbeiters nicht gefunden.");
+			}
+
+		}
+		if (date.substring(0, 3).equalsIgnoreCase(monday)) {
+			return targettimeDay;
+		} else if (date.substring(0, 3).equalsIgnoreCase(tuesday)) {
+			return targettimeDay;
+		} else if (date.substring(0, 3).equalsIgnoreCase(wednesday)) {
+			return targettimeDay;
+		} else if (date.substring(0, 3).equalsIgnoreCase(thursday)) {
+			return targettimeDay;
+		} else if (date.substring(0, 3).equalsIgnoreCase(friday)) {
+			return targettimeDay;
+		} else {
+			return 0.0;
+		}
 
 	}
 

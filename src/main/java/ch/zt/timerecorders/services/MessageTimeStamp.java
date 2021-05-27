@@ -49,7 +49,8 @@ public class MessageTimeStamp {
 	//Hier wird die Überzeit mitgenommen vom vorherigen Tag. 
 	private double minusOderPlusZeit;
 
-	
+	// Zeit, welches zu arbeiten ist
+	protected double targettime;
 
 	public long getTAGESID() {
 		return TAGESID;
@@ -194,11 +195,13 @@ public class MessageTimeStamp {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	
-	
-	
-	
-	
-	
 
+	public double getTargettime() {
+		return targettime;
+	}
+
+	public void setTargettime(double targettime) {
+		this.targettime = targettime;
+	}
+	
 }
