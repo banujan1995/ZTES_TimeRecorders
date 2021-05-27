@@ -100,6 +100,7 @@ public class MitarbeiterService {
 		m1.setPasswort(m.getPasswort());
 		m1.setPensum(m.getPensum().substring(0, 2));
 		m1.setRole(m.getRole());
+		m1.setWorkingDays(m.getWorkingDays());
 
 		m1 = mitarbeiterRepositoryInterface.save(m1); // beim Speichern wird eine MAId automatisch vergeben
 		logger.info("MA erfolgreich hinzugefügt");

@@ -18,6 +18,7 @@ public class MessageMaRegister {
 	public String passwort;
 	public String pensum;
 	public String role; 
+	public String workingDays;
 
 	
 	public Long getMitarbeiterId() {
@@ -78,6 +79,14 @@ public class MessageMaRegister {
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+	public String getWorkingDays() {
+		return workingdays;
+	}
+
+	public void setWorkingDays(String workingDays) {
+		this.workingDays = workingDays;
 	}
 
 }
