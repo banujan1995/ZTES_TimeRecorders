@@ -87,41 +87,6 @@ public class AllgemeineService {
 
 	}
 	
-	/*
-	 * Dies ist eine Allgemeinservice, welche die erwartete Arbeitszeit am Tag holt. 
-	 */
-	
-	//https://qastack.com.de/programming/30895286/spring-mvc-how-to-return-simple-string-as-json-in-rest-controller
-	@GetMapping(path = "/timerecorders/targettimeofworkerday/{username}/", produces = "application/json")
-	public Map<String, String> getTargetTimeDay(@PathVariable String username) {
-
-		logger.info("komme in die AllgemeineService");
-
-		String targettimeDay = "";
-		String pensum = "";
-		List<MitarbeiterRegister> ma = mitarbeiterRepositoryInterface.findAll();
-
-		for (MitarbeiterRegister ml : ma) {
-			if (ml.getUsername().equalsIgnoreCase(username)) {
-
-				pensum = ml.getPensum();
-				logger.info("Rolle des Mitarbeiters gefunden.");
-				logger.info("Tagesarbeitszeit" + targettimeDay);
-				System.out.println(targettimeDay);
-				break;
-
-			} else {
-
-				logger.info("Rolle des Mitarbeiters nicht gefunden.");
-			}
-
-		}
-		
-		return Collections.singletonMap(targettimeDay, targettimeDay);
-	
-
-	}
-	
 	
 	
 	

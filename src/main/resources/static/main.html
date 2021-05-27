@@ -354,7 +354,7 @@
 				<td><input type="text" id="sundayTargetTime"
 					class="resultsTimeInput" disabled></td>
 				<th><input type="text" class="total" id="totalTargetTime"
-					style="max-width: 110px;" disabled></th>
+					style="max-width: 110px;"></th>
 			</tr>
 			<tr>
 				<th>Overhours:</th>
@@ -373,7 +373,7 @@
 				<td><input type="text" id="sundayOverhours"
 					class="resultsTimeInput" disabled></td>
 				<th style="text-align: center;"><input type="text"
-					class="resultsTimeInput" class="total" id="totalOverhours"></th>
+				   class="total" id="totalOverhours"></th>
 		</table>
 		<div
 			style="display: block; text-align: center; width: 100%; margin-top: 30px;">
@@ -1277,6 +1277,7 @@
  	    		resetSumTimes();
  	          	updateOverhoursAndTargetTime();
  	          	sumOfOverhours();
+ 	          	sumOfTargetTime();
      	    	});
      	    	    
      	    });
@@ -1456,7 +1457,7 @@
  	    document.getElementById("mondayOverhours").value = h_mm(value.minusOderPlusZeit);
  	    
  	    	if(monday == true) {
-			document.getElementById("mondayTargetTime").value = "8:24";
+			document.getElementById("mondayTargetTime").value = h_mm(value.targettime);
  	    	}    	        	    		 
  	    			
  	    //Dienstag
@@ -1464,7 +1465,7 @@
  	    document.getElementById("tuesdayOverhours").value = h_mm(value.minusOderPlusZeit);
 			 
  	  	 if(tuesday == true) {
- 	    	document.getElementById("tuesdayTargetTime").value = "8:24";
+ 	    	document.getElementById("tuesdayTargetTime").value = h_mm(value.targettime);
  	   	 }
   	    		   
  	    		//Mittwoch
@@ -1472,7 +1473,7 @@
  	    document.getElementById("wednesdayOverhours").value = h_mm(value.minusOderPlusZeit);
 			 
  	    	if(wednesday == true){
- 	    	document.getElementById("wednesdayTargetTime").value = "8:24";
+ 	    	document.getElementById("wednesdayTargetTime").value = h_mm(value.targettime);
  	    	}
   	    		   
  	    //Donnerstag
@@ -1480,7 +1481,7 @@
  	    document.getElementById("thursdayOverhours").value = h_mm(value.minusOderPlusZeit);
 			
  	    if(thursday == true){
- 	    document.getElementById("thursdayTargetTime").value = "8:24";
+ 	    document.getElementById("thursdayTargetTime").value = h_mm(value.targettime);
  	    }
   	    		
  	    //Freitag
@@ -1488,13 +1489,14 @@
  	    document.getElementById("fridayOverhours").value = h_mm(value.minusOderPlusZeit);
 			 
  	    if(friday == true){
- 	    document.getElementById("fridayTargetTime").value = "8:24";
+ 	    document.getElementById("fridayTargetTime").value = h_mm(value.targettime);
  	    }
   	    		
  	    		         	    		}
  	    
 	    		});
 	    		sumOfOverhours(); 
+	    		sumOfTargetTime();
  	    	});
  	    	    
  	    }); 
@@ -1513,11 +1515,11 @@
         	$(document).ready(function(){
      	    	$.getJSON("http://localhost:8081/timerecorders/timestamps/", function(data){
      	    	var working_day = '';
-     	    	var monday = "";
-     	    	var tuesday = "";
-     	    	var wednesday = "";
-     	    	var thursday = "";
-     	    	var friday = "";
+     	    	var monday = 0.0;
+     	    	var tuesday = 0.0;
+     	    	var wednesday = 0.0;
+     	    	var thursday = 0.0;
+     	    	var friday = 0.0;
      	    	
      	    	
     	    		$.each(data, function(key, value){
@@ -1572,11 +1574,11 @@
         	$(document).ready(function(){
      	    	$.getJSON("http://localhost:8081/timerecorders/timestamps/", function(data){
      	    	var working_day = '';
-     	    	var monday = "";
-     	    	var tuesday = "";
-     	    	var wednesday = "";
-     	    	var thursday = "";
-     	    	var friday = "";
+     	    	var monday = 0.0;
+     	    	var tuesday = 0.0;
+     	    	var wednesday = 0.0;
+     	    	var thursday = 0.0;
+     	    	var friday = 0.0;
      	    	
      	    	
     	    		$.each(data, function(key, value){
@@ -1584,30 +1586,30 @@
     	    			console.log("0");
     	    			    	    			
     	    			if(working_day == document.getElementById("firstDayofWeek").innerHTML) {
-    	    				monday = value.minusOderPlusZeit; 
+    	    				monday = value.targettime; 
     	    				console.log("1");
 						
     	    			} else if (working_day == document.getElementById("secondDayofWeek").innerHTML) {
-    	    				tuesday = value.minusOderPlusZeit; 
+    	    				tuesday = value.targettime; 
     	    				console.log("2");
     						
         	    			} else if  (working_day == document.getElementById("thirdDayofWeek").innerHTML) {
-        	    				wednesday = value.minusOderPlusZeit; 
+        	    				wednesday = value.targettime; 
         	    				console.log("3");
         						 
             	    			} else if  (working_day == document.getElementById("fourthDayofWeek").innerHTML) {
-            	    				thursday = value.minusOderPlusZeit; 
+            	    				thursday = value.targettime; 
             	    				console.log("4");
             						
                 	    			} else if  (working_day == document.getElementById("fifthDayofWeek").innerHTML) {
-                	    				friday = value.minusOderPlusZeit; 
+                	    				friday = value.targettime; 
                 	    				console.log("0");
                     	    			}
     	    			                
     	    			               
     	    			sumTargettime = monday + tuesday + wednesday + thursday + friday; 
  						console.log(sumTargettime);
- 						 document.getElementById("totalOverhours").value = h_mm(sumTargettime); 
+ 						 document.getElementById("totalTargetTime").value = h_mm(sumTargettime); 
  						
     	    		});
     	    		
@@ -1735,47 +1737,8 @@
 				   document.getElementById("fridayOverhours").value = "";
 
 		}
-      	
+      	    
       
-      
-      
-      
-      	//+++++++++++++++++++++++++ZUMACHEN+++++++++++++++++++++++++++++++++++
-		
-		/*
-		*Hier wird die Targetzeit eines bestimmten User(User kommt von Cookies) geholt (BR).
-		*/
-		function getTargetTimeofWorkerDay(){
-		console.log("ich komme ins getRoleofWorker");
-			
-			var username = getMyCookie("userlogin");
-			console.log("getRole  " + username);
-			
-			// see: https://api.jquery.com/jquery.post/
-			
-		$.ajax({
-			type : "GET",
-			url : "http://localhost:8081/timerecorders/targettimeofworkerday/" + username + "/",
-			success : successGetTargetTimeDay,
-			dataType : 'json',
-			contentType : 'application/json'
-		});
-		
-	
-	}
-		
-		function successGetTargetTimeDay(response) {
-			var targetTimeDay = Object.values(response);
-			var targetTimeDayString = targetTimeDay[0];
-			
-				console.log(targetTimeDayString);
-				
-				console.log(getMyCookie("role")+"+++++++++++++++++++++++++++++++");
-			
-			}
-		
-	
-		
 		/*
 		*Hier wird die Rolle des akutellen User geholt und in die Cookies geschrieben (BR)
 		*/
