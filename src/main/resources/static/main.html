@@ -30,6 +30,7 @@
     <script>
     console.log($.cookie("auth"));
     console.log($.cookie("userlogin"));
+    console.log($.cookie("pensum"));
 
 	
     </script>
@@ -1753,6 +1754,11 @@
 				   document.getElementById("fridayOverhours").value = "";
 
 		}
+      
+		window.onload = function(){
+			getPensumOfWorker();	
+			getRoleofWorker();	
+		}
       	    
       
 		/*
@@ -1788,9 +1794,7 @@
 	
 	}
 	
-	window.onload = function(){
-		getRoleofWorker();	
-	}
+
 		
 		
 		
@@ -1828,6 +1832,44 @@
 			}
 			
 		}
+	
+	
+			/*
+			*Hier wird die Rolle des akutellen User geholt und in die Cookies geschrieben (BR)
+			*/
+			function getPensumOfWorker(){
+				console.log("ich komme ins getPensumOfWorker");
+				
+				var username = getMyCookie("userlogin");
+				console.log("getPensum  " + username);
+				
+				// see: https://api.jquery.com/jquery.post/
+				
+			$.ajax({
+				type : "GET",
+				url : "http://localhost:8081/timerecorders/pensumOfWorker/" + username + "/",
+				success : successGetPensum,
+				dataType : 'json',
+				contentType : 'application/json'
+			});
+			
+		
+		}
+			
+			
+		function successGetPensum(response) {
+		var pensum = Object.values(response);
+		var pensumString = pensum[0];
+		
+			console.log(pensumString);
+			updateMyCookie("pensum", pensumString);
+			console.log(getMyCookie("pensum")+"+++++++++++++++++++++++++++++++");
+		
+		}
+		
+		
+		
+		
 
     </script>
 </body>
