@@ -1156,6 +1156,9 @@
           	 $(document).ready(function(){
      	    	$.getJSON("http://localhost:8081/timerecorders/timestamps/", function(data){
      	    	var working_day = '';
+     	    	var username = $.cookie("userlogin");
+     	    	
+     	    	
      	    	
  	    		$.each(data, function(key, value){
  	    			working_day = value.date.toString();	
@@ -1168,6 +1171,7 @@
      	    		//Montag 
      	    		if (document.getElementById("firstDayofWeek").innerHTML == working_day) {
  					
+     	    			if (value.username == username) {
      	    		//Morgen
      	    		   document.getElementById("mondayMorningStartHours").value = value.morningstartHours;
      	    		   document.getElementById("mondayMorningStartMin").value = value.morningStartMinDeci*60;
@@ -1186,10 +1190,11 @@
      	    		 //Überzeit vom Tag
    	    		       document.getElementById("mondayOverhours").value = h_mm(value.minusOderPlusZeit);
      	    		 
-     	    			
+     	    			}
      	    		//Dienstag
      	    		} else if (document.getElementById("secondDayofWeek").innerHTML == working_day) {      	    			
      	    			
+     	    			if (value.username == username) {
      	    			//Morgen
       	    		   document.getElementById("tuesdayMorningStartHours").value = value.morningstartHours;
       	    		   document.getElementById("tuesdayMorningStartMin").value = value.morningStartMinDeci*60;
@@ -1208,9 +1213,12 @@
      	    		   //Überzeit vom Tag
      	    		   document.getElementById("tuesdayOverhours").value = h_mm(value.minusOderPlusZeit);
       	    		   
+     	    			}
      	    		//Mittwoch
      	    		} else if (document.getElementById("thirdDayofWeek").innerHTML == working_day) {      	    			
      	    			
+     	    			
+     	    			if (value.username == username) {
      	    			//Morgen
       	    		   document.getElementById("wednesdayMorningStartHours").value = value.morningstartHours;
       	    		   document.getElementById("wednesdayMorningStartMin").value = value.morningStartMinDeci*60;
@@ -1229,10 +1237,11 @@
      	    		   //Überzeit vom Tag
      	    		   document.getElementById("wednesdayOverhours").value = h_mm(value.minusOderPlusZeit);
       	    		   
+     	    			}
      	    		//Donnerstag
      	    		} else if (document.getElementById("fourthDayofWeek").innerHTML == working_day) {
 
-     	    			
+     	    			if (value.username == username) {
      	    			//Morgen
       	    		   document.getElementById("thursdayMorningStartHours").value = value.morningstartHours;
       	    		   document.getElementById("thursdayMorningStartMin").value = value.morningStartMinDeci*60;
@@ -1251,9 +1260,11 @@
      	    		 //Überzeit vom Tag
      	    		   document.getElementById("thursdayOverhours").value = h_mm(value.minusOderPlusZeit);
       	    		
+     	    			}
      	    		//Freitag
      	    		} else if (document.getElementById("fifthDayofWeek").innerHTML == working_day) {
      	    			
+     	    			if (value.username == username) {
      	    			//Morgen
       	    		   document.getElementById("fridayMorningStartHours").value = value.morningstartHours;
       	    		   document.getElementById("fridayMorningStartMin").value = value.morningStartMinDeci*60;
@@ -1271,7 +1282,7 @@
       	    		
       	    		//Überzeit vom Tag
      	    		   document.getElementById("fridayOverhours").value = h_mm(value.minusOderPlusZeit);
-      	    		
+     	    			}
      	    		         	    		} 	
  	    		});   
  	    		resetSumTimes();
@@ -1454,41 +1465,45 @@
 	    		        	    	      	  	
  	   //Montag 
  	    if (document.getElementById("firstDayofWeek").innerHTML == working_day) {
- 	    document.getElementById("mondayOverhours").value = h_mm(value.minusOderPlusZeit);
  	    
  	    	if(monday == true) {
+ 	    document.getElementById("mondayOverhours").value = h_mm(value.minusOderPlusZeit);	
 			document.getElementById("mondayTargetTime").value = h_mm(value.targettime);
  	    	}    	        	    		 
  	    			
  	    //Dienstag
  	    } else if (document.getElementById("secondDayofWeek").innerHTML == working_day) {      	    			 		
- 	    document.getElementById("tuesdayOverhours").value = h_mm(value.minusOderPlusZeit);
+ 	   
 			 
  	  	 if(tuesday == true) {
+ 	  		 document.getElementById("tuesdayOverhours").value = h_mm(value.minusOderPlusZeit);
  	    	document.getElementById("tuesdayTargetTime").value = h_mm(value.targettime);
  	   	 }
   	    		   
  	    		//Mittwoch
  	    } else if (document.getElementById("thirdDayofWeek").innerHTML == working_day) {      	    			
- 	    document.getElementById("wednesdayOverhours").value = h_mm(value.minusOderPlusZeit);
+ 	
 			 
  	    	if(wednesday == true){
+ 	    	    document.getElementById("wednesdayOverhours").value = h_mm(value.minusOderPlusZeit);
  	    	document.getElementById("wednesdayTargetTime").value = h_mm(value.targettime);
  	    	}
   	    		   
  	    //Donnerstag
  	    } else if (document.getElementById("fourthDayofWeek").innerHTML == working_day) {
- 	    document.getElementById("thursdayOverhours").value = h_mm(value.minusOderPlusZeit);
+ 	
 			
  	    if(thursday == true){
+ 	       document.getElementById("thursdayOverhours").value = h_mm(value.minusOderPlusZeit);
  	    document.getElementById("thursdayTargetTime").value = h_mm(value.targettime);
  	    }
   	    		
  	    //Freitag
  	    } else if (document.getElementById("fifthDayofWeek").innerHTML == working_day) {
- 	    document.getElementById("fridayOverhours").value = h_mm(value.minusOderPlusZeit);
+ 	    
 			 
  	    if(friday == true){
+ 	    	document.getElementById("fridayOverhours").value = h_mm(value.minusOderPlusZeit);
  	    document.getElementById("fridayTargetTime").value = h_mm(value.targettime);
  	    }
   	    		
