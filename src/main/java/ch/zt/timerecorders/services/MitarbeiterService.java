@@ -338,7 +338,7 @@ public class MitarbeiterService {
 			System.out.println(zeiterfassung.getDate());
 
 			// Hier wird der Grund direkt gesetzt.
-			timeStamps.get(foundPlace).setGrund("Zeiterfassung");
+			timeStamps.get(foundPlace).setGrund(zeiterfassung.getGrund());
 
 			// Vormittag Stunden
 
@@ -391,7 +391,7 @@ public class MitarbeiterService {
 			timeStamp.setDate(zeiterfassung.getDate());
 			System.out.println("++++++++++++++++++++++++++++++++++++++");
 			System.out.println(zeiterfassung.getDate());
-			timeStamp.setGrund("Zeiterfassung"); // Hier wird der Grund direkt gesetzt.
+			timeStamp.setGrund(zeiterfassung.getGrund()); // Hier wird der Grund direkt gesetzt.
 
 			// Vormittag Stunden
 			timeStamp.setMorningEndHours(zeiterfassung.getMorningEndHours());

@@ -1316,7 +1316,7 @@
 		
         var date = informationAboutDay.currentDay;
         var username = getMyCookie("userlogin");
-       
+       	var grund = "Zeiterfassung";
 	        
 		console.log("Die Zeit wurde in den DB gespeichert");
         	
@@ -1326,6 +1326,7 @@
 				data : JSON.stringify({
 
 					username : username,
+					grund : grund,
 					date : date,
 					morningEndHours : morningEndHours,
 					morningstartHours : morningstartHours,

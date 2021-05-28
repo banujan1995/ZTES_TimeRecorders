@@ -220,21 +220,18 @@
         	
         	var period = document.getElementById('daterange').value;
         	var anzahlTage = document.getElementById("addAbsence_numberOfDays").innerHTML;
-        	var firstdayOfAbsence = document.getElementById('daterange').value.substring(0, 14); 
-        	console.log(firstdayOfAbsence);
-        	var lastdayOfAbsende = document.getElementById('daterange').value.substring(18, 32);
-        	console.log(lastdayOfAbsende);
+        	var firstdayOfAbsence = document.getElementById('daterange').value.substring(0, 15); 
+        	var lastdayOfAbsende = document.getElementById('daterange').value.substring(18, 33);
+        	
             
             //Format Mon April 26 2021 - Mon April 29 2021
-            var daysBetween = getDatesInArray(firstdayOfAbsence, lastdayOfAbsende);
-            //console.log(daysBetween);
+            var daysBetween = getDatesInArray(firstdayOfAbsence.toString(), lastdayOfAbsende.toString());
             if (validUserInput) { 
-
-            
 			
-           for (var x = 0; x < anzahlTage;  x++) {
+           for (var x = 0; x <= anzahlTage;  x++) {
 
-            /*
+        	   var date = daysBetween[x].toString().substring(0,15);
+
             $.ajax({
 				type : "POST", 
 				url : "http://localhost:8081/timerecorders/zeiterfassung/",
@@ -258,7 +255,7 @@
 				}),
 				dataType : 'json',
 				contentType : 'application/json'
-			}); */
+			}); 
            }
         
         }
@@ -315,29 +312,30 @@
     	//Hier werden die Daten zwischen TAge geholt. 
     	function getDatesInArray(start, end) {
 
+    		  Date.prototype.addDays = function(days) {
+       	       var dat = new Date(this.valueOf())
+       	       dat.setDate(dat.getDate() + days);
+       	       return dat;
+    		  }
+
+       var dateArray;
+
         var startDateMe = new Date(start);
         var endDateMe = new Date(end);
-    	
-    	Date.prototype.addDays = function(days) {
-    	       var dat = new Date(this.valueOf())
-    	       dat.setDate(dat.getDate() + days);
-    	       return dat;
+    
+    	 dateArray = new Array();
+    	  var currentDate = startDateMe;
+    	      
+    	  while (currentDate <= endDateMe) {
+    	   dateArray.push(currentDate)
+    	   currentDate = currentDate.addDays(1);
+    	   }      
+    	     
+    	   return dateArray;
+    	   
     	   }
 
-    	   function getDates(startDateMe, endDateMe) {
-    	      var dateArray = new Array();
-    	      var currentDate = startDate;
-    	      while (currentDate <= stopDate) {
-    	        dateArray.push(currentDate)
-    	        currentDate = currentDate.addDays(1);
-    	      }
-    	      console.log(dateArray);
-    	      return dateArray;
-    	      
-    	    }
-
-    
-    	}
+    	
     </script>
 
 </body>
