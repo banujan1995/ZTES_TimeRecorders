@@ -85,7 +85,6 @@
 			    <th>Username:</th>
 			    <th>Workload:</th>
 			    <th>Role:</th>
-			    <th>Edit:</th>
 			  </tr>
 			<tbody>
 			</tbody>
@@ -151,7 +150,6 @@ function successDeleteUser(response){
     			mitarbeiter_data += '<td>'+value.username+ '</td>';
     			mitarbeiter_data += '<td>'+value.pensum+ '</td>';
     			mitarbeiter_data += '<td>'+value.role+ '</td>';
-    			mitarbeiter_data += '<td>' +"<input type='button' class= 'buttonList' id='DeleteButton' onclick='CallMe(this)' value='Delete'>"+ '</td>';
     			mitarbeiter_data += '</tr>';
     		});
     		$('#mitarbeiterList').append(mitarbeiter_data);	
