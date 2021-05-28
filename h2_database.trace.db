@@ -4701,3 +4701,7 @@ Caused by: java.lang.IllegalStateException: The file is locked: nio:C:/Users/Ban
 	at org.h2.mvstore.FileStore.open(FileStore.java:172)
 	at org.h2.mvstore.MVStore.<init>(MVStore.java:381)
 	... 68 more
+2021-05-28 11:52:17 jdbc[23]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax Fehler in SQL Befehl "ANZAHL_TAGE[*]"; erwartet "ALTER, ANALYZE"
+Syntax error in SQL statement "ANZAHL_TAGE[*]"; expected "ALTER, ANALYZE"; SQL statement:
+ANZAHL_TAGE [42001-200]

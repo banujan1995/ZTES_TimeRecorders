@@ -201,32 +201,69 @@
         
         // fügt Absence hinzu & zeigt eine Erfolgsmeldung an JS/BR)
         function addAbsence(){
-      
+      		
+        	var username = $.cookie("userlogin");
+        	var grund = document.getElementById('absenceReason').value;
+        	
+        	var morningEndHours = 12;
+        	var morningstartHours = 8;
+        	var morningEndMinDeci = 0;
+        	var morningStartMinDeci = 0;
+        	var afternoonEndHours = 17;
+        	var afternoonStartHours  = 13; 
+        	var afternoonEndMinDeci = 24;
+        	var afternoonStartMinDeci = 0;
+        	var morningTotal = 4.00;
+        	var afternoonTotal = 4.40;
+        	var totalDeci = 8.40;
+        	        	
+        	
         	var period = document.getElementById('daterange').value;
-            var reason = document.getElementById('absenceReason').value;
-            var anzahlTage = document.getElementById("addAbsence_numberOfDays").innerHTML;
-
-            if (validUserInput) {
+        	var anzahlTage = document.getElementById("addAbsence_numberOfDays").innerHTML;
+        	var firstdayOfAbsence = document.getElementById('daterange').value.substring(0, 14); 
+        	console.log(firstdayOfAbsence);
+        	var lastdayOfAbsende = document.getElementById('daterange').value.substring(18, 32);
+        	console.log(lastdayOfAbsende);
+            
+            //Format Mon April 26 2021 - Mon April 29 2021
+            var daysBetween = getDatesInArray(firstdayOfAbsence, lastdayOfAbsende);
+            //console.log(daysBetween);
+            if (validUserInput) { 
 
             
-            
+			
+           for (var x = 0; x < anzahlTage;  x++) {
+
+            /*
             $.ajax({
-				type : "POST",
-				url : "/addAbsence/",
+				type : "POST", 
+				url : "http://localhost:8081/timerecorders/zeiterfassung/",
 				data : JSON.stringify({
-					period : period,
-					reason : reason,
-					anzahlTage : anzahlTage
+					
+					username : username,
+					grund : grund, 
+					date : date,
+					morningEndHours : morningEndHours,
+					morningstartHours : morningstartHours,
+					morningEndMinDeci : morningEndMinDeci,
+					morningStartMinDeci : morningStartMinDeci,
+					afternoonEndHours : afternoonEndHours,
+					afternoonStartHours : afternoonStartHours,
+					afternoonEndMinDeci : afternoonStartMinDeci,
+					afternoonStartMinDeci : afternoonStartMinDeci,
+					morningTotal : morningTotal,
+					afternoonTotal : afternoonTotal,
+					totalDeci : totalDeci,
 
 				}),
 				dataType : 'json',
 				contentType : 'application/json'
-			});
-
+			}); */
+           }
         
         }
     }
-
+      
         //Überprüft, ob nötige Auswahl getroffen wurde
         function validUserInput(){
             var sel = document.getElementById('absenceReason');
@@ -274,8 +311,33 @@
     			
     		}
 
-        
-        
+    	//https://stackoverflow.com/questions/4413590/javascript-get-array-of-dates-between-2-dates 
+    	//Hier werden die Daten zwischen TAge geholt. 
+    	function getDatesInArray(start, end) {
+
+        var startDateMe = new Date(start);
+        var endDateMe = new Date(end);
+    	
+    	Date.prototype.addDays = function(days) {
+    	       var dat = new Date(this.valueOf())
+    	       dat.setDate(dat.getDate() + days);
+    	       return dat;
+    	   }
+
+    	   function getDates(startDateMe, endDateMe) {
+    	      var dateArray = new Array();
+    	      var currentDate = startDate;
+    	      while (currentDate <= stopDate) {
+    	        dateArray.push(currentDate)
+    	        currentDate = currentDate.addDays(1);
+    	      }
+    	      console.log(dateArray);
+    	      return dateArray;
+    	      
+    	    }
+
+    
+    	}
     </script>
 
 </body>

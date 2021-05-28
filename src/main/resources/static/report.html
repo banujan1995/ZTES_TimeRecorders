@@ -213,6 +213,8 @@
     <script>
 
 	//KG: Report Darstellung und Inhalte aus DB
+	var username = $.cookie("userlogin");
+	
     $(document).ready(function(){
     	$.getJSON("http://localhost:8081/timerecorders/timestamps/", function(data){
     		
@@ -220,6 +222,9 @@
     	
     		var mitarbeiter_data = '';
     		$.each(data, function(key, value){
+
+    			if(value.username == username){
+    			
     			mitarbeiter_data += '<tr>';
     			var date = mitarbeiter_data += '<td>'+value.date+ '</td>';
     			var morningstartHours = mitarbeiter_data += '<td>'+minTwoDigits(value.morningstartHours)+ ":" +minTwoDigits(value.morningStartMinDeci*60)+ '</td>';
@@ -229,6 +234,7 @@
     			var targettime = mitarbeiter_data += '<td>'+h_mm(value.targettime)+ '</td>';
     			var minusOderPlusZeit = mitarbeiter_data += '<td>'+h_mm(value.minusOderPlusZeit)+ '</td>';
     			mitarbeiter_data += '</tr>';
+    			}
     		});
     		
     		$('#mitarbeiter').append(mitarbeiter_data);
