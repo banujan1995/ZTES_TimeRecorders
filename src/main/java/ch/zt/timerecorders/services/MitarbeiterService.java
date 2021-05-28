@@ -91,7 +91,7 @@ public class MitarbeiterService {
 		m1.setFamilyname(m.getFamilyname());
 		m1.setName(m.getUsername());
 		m1.setPasswort(m.getPasswort());
-		m1.setPensum(m.getPensum().substring(0, 3));
+		m1.setPensum(m.getPensum().substring(0, 4));
 		m1.setRole(m.getRole());
 		m1.setWorkingDays(m.getWorkingDays());
 
