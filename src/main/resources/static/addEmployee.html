@@ -44,7 +44,7 @@
     <br>
     <br>
     <br>
-    <!-- Navigationsbar-->
+    <!-- Navigationsbar (JS)-->
     <ul class="navibar">
         <li class="barItem"><a class="barItem" href="http://localhost:8081/main">Home</a></li>
         <li class="barItem"><a class="barItem" href="http://localhost:8081/report">Report</a></li>
@@ -57,7 +57,7 @@
         <h1>Add new employee</h1>
     </div>
     <br>
-    <!-- Tabelle um neuen MA hinzuzufügen-->
+    <!-- Tabelle um neuen MA hinzuzufügen (JS)-->
     <table class="addeEmployeeTable" cellspacing="0" cellpadding="1" border="1" id="addEmployeetable" style="position: relative; margin: auto; width: 50px;"> 
         <tr>
             <th> Enter surname: </th>
@@ -129,9 +129,8 @@
 
     <script>
 
-        // fügt einen neuen MA hinzu + Erfolgsmeldung
+        // fügt einen neuen MA hinzu + Erfolgsmeldung (BR/JS)
         function addEmployee(){
-        	console.log("kommt in addEmployee");
 
             if (validUserInput() && textInputRestriction()) {
             var surname = document.getElementById("addEmployee_givenname").value;
@@ -140,7 +139,6 @@
             var passwort = document.getElementById("addEmployee_password").value;
             document.getElementById("addEmployee_repeatPassword").value;
             var pensum = document.getElementById("addEmployee_workload").innerHTML;
-            //document.getElementById("addEmployee_targetHours").innerHTML;
             var role = document.getElementById("role").value; 
 
             
@@ -172,7 +170,7 @@
 			});
 
              
-            // Erfolgsmeldung
+            // Erfolgsmeldung (JS)
             var message = ("Dear Admin \n\nThe user "+ surname+" "+familyname+" has been added! \n\nThe assigned username is: "+username);
             alert(message);
             reset();
@@ -181,6 +179,7 @@
             }
         }
         
+        // Behandlung, ob Anpassung erfolgreich war oder nicht (BR)
         function successCredentials(response) {
 			if (response == true) {
 				handleSuccessCreditals(response);
@@ -212,7 +211,7 @@
 		}
 
 
-        // Leert alle mögliche Eingabemöglichkeiten
+        // Leert alle mögliche Eingabemöglichkeiten (JS)
         function reset(){
            	document.getElementById("addEmployee_givenname").value ="";
            	document.getElementById("addEmployee_familyname").value ="";
@@ -232,7 +231,7 @@
                 }
         }
 
-        // Je nach Wahl der Anzahl Arbeitstag wird Pensum sowie Soll-Zeit angezeigt
+        // Je nach Wahl der Anzahl Arbeitstag wird Pensum sowie Soll-Zeit angezeigt (JS)
         function adaptWorkingDays(){
 
             // nimmt Anzahl angeklickter Checkboxes entgegen
@@ -271,7 +270,7 @@
             }
         }
 
-        // überprüft, ob alle Werte erfasst wurde, sonst erscheint eine Fehler meldung
+        // überprüft, ob alle Werte erfasst wurde, sonst erscheint eine Fehlermeldung (JS)
         function validUserInput (){
             var surname = document.getElementById("addEmployee_givenname").value;
             var familyname = document.getElementById("addEmployee_familyname").value;
@@ -293,6 +292,7 @@
 
         }
 
+        // Benutzername sowie Passwort müssen mind. 3 Zeichen lang sein (JS)
         function textInputRestriction(){
 
             var username = document.getElementById("addEmployee_username").value;
@@ -321,8 +321,6 @@
 		function deleteUserDB(){
 
 			var username = $.cookie("userlogin").toString(); 
-
-			console.log("Bin in der Funktion deleteUserDB" + username);
 			
 			$.ajax({
 				type : "POST",
