@@ -12,6 +12,9 @@
 	<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script> 
 	<script src="/js/mycookies.js"></script> 
+    <script src="/js/jspdf.min.js"></script>
+    <script src="/js/jspdf.plugin.autotable.min.js"></script>
+
 
 	
 	<script>
@@ -66,7 +69,7 @@
     </div>
     
 
-       <div id="startOfExport" style="display: block; text-align: center;width: 100%;">
+       <div style="display: block; text-align: center;width: 100%;">
     <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search by year/month/day..." style="min-width: 200px; text-align: center;" title="Type in e.g. Mar" maxlength="4">
     </div>
  
@@ -77,17 +80,17 @@
     <table id ="mitarbeiter" class="reporttable"  border="1" style="position: relative; margin: auto; text-align: center;">
              <tr>
                  <th>Working <br> day:</th>
+                  <th>Reason:</th>
                 <th>Morning <br>(Start):</th>
                 <th>Morning <br>(End):</th>
                 <th>Afternoon <br>Start):</th>
                 <th>Afternoon <br>(End):</th>
-                <th>Target  <br> ime: </th>
+                <th>Target  <br> time: </th>
                  <th>Overhours:</th>
               </tr>
             <tbody>
             </tbody>
         </table>
-        </div>
      <br>
     <br>
     <br>
@@ -165,23 +168,20 @@
 
         	
    
-     // erstellt eine PDF-Datei für den Export des Reports (JS)
+        // erstellt eine PDF-Datei für den Export des Reports
         // full credit to: https://qawithexperts.com/article/javascript/easy-way-to-convert-html-to-pdf-using-javascript/335
         function convertToPDF(){
-		var doc = new jsPDF({
-		orientation: 'landscape'
-		});
-		doc.fromHTML(document.getElementById("startOfExport"), 20, 20, {
-		'width' : 1200
-		},
-		function (x){
-			
-			doc.save('report.pdf');
-			});
-			}
+            var doc = new jsPDF({
+                orientation: 'landscape'
+            });
+            doc.fromHTML(document.getElementById("startOfExport"), 20, 20, {
+                'width' : 1700
+            },
+            function (x){
+                doc.save('report.pdf');
+            });
+        }
         
-
-       
 
         var username = {
             name: "",
@@ -206,6 +206,7 @@
     			
     			mitarbeiter_data += '<tr>';
     			var date = mitarbeiter_data += '<td>'+value.date+ '</td>';
+    			var grund = mitarbeiter_data += '<td>'+value.grund+ '</td>';
     			var morningstartHours = mitarbeiter_data += '<td>'+minTwoDigits(value.morningstartHours)+ ":" +minTwoDigits(value.morningStartMinDeci*60)+ '</td>';
     			var morningEndHours = mitarbeiter_data += '<td>'+minTwoDigits(value.morningEndHours)+ ":" +minTwoDigits(value.morningEndMinDeci*60)+'</td>';
     			var afternoonStartHours = mitarbeiter_data += '<td>'+minTwoDigits(value.afternoonStartHours)+":" +minTwoDigits(value.afternoonStartMinDeci*60)+'</td>';
