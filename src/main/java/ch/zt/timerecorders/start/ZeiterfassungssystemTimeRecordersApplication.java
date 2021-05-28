@@ -25,26 +25,7 @@ import ch.zt.timerecorders.view.ViewsController;
 																		// Packages ist. (BR)
 public class ZeiterfassungssystemTimeRecordersApplication {
 
-	@Autowired
-	private ServiceLocator serviceLocator;
-
-	@Autowired
-	private MitarbeiterRepository mitarbeiterRepository;
-
-	@Autowired
-	private AdministratorenRepository administratorRepository;
-
-	@Autowired
-	private ArbeitstagRepository arbeitstagRepository;
-
-	@Autowired
-	private MitarbeiterRepositoryInterface mitarbeiterRepositoryInterface;
-
-	@Autowired
-	private JdbcTemplate jdbcTemplate;
-
-	@Autowired
-	private TimeStampRegisterChangeInterface TimeStampRegisterChangeInterface;
+	
 
 	public static void main(String[] args) {
 		SpringApplication.run(ZeiterfassungssystemTimeRecordersApplication.class, args);

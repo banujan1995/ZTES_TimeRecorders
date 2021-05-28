@@ -12,6 +12,11 @@ import org.springframework.stereotype.Repository;
 /**
  * @author Kiren Gondal
  */
+
+/*
+ * Tabelle im Dokument erstellt und die Methoden für DB zur Verfügung gestellt (KG)
+ */
+
 @Repository
 public interface MitarbeiterRepositoryInterface extends JpaRepository<MitarbeiterRegister, Long> {
 	

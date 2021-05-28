@@ -49,8 +49,7 @@ public class ServiceLocator {
      * @param appName Name of the main class of this program
      */
     private ServiceLocator() {
-        // Currently nothing to do here. We must define this constructor anyway,
-        // because the default constructor is public
+    
     }
     
     
@@ -70,13 +69,6 @@ public class ServiceLocator {
         this.logger = logger;
     }
     
-//    public Configuration getConfiguration() {
-//        return configuration;
-//    }
-//
-//    public void setConfiguration(Configuration configuration) {
-//        this.configuration = configuration;
-//    }
     
     
 }
