@@ -56,7 +56,7 @@
 	<br>
 	<br>
 
-  <!-- Meldung, falls Benutzername oder Passwort falsch sind-->
+  <!-- Meldung, falls Benutzername oder Passwort falsch sind (JS)--> 
 	<!-- credits to: https://www.w3schools.com/howto/howto_js_detect_capslock.asp-->
 	<div class="alert" id="wrongInputs" style="max-width: 380px; position: relative; margin: auto;">
 		<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span> 
@@ -91,6 +91,8 @@
 	<script>
 
 
+	// Login erfolgt auch bei betätigen der Enter-Taste (JS)
+	// credit to: https://www.tutorialspoint.com/enter-key-press-event-in-javascript
 	function handle(event) {
     	if (event.keyCode == 13) {
         	event.preventDefault();
@@ -102,15 +104,13 @@
       }
   	}
 
-    //Button wird nur enabled, falls Password und User einen Wert aufweisen
-    //TODO: muss beides überprüfen
+    //Button wird nur enabled, falls Password/User einen Wert aufweisen (JS)
     function enableButton(){
         document.getElementById("loginButton").disabled = false;
-        console.log("ich komme in enable Button");
     }
 
 
-    //Progessbar ladet
+    	//Progessbar ladet (JS)
 		//credit to: www.w3schools.com/w3css/w3css_progressbar.asp
 		function load() {
 			var elem = document.getElementById("loginProgress");
@@ -127,7 +127,7 @@
 			}
 		}
 
-    //Macht das Passwortfeld sichtbar
+    //Macht das Passwortfeld sichtbar (JS)
 		//credit to: https://www.w3schools.com/howto/howto_js_toggle_password.asp
 		function showPassword() {
 			var x = document.getElementById("loginPassword");
@@ -138,7 +138,7 @@
 			}
 		}
 
-    //gibt eine Warnung an, falls Feststelltaste aktiviert ist
+    	//gibt eine Warnung an, falls Feststelltaste aktiviert ist (JS)
 		//credits to: https://www.w3schools.com/howto/howto_js_detect_capslock.asp
 		var input = document.getElementById("loginPassword");
 		var text = document.getElementById("capsON");
@@ -158,7 +158,6 @@
 
 		function checkInputs() {
 			
-			console.log("kommt in Checkinputs");
 
 			var username= document.getElementById("loginUserName").value;
 			var passwort = document.getElementById("loginPassword").value;
@@ -229,7 +228,6 @@
 	
 		
 		function registerUserDB(username){
-			  console.log("ich komme in registerUserDB");
 			  
 			$.ajax({
 				type : "POST",
