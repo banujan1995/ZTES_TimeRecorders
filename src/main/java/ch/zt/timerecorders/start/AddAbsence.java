@@ -11,6 +11,12 @@ import javax.persistence.Table;
  * @author Kiren Gondal
  *
  */
+
+/*
+ * Folgende Information werden im Datenbank gespeichert, welche von jeder HTML
+ * Seite abgerufen.
+ */
+
 @Entity
 @Table(name = "absencen")
 public class AddAbsence {

@@ -22,6 +22,13 @@ import org.springframework.context.annotation.ComponentScan;
  * @author Kiren Gondal
  *
  */
+
+
+/*
+ * Folgende Information werden im Datenbank gespeichert, welche von jeder HTML
+ * Seite abgerufen.
+ */
+
 @Entity
 @Table(name = "mitarbeiter")
 public class MitarbeiterRegister {
