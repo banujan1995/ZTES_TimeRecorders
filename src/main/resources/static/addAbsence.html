@@ -51,7 +51,7 @@
     <br>
     <br>
 
-    <!-- Navigationsbar-->
+    <!-- Navigationsbar (JS)-->
     <ul class="navibar">
         <li class="barItem"><a class="barItem" href="http://localhost:8081/main">Home</a></li>
         <li class="barItem"><a class="barItem" href="http://localhost:8081/report">Report</a></li>
@@ -65,7 +65,7 @@
     </div>
     <br>
 
-    <!-- Tabelle um neuen MA hinzuzufügen-->
+    <!-- Tabelle um neuen MA hinzuzufügen (JS)-->
     <table id="table" class="addAbsenceTable" style="position: relative; margin: auto; width: 50px;"> 
         <tr style="background-color: whitesmoke">
             <th> Period: </th>
@@ -126,31 +126,13 @@
                     format: "ddd MMM DD YYYY",
 
                 },
-                // Deaktiviert Samstag und Sonntag 
+                // Deaktiviert Samstag und Sonntag (JS)
                 isInvalidDate: function(date) {
                 return (date.day() == 6 || date.day() == 0)
-                },
-
-
-               /*// deaktiviert die genannten Tage (gesetzliche Feiertage)
-               //TOOD: Feiertage deaktivieren
-                isInvalidDate: function(date) {
-                    var dateList = [
-                        '01/01/2021', '04/02/2021', '04/05/2021', '05/13/2021', '05/24/2021',
-                        '04/18/2022', '04/21/2022', '05/26/2022', '06/06/2022', '08/01/2022','12/26/2022',
-                        '04/07/2023', '04/10/2023', '05/01/2023', '05/18/2023', '05/29/2023', '08/01/2023', '12/25/2023', '12/26/2023',
-                    ];
-                    if (date == 04/01/2021 ){
-                        return true;
-
-                    }
-                }*/
-
-
-                
+                },                
             });    
 
-            //reset-Funktion
+            //reset-Funktion (JS)
             $('#daterange').on('cancel.daterangepicker', function(ev, picker) {
                 $('#daterange').val('');
             });
@@ -161,7 +143,6 @@
 
                 // Berechnung Anzahl Tage (JS)
                 // full credits to: https://stackoverflow.com/questions/2627473/how-to-calculate-the-number-of-days-between-two-dates
-                //TODO: Mit Berücksichtigen, ob Samstag, Sonntag & gesetzloche Feiertage dabei sind Feiertage --> evtl. alles serverseitig und Anzahl Tage kommt vom Server
                 const oneDay = 24 * 60 * 60 * 1000; 
                 const firstDate = picker.startDate;
                 const secondDate = picker.endDate;
@@ -201,13 +182,12 @@
             document.getElementById("addAbsence_numberOfDays").innerHTML ="";
         }
         
-        // fügt Absence hinzu & zeigt eine Erfolgsmeldung an (JS/BR/KG)
+        // fügt Absenz hinzu (JS/BR/KG)
         function addAbsence(){
 
 
         	var firstdayOfAbsence = document.getElementById('daterange').value.substring(0, 15); 
         	var lastdayOfAbsende = document.getElementById('daterange').value.substring(18, 33);
-        	//Format Mon April 26 2021 - Mon April 29 2021
             daysBetween = getDatesInArray(firstdayOfAbsence.toString(), lastdayOfAbsende.toString());
       		
         	if (validUserInput) { 
@@ -288,7 +268,7 @@
           
         }
              
-    
+        // Erfolgsmeldung (JS/BR/KG)
         function successRegisterAbsence(response){
 
         	if(response == true){
@@ -310,7 +290,7 @@
 
         }
       
-        //Überprüft, ob nötige Auswahl getroffen wurde
+        //Grund darf nicht "Please select:" sein (JS)
         function validUserInput(){
             var sel = document.getElementById('absenceReason');
             var reason = document.getElementById('absenceReason').value;
@@ -323,13 +303,12 @@
                 return true;
             }
 	
-    	//Hier wird der User ausser der Loginaktivitätliste herausgelöscht. (JS/BR)
+    	//Hier wird der User ausser der Loginaktivitätliste herausgelöscht. (BR/JS)
     		
     		function deleteUserDB(){
 
     			var username = $.cookie("userlogin").toString(); 
 
-    			console.log("Bin in der Funktion deleteUserDB" + username);
     			
     			$.ajax({
     				type : "POST",
@@ -358,7 +337,7 @@
     		}
 
     	//https://stackoverflow.com/questions/4413590/javascript-get-array-of-dates-between-2-dates 
-    	//Hier werden die Daten zwischen TAge geholt. 
+    	//Hier werden die Daten zwischen Tage geholt. (BR)
     	function getDatesInArray(start, end) {
 
     		  Date.prototype.addDays = function(days) {
@@ -367,20 +346,20 @@
        	       return dat;
     		  }
 
-       var dateArray;
+            var dateArray;
 
-        var startDateMe = new Date(start);
-        var endDateMe = new Date(end);
+            var startDateMe = new Date(start);
+            var endDateMe = new Date(end);
     
-    	 dateArray = new Array();
-    	  var currentDate = startDateMe;
+    	    dateArray = new Array();
+    	    var currentDate = startDateMe;
     	      
-    	  while (currentDate <= endDateMe) {
-    	   dateArray.push(currentDate)
-    	   currentDate = currentDate.addDays(1);
-    	   }      
+    	    while (currentDate <= endDateMe) {
+    	    dateArray.push(currentDate)
+    	    currentDate = currentDate.addDays(1);
+    	    }      
     	     
-    	   return dateArray;
+    	    return dateArray;
     	   
     	   }
 
