@@ -1,14 +1,24 @@
 package ch.zt.timerecorders.businesslogic;
 
+/**
+ * 
+ * @author Banujan Ragunathan
+ *
+ */
+
+/*
+ * Hier wird die gesetzliche Feiertage von Kanton Bern übernommen. (BR)
+ */
+
 public enum Feiertage {
 	
-	Neujahr(20210101), Berchtoldstag(20210102), Karfreitag(20210402), Ostersonntag(20210404), Auffahrt(20210513),
-	Pfingstmontag(20210524), Bundesfeier(20210801), EidgenössischerDankBussundBettag(20210919), 
-	Weihnachten(20211225), Stephanstag(20211226); 
+	Neujahr("Fri Jan 01 2021"), Berchtoldstag("Sat Jan 02 2021"), Karfreitag("Fri Apr 02 2021"), Ostersonntag("Sun Apr 04 2021"), Auffahrt("Thu May 13 2021"),
+	Pfingstmontag("Mon May 24 2021"), Bundesfeier("Sun Aug 01 2021"), EidgenössischerDankBussundBettag("Sun Sep 19 2021"), 
+	Weihnachten("Sat Dec 25 2021"), Stephanstag("Sun Dec 26 2021"); 
 	
-	private final int datum;
+	private final String datum;
 	
-	Feiertage(int datum){
+	Feiertage(String datum){
 		this.datum = datum; 
 	}
 
