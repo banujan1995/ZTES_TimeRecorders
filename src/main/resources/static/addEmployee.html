@@ -54,33 +54,33 @@
     </ul>
 
     <div style="display: block; text-align: center;width: 100%;">
-        <h1>Add new Employee</h1>
+        <h1>Add new employee</h1>
     </div>
     <br>
     <!-- Tabelle um neuen MA hinzuzufügen-->
     <table class="addeEmployeeTable" cellspacing="0" cellpadding="1" border="1" id="addEmployeetable" style="position: relative; margin: auto; width: 50px;"> 
         <tr>
-            <th> Enter Surname: </th>
+            <th> Enter surname: </th>
             <td> <input type="text" id="addEmployee_givenname"></td>
         </tr>
         <tr>
-            <th> Enter Familyname: </th>
+            <th> Enter familyname: </th>
             <td> <input type="text" id="addEmployee_familyname"></td>
         </tr>
         <tr>
-            <th> Enter Username: </th>
+            <th> Enter username: </th>
             <td> <input type="text" id="addEmployee_username"></td>
         </tr>
         <tr>
-            <th> Enter Password: </th>
+            <th> Enter password: </th>
             <td> <input type="text" id="addEmployee_password"></td>
         </tr>
         <tr>
-            <th> Repeat Password: </th>
+            <th> Repeat new password: </th>
             <td> <input type="text" id="addEmployee_repeatPassword"></td>
         </tr>
         <tr>
-            <th> Working Days: </th>
+            <th> Working days: </th>
             <td id ="addEmployee_workingDays">
                 <label for="monday">Monday: </label> 
                 <input class="checkbox" type="checkbox" name="monday" id="addEmployee_monday" onchange="adaptWorkingDays();" value="Monday" style="margin-left: 33px;"> 
@@ -102,7 +102,7 @@
             <td id ="addEmployee_workload"style="text-align: center; min-width: 235px; height: 55px;"></td>
         </tr>
         <tr style="background-color: whitesmoke">
-            <th style="text-align: center; min-width: 175px; height: 65px;"> Target Hours (weekly): </th>
+            <th style="text-align: center; min-width: 175px; height: 65px;"> Target hours (weekly): </th>
             <td id ="addEmployee_targetHours" style="text-align: center; min-width: 235px; height: 65px;"></td>
         </tr>
         <tr>  
@@ -122,7 +122,7 @@
         <td style="text-align: center; min-width: 135px; height: 55px;" > </td>
         <a href="http://localhost:8081/employeeList" class="buttonLinks" style="text-decoration: none; margin-right: 20px; padding: 10px 37px;"> Return</a>
         
-        <button id ="addEmployee_confirm" style="margin-right: 20px;" onclick="addEmployee(); " type="button" class="button">  Add Employee</button>
+        <button id ="addEmployee_confirm" style="margin-right: 20px;" onclick="addEmployee(); " type="button" class="button">  Add employee</button>
         <button id ="addEmployee_cancel" onclick="reset();" type="button" class="button"> Reset</button>
      </div>
      <br><br>
