@@ -173,20 +173,20 @@ public class MitarbeiterService {
 
 	}
 
-	// Ferien erfassen (KG)
-	@PostMapping(path = "/addAbsence/", produces = "application/json")
-	public boolean addAbsence(@RequestBody MessageAddAbsence a) {
-
-		AddAbsence a1 = new AddAbsence();
-		a1.setPeriod(a.getPeriod());
-		a1.setReason(a.getReason());
-		a1.setAnzahlTage(a.getAnzahlTage());
-
-		absenceRepo.save(a1); // beim Speichern wird eine ID automatisch vergeben
-		logger.info("Ferien erfolgreich erfasst");
-		return true;
-
-	}
+//	// Ferien erfassen (KG)
+//	@PostMapping(path = "/addAbsence/", produces = "application/json")
+//	public boolean addAbsence(@RequestBody MessageAddAbsence a) {
+//
+//		AddAbsence a1 = new AddAbsence();
+//		a1.setPeriod(a.getPeriod());
+//		a1.setReason(a.getReason());
+//		a1.setAnzahlTage(a.getAnzahlTage());
+//
+//		absenceRepo.save(a1); // beim Speichern wird eine ID automatisch vergeben
+//		logger.info("Ferien erfolgreich erfasst");
+//		return true;
+//
+//	}
 
 	// Delete Absence (KG)
 
@@ -281,7 +281,7 @@ public class MitarbeiterService {
 
 	/*
 	 * Hier wird die Liste geholt aus dem Datenbank und wird als Json angezeigt.
-	 * (BR)
+	 * Hier wird auch die Absence erfasst! (BR)
 	 */
 	@ResponseBody
 	@GetMapping(path = "/timerecorders/timestamps/", produces = "application/json")
@@ -334,6 +334,8 @@ public class MitarbeiterService {
 
 			// Datum
 			timeStamps.get(foundPlace).setDate(zeiterfassung.getDate());
+			System.out.println("++++++++++++++++++++++++++++++++++++++");
+			System.out.println(zeiterfassung.getDate());
 
 			// Hier wird der Grund direkt gesetzt.
 			timeStamps.get(foundPlace).setGrund("Zeiterfassung");
@@ -384,7 +386,11 @@ public class MitarbeiterService {
 			timeStamp.setTargettime(getTargetTimeDay(zeiterfassung.getUsername(), zeiterfassung.getDate()));
 
 			timeStamp.setTAGESID(tagesIDGenerator(zeiterfassung.getDate()));
+			System.out.println("++++++++++++++++++++++++++++++++++++++");
+			System.out.println(zeiterfassung.getDate());
 			timeStamp.setDate(zeiterfassung.getDate());
+			System.out.println("++++++++++++++++++++++++++++++++++++++");
+			System.out.println(zeiterfassung.getDate());
 			timeStamp.setGrund("Zeiterfassung"); // Hier wird der Grund direkt gesetzt.
 
 			// Vormittag Stunden
