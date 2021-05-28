@@ -171,8 +171,8 @@
 .table th {
     text-align: center;
     border: 1px solid black;
-    min-width: 145px;
-    max-width: 145px;
+    min-width: 142px;
+    max-width: 142px;
     height: 55px;
     background-color:rgb(126, 172, 168);
     color: white;
