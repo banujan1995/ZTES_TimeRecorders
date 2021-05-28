@@ -10,9 +10,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.jdbc.core.JdbcTemplate;
-
-import ch.zt.timerecorders.persistence.MitarbeiterRepository;
-
 import ch.zt.timerecorders.view.ViewsController;
 
 

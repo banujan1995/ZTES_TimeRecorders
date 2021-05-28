@@ -1,4 +1,4 @@
-package ch.zt.timerecorders.services;
+package ch.zt.timerecorders.persistence;
 
 import java.util.Date;
 
