@@ -127,16 +127,24 @@
 
 
 //Hier werden die Daten für die Tabelle entsprechend eingelesen (KG)
+
+
 $(document).ready(function(){
 	$.getJSON("http://localhost:8081/erfassteFerien/", function(data){
+		var username = $.cookie("userlogin");
 		var ferien_data = '';
+		
 		$.each(data, function(key, value){
+
+			if(value.username == username){
+			
 			ferien_data += '<tr>';
 			var period = ferien_data += '<td id = "period">'+value.period+ '</td>';
 			var grund = ferien_data += '<td id = "reason">'+value.grund+ '</td>';
 			var anzahlTage = ferien_data += '<td id = "anzahlTage">'+value.anzahlTage+ '</td>';
 		
 			ferien_data += '</tr>';
+			}
 			
 		});
 	

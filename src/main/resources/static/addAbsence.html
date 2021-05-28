@@ -210,12 +210,13 @@
         	
         	var period = document.getElementById('daterange').value;
         	var anzahlTage = document.getElementById("addAbsence_numberOfDays").innerHTML;
-        	
+        	var username = $.cookie("userlogin");
         	    
                 $.ajax({
                    	type : "POST",
                    	url : "http://localhost:8081/addAbsence/",
                    	data : JSON.stringify({
+					username : username, 
                    	period : period,
                    	grund : grund, 
                    	anzahlTage : anzahlTage

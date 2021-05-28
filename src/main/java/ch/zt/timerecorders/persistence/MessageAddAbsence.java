@@ -10,10 +10,12 @@ package ch.zt.timerecorders.persistence;
 public class MessageAddAbsence {
 
 	
-	public Long mitarbeiterID;	
-	public String grund;
-	private String period;
-	private String anzahlTage;
+	protected Long mitarbeiterID;
+	protected String username;
+	protected String grund;
+	protected String period;
+	protected String anzahlTage;
+	
 	
 	
 	public Long getMitarbeiterID() {
@@ -41,6 +43,14 @@ public class MessageAddAbsence {
 	public void setAnzahlTage(String anzahlTage) {
 		this.anzahlTage = anzahlTage;
 	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	
+	
 	
 	
 }

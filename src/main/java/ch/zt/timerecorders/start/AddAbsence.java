@@ -24,16 +24,18 @@ public class AddAbsence {
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
 		
-	public Long mitarbeiterID;	
+	public Long mitarbeiterID;
+	protected String username; 
 	public String grund;
 	private String period;
 	private String anzahlTage;
 	
 
 	
-	public AddAbsence(Long mitarbeiterID, String grund, String period, String anzahlTage) {
+	public AddAbsence(Long mitarbeiterID, String username, String grund, String period, String anzahlTage) {
 		super();
 		this.mitarbeiterID = mitarbeiterID;
+		this.username = username;
 		this.grund = grund;
 		this.period = period;
 		this.anzahlTage = anzahlTage;
@@ -74,6 +76,16 @@ public class AddAbsence {
 	public void setAnzahlTage(String anzahlTage) {
 		this.anzahlTage = anzahlTage;
 	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	
+	
 	
 	
 

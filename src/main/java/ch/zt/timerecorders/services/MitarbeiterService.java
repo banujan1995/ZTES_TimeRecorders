@@ -202,6 +202,7 @@ public class MitarbeiterService {
 		a1.setPeriod(a.getPeriod());
 		a1.setAnzahlTage(a.getAnzahlTage());
 		a1.setGrund(a.getGrund());
+		a1.setUsername(a.getUsername());
 
 		absenceRepo.save(a1); // beim Speichern wird eine ID automatisch vergeben
 		logger.info("Ferien erfolgreich erfasst");
