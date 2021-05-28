@@ -25,14 +25,9 @@ public class ViewsController {
 	Logger logger = ServiceLocator.getServiceLocator().getLogger();
 
 	/**
-	 * Methoden Annotation Kiren: html files anzeigen und richtig verlinken
+	 * Methoden Annotation html files anzeigen und richtig verlinken - alle HTML werden über diese Klasse gesteuert (KG)
 	 * 
 	 */
-	/*@RequestMapping(method = RequestMethod.GET, value = "/login")
-	public String showLogin(Model model) {
-		logger.info("Das erste HTML LOGIN-DE wurde geladen.");
-		return "login_de.html";
-	}*/
 
 	@RequestMapping(method = RequestMethod.GET, value = "/login")
 	public String showLoginEng(Model model) {
@@ -54,12 +49,6 @@ public class ViewsController {
 		return "profile.html";
 	}
 
-
-	/*@RequestMapping(method = RequestMethod.GET, value = "/profile_MA")
-	public String showProfile(Model model) {
-		logger.info("Das HTML PROFILE-EN wurde geladen.");
-		return "profile_MA_en.html";	
-	}*/
 
 	@RequestMapping(method = RequestMethod.GET, value = "/employeeList")
 	public String showEmployeeList(Model model) {
@@ -89,12 +78,6 @@ public class ViewsController {
 
  	}
 
-	/*@RequestMapping(method = RequestMethod.GET, value = "/changePassword_MA")
-	public String changePassword(Model model) {
-		logger.info("Das HTML Change wurde geladen.");
-		return "changePassword_MA_en.html";
-
- 	}*/
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/absence")
 		public String showAbsence(Model model) {

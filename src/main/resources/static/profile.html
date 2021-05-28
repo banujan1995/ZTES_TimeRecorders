@@ -45,7 +45,7 @@
     <br>
     <br>
 
-    <!-- Navigationsbar-->
+    <!-- Navigationsbar (JS)-->
     <ul class="navibar">
         <li class="barItem"><a class="barItem" href="http://localhost:8081/main">Home</a></li>
         <li class="barItem"><a class="barItem" href="http://localhost:8081/report">Report</a></li>
@@ -59,7 +59,7 @@
         <h1>Profile</h1>
     </div>
     <br>
-    <!-- Tabelle mit den Profilangaben-->
+    <!-- Tabelle mit den Profilangaben(JS)-->
     <table cellspacing="0" cellpadding="1" border="1" id="profileTable" style="position: relative; margin: auto; width: 50px;"> 
     
     
@@ -83,7 +83,7 @@
 
     <br><br><br>
 
-    <!-- Buttons, die der Administrator benötigt-->
+    <!-- Buttons, die der Administrator benötigt(JS)-->
     <div style="display: block; text-align: center; width: 100%;">
         <a href="http://localhost:8081/changepassword" class="buttonLinks" style="margin-right: 20px; text-decoration: none;"> Change password</a>
         <a href="http://localhost:8081/employeeList" class="buttonLinks" id="buttonNurFürAdmin" style=" margin-right: 20px;text-decoration: none;"> Edit employee list</a>
@@ -110,7 +110,6 @@
 
 		var username = $.cookie("userlogin").toString(); 
 
-		console.log("Bin in der Funktion deleteUserDB" + username);
 		
 		$.ajax({
 			type : "POST",
@@ -139,17 +138,16 @@ function successDeleteUser(response){
 	}
 	
 	
+	// Nimmt die Rolle des Benutzers entgegen und aktiviert je nach Rolle den Button um einen MA hinzuzufügen (BR/JS)
 	function hideButtonEmployeeList(){
 
 		var role = $.cookie("role"); 
 
 		if(role == "Employee") {
 			document.getElementById("buttonNurFürAdmin").style.visibility = "hidden";	
-			console.log(role);
 	
 		} else if (role == "Admin") {
 			document.getElementById("buttonNurFürAdmin").style.visibility = "visible";	
-			console.log(role);
 
 		}
 
@@ -160,10 +158,8 @@ function successDeleteUser(response){
 		*Hier wird die Rolle des akutellen User geholt und in die Cookies geschrieben (BR)
 		*/
 		function getRoleofWorker(){
-			console.log("ich komme ins getRoleofWorker");
 			
 			var username = getMyCookie("userlogin");
-			console.log("getRole  " + username);
 			
 			// see: https://api.jquery.com/jquery.post/
 			
@@ -183,14 +179,12 @@ function successDeleteUser(response){
 	var role = Object.values(response);
 	var roleString = role[0];
 	
-		console.log(roleString);
 		updateMyCookie("role", roleString);
-		console.log(getMyCookie("role")+"+++++++++++++++++++++++++++++++");
 	
 	}
 
 	
-	
+	// nimmt alle relevanten Informationen entgegen die via Cookies übermittelt werden (BR)
 	function loadCookies(){
 		var username = $.cookie("userlogin");
 		
@@ -199,7 +193,6 @@ function successDeleteUser(response){
 		var role = $.cookie("role"); 
 		
 		document.getElementById("roleProfile").innerHTML = role;
-	
 		var pensum = $.cookie("pensum"); 
 		
 		document.getElementById("pensumProfile").innerHTML = pensum +"%";

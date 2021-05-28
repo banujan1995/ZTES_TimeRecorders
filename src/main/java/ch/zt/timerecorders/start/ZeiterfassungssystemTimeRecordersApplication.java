@@ -15,6 +15,11 @@ import ch.zt.timerecorders.persistence.MitarbeiterRepository;
 
 import ch.zt.timerecorders.view.ViewsController;
 
+
+/*
+ * Main Klasse hier wird die Applikation gestartet!
+ */
+
 @SpringBootApplication
 @ComponentScan({ "ch.zt.timerecorders.persistence", "ch.zt.timerecorders.persistence",
 		"ch.zt.timerecorders.businesslogic", "ch.zt.timerecorders.services", "ch.zt.timerecorders.view",
