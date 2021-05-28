@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import ch.zt.timerecorders.persistence.AdministratorenRepository;
-import ch.zt.timerecorders.persistence.ArbeitstagRepository;
 import ch.zt.timerecorders.persistence.MitarbeiterRepository;
 import ch.zt.timerecorders.start.LoginUserActivityRegister;
 import ch.zt.timerecorders.start.LoginUserActivityRegisterInterface;
@@ -39,15 +37,6 @@ import ch.zt.timerecorders.start.TimeStampRegisterChangeInterface;
 public class UserLoginActivityService {
 
 	Logger logger = ServiceLocator.getServiceLocator().getLogger();
-
-	@Autowired
-	private MitarbeiterRepository mitarbeiterRepository;
-
-	@Autowired
-	private AdministratorenRepository administratorenRepository;
-
-	@Autowired
-	private ArbeitstagRepository arbeitstagRepository;
 
 	@Autowired
 	private MitarbeiterRepositoryInterface mitarbeiterRepositoryInterface;
