@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <html lang="en">
-    <link rel="stylesheet" href="css/style.css"">
+    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
@@ -49,6 +49,8 @@
     <script>
     console.log($.cookie("auth"));
     console.log($.cookie("userlogin"));
+    console.log($.cookie("role"));
+    console.log($.cookie("pensum"));
 	
     </script>
 
@@ -65,7 +67,7 @@
         <li class="barItem"><a class="barItem" href="http://localhost:8081/main">Home</a></li>
         <li class="barItem"><a class="barItem" href="http://localhost:8081/report">Report</a></li>
         <li class="barItem"><a class="barItem" href="http://localhost:8081/absence">Absence</a></li>
-        <li style="float:right" class="barItem"> <a onclick="deleteUserDB(); deleteMyCookies();" href="javascript:void(0)" class="barItem">Logout</a></li>
+        <li style="float:right" class="barItem"> <a href="javascript:void(0)" onclick="deleteUserDB(); deleteMyCookies();" class="barItem">Logout</a></li>
         <li style="float:right" class="barItem"> <a href="http://localhost:8081/profile" class="barItem">Profile</a> </li>
     </ul>
 
@@ -101,36 +103,12 @@
      <br><br>
 
    
-  	<script src="https://code.jquery.com/jquery-3.5.1.js"
-		integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-		crossorigin="anonymous"></script>
 
-</body>
-</html>
+
+
 
  <script>
  
-    
-    $(document).ready(function(){
-    	$.getJSON("http://localhost:8081/mitarbeiterList/", function(data){
-    		var mitarbeiter_data = '';
-    		$.each(data, function(key, value){
-    			mitarbeiter_data += '<tr>';
-    			mitarbeiter_data += '<td>'+"1000"+value.mitarbeiterID+ '</td>';
-    			mitarbeiter_data += '<td>'+value.surname+ '</td>';
-    			mitarbeiter_data += '<td>'+value.username+ '</td>';
-    			mitarbeiter_data += '<td>'+value.pensum+ '</td>';
-    			mitarbeiter_data += '<td>'+value.role+ '</td>';
-    			mitarbeiter_data += '<td>' +"<input type='button' class= 'buttonList' id='DeleteButton' onclick='CallMe(this)' value='Delete'>"+ '</td>';
-    			mitarbeiter_data += '</tr>';
-    		});
-    		$('#mitarbeiterList').append(mitarbeiter_data);	
-    		
-    	});
-    	    
-    });
-    
-
 	//Hier wird der User ausser der Loginaktivitätliste herausgelöscht. (JS/BR)
 	
 	function deleteUserDB(){
@@ -164,6 +142,29 @@ function successDeleteUser(response){
 		}
 		
 	}
-
+ 
+    
+    $(document).ready(function(){
+    	$.getJSON("http://localhost:8081/mitarbeiterList/", function(data){
+    		var mitarbeiter_data = '';
+    		$.each(data, function(key, value){
+    			mitarbeiter_data += '<tr>';
+    			mitarbeiter_data += '<td>'+"1000"+value.mitarbeiterID+ '</td>';
+    			mitarbeiter_data += '<td>'+value.surname+ '</td>';
+    			mitarbeiter_data += '<td>'+value.username+ '</td>';
+    			mitarbeiter_data += '<td>'+value.pensum+ '</td>';
+    			mitarbeiter_data += '<td>'+value.role+ '</td>';
+    			mitarbeiter_data += '<td>' +"<input type='button' class= 'buttonList' id='DeleteButton' onclick='CallMe(this)' value='Delete'>"+ '</td>';
+    			mitarbeiter_data += '</tr>';
+    		});
+    		$('#mitarbeiterList').append(mitarbeiter_data);	
+    		
+    	});
+    	    
+    });
+    
 
     </script>
+    
+</body>
+</html>
