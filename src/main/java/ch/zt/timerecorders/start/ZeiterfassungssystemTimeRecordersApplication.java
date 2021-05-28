@@ -17,7 +17,7 @@ import ch.zt.timerecorders.view.ViewsController;
 
 
 /*
- * Main Klasse wir wird die Applikation gestartet!
+ * Main Klasse hier wird die Applikation gestartet!
  */
 
 @SpringBootApplication
