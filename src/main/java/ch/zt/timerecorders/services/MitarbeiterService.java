@@ -255,6 +255,8 @@ public class MitarbeiterService {
 			}
 
 		}
+		
+		try {
 
 		if (zeiterfassungGefunden) {
 
@@ -359,6 +361,8 @@ public class MitarbeiterService {
 			timeStampRegisterChange.flush();
 			logger.info("Daten in Datenbank gespeichert!");
 
+		}}catch (Exception e) {
+			logger.info(e.toString());
 		}
 
 		return true;
