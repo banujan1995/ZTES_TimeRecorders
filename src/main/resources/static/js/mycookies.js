@@ -17,6 +17,10 @@ function createMyCookies() {
 	if (typeof $.cookie("role") === "undefined") {
 		$.cookie("role", null, { secure: true });
 	}
+	
+	if (typeof $.cookie("pensum") === "undefined") {
+		$.cookie("pensum", null, { secure: true });
+	}
 }
 
 //Hier wird der Cookie erstellt und dann wird er updated (BR) - falls nicht vorhanden. 
@@ -31,6 +35,7 @@ function deleteMyCookies() {
 	$.removeCookie("auth");
 	$.removeCookie("userlogin");
 	$.removeCookie("role");
+	$.removeCookie("pensum");
 }
 
 //Hier wird der Value des Cookies abgefragt! (BR)

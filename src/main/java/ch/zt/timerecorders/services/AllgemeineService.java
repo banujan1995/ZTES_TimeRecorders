@@ -87,6 +87,36 @@ public class AllgemeineService {
 
 	}
 	
+	//https://qastack.com.de/programming/30895286/spring-mvc-how-to-return-simple-string-as-json-in-rest-controller
+		@GetMapping(path = "/timerecorders/pensumOfWorker/{username}/", produces = "application/json")
+		public Map<String, String> getPensumOfWorker(@PathVariable String username) {
+
+			logger.info("komme in die AllgemeineService");
+
+			String pensum = "";
+			List<MitarbeiterRegister> ma = mitarbeiterRepositoryInterface.findAll();
+
+			for (MitarbeiterRegister ml : ma) {
+				if (ml.getUsername().equalsIgnoreCase(username)) {
+
+					pensum = ml.getPensum();
+					logger.info("Pensum des Mitarbeiters gefunden.");
+					logger.info("Pensum" + pensum);
+					System.out.println(pensum);
+					break;
+
+				} else {
+
+					logger.info("Pensum des Mitarbeiters nicht gefunden.");
+				}
+
+			}
+			
+			return Collections.singletonMap(pensum, pensum);
+		
+
+		}
+	
 	
 	
 	

@@ -77,6 +77,7 @@
     <table id ="mitarbeiter" class="reporttable"  border="1" style="position: relative; margin: auto; text-align: center;">
              <tr>
                  <th>Working <br> Day</th>
+                  <th>Reason</th>
                 <th>Morning <br>Start Hours</th>
                 <th>Morning <br>End Hours</th>
                 <th>Afternoon <br>Start Hours</th>
@@ -150,7 +151,7 @@
     	  var input, filter, table, tr, td, i, txtValue;
     	  input = document.getElementById("myInput");
     	  filter = input.value.toUpperCase();
-    	  table = document.getElementById("januar");
+    	  table = document.getElementById("mitarbeiter");
     	  tr = table.getElementsByTagName("tr");
     	  for (i = 0; i < tr.length; i++) {
     	    td = tr[i].getElementsByTagName("td")[0];
@@ -218,6 +219,7 @@
     			
     			mitarbeiter_data += '<tr>';
     			var date = mitarbeiter_data += '<td>'+value.date+ '</td>';
+    			var grund = mitarbeiter_data += '<td>'+value.grund+ '</td>';
     			var morningstartHours = mitarbeiter_data += '<td>'+minTwoDigits(value.morningstartHours)+ ":" +minTwoDigits(value.morningStartMinDeci*60)+ '</td>';
     			var morningEndHours = mitarbeiter_data += '<td>'+minTwoDigits(value.morningEndHours)+ ":" +minTwoDigits(value.morningEndMinDeci*60)+'</td>';
     			var afternoonStartHours = mitarbeiter_data += '<td>'+minTwoDigits(value.afternoonStartHours)+":" +minTwoDigits(value.afternoonStartMinDeci*60)+'</td>';
