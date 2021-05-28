@@ -47,15 +47,17 @@ public class UserLoginActivityService {
 	@Autowired
 	private LoginUserActivityRegisterInterface loginUserActivityRegisterInterface;
 
+	
 	/*
-	 * Wir holen wir den User anhand der IPAdresse. (BR)
+	 * Hier wird die Liste der aktiven Mitarbeiter zurückgegeben. (BR)
 	 */
+	
 	@ResponseBody
 	@GetMapping(path = "/timerecorders/getUserOnlineList/", produces = "application/json")
 	public List<LoginUserActivityRegister> getUserByIP() { // Filter Framework
 
 		List<LoginUserActivityRegister> userOnline = loginUserActivityRegisterInterface.findAll();
-		logger.info(userOnline.toString() + "User Online wurden übergeben");
+		logger.info("User Online wurden übergeben");
 
 		return userOnline;
 	}
@@ -66,13 +68,12 @@ public class UserLoginActivityService {
 
 	@PostMapping(path = "/timerecorders/registeruser/", produces = "application/json")
 	public boolean registerUser(@RequestBody MessageLoginUserActivity registeruser) {
-		logger.info("Mitarbeiter ist eingeloggt - wurde in der AktivitätsOnlineListe aufgenommen");
+		logger.info("Mitarbeiter ist eingeloggt und wurde in der Aktivitätsliste aufgenommen");
 
 		boolean notRegistered = false;
 
 		List<LoginUserActivityRegister> userOnlineList = loginUserActivityRegisterInterface.findAll();
 		LoginUserActivityRegister newUser = new LoginUserActivityRegister();
-		System.out.println("Die Grösse der Liste beträgt " + userOnlineList.size());
 
 		if (userOnlineList.size() != 0) {
 			for (int i = 0; i < userOnlineList.size(); i++) {
@@ -107,7 +108,7 @@ public class UserLoginActivityService {
 	}
 
 
-	// User loggt sich aus und wird von der Liste entfernt(BR)
+	//User loggt sich aus und wird von der Liste entfernt(BR)
 
 		@PostMapping(path = "/timerecorders/deleteuser/", produces = "application/json")
 		public boolean deleteUser(@RequestBody MessageLoginUserActivity deleteuser) {
@@ -117,8 +118,6 @@ public class UserLoginActivityService {
 
 
 			List<LoginUserActivityRegister> userOnline = loginUserActivityRegisterInterface.findAll();
-			
-			System.out.println("Kommt hier rein - deleteuser");
 
 			for (LoginUserActivityRegister activeUser : userOnline) {
 				if (activeUser.getUsername() == null)
