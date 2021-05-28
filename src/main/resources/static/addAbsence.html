@@ -110,23 +110,25 @@
                 "minDate": "01/01/2021",
                 "opens": "center",
                 "drops": "down", 
+
                 locale: { 
                     cancelLabel: 'Clear',
+                    "firstDay" : 01,
                     daysOfWeek: [
+                    "Su",
                     "Mo",
                     "Tu",
                     "We",
                     "Th",
                     "Fr",
-                    "Sa",
-                    "Su"
+                    "Sa"  
                     ], 
-                    format: "ddd MMM DD YYYY"
+                    format: "ddd MMM DD YYYY",
+
                 },
                 // Deaktiviert Samstag und Sonntag 
                 isInvalidDate: function(date) {
-                return (date.day() == 5 || date.day() == 6)
-
+                return (date.day() == 6 || date.day() == 0)
                 },
 
 
