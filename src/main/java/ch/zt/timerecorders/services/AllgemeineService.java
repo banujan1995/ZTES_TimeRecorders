@@ -27,6 +27,7 @@ import ch.zt.timerecorders.start.TimeStampRegisterChangeInterface;
 /**
  * 
  * @author Banujan Ragunathan
+ * @author Kiren Gondal
  *
  */
 @RestController // Annotation für Restservice für Framework (BR)
@@ -54,14 +55,12 @@ public class AllgemeineService {
 
 	/*
 	 * Hier wird ausfindig gemacht, ob Mitarbeiter die Adminfunktion haben darf oder
-	 * nicht (BR)
+	 * nicht und dazu wird er über diese Funktion den weiteren Klasse gegeben.(BR)
 	 */
 
-	//https://qastack.com.de/programming/30895286/spring-mvc-how-to-return-simple-string-as-json-in-rest-controller
+	// https://qastack.com.de/programming/30895286/spring-mvc-how-to-return-simple-string-as-json-in-rest-controller
 	@GetMapping(path = "/timerecorders/roleofworker/{username}/", produces = "application/json")
 	public Map<String, String> getRoleOfWorker(@PathVariable String username) {
-
-		logger.info("komme in die AllgemeineService");
 
 		String role = "";
 		List<MitarbeiterRegister> ma = mitarbeiterRepositoryInterface.findAll();
@@ -71,8 +70,6 @@ public class AllgemeineService {
 
 				role = ml.getRole();
 				logger.info("Rolle des Mitarbeiters gefunden.");
-				logger.info("Rolle" + role);
-				System.out.println(role);
 				break;
 
 			} else {
@@ -81,44 +78,38 @@ public class AllgemeineService {
 			}
 
 		}
-		
+
 		return Collections.singletonMap(role, role);
-	
 
 	}
-	
-	//https://qastack.com.de/programming/30895286/spring-mvc-how-to-return-simple-string-as-json-in-rest-controller
-		@GetMapping(path = "/timerecorders/pensumOfWorker/{username}/", produces = "application/json")
-		public Map<String, String> getPensumOfWorker(@PathVariable String username) {
 
-			logger.info("komme in die AllgemeineService");
+	/*
+	 * Hier wird das Pensum des Mitarbeiters als Service an den anderen Klassen
+	 * übergeben (KG).
+	 */
 
-			String pensum = "";
-			List<MitarbeiterRegister> ma = mitarbeiterRepositoryInterface.findAll();
+	// https://qastack.com.de/programming/30895286/spring-mvc-how-to-return-simple-string-as-json-in-rest-controller
+	@GetMapping(path = "/timerecorders/pensumOfWorker/{username}/", produces = "application/json")
+	public Map<String, String> getPensumOfWorker(@PathVariable String username) {
 
-			for (MitarbeiterRegister ml : ma) {
-				if (ml.getUsername().equalsIgnoreCase(username)) {
+		String pensum = "";
+		List<MitarbeiterRegister> ma = mitarbeiterRepositoryInterface.findAll();
 
-					pensum = ml.getPensum();
-					logger.info("Pensum des Mitarbeiters gefunden.");
-					logger.info("Pensum" + pensum);
-					System.out.println(pensum);
-					break;
+		for (MitarbeiterRegister ml : ma) {
+			if (ml.getUsername().equalsIgnoreCase(username)) {
 
-				} else {
+				pensum = ml.getPensum();
+				logger.info("Pensum des Mitarbeiters gefunden.");
+				break;
 
-					logger.info("Pensum des Mitarbeiters nicht gefunden.");
-				}
-
+			} else {
+				logger.info("Pensum des Mitarbeiters nicht gefunden.");
 			}
-			
-			return Collections.singletonMap(pensum, pensum);
-		
 
 		}
-	
-	
-	
-	
+
+		return Collections.singletonMap(pensum, pensum);
+
+	}
 
 }
