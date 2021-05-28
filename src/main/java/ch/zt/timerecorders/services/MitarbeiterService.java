@@ -172,55 +172,24 @@ public class MitarbeiterService {
 		return absence;
 
 	}
+	
 
-//	// Ferien erfassen (KG)
-//	@PostMapping(path = "/addAbsence/", produces = "application/json")
-//	public boolean addAbsence(@RequestBody MessageAddAbsence a) {
-//
-//		AddAbsence a1 = new AddAbsence();
-//		a1.setPeriod(a.getPeriod());
-//		a1.setReason(a.getReason());
-//		a1.setAnzahlTage(a.getAnzahlTage());
-//
-//		absenceRepo.save(a1); // beim Speichern wird eine ID automatisch vergeben
-//		logger.info("Ferien erfolgreich erfasst");
-//		return true;
-//
-//	}
+	//Ferien erfassen (KG)
+	@PostMapping(path = "/addAbsence/", produces = "application/json")
+	public boolean addAbsence(@RequestBody MessageAddAbsence a) {
 
-	// Delete Absence (KG)
+		AddAbsence a1 = new AddAbsence();
+		a1.setPeriod(a.getPeriod());
+		a1.setAnzahlTage(a.getAnzahlTage());
+		a1.setGrund(a.getGrund());
 
-	@PostMapping(path = "/deleteAbsenzen/", produces = "application/json")
-	public boolean deleteMA(@RequestBody MessageAddAbsence a) {
+		absenceRepo.save(a1); // beim Speichern wird eine ID automatisch vergeben
+		logger.info("Ferien erfolgreich erfasst");
+		return true;
 
-		boolean absenceFound = false;
-
-		List<AddAbsence> ab = absenceRepo.findAll();
-
-		System.out.println("Kommt rein");
-
-		for (AddAbsence a1 : ab) {
-			if (a1.getMitarbeiterID() == null)
-				return absenceFound = false;
-
-			a1.setPeriod("");
-			a1.setReason("");
-			a1.setAnzahlTage("");
-
-			ab.remove(a1);
-
-			absenceRepo.save(a1);
-
-			logger.info("Absence wurde gelöscht");
-			return absenceFound = true;
-		}
-
-		return absenceFound;
 	}
 
-	// Mitarbeiter mutieren von MA zu AD (BR)
 
-	// Mitarbeiter löschen (BR)
 
 	/**
 	 * Mitarbeiter verändern (BR) - je nach Daten eine anderen Code nötig

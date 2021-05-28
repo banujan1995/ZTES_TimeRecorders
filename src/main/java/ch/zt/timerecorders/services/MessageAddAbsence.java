@@ -10,7 +10,7 @@ public class MessageAddAbsence {
 
 	
 	public Long mitarbeiterID;	
-	public String reason;
+	public String grund;
 	private String period;
 	private String anzahlTage;
 	
@@ -22,11 +22,11 @@ public class MessageAddAbsence {
 		this.mitarbeiterID = mitarbeiterID;
 	}
 	
-	public String getReason() {
-		return reason;
+	public String getGrund() {
+		return grund;
 	}
-	public void setReason(String reason) {
-		this.reason = reason;
+	public void setGrund(String grund) {
+		this.grund = grund;
 	}
 	public String getPeriod() {
 		return period;

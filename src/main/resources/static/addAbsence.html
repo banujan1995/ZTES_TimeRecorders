@@ -201,9 +201,17 @@
             document.getElementById("addAbsence_numberOfDays").innerHTML ="";
         }
         
-        // fügt Absence hinzu & zeigt eine Erfolgsmeldung an JS/BR)
+        // fügt Absence hinzu & zeigt eine Erfolgsmeldung an (JS/BR/KG)
         function addAbsence(){
+
+
+        	var firstdayOfAbsence = document.getElementById('daterange').value.substring(0, 15); 
+        	var lastdayOfAbsende = document.getElementById('daterange').value.substring(18, 33);
+        	//Format Mon April 26 2021 - Mon April 29 2021
+            daysBetween = getDatesInArray(firstdayOfAbsence.toString(), lastdayOfAbsende.toString());
       		
+        	if (validUserInput) { 
+
         	var username = $.cookie("userlogin");
         	var grund = document.getElementById('absenceReason').value;
         	
@@ -222,17 +230,30 @@
         	
         	var period = document.getElementById('daterange').value;
         	var anzahlTage = document.getElementById("addAbsence_numberOfDays").innerHTML;
-        	var firstdayOfAbsence = document.getElementById('daterange').value.substring(0, 15); 
-        	var lastdayOfAbsende = document.getElementById('daterange').value.substring(18, 33);
         	
-            
-            //Format Mon April 26 2021 - Mon April 29 2021
-            var daysBetween = getDatesInArray(firstdayOfAbsence.toString(), lastdayOfAbsende.toString());
-            if (validUserInput) { 
-			
-           for (var x = 0; x <= anzahlTage;  x++) {
-
-        	   var date = daysBetween[x].toString().substring(0,15);
+        	    
+                $.ajax({
+                   	type : "POST",
+                   	url : "http://localhost:8081/addAbsence/",
+                   	data : JSON.stringify({
+                   	period : period,
+                   	grund : grund, 
+                   	anzahlTage : anzahlTage
+                   	}),
+                   	success : successRegisterAbsence,
+                   	dataType : 'json',
+                   	contentType : 'application/json'
+                   	});
+                
+               
+                 
+           for (var x = 0; x <= anzahlTage;  x++) 
+           {
+        	    
+        	    var date = daysBetween[x].toString().substring(0,15);
+        	    console.log(date);
+        	    
+        	    
 
             $.ajax({
 				type : "POST", 
@@ -258,10 +279,36 @@
 				dataType : 'json',
 				contentType : 'application/json'
 			}); 
+            
+            
+
            }
-        
+          
+            }
+          
         }
-    }
+             
+    
+        function successRegisterAbsence(response){
+
+        	if(response == true){
+        		var period = document.getElementById('daterange').value;
+            	var anzahlTage = document.getElementById("addAbsence_numberOfDays").innerHTML;
+            	var grund = document.getElementById('absenceReason').value;
+        		
+
+        		var message = ("Dear User\n\nFollowing absence has been added:\n\nReason: "+grund+"\nPeriod: "+period+"\nNumber of working days: "+anzahlTage)
+        		alert(message);
+        		reset();
+        		window.location.href = "http://localhost:8081/absence";
+			
+        	}else {
+        		var message = ("Dear User\n\nFollowing absence has been not added:\n\n")
+        		alert(message);
+        	
+        	}
+
+        }
       
         //Überprüft, ob nötige Auswahl getroffen wurde
         function validUserInput(){

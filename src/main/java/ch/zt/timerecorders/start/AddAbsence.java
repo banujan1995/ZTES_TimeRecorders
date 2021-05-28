@@ -19,16 +19,16 @@ public class AddAbsence {
     @GeneratedValue(strategy=GenerationType.AUTO)
 		
 	public Long mitarbeiterID;	
-	public String reason;
+	public String grund;
 	private String period;
 	private String anzahlTage;
 	
 
 	
-	public AddAbsence(Long mitarbeiterID, String reason, String period, String anzahlTage) {
+	public AddAbsence(Long mitarbeiterID, String grund, String period, String anzahlTage) {
 		super();
 		this.mitarbeiterID = mitarbeiterID;
-		this.reason = reason;
+		this.grund = grund;
 		this.period = period;
 		this.anzahlTage = anzahlTage;
 	}
@@ -45,12 +45,12 @@ public class AddAbsence {
 		this.mitarbeiterID = mitarbeiterID;
 	}
 
-	public String getReason() {
-		return reason;
+	public String getGrund() {
+		return grund;
 	}
 
-	public void setReason(String reason) {
-		this.reason = reason;
+	public void setGrund(String grund) {
+		this.grund = grund;
 	}
 
 	public String getPeriod() {
