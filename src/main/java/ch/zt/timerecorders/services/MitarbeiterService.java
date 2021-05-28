@@ -25,7 +25,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import ch.zt.timerecorders.persistence.MitarbeiterRepository;
+import ch.zt.timerecorders.persistence.MessageAddAbsence;
+import ch.zt.timerecorders.persistence.MessageMaRegister;
+import ch.zt.timerecorders.persistence.MessageTimeStamp;
 import ch.zt.timerecorders.start.AddAbsence;
 import ch.zt.timerecorders.start.AddAbsenceRepositoryInterface;
 import ch.zt.timerecorders.start.MitarbeiterRegister;

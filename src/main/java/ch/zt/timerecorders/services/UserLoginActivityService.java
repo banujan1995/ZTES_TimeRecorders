@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import ch.zt.timerecorders.persistence.MitarbeiterRepository;
+import ch.zt.timerecorders.persistence.MessageLoginUserActivity;
 import ch.zt.timerecorders.start.LoginUserActivityRegister;
 import ch.zt.timerecorders.start.LoginUserActivityRegisterInterface;
 import ch.zt.timerecorders.start.MitarbeiterRegister;

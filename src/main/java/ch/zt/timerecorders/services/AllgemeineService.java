@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import ch.zt.timerecorders.persistence.MitarbeiterRepository;
 import ch.zt.timerecorders.start.AddAbsenceRepositoryInterface;
 import ch.zt.timerecorders.start.MitarbeiterRegister;
 import ch.zt.timerecorders.start.MitarbeiterRepositoryInterface;
@@ -32,11 +31,7 @@ import ch.zt.timerecorders.start.TimeStampRegisterChangeInterface;
 public class AllgemeineService {
 
 	Logger logger = ServiceLocator.getServiceLocator().getLogger();
-
-	@Autowired
-	private MitarbeiterRepository mitarbeiterRepository;
-
-
+	
 	@Autowired
 	private MitarbeiterRepositoryInterface mitarbeiterRepositoryInterface;
 
