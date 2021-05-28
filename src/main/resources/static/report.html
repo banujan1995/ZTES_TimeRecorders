@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css"">
+    <link rel="stylesheet" href="css/style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.debug.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -34,6 +34,8 @@
     <script>
     console.log($.cookie("auth"));
     console.log($.cookie("userlogin"));
+    console.log($.cookie("role"));
+    console.log($.cookie("pensum"));
 	
     </script>
 
@@ -64,37 +66,34 @@
     </div>
     
 
+       <div id="startOfExport" style="display: block; text-align: center;width: 100%;">
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search by year/month/day..." style="min-width: 200px; text-align: center;" title="Type in e.g. Mar" maxlength="4">
+    </div>
+ 
+ 
+    <br>
+    <br>
+    <div id="startOfExport" style="display: block; text-align: center;width: 100%;">
+    <table id ="mitarbeiter" class="reporttable"  border="1" style="position: relative; margin: auto; text-align: center;">
+             <tr>
+                 <th>Working <br> Day</th>
+                <th>Morning <br>Start Hours</th>
+                <th>Morning <br>End Hours</th>
+                <th>Afternoon <br>Start Hours</th>
+                <th>Afternoon <br>End Hours</th>
+                <th>Target  <br> Time </th>
+                 <th>Overhours</th>
+              </tr>
+            <tbody>
+            </tbody>
+        </table>
+        </div>
+     <br>
+    <br>
+    <br>
+    <br>
    
 
-<div id="startOfExport" style="display: block; text-align: center;width: 100%;">
- <table id ="mitarbeiter" class="reporttable"cellspacing="0" cellpadding="0" border="1" style="position: relative; margin: auto; text-align: center;">
- 
-  <br>
-    <br>
- 
- <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search by year/month/day..." title="Type in e.g. Mar" maxlength="4">
- 
-  <br>
-    <br>
-			 <tr>
-			     <th>Working <br> Day</th>
-			    <th>Morning <br>Start Hours</th>
-			    <th>Morning <br>End Hours</th>
-			    <th>Afternoon <br>Start Hours</th>
-			    <th>Afternoon <br>End Hours</th>
-			    <th>Target  <br> Time </th>
-			     <th>Overhours</th>
-			  </tr>
-			<tbody>
-			</tbody>
-		</table>
-		</div>
-	 <br>
-    <br>
-		 </input>
-		 <br>
-    <br>
-	
 		
 		
 		      <div style="display: block; text-align: center;width: 100%;">
@@ -106,6 +105,43 @@
     
 
     <script>
+    
+    //Hier wird der User ausser der Loginaktivitätliste hervar username = $.cookie("userlogin").toString(); ausgelöscht. (JS/BR)
+
+    function deleteUserDB() {
+
+    	var username = $.cookie("userlogin").toString(); 
+
+        console.log("Bin in der Funktion deleteUserDB" + username.name);
+
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8081/timerecorders/deleteuser/",
+            data: JSON.stringify({
+
+                username: username,
+
+            }),
+            success: successDeleteUser,
+            dataType: 'json',
+            contentType: 'application/json'
+        });
+        console.log("Ich gehe raus");
+        window.location.href = "http://localhost:8081/login";
+
+    }
+
+    function successDeleteUser(response) {
+
+        if (response) {
+            console.log("Sucessful: delete active user");
+        } else {
+            console.log("Unsucessful: delete active user");
+        }
+
+    }
+
+    
     // (KG)
     //Filter Report: nach Monat (Jan, Feb, Mar, Apr, May, Jun, Juli, Aug, Sept, Oct, Nov, Dez)
     //full credits: https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_filter_table
@@ -165,52 +201,7 @@
             }
         };
 
-        
-
-        //Hier wird der User ausser der Loginaktivitätliste herausgelöscht. (JS/BR)
-
-        function deleteUserDB() {
-
-            var ip = userIPAdress.ipAdress;
-            var username = "kireng";
-
-            console.log("Bin in der Funktion deleteUserDB" + username.name);
-
-            $.ajax({
-                type: "POST",
-                url: "http://localhost:8081/timerecorders/deleteuser/",
-                data: JSON.stringify({
-
-                    ip: ip,
-                    username: username,
-
-                }),
-                success: successDeleteUser,
-                dataType: 'json',
-                contentType: 'application/json'
-            });
-            console.log("Ich gehe raus");
-            window.location.href = "http://localhost:8081/login";
-
-        }
-
-        function successDeleteUser(response) {
-
-            if (response) {
-                console.log("Sucessful: delete active user");
-            } else {
-                console.log("Unsucessful: delete active user");
-            }
-
-        }
-
-        window.onload = function (){
-            getAndSafeIP();
-        }
-        
-    </script>
-    
-    <script>
+       
 
 	//KG: Report Darstellung und Inhalte aus DB
 	var username = $.cookie("userlogin");
