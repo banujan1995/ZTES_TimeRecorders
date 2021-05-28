@@ -8,7 +8,7 @@ public class MessageLoginUserActivity {
 	 */
 
 	/*
-	 * Hier werden die Daten über ein Interface an den Datenbank übergeben. Dazu benötigt es die Klasse Message (BR)
+	 * Hier werden die Daten über ein Interface an den Datenbank übergeben. Dazu benötigt es die Klasse Message (BR).
 	 */
 
 	private int erfassteOnlineUser; 
