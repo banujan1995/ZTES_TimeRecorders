@@ -133,7 +133,7 @@
         function addEmployee(){
         	console.log("kommt in addEmployee");
 
-            if (validUserInput()) {
+            if (validUserInput() && textInputRestriction()) {
             var surname = document.getElementById("addEmployee_givenname").value;
             var familyname = document.getElementById("addEmployee_familyname").value;
             var username = document.getElementById("addEmployee_username").value;
@@ -292,6 +292,22 @@
             return true;
 
         }
+
+        function textInputRestriction(){
+
+            var username = document.getElementById("addEmployee_username").value;
+            var password = document.getElementById("addEmployee_password").value;
+            var passwordRepeat = document.getElementById("addEmployee_repeatPassword").value;
+
+            while (username.length < 3 || password.length < 3 || passwordRepeat.length < 3 ) {
+
+            var message = ("Dear Admin \n\nPlease be aware that username & password \nrequire a minimum of 3 characters!!\n\nThank you");
+                alert(message);
+            return false;
+
+            }
+            return true;
+        }  
 
         function backToEmployeeList(){
             window.location.href = "http://localhost:8081/employeeList";

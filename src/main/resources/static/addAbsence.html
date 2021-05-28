@@ -69,12 +69,12 @@
     <table id="table" class="addAbsenceTable" style="position: relative; margin: auto; width: 50px;"> 
         <tr style="background-color: whitesmoke">
             <th> Period: </th>
-            <td style="text-align: center; min-width: 235px; height: 65px;"> <input style="min-width: 200;" type="text" name="daterange" id="daterange" value=" "></td>
+            <td style="text-align: center; min-width: 300px; height: 65px;"> <input style="min-width: 280px; text-align: center;" type="text" name="daterange" id="daterange" ></td>
         </tr>
         <tr style="background-color: whitesmoke">
             <th style="text-align: center; min-width: 175px; height: 65px;"> Reason: </th>
             <td style="text-align: center; min-width: 235px; height: 65px;"> 
-                <select id="absenceReason" style="min-width: 200px; align-content: center;"> 
+                <select id="absenceReason" style="min-width: 280px;"> 
                     <option class = "options">Please select:</option>
                     <option class = "options">Holidays</option>
                     <option class = "options">Relocation</option>
@@ -121,6 +121,7 @@
                     "Sa",
                     "Su"
                     ], 
+                    format: "ddd MMM DD YYYY"
                 },
                 // Deaktiviert Samstag und Sonntag 
                 isInvalidDate: function(date) {
@@ -129,7 +130,7 @@
                 },
 
 
-               /* // deaktiviert die genannten Tage (gesetzliche Feiertage)
+               /*// deaktiviert die genannten Tage (gesetzliche Feiertage)
                //TOOD: Feiertage deaktivieren
                 isInvalidDate: function(date) {
                     var dateList = [
@@ -153,7 +154,7 @@
             });
 
             $('#daterange').on('apply.daterangepicker', function(ev, picker) {
-                 $(this).val(picker.startDate.format('DD/MM/YYYY') + ' - ' + picker.endDate.format('DD/MM/YYYY'));
+                 $(this).val(picker.startDate.format('ddd MMM DD YYYY') + ' - ' + picker.endDate.format('ddd MMM DD YYYY'));
                 
 
                 // Berechnung Anzahl Tage (JS)
