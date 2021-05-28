@@ -11,9 +11,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import ch.zt.timerecorders.persistence.Administrator;
-import ch.zt.timerecorders.persistence.AdministratorenRepository;
-import ch.zt.timerecorders.persistence.ArbeitstagRepository;
 import ch.zt.timerecorders.persistence.MitarbeiterRepository;
 
 import ch.zt.timerecorders.view.ViewsController;
