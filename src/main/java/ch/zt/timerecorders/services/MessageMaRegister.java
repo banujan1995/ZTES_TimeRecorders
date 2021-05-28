@@ -8,19 +8,23 @@ import java.util.Date;
  *
  */
 
+/*
+ * Hier werden die Daten über ein Interface an den Datenbank übergeben. Dazu
+ * benötigt es die Klasse Message (KG)
+ */
+
 public class MessageMaRegister {
-	
+
 	private Long mitarbeiterId;
-	
+
 	public String surname;
 	public String familyname;
 	public String username;
 	public String passwort;
 	public String pensum;
-	public String role; 
+	public String role;
 	public String workingDays;
 
-	
 	public Long getMitarbeiterId() {
 		return mitarbeiterId;
 	}

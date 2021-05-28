@@ -7,7 +7,7 @@ public class MessageTimeStamp {
 	 * @author Kiren Gondal (DB System)
 	 */
 	/*
-	 * Hier werden die Daten übernommen für den Datenbank - Input für den Interface (BR). 
+	 * Hier werden die Daten über ein Interface an den Datenbank übergeben. Dazu benötigt es die Klasse Message (BR)
 	 */
 
 	private long TAGESID;
