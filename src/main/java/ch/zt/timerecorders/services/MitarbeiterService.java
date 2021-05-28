@@ -253,12 +253,8 @@ public class MitarbeiterService {
 				zeiterfassungGefunden = false;
 
 			}
-
 		}
-<<<<<<< HEAD
-=======
-		
->>>>>>> branch 'BR_class_services' of https://github.com/banujan1995/ZTES_TimeRecorders.git
+
 		try {
 
 		if (zeiterfassungGefunden) {
