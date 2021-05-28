@@ -42,13 +42,12 @@ import ch.zt.timerecorders.start.TimeStampRegisterChangeInterface;
  */
 
 /*
- * Hier werden alle Service betreffend dem Mitarbeiter angeboten. Diese werden über den Pfad von der Webapplikation geholt und 
- * bei einer Funktion verwendet. (BR/KG) 
+ * Hier werden alle Service betreffend dem Mitarbeiter angeboten. Diese werden
+ * über den Pfad von der Webapplikation geholt und bei einer Funktion verwendet.
+ * (BR/KG)
  */
 
-
-
-@RestController 
+@RestController
 public class MitarbeiterService {
 
 	Logger logger = ServiceLocator.getServiceLocator().getLogger();
@@ -61,7 +60,7 @@ public class MitarbeiterService {
 
 	@Autowired
 	private AddAbsenceRepositoryInterface absenceRepo;
-	
+
 	/*
 	 * Instanzvariablen für die TagesIDCreator
 	 */
@@ -69,7 +68,6 @@ public class MitarbeiterService {
 	protected int monat;
 	protected int jahr;
 
-	
 	/*
 	 * Hier wird der Counter geführt, welcher für die Methode ins DB-Speichern
 	 * dient. (BR)
@@ -78,15 +76,10 @@ public class MitarbeiterService {
 	private int counterY = 0;
 
 	/**
-	 * Methoden Annotation (BR) - MIT GET MIT PARAMETER - Rückgabewert JSON Methode
-	 * für den HTTP Request - nicht BusinessLogic (BR)
-	 */
-
-	/**
 	 * CRUD Methoden, um Mitarbeiter zu erfassen, mutieren, verändern, löschen (BR)
 	 */
 
-	// Mitarbeiter erstellen KG
+	// Mitarbeiter erstellen (KG)
 
 	@PostMapping(path = "/addEmployee/", produces = "application/json")
 	public long createNewMa(@RequestBody MessageMaRegister m) {
@@ -101,12 +94,12 @@ public class MitarbeiterService {
 		m1.setWorkingDays(m.getWorkingDays());
 
 		m1 = mitarbeiterRepositoryInterface.save(m1); // beim Speichern wird eine MAId automatisch vergeben
-		logger.info("MA erfolgreich hinzugefügt");
+		logger.info("Mitarbeiter mit oder ohne Adminfunktion erfolgreich hinzugefügt");
 		return m1.getMitarbeiterID();
 
 	}
 
-	// KG: MA Liste erstellen als JSON
+	// MA Liste erstellen als JSON (KG)
 	@ResponseBody
 	@GetMapping(path = "/mitarbeiterList/", produces = "application/json")
 	public List allMA() {
@@ -117,7 +110,7 @@ public class MitarbeiterService {
 
 	}
 
-	// KG: Change Username
+	// Change Username (KG)
 	@PostMapping(path = "/changeUsername/", produces = "application/json")
 	public boolean changeUsername(@RequestBody MessageMaRegister m) {
 
@@ -151,7 +144,7 @@ public class MitarbeiterService {
 				logger.info("Passwort wurde geändert!");
 				return true;
 			} else {
-				logger.info("Mitarbeiter nicht vorhanden");
+				logger.info("Passwort wurde nicht geändert!");
 
 			}
 
@@ -159,64 +152,14 @@ public class MitarbeiterService {
 		return false;
 	}
 
-	// Liste der erfassten Ferien als JSON (KG)
-	@ResponseBody
-	@GetMapping(path = "/erfassteFerien/", produces = "application/json")
-	public List addedAbsence() {
-		List<AddAbsence> absence = absenceRepo.findAll();
-		logger.info(absence.toString() + "Erfasste Ferien werden übergeben");
-		return absence;
-
-	}
-	
-
-	//Ferien erfassen (KG)
-	@PostMapping(path = "/addAbsence/", produces = "application/json")
-	public boolean addAbsence(@RequestBody MessageAddAbsence a) {
-
-		AddAbsence a1 = new AddAbsence();
-		a1.setPeriod(a.getPeriod());
-		a1.setAnzahlTage(a.getAnzahlTage());
-		a1.setGrund(a.getGrund());
-
-		absenceRepo.save(a1); // beim Speichern wird eine ID automatisch vergeben
-		logger.info("Ferien erfolgreich erfasst");
-		return true;
-
-	}
-
-
-
 	/**
-	 * Mitarbeiter verändern (BR) - je nach Daten eine anderen Code nötig
+	 * Allgemeine internen Funktionen Funktionen für Mitarbeiter, welche von
+	 * Webapplikation aufgeruft werden auf dem Webapplikation (BR)
 	 */
 
-	// Veränderung Name (BR)
-
-	// Veränderung Vorname (BR)
-
-	// Veränderung Tagessollstunden (BR)
-
-	/**
-	 * Allgemeine internen Funktionen
-	 */
-
-	// Mitarbeiter Liste auslesen (KG)
-
-//	@GetMapping(path = "/timerecorders/erfasstemitarbeiter", produces = "application/json")
-//	public List<Mitarbeiter> getlistMitarbeiter() { // Filter Framework
-//		logger.info("Liste erfasste Mitarbeiter geladen");
-//		return mitarbeiterRepository.getMitarbeiterList();
-//
-//	}
-
-	// Mitarbeiter Zeitregister auslesen(BR)
-
-	// Mitarbeiter einzelne Zeitelement auslesen
-
-	/**
-	 * Funktionen für Mitarbeiter, welche von Mitarbeiter aufgeruft werden auf der
-	 * Webapplikation (BR)
+	/*
+	 * Dieser Service wird verwendet, damit sich der Mitarbeiter oder Administrator
+	 * einloggen. (KG)
 	 */
 
 	@PostMapping(path = "/timerecorders/mitarbeiterlogin/", produces = "application/json")
@@ -239,10 +182,30 @@ public class MitarbeiterService {
 
 	}
 
-	/*
-	 * Mitarbeiter Zeiterfassung (BR), Die Methode soll den korrekten Tag anhand der
-	 * TagesID ins DB speichern.
-	 */
+	// Liste der erfassten Ferien als JSON (KG)
+	@ResponseBody
+	@GetMapping(path = "/erfassteFerien/", produces = "application/json")
+	public List addedAbsence() {
+		List<AddAbsence> absence = absenceRepo.findAll();
+		logger.info("Die Liste mit der Absenzen wurde geholt!");
+		return absence;
+
+	}
+
+	// Ferien erfassen (KG)
+	@PostMapping(path = "/addAbsence/", produces = "application/json")
+	public boolean addAbsence(@RequestBody MessageAddAbsence a) {
+
+		AddAbsence a1 = new AddAbsence();
+		a1.setPeriod(a.getPeriod());
+		a1.setAnzahlTage(a.getAnzahlTage());
+		a1.setGrund(a.getGrund());
+
+		absenceRepo.save(a1); // beim Speichern wird eine ID automatisch vergeben
+		logger.info("Ferien erfolgreich erfasst");
+		return true;
+
+	}
 
 	/*
 	 * Hier wird die Liste geholt aus dem Datenbank und wird als Json angezeigt.
@@ -252,10 +215,16 @@ public class MitarbeiterService {
 	@GetMapping(path = "/timerecorders/timestamps/", produces = "application/json")
 	public List allTimeStamps() {
 		List<TimeStampRegisterChange> time = timeStampRegisterChange.findAll();
-		logger.info(time.toString() + "TimeStamps wurden übergeben");
+		logger.info("TimeStamps wurden übergeben");
 		return time;
 
 	}
+
+	/*
+	 * Hier wird die komplexe Methode Daten von der Webapplikation im Datenbank
+	 * speichern. (BR) Dabei wird beachtet, ob die Liste leer ist oder ob die die
+	 * Erfassung bereits gibt oder nicht.
+	 */
 
 	@PostMapping(path = "/timerecorders/zeiterfassung/", produces = "application/json")
 	public boolean zeitenInServer(@RequestBody MessageTimeStamp zeiterfassung) {
@@ -275,7 +244,6 @@ public class MitarbeiterService {
 			if (localDate.equalsIgnoreCase(tagesIDGenerator(zeiterfassung.getDate()) + "")) {
 				zeiterfassungGefunden = true;
 				foundPlace = counterY;
-				System.out.println(foundPlace + "");
 				break;
 
 			} else {
@@ -299,8 +267,6 @@ public class MitarbeiterService {
 
 			// Datum
 			timeStamps.get(foundPlace).setDate(zeiterfassung.getDate());
-			System.out.println("++++++++++++++++++++++++++++++++++++++");
-			System.out.println(zeiterfassung.getDate());
 
 			// Hier wird der Grund direkt gesetzt.
 			timeStamps.get(foundPlace).setGrund(zeiterfassung.getGrund());
@@ -350,12 +316,12 @@ public class MitarbeiterService {
 			// Targettime
 			timeStamp.setTargettime(getTargetTimeDay(zeiterfassung.getUsername(), zeiterfassung.getDate()));
 
+			// TagesID setzen
 			timeStamp.setTAGESID(tagesIDGenerator(zeiterfassung.getDate()));
-			System.out.println("++++++++++++++++++++++++++++++++++++++");
-			System.out.println(zeiterfassung.getDate());
+
+			// Datum setzen
 			timeStamp.setDate(zeiterfassung.getDate());
-			System.out.println("++++++++++++++++++++++++++++++++++++++");
-			System.out.println(zeiterfassung.getDate());
+
 			timeStamp.setGrund(zeiterfassung.getGrund()); // Hier wird der Grund direkt gesetzt.
 
 			// Vormittag Stunden
@@ -388,7 +354,7 @@ public class MitarbeiterService {
 
 			timeStamp = timeStampRegisterChange.save(timeStamp); // Speichert den Datensatz in den Datenbank (BR)
 			timeStampRegisterChange.flush();
-			logger.info("Daten in Datenbank gespeichert - Klasse Mitarbeiterservice");
+			logger.info("Daten in Datenbank gespeichert!");
 
 		}
 
@@ -398,7 +364,8 @@ public class MitarbeiterService {
 
 	/*
 	 * Hier wird die Summe der Differenz zwischen Sollzeit und Istzeit gerechnet und
-	 * ausgewiesen.
+	 * ausgewiesen. Dient rein als Hilfeklasse bei der Abspeicherung der Daten von
+	 * der Webapplikation in die Datenbank. (BR)
 	 */
 
 	public double überzeitRechner(double totalDeci) {
@@ -419,7 +386,9 @@ public class MitarbeiterService {
 
 	/*
 	 * Dies ist eine Allgemeinservice, welche die erwartete Arbeitszeit am Tag holt.
-	 * Es wird serverseiting und clientseitig (doppelt) gemacht, um Sicherheit der Rechnung stellen.
+	 * Es wird serverseiting und clientseitig (doppelt) gemacht, um Sicherheit der
+	 * Rechnung stellen. Dient als Hilfefunktion für die Speicherung der Daten von
+	 * der Webapplikation in die Datenbank. (BR)
 	 */
 
 	public double getTargetTimeDay(String username, String date) {
@@ -428,8 +397,6 @@ public class MitarbeiterService {
 		String wednesday = "";
 		String thursday = "";
 		String friday = "";
-
-		logger.info("komme in die TargettimeGeber");
 
 		double targettimeDay = 8.4;
 		String workingDays;
@@ -463,17 +430,15 @@ public class MitarbeiterService {
 						friday = "Fri";
 						break;
 					default:
-
-						logger.info("Methode: updateOverhoursAndTargetTime - switch in default");
+						logger.info("Methode: Switch in Default");
 					}
 
 				}
 
-				logger.info("workingDays des Mitarbeiters gefunden.");
-				logger.info("Tagesarbeitszeit" + targettimeDay);
+				logger.info("Arbeitstage des Mitarbeiters gefunden.");
 
 			} else {
-				logger.info("workingDays des Mitarbeiters nicht gefunden.");
+				logger.info("Arbeitstage des Mitarbeiters nicht gefunden.");
 			}
 
 		}
@@ -493,8 +458,10 @@ public class MitarbeiterService {
 
 	}
 
-	/* 
-	 * Hier wird die Mitarbeiterliste durchgegangen und der Pensum rausgeholt, um es  mit den Zeiterfassung zu speichern. (BR)
+	/*
+	 * Hier wird die Mitarbeiterliste durchgegangen und der Pensum rausgeholt, um es
+	 * mit den Zeiterfassung zu speichern. (BR) Dient als Hilfefunktion für die
+	 * Speicherung der Daten von der Webapplikation in die Datenbank. (BR)
 	 */
 	public int getMitarbeiterPensum(String username) {
 		logger.info("Suchfunktion nach Pensum");
@@ -517,19 +484,14 @@ public class MitarbeiterService {
 		}
 		return pensum;
 	}
-	
-	
-	
 
 	/*
-	 * Hier wird der Input von dem Webapplikation aufgeteilt und ein TagesID
-	 * kreiert.
+	 * Alle Tageserfassungen erhalten einen UniqueTagesID und so können die Tage
+	 * korrekt im Datenbank gespeichert werden und später referenziert werden. Dient
+	 * als Hilfefunktion für die Speicherung der Daten von der Webapplikation in die
+	 * Datenbank. (BR)
 	 */
 
-	/*
-	 * Alle Tageserfassungen erhalten einen UniqueTagesID und so können die Tage korrekt im Datenbank gespeichert werden.(BR)
-	 */
-	
 	public int tagesIDGenerator(String date) {
 		splittingDateAndTime(date);
 
@@ -608,9 +570,7 @@ public class MitarbeiterService {
 
 	}
 
-	
-	
-	//Hier sind die Getter und Setter für die Methode: splittingDateAndTime (BR)
+	// Hier sind die Getter und Setter für die Methode: splittingDateAndTime (BR)
 
 	public int getTag() {
 		return tag;
