@@ -1,4 +1,4 @@
-<!-- erstellt durch Jordi Schmidlin-->
+<!-- View generell durch Jordi Schmidlin erstellt, andere Authoren (Abkürz.) sind entsprechend gekennzeichnet-->
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -42,7 +42,7 @@
     <br>
     <br>
     <br>
-    <!-- Navigationsbar-->
+    <!-- Navigationsbar (JS)-->
     <ul class="navibar">
         <li class="barItem"><a class="barItem" href="http://localhost:8081/main">Home</a></li>
         <li class="barItem"><a class="barItem" href="http://localhost:8081/report">Report</a></li>
@@ -55,7 +55,7 @@
         <h1>Change username</h1>
     </div>
     <br>
-    <!-- Tabelle um neuen MA hinzuzufügen-->
+    <!-- Tabelle um neuen MA hinzuzufügen(JS)-->
     <table class="addeEmployeeTable" cellspacing="0" cellpadding="1" border="1" id="addEmployeetable" style="position: relative; margin: auto; width: 50px;"> 
         <tr>
            <th> Current username: </th>
@@ -80,8 +80,7 @@
 
     <script>
 
-       // überprüft, ob alle Werte erfasst wurde, sonst erscheint eine Fehlermeldung
-    	//Change password ajax(KG)
+       // überprüft, ob alle Werte erfasst wurde, sonst erscheint eine Fehlermeldung (JS)
         function validUserInput(){ 
                var username = document.getElementById("current_username").value;
                var surname = document.getElementById("new_username").value;
@@ -100,7 +99,7 @@
                           
        }
              
-        // JS:Erfolgsmeldung 
+        // Benutzernamen wechseln (BR/JS) 
         function changeUsername() {
 
         	var username = document.getElementById("current_username").value;
@@ -187,7 +186,7 @@
 			
 		}
 	
-	  // Leert alle mögliche Eingabemöglichkeiten
+	  // Leert alle mögliche Eingabemöglichkeiten (JS)
     function reset(){
        	document.getElementById("current_username").value ="";
        	document.getElementById("new_username").value ="";
