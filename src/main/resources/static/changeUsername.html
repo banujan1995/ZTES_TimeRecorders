@@ -62,7 +62,7 @@
             <td> <input type="text" id="current_username"></td>
         </tr>
         <tr>
-            <th> New Surname: </th>
+            <th> New username: </th>
             <td> <input type="text" id="new_username"></td>
         </tr>
 
@@ -72,7 +72,7 @@
     <div style="display: block; text-align: center; width: 100%;">
         <td style="text-align: center; min-width: 135px; height: 55px;" > </td>
         <a href="http://localhost:8081/profile" class="buttonLinks" style="text-decoration: none; margin-right: 20px; padding: 10px 37px;"> Return</a>
-        <button id ="changePassword_confirm" style="margin-right: 20px;" onclick="validUserInput ();" type="button" class="button">Confirm</button>
+        <button id ="changePassword_confirm" style="margin-right: 20px;" onclick="changeUsername();" type="button" class="button">Confirm</button>
         <button id ="changePassword_reset" onclick="reset();" type="button" class="button"> Reset</button>
      </div>
 
@@ -80,89 +80,79 @@
 
     <script>
 
-        // Leert alle mögliche Eingabemöglichkeiten
-        function reset(){
-           	document.getElementById("current_username").value ="";
-           	document.getElementById("new_username").value ="";
-        }
-
        // überprüft, ob alle Werte erfasst wurde, sonst erscheint eine Fehlermeldung
     	//Change password ajax(KG)
-        function validUserInput (){ 
+        function validUserInput(){ 
                var username = document.getElementById("current_username").value;
                var surname = document.getElementById("new_username").value;
                
-               
-        		console.log("ich komme hier rein");
-               
-               $.ajax({
-   				type : "POST",
-   				url : "/changeUsername/",
-   				data : JSON.stringify({
-   					username : username,
-   					surname : surname
+               if(username == surname) {
 
-   				}),
-   				success : successCredentials,
-   				dataType : 'json',
-   				contentType : 'application/json'
-   			});
-               
-               var message = ("Dear User \n\nYour username has been successfully changed!!");
-               alert(message)
-               reset();
-               backToProfile();
-               
-           
+            	   var message = ("Dear User \n\n The new username has to be different!!");
+                   alert(message)
+                   return false; 
+               } else {
 
-           function successCredentials(response) {
+               return true
+               }
+               
+               
+                          
+       }
+             
+        // JS:Erfolgsmeldung 
+        function changeUsername() {
+
+        	var username = document.getElementById("current_username").value;
+            var surname = document.getElementById("new_username").value;
+        	       
+            if (validUserInput()){
+
+            	
+                $.ajax({
+       				type : "POST",
+       				url : "/changeUsername/",
+       				data : JSON.stringify({
+       					username : username,
+       					surname : surname
+
+       				}),
+       				success : successCredentials,
+       				dataType : 'json',
+       				contentType : 'application/json'
+       			});
+                
+                    
+            
+            }
+        }
+       
+       
+        function successCredentials(response) {
    			if (response == true) {
    				
-   				handleSuccessCreditals(response);
-
+   			 var message = ("Dear User \n\nYour username has been successfully changed!!");
+             alert(message)
+             reset();
+             backToProfile();
+             
    			} else {
-   				handleFailureCreditals(response);
+  			  
+   	            var message = ("Dear User \n\nYour username has not been changed!!\n\n");
+   	            alert(message)
+   	            
    			}
    		}
 
-   		
-   		function handleSuccessCreditals(response) {
-   			var alert = document.getElementById("wrongInputs")
-
-   			console.log("Passwort successfully changed");
-   			alert.style.display = "none";
-   			window.location.assign("http://localhost:8081/profile")
-
-   		}
-
-   		function handleFailureCreditals(response) {
-   			var alert = document.getElementById("wrongInputs")
-
-   			console.log("Missing value");
-   			alert.style.display = "block";
-
-   		}
-
-
-        }
-
-        // JS:Erfolgsmeldung 
-        function changeUsername() {
-       
-            if (validUserInput()){
-                
-            var newUsername= document.getElementById("new_username").value;
-            var message = ("Dear User \n\nYour username has been successfully changed!!\n\nYour new username: "+newUsername);
-            alert(message)
-            reset();
-            backToProfile();
-            }
-        }
 
         function backToProfile(){
             window.location.href = "http://localhost:8081/profile";
         }
 
+        
+        
+        
+        
 	//Hier wird der User ausser der Loginaktivitätliste herausgelöscht. (JS/BR)
 		
 		function deleteUserDB(){
@@ -196,6 +186,12 @@
 			}
 			
 		}
+	
+	  // Leert alle mögliche Eingabemöglichkeiten
+    function reset(){
+       	document.getElementById("current_username").value ="";
+       	document.getElementById("new_username").value ="";
+    }
 
     </script>
     

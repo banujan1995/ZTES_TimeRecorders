@@ -129,7 +129,7 @@ public class MitarbeiterService {
 
 		for (MitarbeiterRegister ml : ma) {
 			if (ml.getUsername().equals(m.getUserame())) {
-				ml.setSurname(m.getSurname());
+				ml.setName(m.getSurname());
 				ml = mitarbeiterRepositoryInterface.save(ml);
 				logger.info("Benutzername wurde geändert!");
 				return true;
