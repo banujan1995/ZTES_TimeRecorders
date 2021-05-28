@@ -66,7 +66,6 @@
                 <th> Period: </th>
                 <th> Reason: </th>
                 <th> Number of <br>working days: </th>
-                <th> Delete absence: </th>
                </tr>
              </table>
           </td>
@@ -75,37 +74,7 @@
           <td>
              <div style="width:867px; height:420px; overflow:auto;">
                <table cellspacing="0" cellpadding="1" border="1" width="300" id="absenceTableContent" class="addAbsenceTable" >
-               
-            <!--     <tr id="absence2" class="absenceTableContent">
-                    <td id ="absenceList_from">29/04/2021</td>
-                    <td id ="absenceList_workingDays"> 6</td>
-                    <td> 
-                            <button onclick="deleteAbsence(this);" class="buttonList" type="button" > Delete </button></td>
-                </tr>
-                <tr id="absence3" class="absenceTableContent">
-                    <td id ="absenceList_from">16/04/2021</td>
-                    <td id ="absenceList_workingDays"> 2</td>
-                    <td> 
-                            <button onclick="deleteAbsence(this);" class="buttonList" type="button" > Delete </button></td>
-                </tr>
-                <tr id="absence4" class="absenceTableContent">
-                    <td id ="absenceList_from">26/02/2021</td>
-                    <td id ="absenceList_workingDays"> 2</td>
-                    <td> 
-                            <button onclick="deleteAbsence(this);" class="buttonList" type="button" > Delete </button></td>
-                </tr>
-                <tr id="absence5" class="absenceTableContent">
-                    <td id ="absenceList_from">28/12/2020</td>
-                    <td id ="absenceList_workingDays"> 4</td>
-                    <td> 
-                            <button onclick="deleteAbsence(this);" class="buttonList" type="button" > Delete </button></td>
- <!--    </tr>                
-               </table>  
-             </div>
-              </td>
-      		  </tr>
-      </table>-->
-      
+                     
     <br>
     <br>
 
@@ -116,18 +85,6 @@
     
      <script>
 
-      //Absenz löschen (JS)
-      function deleteAbsence(x){
-            //nimmt Daten der Abwesenheit entgegen und gibt diese in einem Alert an
-            var from = x.parentNode.parentNode.cells[0].innerHTML;
-            var to = x.parentNode.parentNode.cells[1].innerHTML;
-            var reason = x.parentNode.parentNode.cells[2].innerHTML;
-            if (confirm("Dear User \n\nPlease confirm the the deletion of the following absence: \n \nReason:  "+reason+"\n"+"From:     "+from+"\nTo:         "+to+" \n\nThanks!")) {
-                var i = x.parentNode.parentNode.rowIndex;
-                document.getElementById("absenceTableContent").deleteRow(i);
-            } else {
-             }
-        }   
 
     //Hier wird der User ausser der Loginaktivitätliste herausgelöscht. (JS/BR)
 		
@@ -176,9 +133,9 @@ $(document).ready(function(){
 		$.each(data, function(key, value){
 			ferien_data += '<tr>';
 			var period = ferien_data += '<td id = "period">'+value.period+ '</td>';
-			var reason = ferien_data += '<td id = "reason">'+value.reason+ '</td>';
+			var grund = ferien_data += '<td id = "reason">'+value.grund+ '</td>';
 			var anzahlTage = ferien_data += '<td id = "anzahlTage">'+value.anzahlTage+ '</td>';
-			ferien_data += '<td>' +"<input type='button' id='DeleteButton' onclick='CallMe(this)' class='buttonList' value='Delete'>"+ '</td>';
+		
 			ferien_data += '</tr>';
 			
 		});
@@ -190,40 +147,7 @@ $(document).ready(function(){
 	});
 });    
 
-	function CallMe(row){	
-		
-   	 console.log("kommt rein");
-        var i=row.parentNode.parentNode.rowIndex;
-        document.getElementById('absenceTableContent').deleteRow(i);
-        alert("The ID is deleted");
-        
-        
-        var period = row.parentNode.parentNode.rowIndex;
-        document.getElementById("period").innerHTML;
-        var reason = row.parentNode.parentNode.rowIndex;
-        document.getElementById("reason").innerHTML;
-        var anzahlTage = row.parentNode.parentNode.rowIndex;
-        document.getElementById("anzahlTage").innerHTML;
-	    
-	    console.log("ich komme hier rein");
-	}
-	
-		$.ajax({
-			type : "POST",
-			url : "/deleteAbsenzen/",
-			data : JSON.stringify({
-				period : period,
-				reason : reason,
-				anzahlTage : anzahlTage
-				
-		
-			}),
-			
-			dataType : 'json',
-			contentType : 'application/json'
-			
-		  
-		});
+
 	
 
 </script>
