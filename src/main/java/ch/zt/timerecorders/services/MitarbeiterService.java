@@ -45,7 +45,15 @@ import ch.zt.timerecorders.start.TimeStampRegisterChangeInterface;
  * @author Kiren Gondal
  *
  */
-@RestController // Annotation für Restservice für Framework (BR)
+
+/*
+ * Hier werden alle Service betreffend dem Mitarbeiter angeboten. Diese werden über den Pfad von der Webapplikation geholt und 
+ * bei einer Funktion verwendet. (BR/KG) 
+ */
+
+
+
+@RestController 
 public class MitarbeiterService {
 
 	Logger logger = ServiceLocator.getServiceLocator().getLogger();
@@ -67,6 +75,7 @@ public class MitarbeiterService {
 
 	@Autowired
 	private AddAbsenceRepositoryInterface absenceRepo;
+	
 	/*
 	 * Instanzvariablen für die TagesIDCreator
 	 */
@@ -74,6 +83,7 @@ public class MitarbeiterService {
 	protected int monat;
 	protected int jahr;
 
+	
 	/*
 	 * Hier wird der Counter geführt, welcher für die Methode ins DB-Speichern
 	 * dient. (BR)
@@ -423,7 +433,7 @@ public class MitarbeiterService {
 
 	/*
 	 * Dies ist eine Allgemeinservice, welche die erwartete Arbeitszeit am Tag holt.
-	 * Es wird doppelt gemacht, um Sicherheit der Rechnung stellen.
+	 * Es wird serverseiting und clientseitig (doppelt) gemacht, um Sicherheit der Rechnung stellen.
 	 */
 
 	public double getTargetTimeDay(String username, String date) {
@@ -497,35 +507,43 @@ public class MitarbeiterService {
 
 	}
 
-	// Hier wird das Passwort bereits gehasht bevor es abgespeichert wird!
-	public String enryptionOfPW(String passwort) {
-		StringBuilder hash = new StringBuilder();
+	/* 
+	 * Hier wird die Mitarbeiterliste durchgegangen und der Pensum rausgeholt, um es  mit den Zeiterfassung zu speichern. (BR)
+	 */
+	public int getMitarbeiterPensum(String username) {
+		logger.info("Suchfunktion nach Pensum");
 
-		try {
-			MessageDigest sha = MessageDigest.getInstance("SHA-1");
-			byte[] hashedBytes = sha.digest(passwort.getBytes());
-			char[] digits = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
-			for (int idx = 0; idx < hashedBytes.length; ++idx) {
-				byte b = hashedBytes[idx];
-				hash.append(digits[(b & 0xf0) >> 4]);
-				hash.append(digits[b & 0x0f]);
+		int pensum = 0;
+		List<MitarbeiterRegister> ma = mitarbeiterRepositoryInterface.findAll();
+
+		for (MitarbeiterRegister ml : ma) {
+			if (ml.getUsername().equalsIgnoreCase(username)) {
+
+				pensum = Integer.parseInt(ml.getPensum());
+				logger.info("Rolle des Mitarbeiters und dazugehörigen Pensum " + username + " " + pensum);
+				break;
+
+			} else {
+
+				logger.info("Pensum des Mitarbeiters nicht gefunden.");
 			}
-		} catch (NoSuchAlgorithmException e) {
-			logger.warning("Passwort Encryption Failure");
 
 		}
-		System.out.println(hash.toString());
-		return hash.toString();
-
+		return pensum;
 	}
+	
+	
+	
 
 	/*
 	 * Hier wird der Input von dem Webapplikation aufgeteilt und ein TagesID
 	 * kreiert.
 	 */
 
-	// Alle Tageserfassungen erhalten einen Unique TagesID und das kann auch
-	// aufgeteilt im Datenbank gespeichert werden.(BR)
+	/*
+	 * Alle Tageserfassungen erhalten einen UniqueTagesID und so können die Tage korrekt im Datenbank gespeichert werden.(BR)
+	 */
+	
 	public int tagesIDGenerator(String date) {
 		splittingDateAndTime(date);
 
@@ -604,29 +622,9 @@ public class MitarbeiterService {
 
 	}
 
-	// Hier wird die Mitarbeiterliste durchgegangen und der Pensum rausgeholt, um es
-	// mit den Zeiterfassung zu speichern.
-	public int getMitarbeiterPensum(String username) {
-		logger.info("Suchfunktion nach Pensum");
-
-		int pensum = 0;
-		List<MitarbeiterRegister> ma = mitarbeiterRepositoryInterface.findAll();
-
-		for (MitarbeiterRegister ml : ma) {
-			if (ml.getUsername().equalsIgnoreCase(username)) {
-
-				pensum = Integer.parseInt(ml.getPensum());
-				logger.info("Rolle des Mitarbeiters und dazugehörigen Pensum " + username + " " + pensum);
-				break;
-
-			} else {
-
-				logger.info("Pensum des Mitarbeiters nicht gefunden.");
-			}
-
-		}
-		return pensum;
-	}
+	
+	
+	//Hier sind die Getter und Setter für die Methode: splittingDateAndTime (BR)
 
 	public int getTag() {
 		return tag;
