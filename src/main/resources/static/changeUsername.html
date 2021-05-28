@@ -157,8 +157,6 @@
 		function deleteUserDB(){
 
 			var username = $.cookie("userlogin").toString(); 
-
-			console.log("Bin in der Funktion deleteUserDB" + username);
 			
 			$.ajax({
 				type : "POST",
